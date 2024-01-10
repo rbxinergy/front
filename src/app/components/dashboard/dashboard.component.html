@@ -1,16 +1,132 @@
-<main class="bg-gray-50 dark:bg-gray-900 h-screen">
-  <div class="flex justify-center py-5">
-    <h2 class="h-auto text-3xl text-gray-900 dark:text-gray-50">DASHBOARD FIREBASE AUTH + ANGULAR APP</h2>
-  </div>
 
-  <div class="w-full flex justify-end py-5 pr-5">
-    <button (click)="logOut()"
-      class="w-28 text-white bg-red-600 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Log
-      Out</button>
-  </div>
 
-  <div class="w-full h-96 flex flex-col justify-center items-center">
-    <p class="text-4xl dark:text-gray-50">THANK YOU</p>
-  </div>
+<button data-drawer-target="separator-sidebar" data-drawer-toggle="separator-sidebar" aria-controls="separator-sidebar"
+   type="button"
+   class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-primary-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+   <span class="sr-only">Open sidebar</span>
+   <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path clip-rule="evenodd" fill-rule="evenodd"
+         d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+      </path>
+   </svg>
+</button>
 
+<aside id="separator-sidebar"
+   class="fixed top-0 left-0 z-40 w-70 h-screen transition-transform -translate-x-full sm:translate-x-0"
+   aria-label="Sidebar">
+   <div class="h-full px-6 py-4 overflow-y-auto bg-primary-50 dark:bg-gray-800">
+      <div class="welcoming pb-6 mb-6">
+         <div role="img" aria-label="Paulina Ceballos" class="name">PC</div>
+         <div>
+            <p>Hola, Paulina Ceballos</p>
+            <span>Backoffice - XRISK</span>
+         </div>
+      </div>
+
+      <ul class="space-y-2 font-light text-gray-light">
+         <li>
+            <a [routerLink]="['stepper']" routerLinkActive="active" ariaCurrentWhenActive="page"
+               class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+               <svg viewBox="0 0 24 24" focusable="false"
+                  class="flex-shrink-0 w-5 h-5 text-primary-500 transition duration-75 dark:text-primary-400 group-hover:text-primary-900 dark:group-hover:text-white">
+                  <path
+                     d="M2.30216 21.3333C1.66906 21.3333 1.1271 21.0722 0.676259 20.55C0.22542 20.0278 0 19.4 0 18.6667V2.66667C0 1.93333 0.22542 1.30556 0.676259 0.783333C1.1271 0.261111 1.66906 0 2.30216 0H9.20863L11.5108 2.66667H20.7194C21.3525 2.66667 21.8945 2.92778 22.3453 3.45C22.7962 3.97222 23.0216 4.6 23.0216 5.33333V9.66667C22.6763 9.37778 22.3118 9.13333 21.9281 8.93333C21.5444 8.73333 21.1415 8.55556 20.7194 8.4V5.33333H2.30216V18.6667H10.446C10.5036 19.1333 10.5899 19.5889 10.705 20.0333C10.8201 20.4778 10.964 20.9111 11.1367 21.3333H2.30216ZM17.2662 24L16.9209 22C16.6906 21.8889 16.4748 21.7722 16.2734 21.65C16.0719 21.5278 15.8657 21.3778 15.6547 21.2L13.9856 21.8L12.8345 19.5333L14.1583 18.2C14.1199 17.9333 14.1007 17.6444 14.1007 17.3333C14.1007 17.0222 14.1199 16.7333 14.1583 16.4667L12.8345 15.1333L13.9856 12.8667L15.6547 13.4667C15.8657 13.2889 16.0719 13.1389 16.2734 13.0167C16.4748 12.8944 16.6906 12.7778 16.9209 12.6667L17.2662 10.6667H19.5683L19.9137 12.6667C20.1439 12.7778 20.3597 12.8944 20.5612 13.0167C20.7626 13.1389 20.9688 13.2889 21.1799 13.4667L22.8489 12.8667L24 15.1333L22.6763 16.4667C22.7146 16.7333 22.7338 17.0222 22.7338 17.3333C22.7338 17.6444 22.7146 17.9333 22.6763 18.2L24 19.5333L22.8489 21.8L21.1799 21.2C20.9688 21.3778 20.7626 21.5278 20.5612 21.65C20.3597 21.7722 20.1439 21.8889 19.9137 22L19.5683 24H17.2662ZM18.4173 20C19.0504 20 19.5923 19.7389 20.0432 19.2167C20.494 18.6944 20.7194 18.0667 20.7194 17.3333C20.7194 16.6 20.494 15.9722 20.0432 15.45C19.5923 14.9278 19.0504 14.6667 18.4173 14.6667C17.7842 14.6667 17.2422 14.9278 16.7914 15.45C16.3405 15.9722 16.1151 16.6 16.1151 17.3333C16.1151 18.0667 16.3405 18.6944 16.7914 19.2167C17.2422 19.7389 17.7842 20 18.4173 20Z"
+                     fill="currentColor"></path>
+               </svg>
+               <!-- <span class="material-icons">
+                  touch_app
+               </span>
+               <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5h9M5 9h5m8-8H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h4l3.5 4 3.5-4h5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"/>
+                </svg> -->
+               <span class="flex-1 ms-3 whitespace-nowrap">Paso a Paso</span>
+            </a>
+         </li>
+         <li>
+            <a [routerLink]="['clients']" routerLinkActive="active" ariaCurrentWhenActive="page"
+               class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+               <span class="material-icons">
+                  people_outline
+               </span>
+               <span class="flex-1 ms-3 whitespace-nowrap">Cliente</span>
+            </a>
+         </li>
+         <li>
+            <a [routerLink]="['configs']" routerLinkActive="active" ariaCurrentWhenActive="page"
+               class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+               <svg viewBox="0 0 24 24" focusable="false" class="flex-shrink-0 w-5 h-5 text-primary-500 transition duration-75 dark:text-primary-400 group-hover:text-primary-900 dark:group-hover:text-white"><path d="M2.30216 21.3333C1.66906 21.3333 1.1271 21.0722 0.676259 20.55C0.22542 20.0278 0 19.4 0 18.6667V2.66667C0 1.93333 0.22542 1.30556 0.676259 0.783333C1.1271 0.261111 1.66906 0 2.30216 0H9.20863L11.5108 2.66667H20.7194C21.3525 2.66667 21.8945 2.92778 22.3453 3.45C22.7962 3.97222 23.0216 4.6 23.0216 5.33333V9.66667C22.6763 9.37778 22.3118 9.13333 21.9281 8.93333C21.5444 8.73333 21.1415 8.55556 20.7194 8.4V5.33333H2.30216V18.6667H10.446C10.5036 19.1333 10.5899 19.5889 10.705 20.0333C10.8201 20.4778 10.964 20.9111 11.1367 21.3333H2.30216ZM17.2662 24L16.9209 22C16.6906 21.8889 16.4748 21.7722 16.2734 21.65C16.0719 21.5278 15.8657 21.3778 15.6547 21.2L13.9856 21.8L12.8345 19.5333L14.1583 18.2C14.1199 17.9333 14.1007 17.6444 14.1007 17.3333C14.1007 17.0222 14.1199 16.7333 14.1583 16.4667L12.8345 15.1333L13.9856 12.8667L15.6547 13.4667C15.8657 13.2889 16.0719 13.1389 16.2734 13.0167C16.4748 12.8944 16.6906 12.7778 16.9209 12.6667L17.2662 10.6667H19.5683L19.9137 12.6667C20.1439 12.7778 20.3597 12.8944 20.5612 13.0167C20.7626 13.1389 20.9688 13.2889 21.1799 13.4667L22.8489 12.8667L24 15.1333L22.6763 16.4667C22.7146 16.7333 22.7338 17.0222 22.7338 17.3333C22.7338 17.6444 22.7146 17.9333 22.6763 18.2L24 19.5333L22.8489 21.8L21.1799 21.2C20.9688 21.3778 20.7626 21.5278 20.5612 21.65C20.3597 21.7722 20.1439 21.8889 19.9137 22L19.5683 24H17.2662ZM18.4173 20C19.0504 20 19.5923 19.7389 20.0432 19.2167C20.494 18.6944 20.7194 18.0667 20.7194 17.3333C20.7194 16.6 20.494 15.9722 20.0432 15.45C19.5923 14.9278 19.0504 14.6667 18.4173 14.6667C17.7842 14.6667 17.2422 14.9278 16.7914 15.45C16.3405 15.9722 16.1151 16.6 16.1151 17.3333C16.1151 18.0667 16.3405 18.6944 16.7914 19.2167C17.2422 19.7389 17.7842 20 18.4173 20Z" fill="currentColor"></path></svg>
+               <span class="flex-1 ms-3 whitespace-nowrap">Configuración de dominio</span>
+            </a>
+         </li>
+         <li>
+            <a [routerLink]="['company']" routerLinkActive="active" ariaCurrentWhenActive="page"
+               class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+               <svg viewBox="0 0 24 24" focusable="false" class="flex-shrink-0 w-5 h-5 text-primary-500 transition duration-75 dark:text-primary-400 group-hover:text-primary-900 dark:group-hover:text-white">
+                  <path d="M2.4 21.6C1.74 21.6 1.175 21.365 0.705 20.895C0.235 20.425 0 19.86 0 19.2V2.4C0 1.74 0.235 1.175 0.705 0.705C1.175 0.235 1.74 0 2.4 0H19.2C19.86 0 20.425 0.235 20.895 0.705C21.365 1.175 21.6 1.74 21.6 2.4V10.44C21.22 10.26 20.83 10.105 20.43 9.975C20.03 9.845 19.62 9.75 19.2 9.69V2.4H2.4V19.2H9.66C9.72 19.64 9.815 20.06 9.945 20.46C10.075 20.86 10.23 21.24 10.41 21.6H2.4ZM2.4 19.2V2.4V9.69V9.6V19.2ZM4.8 16.8H9.69C9.75 16.38 9.845 15.97 9.975 15.57C10.105 15.17 10.25 14.78 10.41 14.4H4.8V16.8ZM4.8 12H12.12C12.76 11.4 13.475 10.9 14.265 10.5C15.055 10.1 15.9 9.83 16.8 9.69V9.6H4.8V12ZM4.8 7.2H16.8V4.8H4.8V7.2ZM18 24C16.34 24 14.925 23.415 13.755 22.245C12.585 21.075 12 19.66 12 18C12 16.34 12.585 14.925 13.755 13.755C14.925 12.585 16.34 12 18 12C19.66 12 21.075 12.585 22.245 13.755C23.415 14.925 24 16.34 24 18C24 19.66 23.415 21.075 22.245 22.245C21.075 23.415 19.66 24 18 24ZM17.4 21.6H18.6V18.6H21.6V17.4H18.6V14.4H17.4V17.4H14.4V18.6H17.4V21.6Z" fill="currentColor"></path>
+                  
+               </svg>
+               <!-- <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 1h12M3 1v16M3 1H2m13 0v16m0-16h1m-1 16H3m12 0h2M3 17H1M6 4h1v1H6V4Zm5 0h1v1h-1V4ZM6 8h1v1H6V8Zm5 0h1v1h-1V8Zm-3 4h2a1 1 0 0 1 1 1v4H7v-4a1 1 0 0 1 1-1Z"/>
+                </svg> -->
+               <span class="flex-1 ms-3 whitespace-nowrap">Empresa</span>
+            </a>
+         </li>
+         <li>
+            <a [routerLink]="['integrations']" routerLinkActive="active" ariaCurrentWhenActive="page"
+               class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+               <svg viewBox="0 0 24 24" focusable="false"
+                  class="flex-shrink-0 w-5 h-5 text-primary-500 transition duration-75 dark:text-primary-400 group-hover:text-primary-900 dark:group-hover:text-white">
+                  <path d="M2.30216 21.3333C1.66906 21.3333 1.1271 21.0722 0.676259 20.55C0.22542 20.0278 0 19.4 0 18.6667V2.66667C0 1.93333 0.22542 1.30556 0.676259 0.783333C1.1271 0.261111 1.66906 0 2.30216 0H9.20863L11.5108 2.66667H20.7194C21.3525 2.66667 21.8945 2.92778 22.3453 3.45C22.7962 3.97222 23.0216 4.6 23.0216 5.33333V9.66667C22.6763 9.37778 22.3118 9.13333 21.9281 8.93333C21.5444 8.73333 21.1415 8.55556 20.7194 8.4V5.33333H2.30216V18.6667H10.446C10.5036 19.1333 10.5899 19.5889 10.705 20.0333C10.8201 20.4778 10.964 20.9111 11.1367 21.3333H2.30216ZM17.2662 24L16.9209 22C16.6906 21.8889 16.4748 21.7722 16.2734 21.65C16.0719 21.5278 15.8657 21.3778 15.6547 21.2L13.9856 21.8L12.8345 19.5333L14.1583 18.2C14.1199 17.9333 14.1007 17.6444 14.1007 17.3333C14.1007 17.0222 14.1199 16.7333 14.1583 16.4667L12.8345 15.1333L13.9856 12.8667L15.6547 13.4667C15.8657 13.2889 16.0719 13.1389 16.2734 13.0167C16.4748 12.8944 16.6906 12.7778 16.9209 12.6667L17.2662 10.6667H19.5683L19.9137 12.6667C20.1439 12.7778 20.3597 12.8944 20.5612 13.0167C20.7626 13.1389 20.9688 13.2889 21.1799 13.4667L22.8489 12.8667L24 15.1333L22.6763 16.4667C22.7146 16.7333 22.7338 17.0222 22.7338 17.3333C22.7338 17.6444 22.7146 17.9333 22.6763 18.2L24 19.5333L22.8489 21.8L21.1799 21.2C20.9688 21.3778 20.7626 21.5278 20.5612 21.65C20.3597 21.7722 20.1439 21.8889 19.9137 22L19.5683 24H17.2662ZM18.4173 20C19.0504 20 19.5923 19.7389 20.0432 19.2167C20.494 18.6944 20.7194 18.0667 20.7194 17.3333C20.7194 16.6 20.494 15.9722 20.0432 15.45C19.5923 14.9278 19.0504 14.6667 18.4173 14.6667C17.7842 14.6667 17.2422 14.9278 16.7914 15.45C16.3405 15.9722 16.1151 16.6 16.1151 17.3333C16.1151 18.0667 16.3405 18.6944 16.7914 19.2167C17.2422 19.7389 17.7842 20 18.4173 20Z" fill="currentColor"></path>
+                  <!-- <path fill="currentColor"  d="M11 14h6m-3 3v-6M1.857 1h4.286c.473 0 .857.384.857.857v4.286A.857.857 0 0 1 6.143 7H1.857A.857.857 0 0 1 1 6.143V1.857C1 1.384 1.384 1 1.857 1Zm10 0h4.286c.473 0 .857.384.857.857v4.286a.857.857 0 0 1-.857.857h-4.286A.857.857 0 0 1 11 6.143V1.857c0-.473.384-.857.857-.857Zm-10 10h4.286c.473 0 .857.384.857.857v4.286a.857.857 0 0 1-.857.857H1.857A.857.857 0 0 1 1 16.143v-4.286c0-.473.384-.857.857-.857Z"/> -->
+               </svg>
+               <!-- <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                  
+                </svg> -->
+               <span class="flex-1 ms-3 whitespace-nowrap">Configuración de integraciones</span>
+            </a>
+         </li>
+         <li>
+            <a [routerLink]="['evaluations']" routerLinkActive="active" ariaCurrentWhenActive="page"
+               class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+               <svg viewBox="0 0 24 24" focusable="false"
+                  class="flex-shrink-0 w-5 h-5 text-primary-500 transition duration-75 dark:text-primary-400 group-hover:text-primary-900 dark:group-hover:text-white">
+                  <path d="M9.67254 11.2941C8.34257 11.2941 7.20403 10.7412 6.25693 9.63529C5.30982 8.52941 4.83627 7.2 4.83627 5.64706C4.83627 4.09412 5.30982 2.76471 6.25693 1.65882C7.20403 0.552941 8.34257 0 9.67254 0C11.0025 0 12.1411 0.552941 13.0882 1.65882C14.0353 2.76471 14.5088 4.09412 14.5088 5.64706C14.5088 7.2 14.0353 8.52941 13.0882 9.63529C12.1411 10.7412 11.0025 11.2941 9.67254 11.2941ZM0 22.5882V18.6353C0 17.8588 0.171285 17.1294 0.513854 16.4471C0.856423 15.7647 1.32997 15.2471 1.93451 14.8941C2.96222 14.2824 4.12091 13.7647 5.41058 13.3412C6.70025 12.9176 8.12091 12.7059 9.67254 12.7059H10.0957C10.2166 12.7059 10.3375 12.7294 10.4584 12.7765C10.2972 13.2 10.1612 13.6412 10.0504 14.1C9.93955 14.5588 9.8539 15.0353 9.79345 15.5294H9.67254C8.24181 15.5294 6.95718 15.7412 5.81864 16.1647C4.6801 16.5882 3.74811 17.0118 3.02267 17.4353C2.84131 17.5529 2.69521 17.7176 2.58438 17.9294C2.47355 18.1412 2.41814 18.3765 2.41814 18.6353V19.7647H10.0353C10.1562 20.2588 10.3174 20.7471 10.5189 21.2294C10.7204 21.7118 10.9421 22.1647 11.1839 22.5882H0ZM16.927 24L16.5642 21.8824C16.3224 21.7647 16.0957 21.6412 15.8841 21.5118C15.6725 21.3824 15.4559 21.2235 15.2343 21.0353L13.4811 21.6706L12.272 19.2706L13.6625 17.8588C13.6222 17.5294 13.602 17.2235 13.602 16.9412C13.602 16.6588 13.6222 16.3529 13.6625 16.0235L12.272 14.6118L13.4811 12.2118L15.2343 12.8471C15.4559 12.6588 15.6725 12.5 15.8841 12.3706C16.0957 12.2412 16.3224 12.1176 16.5642 12L16.927 9.88235H19.3451L19.7078 12C19.9496 12.1176 20.1763 12.2471 20.3879 12.3882C20.5995 12.5294 20.8161 12.7059 21.0378 12.9176L22.7909 12.2118L24 14.6824L22.6096 16.0941C22.6499 16.3765 22.67 16.6706 22.67 16.9765C22.67 17.2824 22.6499 17.5765 22.6096 17.8588L24 19.2706L22.7909 21.6706L21.0378 21.0353C20.8161 21.2235 20.5995 21.3824 20.3879 21.5118C20.1763 21.6412 19.9496 21.7647 19.7078 21.8824L19.3451 24H16.927ZM18.136 19.7647C18.801 19.7647 19.3703 19.4882 19.8438 18.9353C20.3174 18.3824 20.5542 17.7176 20.5542 16.9412C20.5542 16.1647 20.3174 15.5 19.8438 14.9471C19.3703 14.3941 18.801 14.1176 18.136 14.1176C17.471 14.1176 16.9018 14.3941 16.4282 14.9471C15.9547 15.5 15.7179 16.1647 15.7179 16.9412C15.7179 17.7176 15.9547 18.3824 16.4282 18.9353C16.9018 19.4882 17.471 19.7647 18.136 19.7647ZM9.67254 8.47059C10.3375 8.47059 10.9068 8.19412 11.3804 7.64118C11.8539 7.08824 12.0907 6.42353 12.0907 5.64706C12.0907 4.87059 11.8539 4.20588 11.3804 3.65294C10.9068 3.1 10.3375 2.82353 9.67254 2.82353C9.00756 2.82353 8.43829 3.1 7.96474 3.65294C7.49118 4.20588 7.25441 4.87059 7.25441 5.64706C7.25441 6.42353 7.49118 7.08824 7.96474 7.64118C8.43829 8.19412 9.00756 8.47059 9.67254 8.47059Z" fill="currentColor"></path>
+               </svg>
+               <span class="flex-1 ms-3 whitespace-nowrap">Usuarios y Roles</span>
+            </a>
+         </li>
+         <!-- <li>
+            <a [routerLink]="['evaluations']" routerLinkActive="active" ariaCurrentWhenActive="page"
+               class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+               <svg viewBox="0 0 24 24" focusable="false"
+                  class="flex-shrink-0 w-5 h-5 text-primary-500 transition duration-75 dark:text-primary-400 group-hover:text-primary-900 dark:group-hover:text-white">
+                  <path
+                     d="M12 2.38017L5.45455 7.83074V5.95041H3.27273V9.65157L0 12.3769L1.32 14.2691L3.27273 12.6387V23.8017H20.7273V12.6387L22.68 14.2572L24 12.3769L12 2.38017ZM18.5455 21.4215H13.0909V16.6612H10.9091V21.4215H5.45455V10.8298L12 5.37917L18.5455 10.8298V21.4215ZM9.81818 0C9.81818 1.97554 8.35636 3.57025 6.54545 3.57025C5.94545 3.57025 5.45455 4.10579 5.45455 4.76033H3.27273C3.27273 2.78479 4.73455 1.19008 6.54545 1.19008C7.14545 1.19008 7.63636 0.654545 7.63636 0H9.81818Z"
+                     fill="currentColor"></path>
+               </svg>
+               <span class="flex-1 ms-3 whitespace-nowrap">Configuración de roles</span>
+            </a>
+         </li> -->
+
+      </ul>
+      <ul class="pt-4 mt-4 space-y-2 font-light border-t border-gray-200 dark:border-gray-700 text-gray-light">
+         <li>
+            <button class="flex items-center p-2 rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 group"
+               (click)="logOut()">
+               <svg viewBox="0 0 24 24" focusable="false"
+                  class="flex-shrink-0 w-5 h-5 text-primary-500 transition duration-75 dark:text-primary-400 group-hover:text-primary-900 dark:group-hover:text-white">
+                  <path
+                     d="M13 3H11V13H13V3ZM17.83 5.17L16.41 6.59C17.2199 7.23968 17.8733 8.0633 18.3216 8.9998C18.77 9.93631 19.0018 10.9617 19 12C19 15.87 15.87 19 12 19C10.5552 19.0009 9.14562 18.5543 7.96486 17.7218C6.78409 16.8892 5.89009 15.7114 5.40569 14.3503C4.92129 12.9891 4.87024 11.5114 5.25957 10.12C5.6489 8.72871 6.4595 7.49206 7.58 6.58L6.17 5.17C5.17622 6.00901 4.37765 7.05492 3.83011 8.23463C3.28257 9.41435 2.99927 10.6994 3 12C3 14.3869 3.94821 16.6761 5.63604 18.364C7.32387 20.0518 9.61305 21 12 21C14.3869 21 16.6761 20.0518 18.364 18.364C20.0518 16.6761 21 14.3869 21 12C21 9.26 19.77 6.82 17.83 5.17Z"
+                     fill="currentColor"></path>
+               </svg>
+               <span class="flex-1 ms-3 whitespace-nowrap">Cerrar sesión</span>
+            </button>
+         </li>
+      </ul>
+   </div>
+</aside>
+<main class="max-w-fit dark:bg-gray-900 h-screen">
+   <div class="flex-column justify-center py-5 p-4 sm:ml-80 ml-80">
+      <router-outlet></router-outlet>
+   </div>
 </main>

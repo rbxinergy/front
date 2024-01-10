@@ -1,0 +1,31 @@
+.welcoming{
+    display: grid;
+    grid-template-columns: 40px auto;
+    gap: 10px;
+}
+.welcoming > *{
+    color: #5f4ede;
+}
+.welcoming > * > p{
+    font-weight:bold;
+}
+.welcoming > * > span{
+    font-size:90%;
+}
+span.material-icons {
+    color: #5f4ede;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+.name{
+    background-color: #d0cbf5;
+    color: #5f4ede;
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 5px 8px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}

@@ -2,3 +2,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.icon{
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    font-size: 1rem;
+    color: #5f4ede;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 7px;
+    bottom: 5px;
+    z-index: 2;
+}
+h2{
+    color:#241883;
+}
+header{
+    color:#241883;
+    font-size:20px;
+    font-weight: bold;
+    text-align: center;
+}
+/* BUTTON */
+.btn{
+    background-color: #5f4ede;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 2rem;
+    display: block;
+    float: right;
+}

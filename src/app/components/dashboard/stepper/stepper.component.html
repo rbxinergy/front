@@ -1,0 +1,206 @@
+<h2>CONFIGURACIÓN INICIAL</h2>
+
+  <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+
+    <mat-step [stepControl]="firstFormGroup" label="Ingrese información del cliente">
+      <form [formGroup]="firstFormGroup">
+        <mat-form-field>
+          <mat-label>Nombre del cliente</mat-label>
+          <input matInput placeholder="Ingrese el nombre del cliente" [(ngModel)]="client" formControlName="firstCtrl" >
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" (click)="saveData(1,client)">Guardar</button>
+          <button mat-button matStepperNext *ngIf="show">Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="secondFormGroup" label="Ingrese Dominios">
+      <form [formGroup]="secondFormGroup">
+        <mat-form-field>
+          <mat-label>Dominio</mat-label>
+          <input matInput formControlName="secondCtrl" placeholder="Ingrese el nombre del dominio" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="example-full-width">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="secondCtrl" placeholder="Ingrese una descripción de dominio" required></textarea>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Selecciona un cliente</mat-label>
+            <mat-select [(value)]="selected">
+              <mat-option>Ninguna</mat-option>
+              <mat-option value="cliente1">Cliente 1</mat-option>
+              <mat-option value="cliente2">Cliente 2</mat-option>
+              <mat-option value="cliente3">Cliente 3</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <button mat-raised-button color="primary">+ Crear nuevo dominio</button>
+          <br>
+        <div>
+          <br>
+          <button mat-button matStepperPrevious>Atrás</button>
+          <button mat-raised-button color="primary">Guardar</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="thirdFormGroup" label="Ingrese información de la empresa">
+      <form [formGroup]="thirdFormGroup">
+        <mat-form-field>
+          <mat-label>Nombre de la empresa</mat-label>
+          <input matInput formControlName="thirdCtrl" placeholder="Escribe un nombre" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Documento</mat-label>
+            <mat-select [(value)]="documento" formControlName="thirdCtrl" placeholder="Ingrese el tipo de documento" required>
+              <mat-option value="rut">RUT</mat-option>
+              <mat-option value="dni">DNI</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Número de documento</mat-label>
+          <input matInput formControlName="thirdCtrl" placeholder="Ingrese una descripción de dominio" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Selecciona un cliente</mat-label>
+            <mat-select [(value)]="selected" formControlName="thirdCtrl" placeholder="Ingrese el nombre del dominio" required>
+              <mat-option>Ninguna</mat-option>
+              <mat-option value="cliente1">Cliente 1</mat-option>
+              <mat-option value="cliente2">Cliente 2</mat-option>
+              <mat-option value="cliente3">Cliente 3</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>País</mat-label>
+            <mat-select [(value)]="selected" formControlName="thirdCtrl" placeholder="Selecciona país" required>
+              <mat-option value="cliente1">Chile</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Ciudad</mat-label>
+            <mat-select [(value)]="selected" formControlName="thirdCtrl" placeholder="Selecciona ciudad" required>
+              <mat-option value="cliente1">Santiago</mat-option>
+              <mat-option value="cliente2">Valparaíso</mat-option>
+              <mat-option value="cliente3">Rancagua</mat-option>
+            </mat-select>
+        </mat-form-field>
+       
+        <div>
+          <button mat-button matStepperPrevious>Atrás</button>
+          <button mat-raised-button color="primary">Guardar</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="fourthFormGroup" label="Ingrese/Seleccione administradores">
+        <mat-radio-group aria-label="Select an option" (change)="newUserChanged($event)">
+            <mat-radio-button value="1">Crear nuevo usuario</mat-radio-button>
+            <mat-radio-button value="2">Selecionar usuario existente</mat-radio-button>
+        </mat-radio-group>
+        <form [formGroup]="fourthFormGroup" *ngIf="showNewUser">
+            <mat-form-field>
+            <mat-label>Nombre de usuario</mat-label>
+            <input matInput formControlName="fourthCtrl" placeholder="Escribe un nombre" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+            <mat-label>Cargo</mat-label>
+            <input matInput formControlName="fourthCtrl" placeholder="Escribe un cargo" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                placeholder="Ex. pat@example.com">
+            </mat-form-field>
+            <br>
+            <div>
+            <button mat-button matStepperPrevious>Atrás</button>
+            <button mat-raised-button color="primary">Guardar</button>
+            <button mat-button matStepperNext>Siguiente</button>
+            </div>
+        </form>
+        <form [formGroup]="fifthFormGroup" *ngIf="showSelectUser">
+            <mat-form-field>
+                <mat-label>Usuario</mat-label>
+                <mat-select [(value)]="documento" formControlName="fifthCtrl" placeholder="Seleccione usuario" required>
+                  <mat-option value="1">Paulina Ceballos</mat-option>
+                  <mat-option value="2">Armin Vera</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Atrás</button>
+                <button mat-raised-button color="primary">Guardar</button>
+                <button mat-button matStepperNext>Siguiente</button>
+            </div>
+        </form>
+    </mat-step>
+    
+    <mat-step [stepControl]="sixthFormGroup" label="Ingrese/Seleccione Roles">
+        <mat-radio-group aria-label="Select an option" (change)="newRolChanged($event)">
+            <mat-radio-button value="3">Crear nuevo rol</mat-radio-button>
+            <mat-radio-button value="4">Selecionar rol existente</mat-radio-button>
+        </mat-radio-group>
+        <form [formGroup]="sixthFormGroup" *ngIf="showNewRol">
+            <mat-form-field>
+            <mat-label>Nombre de rol</mat-label>
+            <input matInput formControlName="sixthCtrl" placeholder="Escribe un nombre" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+            <mat-label>Nombre de empresa</mat-label>
+            <input matInput formControlName="sixthCtrl" placeholder="Escribe un nombre" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+            <mat-label>Niveles de acceso</mat-label>
+            <input matInput formControlName="sixthCtrl" placeholder="Escribe un cargo" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="sixthCtrl" [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                placeholder="Ex. pat@example.com">
+            </mat-form-field>
+            <br>
+            <div>
+            <button mat-button matStepperPrevious>Atrás</button>
+            <button mat-raised-button color="primary">Guardar</button>
+            <button mat-button matStepperNext>Siguiente</button>
+            </div>
+        </form>
+        <form [formGroup]="seventhFormGroup" *ngIf="showSelectRol">
+            <mat-form-field>
+                <mat-label>Usuario</mat-label>
+                <mat-select [(value)]="documento" formControlName="sevenCtrl" placeholder="Seleccione usuario" required>
+                  <mat-option value="1">Paulina Ceballos</mat-option>
+                  <mat-option value="2">Armin Vera</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Atrás</button>
+                <button mat-raised-button color="primary">Guardar</button>
+                <button mat-button matStepperNext>Siguiente</button>
+            </div>
+        </form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Terminado</ng-template>
+      <p>Todos los pasos han sido completados</p>
+      <div>
+        <button mat-button matStepperPrevious>Atrás</button>
+        <!-- <button mat-button (click)="stepper.reset()">Resetear</button> -->
+      </div>
+    </mat-step>
+  </mat-stepper>

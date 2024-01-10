@@ -1,0 +1,195 @@
+
+
+    <h2 class="h-auto text-3xl text-gray-900 dark:text-gray-50">Clientes</h2>
+    <table mat-table [dataSource]="dataSource" class="table">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="weight">
+          <th mat-header-cell *matHeaderCellDef> Weight </th>
+          <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="symbol">
+          <th mat-header-cell *matHeaderCellDef> Symbol </th>
+          <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      
+      
+    <div class="search">
+        <div><svg viewBox="0 0 24 24" focusable="false" class="icon"><path fill="currentColor" d="M23.414,20.591l-4.645-4.645a10.256,10.256,0,1,0-2.828,2.829l4.645,4.644a2.025,2.025,0,0,0,2.828,0A2,2,0,0,0,23.414,20.591ZM10.25,3.005A7.25,7.25,0,1,1,3,10.255,7.258,7.258,0,0,1,10.25,3.005Z"></path></svg></div>
+        <input placeholder="Buscar empresa o servicio" class="search-input">
+    </div>
+    <br>
+    <table class="table table-auto md:table-fixed">
+        <thead>
+            <tr>
+                <th>EMPRESA</th>
+                <th>CÓDIGO DE SERVICIO</th>
+                <th>NOMBRE SERVICIO</th>
+                <th>ENCARGADO SERVICIO</th>
+                <th>PROVEEDOR VIGENTES</th>
+                <th>ÚLTIMA EVALUACIÓN DE SERVICIO</th>
+                <th>CRITICIDAD</th>
+                <th>ESTADO</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Drimo</td>
+                <td>ServicioMP3</td>
+                <td>Servicio 1</td>
+                <td>Felipe Caroca</td>
+                <td>---</td>
+                <td>
+                    <div>
+                        <div>-----</div>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <div>
+                            <p class="alta">Alta</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="css-jcym00"></td>
+                <td class="css-jcym00"><button type="button" class="chakra-button chakra-menu__menu-button css-xydidu"
+                        id="menu-button-:r1p:" aria-expanded="false" aria-haspopup="menu"
+                        aria-controls="menu-list-:r1p:"><span class="css-xl71ch"><svg width="6" height="22"
+                                viewBox="0 0 6 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M2.99992 21.6668C2.26659 21.6668 1.63881 21.4057 1.11659 20.8835C0.594363 20.3613 0.333252 19.7335 0.333252 19.0002C0.333252 18.2668 0.594363 17.6391 1.11659 17.1168C1.63881 16.5946 2.26659 16.3335 2.99992 16.3335C3.73325 16.3335 4.36103 16.5946 4.88325 17.1168C5.40547 17.6391 5.66659 18.2668 5.66659 19.0002C5.66659 19.7335 5.40547 20.3613 4.88325 20.8835C4.36103 21.4057 3.73325 21.6668 2.99992 21.6668ZM2.99992 13.6668C2.26659 13.6668 1.63881 13.4057 1.11659 12.8835C0.594363 12.3613 0.333252 11.7335 0.333252 11.0002C0.333252 10.2668 0.594363 9.63905 1.11659 9.11683C1.63881 8.59461 2.26659 8.3335 2.99992 8.3335C3.73325 8.3335 4.36103 8.59461 4.88325 9.11683C5.40547 9.63905 5.66659 10.2668 5.66659 11.0002C5.66659 11.7335 5.40547 12.3613 4.88325 12.8835C4.36103 13.4057 3.73325 13.6668 2.99992 13.6668ZM2.99992 5.66683C2.26659 5.66683 1.63881 5.40572 1.11659 4.8835C0.594363 4.36127 0.333252 3.7335 0.333252 3.00016C0.333252 2.26683 0.594363 1.63905 1.11659 1.11683C1.63881 0.594607 2.26659 0.333496 2.99992 0.333496C3.73325 0.333496 4.36103 0.594607 4.88325 1.11683C5.40547 1.63905 5.66659 2.26683 5.66659 3.00016C5.66659 3.7335 5.40547 4.36127 4.88325 4.8835C4.36103 5.40572 3.73325 5.66683 2.99992 5.66683Z"
+                                    fill="#5F4EDE"></path>
+                            </svg></span></button>
+                    <div class="css-4c85rg"
+                        style="visibility: hidden; position: absolute; min-width: max-content; inset: 0px auto auto 0px;">
+                        <div class="chakra-menu__menu-list css-jjjov6"
+                            box-shadow="0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)"
+                            tabindex="-1" role="menu" id="menu-list-:r1p:" aria-orientation="vertical"
+                            style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0px);">
+                            <button type="button" id="menu-list-:r1p:-menuitem-:r1q:" role="menuitem" tabindex="-1"
+                                class="chakra-menu__menuitem css-r3dkpb" data-index="0">Ver Más</button><button
+                                type="button" id="menu-list-:r1p:-menuitem-:r1r:" role="menuitem" tabindex="-1"
+                                class="chakra-menu__menuitem css-r3dkpb" data-index="1">Ver detalle</button><button
+                                type="button" id="menu-list-:r1p:-menuitem-:r1s:" role="menuitem" tabindex="-1"
+                                class="chakra-menu__menuitem css-r3dkpb" data-index="2">Editar</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="css-jcym00">Drimo</td>
+                <td class="css-jcym00">ServicioGQL</td>
+                <td class="css-jcym00">Servicio 2</td>
+                <td class="css-jcym00">Felipe Caroca</td>
+                <td class="css-jcym00">---</td>
+                <td class="css-jcym00">
+                    <div class="css-1l4w6pd">
+                        <div class="css-oeuz9d">-----</div>
+                    </div>
+                </td>
+                <td class="css-jcym00">
+                    <div class="css-116suv0">
+                        <p class="chakra-text css-1efn6ap">Pendiente</p>
+                        <p class="chakra-text css-lc5rux">31/10/2023 - 10:12</p>
+                    </div>
+                </td>
+                <td class="css-jcym00"><label data-checked="" class="chakra-switch css-ghot30"><input
+                            class="chakra-switch__input" aria-disabled="false" type="checkbox" checked=""
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"><span
+                            data-checked="" aria-hidden="true" class="chakra-switch__track css-sp5yj"><span
+                                class="chakra-switch__thumb css-7roig" data-checked=""></span></span></label></td>
+                <td class="css-jcym00"><button type="button" class="chakra-button chakra-menu__menu-button css-xydidu"
+                        id="menu-button-:r1u:" aria-expanded="false" aria-haspopup="menu"
+                        aria-controls="menu-list-:r1u:"><span class="css-xl71ch"><svg width="6" height="22"
+                                viewBox="0 0 6 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M2.99992 21.6668C2.26659 21.6668 1.63881 21.4057 1.11659 20.8835C0.594363 20.3613 0.333252 19.7335 0.333252 19.0002C0.333252 18.2668 0.594363 17.6391 1.11659 17.1168C1.63881 16.5946 2.26659 16.3335 2.99992 16.3335C3.73325 16.3335 4.36103 16.5946 4.88325 17.1168C5.40547 17.6391 5.66659 18.2668 5.66659 19.0002C5.66659 19.7335 5.40547 20.3613 4.88325 20.8835C4.36103 21.4057 3.73325 21.6668 2.99992 21.6668ZM2.99992 13.6668C2.26659 13.6668 1.63881 13.4057 1.11659 12.8835C0.594363 12.3613 0.333252 11.7335 0.333252 11.0002C0.333252 10.2668 0.594363 9.63905 1.11659 9.11683C1.63881 8.59461 2.26659 8.3335 2.99992 8.3335C3.73325 8.3335 4.36103 8.59461 4.88325 9.11683C5.40547 9.63905 5.66659 10.2668 5.66659 11.0002C5.66659 11.7335 5.40547 12.3613 4.88325 12.8835C4.36103 13.4057 3.73325 13.6668 2.99992 13.6668ZM2.99992 5.66683C2.26659 5.66683 1.63881 5.40572 1.11659 4.8835C0.594363 4.36127 0.333252 3.7335 0.333252 3.00016C0.333252 2.26683 0.594363 1.63905 1.11659 1.11683C1.63881 0.594607 2.26659 0.333496 2.99992 0.333496C3.73325 0.333496 4.36103 0.594607 4.88325 1.11683C5.40547 1.63905 5.66659 2.26683 5.66659 3.00016C5.66659 3.7335 5.40547 4.36127 4.88325 4.8835C4.36103 5.40572 3.73325 5.66683 2.99992 5.66683Z"
+                                    fill="#5F4EDE"></path>
+                            </svg></span></button>
+                    <div class="css-4c85rg"
+                        style="visibility: hidden; position: absolute; min-width: max-content; inset: 0px auto auto 0px;">
+                        <div class="chakra-menu__menu-list css-jjjov6"
+                            box-shadow="0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)"
+                            tabindex="-1" role="menu" id="menu-list-:r1u:" aria-orientation="vertical"
+                            style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0px);">
+                            <button type="button" id="menu-list-:r1u:-menuitem-:r1v:" role="menuitem" tabindex="-1"
+                                class="chakra-menu__menuitem css-r3dkpb" data-index="0">Responder</button><button
+                                type="button" id="menu-list-:r1u:-menuitem-:r20:" role="menuitem" tabindex="-1"
+                                class="chakra-menu__menuitem css-r3dkpb" data-index="1">Ver detalle</button><button
+                                type="button" id="menu-list-:r1u:-menuitem-:r21:" role="menuitem" tabindex="-1"
+                                class="chakra-menu__menuitem css-r3dkpb" data-index="2">Editar</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="css-jcym00">Drimo</td>
+                <td class="css-jcym00">ServicioSQL</td>
+                <td class="css-jcym00">Servicio 3</td>
+                <td class="css-jcym00">Felipe Caroca</td>
+                <td class="css-jcym00">---</td>
+                <td class="css-jcym00">
+                    <div class="css-1l4w6pd">
+                        <div class="css-oeuz9d">-----</div>
+                    </div>
+                </td>
+                <td class="css-jcym00">
+                    <div class="css-1l4w6pd">
+                        <div class="css-1hwxhmt">
+                            <p class="media">Media</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="css-jcym00"><label data-checked="" class="chakra-switch css-ghot30"><input
+                            class="chakra-switch__input" aria-disabled="false" type="checkbox" checked=""
+                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"><span
+                            data-checked="" aria-hidden="true" class="chakra-switch__track css-sp5yj"><span
+                                class="chakra-switch__thumb css-7roig" data-checked=""></span></span></label></td>
+                <td class="css-jcym00"><button type="button" class="chakra-button chakra-menu__menu-button css-xydidu"
+                        id="menu-button-:r23:" aria-expanded="false" aria-haspopup="menu"
+                        aria-controls="menu-list-:r23:"><span class="css-xl71ch"><svg width="6" height="22"
+                                viewBox="0 0 6 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M2.99992 21.6668C2.26659 21.6668 1.63881 21.4057 1.11659 20.8835C0.594363 20.3613 0.333252 19.7335 0.333252 19.0002C0.333252 18.2668 0.594363 17.6391 1.11659 17.1168C1.63881 16.5946 2.26659 16.3335 2.99992 16.3335C3.73325 16.3335 4.36103 16.5946 4.88325 17.1168C5.40547 17.6391 5.66659 18.2668 5.66659 19.0002C5.66659 19.7335 5.40547 20.3613 4.88325 20.8835C4.36103 21.4057 3.73325 21.6668 2.99992 21.6668ZM2.99992 13.6668C2.26659 13.6668 1.63881 13.4057 1.11659 12.8835C0.594363 12.3613 0.333252 11.7335 0.333252 11.0002C0.333252 10.2668 0.594363 9.63905 1.11659 9.11683C1.63881 8.59461 2.26659 8.3335 2.99992 8.3335C3.73325 8.3335 4.36103 8.59461 4.88325 9.11683C5.40547 9.63905 5.66659 10.2668 5.66659 11.0002C5.66659 11.7335 5.40547 12.3613 4.88325 12.8835C4.36103 13.4057 3.73325 13.6668 2.99992 13.6668ZM2.99992 5.66683C2.26659 5.66683 1.63881 5.40572 1.11659 4.8835C0.594363 4.36127 0.333252 3.7335 0.333252 3.00016C0.333252 2.26683 0.594363 1.63905 1.11659 1.11683C1.63881 0.594607 2.26659 0.333496 2.99992 0.333496C3.73325 0.333496 4.36103 0.594607 4.88325 1.11683C5.40547 1.63905 5.66659 2.26683 5.66659 3.00016C5.66659 3.7335 5.40547 4.36127 4.88325 4.8835C4.36103 5.40572 3.73325 5.66683 2.99992 5.66683Z"
+                                    fill="#5F4EDE"></path>
+                            </svg></span></button>
+                    <div class="css-4c85rg"
+                        style="visibility: hidden; position: absolute; min-width: max-content; inset: 0px auto auto 0px;">
+                        <div class="chakra-menu__menu-list css-jjjov6"
+                            box-shadow="0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)"
+                            tabindex="-1" role="menu" id="menu-list-:r23:" aria-orientation="vertical"
+                            style="transform-origin: var(--popper-transform-origin); opacity: 0; visibility: hidden; transform: scale(0.8) translateZ(0px);">
+                            <button type="button" id="menu-list-:r23:-menuitem-:r24:" role="menuitem" tabindex="-1"
+                                class="chakra-menu__menuitem css-r3dkpb" data-index="0">Ver Más</button><button
+                                type="button" id="menu-list-:r23:-menuitem-:r25:" role="menuitem" tabindex="-1"
+                                class="chakra-menu__menuitem css-r3dkpb" data-index="1">Ver detalle</button><button
+                                type="button" id="menu-list-:r23:-menuitem-:r26:" role="menuitem" tabindex="-1"
+                                class="chakra-menu__menuitem css-r3dkpb" data-index="2">Editar</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
