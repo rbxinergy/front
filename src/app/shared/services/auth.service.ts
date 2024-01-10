@@ -5,6 +5,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { GetprofileService } from './getprofile.service';
 
+
 @Injectable({
   providedIn: 'root'
 })

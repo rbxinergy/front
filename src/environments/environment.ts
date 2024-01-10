@@ -8,5 +8,6 @@ export const environment = {
     apiKey: "AIzaSyAh9JrcUBfjbCPmGB-J1IQ5hf-2JKzjrbQ",
     authDomain: "x-risk-qa.firebaseapp.com",
     messagingSenderId: "1084318886396",
-  }
+  },
+  getProfileUrl: "https://get-profile-ehqivncgha-uc.a.run.app/get-profile/api/get-profile"
 };

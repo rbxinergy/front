@@ -72,7 +72,7 @@
             <mat-label>Selecciona un cliente</mat-label>
             <mat-select [(value)]="selected" formControlName="thirdCtrl" placeholder="Ingrese el nombre del dominio" required>
               <mat-option>Ninguna</mat-option>
-              <mat-option value="cliente1">Cliente 1</mat-option>
+              <mat-option value="cliente1">{{client}}</mat-option>
               <mat-option value="cliente2">Cliente 2</mat-option>
               <mat-option value="cliente3">Cliente 3</mat-option>
             </mat-select>
