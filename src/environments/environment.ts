@@ -1,5 +1,3 @@
-
-
 export const environment = {
   firebase: {
     projectId: "x-risk-qa",
