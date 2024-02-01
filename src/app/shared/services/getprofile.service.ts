@@ -7,21 +7,14 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class GetprofileService {
-  // url = 'http://localhost:8080/get-profile'
-  // result;
-  // error;
-  
+
   constructor(private http:HttpClient) {
-    
   }
-  // ngOnInit() {   // <---
-  //   this.http.get<any>(this.url).subscribe(data => {
-  //      this.result = data;
-  //   },error => this.error = error);
-  // }
- async getUserProfile(email: string):Promise<any> {
+
+  async getUserProfile(email: string):Promise<any> {
     const url = environment.getProfileUrl;
-   // const url = 'http://localhost:8080/get-profile/api/get-profile'
+    const channel = environment.channel
+    // const url = 'http://localhost:8080/get-profile/api/get-profile'
     const token = localStorage.getItem('token')
 
     console.log('Token: ', token)
@@ -30,7 +23,7 @@ export class GetprofileService {
       'Authorization': 'Bearer ' +  token
     })
     const params = new HttpParams({
-      fromString: 'email=' + email
+      fromString: 'email=' + email + '&channel=' + channel
     })
     console.log(url, {headers, params})
     const result = this.http.get<any>(url, {headers, params});

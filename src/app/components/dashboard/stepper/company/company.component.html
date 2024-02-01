@@ -1,0 +1,115 @@
+<form [formGroup]="companyForm">
+    <div *ngIf="showTable">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre de la Empresa</th>
+                    <th>Número de Documento</th>
+                    <th>Teléfono</th>
+                    <th>E-mail</th>
+                    <th>Dirección</th>
+                    <th>País</th>
+                    <th>Región</th>
+                    <th>Ciudad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Falabella </td>
+                    <td>78.897.987-8</td>
+                    <td>5692235689</td>
+                    <td>contacto@falabella.cl</td>
+                    <td>Av. Kennedy 768</td>
+                    <td>Chile</td>
+                    <td>Región Metropolitana</td>
+                    <td>Santiago</td>
+                </tr>
+                <tr>
+                    <td>Falabella </td>
+                    <td>78.897.987-8</td>
+                    <td>5692235689</td>
+                    <td>contacto@falabella.cl</td>
+                    <td>Av. Kennedy 768</td>
+                    <td>Chile</td>
+                    <td>Región Metropolitana</td>
+                    <td>Santiago</td>
+                </tr>
+                <tr>
+                    <td>Falabella </td>
+                    <td>78.897.987-8</td>
+                    <td>5692235689</td>
+                    <td>contacto@falabella.cl</td>
+                    <td>Av. Kennedy 768</td>
+                    <td>Chile</td>
+                    <td>Región Metropolitana</td>
+                    <td>Santiago</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <mat-form-field>
+        <mat-label>Nombre de la empresa</mat-label>
+        <input matInput placeholder="Ingrese el nombre de la empresa" formControlName="name" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Documento</mat-label>
+        <mat-select name="document" formControlName="documentType" placeholder="Ingrese el tipo de documento" required>
+            <mat-option value="RUT">RUT</mat-option>
+            <mat-option value="DNI">DNI</mat-option>
+        </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>Número de documento</mat-label>
+        <input matInput placeholder="Ingrese el número de documento" formControlName="documentNumber" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Teléfono</mat-label>
+        <input matInput placeholder="Ingrese un número telefónico" formControlName="phone" required>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>E-mail</mat-label>
+        <input matInput placeholder="Ingrese el e-mail" formControlName="email" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Dirección</mat-label>
+        <input matInput placeholder="Ingrese dirección" formControlName="address" required>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>País</mat-label>
+        <mat-select [(ngModel)]="selectedCountry" formControlName="countryId" placeholder="Ingrese el país" required>
+            <mat-option value=1>Chile</mat-option>
+            <mat-option value="2">Argentina</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Región</mat-label>
+        <mat-select [(ngModel)]="selectedState" formControlName="stateId" placeholder="Ingrese la ciudad" required>
+            <mat-option value=1>Región Metropolitana</mat-option>
+            <mat-option value="2">Región de Valparaíso</mat-option>
+        </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>Ciudad</mat-label>
+        <mat-select [(ngModel)]="selectedCity" formControlName="cityId" placeholder="Ingrese la ciudad" required>
+            <mat-option value=1>Santiago</mat-option>
+            <mat-option value="2">Valparaíso</mat-option>
+            <mat-option value="3">Rancagua</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div>
+      <button mat-button matStepperPrevious>Atrás</button>
+      <button mat-raised-button color="primary" (click)="onCompanyCreate()">Crear empresa</button>
+      <button mat-button matStepperNext *ngIf="show">Siguiente</button>
+    </div>
+ 
+  </form>

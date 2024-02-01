@@ -5,6 +5,13 @@
   .mat-mdc-form-field {
     margin-top: 16px;
   }
+  .mat-step-header:hover:not([aria-disabled]),.mat-step-header:hover[aria-disabled=false]{
+    background-color: blueviolet !important;
+  }
+  .mat-mdc-form-field{
+    margin-right: 10px !important;
+  }    
+
   .example-form {
     min-width: 150px;
     max-width: 500px;
@@ -13,4 +20,10 @@
   
   .example-full-width {
     width: 100%;
+  }
+  .card{
+    margin: 20px 0;
+    border: 1px solid #ab84d8;
+    padding: 2rem;
+    border-radius: .5rem;
   }

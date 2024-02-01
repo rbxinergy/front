@@ -10,6 +10,11 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
 import { ClientService } from 'src/app/shared/services/client.service';
+import {MatTableModule} from '@angular/material/table';
+import { ClientComponent } from './client/client.component';
+import { DomainsComponent } from './domains/domains.component';
+import { CompanyComponent } from './company/company.component';
+import { UsersComponent } from './users/users.component';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -25,6 +30,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./stepper.component.css'],
   standalone: true,
   imports: [
+    MatTableModule,
     MatButtonModule,
     MatStepperModule,
     FormsModule,
@@ -35,18 +41,24 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     MatDividerModule,
     ReactiveFormsModule,
     MatRadioModule,
-    CommonModule
+    CommonModule, 
+    ClientComponent,
+    DomainsComponent,
+    CompanyComponent,
+    UsersComponent
   ],
+
 })
 export class StepperComponent {
+
   firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
+    client: ['', Validators.required],
   });
   secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+    domain: ['', Validators.required],
   });
   thirdFormGroup = this._formBuilder.group({
-    thirdCtrl: ['', Validators.required],
+    company: ['', Validators.required],
   });
   fourthFormGroup = this._formBuilder.group({
     fourthCtrl: ['', Validators.required],
@@ -60,28 +72,55 @@ export class StepperComponent {
   seventhFormGroup = this._formBuilder.group({
     seventhCtrl: ['', Validators.required],
   });
+ 
   isLinear = false;
 
   constructor(private _formBuilder: FormBuilder, private clientService: ClientService) {}
-  selected = 'cliente1';
+
+  selected = '';
   documento = 'rut';
 
-  showNewUser: boolean = false
-  showSelectUser: boolean = false
+
+
+
+
+  show = false
+  
+  client:string = ''
+  domain:string = ''
+  domainDescription:string = ''
+  // cliente = ''
+
+  // onClientCreate(cliente:string){
+  //   this.clientService.saveClient(cliente)
+  //   cliente != '' ?  this.show = true : this.show = false
+
+  // }
+
+  
+  showTable: boolean = false
+  onDomainCreate(client:string, domain: string, domainDescription:string){
+    this.showTable = true
+
+    // {
+    //   "name":"Seguridad",
+    //   "description":"",
+    //   "idDomainType": 3
+    // }
+
+  }
+  saveDomain (paso: number,client:string, domain: string, domainDescription:string){
+    // client = ''
+    // domain = ''
+   // this.domainDescription = domainDescription
+  }
+  company = ''
+  document = null
+  country = ''
+  city = ''
 
   showNewRol: boolean = false
   showSelectRol: boolean = false
-
-  newUserChanged($event: {  value: number; }){
-    console.log( $event.value);
-    if($event.value == 1){
-        this.showNewUser = !this.showNewUser;
-        this.showSelectUser = false ;
-    } else if ($event.value == 2) {
-      this.showSelectUser = !this.showSelectUser ;
-      this.showNewUser = false;
-    }
-  }
   newRolChanged($event: {  value: number; }){
     console.log( $event.value);
     if($event.value == 3){
@@ -92,23 +131,10 @@ export class StepperComponent {
       this.showNewRol = false;
     }
   }
-
-  show = false
-  
-  client = ''
-  // getData(cliente:string){
-  //   cliente= ''
-  //   this.client = cliente
-  //   console.log(cliente)
-  // }
-  saveData(paso:number, client:string){
-    switch(true){
-      case paso == 1: this.clientService
-      this.show = true
-      this.client = client
-      console.log(client)
-    }
+  saveCompany(company: string, document:number,client:string, country:string, city:string){
+    this.show = true
   }
+
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
 
   matcher = new MyErrorStateMatcher();

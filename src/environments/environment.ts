@@ -9,5 +9,8 @@ export const environment = {
     authDomain: "x-risk-qa.firebaseapp.com",
     messagingSenderId: "1084318886396",
   },
-  getProfileUrl: "https://get-profile-ehqivncgha-uc.a.run.app/get-profile/api/get-profile"
+  channel: 1,
+  getProfileUrl: "https://get-profile-ehqivncgha-uc.a.run.app/get-profile/api/get-profile",
+  postClientUrl: "https://post-client-ehqivncgha-uc.a.run.app/post-client/api/post-client"
 };
+

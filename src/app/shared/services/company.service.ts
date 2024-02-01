@@ -1,14 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subscription, catchError, lastValueFrom } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { lastValueFrom, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClientService {
-  
-  
+export class CompanyService {
+
+   
   constructor(private http: HttpClient) {  }
 
   token = localStorage.getItem('token')
@@ -16,19 +15,11 @@ export class ClientService {
     'Authorization': 'Bearer ' +  this.token
   })
 
-  async getClient():Promise<any>{
 
-    const url = 'https://get-clients-ehqivncgha-uc.a.run.app/get-clients/api/get-clients'
-    const getClient = this.http.get<any>(url, { headers: this.headers })
-   
-    return await lastValueFrom(getClient)  
-  }
-
-  async saveClient(form: any):Promise<any>{
+  async saveCompany(form: any):Promise<any>{
 
 
     // const url : string = environment.postClientUrl
-    this.getClient()
     const url = 'http://localhost:8081/post-client/api/post-client'
    
     const name: string = ''
@@ -49,26 +40,22 @@ export class ClientService {
       "documentType": form.documentType,
       "phone": form.phone,
       "email": form.email,
-      "groupDocument": form.documentNumber,
+      // "groupDocument": form.documentNumber,
       "address":form.address,
       "cityId": parseInt(form.cityId),
       "stateId": parseInt(form.stateId),
       "countryId": parseInt(form.countryId),
-      "clientName": form.clientName,
-      "isGroup": true
+      "isGroup": false
     }
+    
+    const groupDocument = sessionStorage.getItem('groupDocument')
+    console.log(groupDocument)
+    form.groupDocument = groupDocument
+    
     console.log(this.token)
     console.log(body)
-    // guardo el documentNumber y se lo paso al domains.service para poder guardar el postDomain
-    const id = form.documentNumber
-    sessionStorage.setItem('documentNumber', id)
+    // const postCompany = this.http.post<any>(url, body, { headers: this.headers })
 
-    const postClient = this.http.post<any>(url, body, { headers: this.headers })
-
-    return await lastValueFrom(postClient)  
-  
+    // return await lastValueFrom(postCompany)  
   }
- 
-
-
 }

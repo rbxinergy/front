@@ -38,8 +38,7 @@ export class AuthService {
     const token  = await result.user?.getIdToken() || ''
     localStorage.setItem('token',token)
     const profile = await this.getProfileService.getUserProfile(email);
-    console.log('profile',profile)
-
+    sessionStorage.setItem('profile', JSON.stringify(profile))
     return this.firebaseAuthenticationService.signInWithEmailAndPassword(email, password) 
 
   

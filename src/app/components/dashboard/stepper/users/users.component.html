@@ -1,0 +1,61 @@
+
+
+<!-- <mat-radio-group aria-label="Select an option" (change)="newUserChanged($event)">
+    <mat-radio-button value="1">Crear nuevo usuario</mat-radio-button>
+    <mat-radio-button value="2">Selecionar usuario existente</mat-radio-button>
+</mat-radio-group> -->
+<div *ngIf="showTable">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre de usuario</th>
+                <th>Cargo</th>
+                <th>E-mail</th>
+                <th>Cliente/Empresa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Pepito </td>
+                <td>Administrador</td>
+                <td>pepito@gmail.com</td>
+                <td>Grupo falabella</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<form [formGroup]="usersForm">
+    <mat-form-field>
+    <mat-label>Nombre de usuario</mat-label>
+    <input matInput formControlName="name" placeholder="Escribe un nombre" required>
+    </mat-form-field>
+
+    <mat-form-field>
+    <mat-label>Cargo</mat-label>
+    <input matInput formControlName="jobTitle" placeholder="Escribe un cargo" required>
+    </mat-form-field>
+
+    <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+        <mat-label>Cliente/Empresa </mat-label>
+        <mat-select  name="company" formControlName="company" placeholder="Seleccione la empresa" required>
+            <mat-option value={{company.id}} *ngFor="let company of companies">{{company.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Rol</mat-label>
+        <mat-select  name="rol" formControlName="rol" placeholder="Seleccione el rol" required>
+            <mat-option value={{rol.id}} *ngFor="let rol of roles">{{rol.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div>
+    <button mat-raised-button color="primary" (click)="addUser()">Agregar usuario</button> &nbsp;
+    <button mat-button matStepperNext>Siguiente</button>
+    </div>
+</form>

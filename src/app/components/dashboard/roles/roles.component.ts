@@ -11,10 +11,10 @@ import {MatRadioModule} from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-evaluations',
-  templateUrl: './evaluations.component.html',
+  selector: 'app-roles',
+  templateUrl: './roles.component.html',
+  styleUrls: ['./roles.component.css'],
   standalone:true,
-  styleUrls: ['./evaluations.component.css'],
   imports: [
     MatButtonModule,
     MatStepperModule,
@@ -29,7 +29,7 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
 })
-export class EvaluationsComponent {
+export class RolesComponent {
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
@@ -54,6 +54,3 @@ export class EvaluationsComponent {
   isLinear = false;
   constructor(private _formBuilder: FormBuilder) {}
 }
-
-
-

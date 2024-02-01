@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { GetprofileService } from 'src/app/shared/services/getprofile.service';
+declare var require: any;
 
 @Component({
   selector: 'app-dashboard',
@@ -8,23 +8,22 @@ import { GetprofileService } from 'src/app/shared/services/getprofile.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent {
+  name : string = ''
+  initials: string = ''
 
-  // userProfile = new Array<any>();
-  userProfile = new Object();
-  
-  constructor(private authService: AuthService, private getProfileService:GetprofileService ) {
-    
+  version: string = require( '../../../../package.json').version;
+  constructor(private authService: AuthService ) {
   }
+  
   ngOnInit():void{
-    // this.getProfileService.getUserProfile().subscribe((data)=>{
-    //   this.userProfile = data
-    //   console.log(this.userProfile)
-    //   console.log(Object.values(this.userProfile))
-    // })
+    const profile = JSON.parse(sessionStorage.getItem('profile') || '') 
+    const firstName = profile.firstName
+    const lastName = profile.lastName
+    this.name =  `${firstName} ${lastName}`
+    this.initials = firstName.charAt(0) + lastName.charAt(0) 
   }
   
   logOut() {
     this.authService.logOut();
-    console.log('logout fue')
   }
 }

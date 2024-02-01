@@ -14,8 +14,8 @@
 }
 span.material-icons {
     color: #5f4ede;
-    font-weight: 600;
-    font-size: 1.6rem;
+    font-weight: 400;
+    font-size: 1.5rem;
 }
 .name{
     background-color: #d0cbf5;
@@ -29,3 +29,42 @@ span.material-icons {
     display: flex;
     align-items: center;
 }
+aside{
+    position: fixed;
+    top:0;
+    left:0;
+    width: 320px;
+    height: 100vh;
+    border-right: 0.1rem solid #d0cbf5;
+}
+main{
+    width: calc(100% - 320px);
+    height: 100%;
+    float: right;
+    /* class="max-w-fit h-screen" */
+    /* flex-column justify-center py-5 p-4 sm:ml-80 ml-80 */
+}
+
+/* aside#separator-sidebar {
+    class="fixed top-0 left-0 z-40 w-70 h-screen transition-transform -translate-x-full sm:translate-x-0"
+} */
+a.active{
+    background-color: #5f4ede;
+    color: white;
+}
+a.active > svg, a.active > span{
+    color: white;
+}
+.appversion{
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    right: 0;
+    left: 0;
+    color: #5f4ede;
+    font-weight: 300;
+    font-family: system-ui;
+    font-size: .9rem;
+}
+
+ 
