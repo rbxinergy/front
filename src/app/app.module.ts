@@ -10,7 +10,6 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { HttpClientModule } from '@angular/common/http';
-import { ConfigsComponent } from './components/dashboard/configs/configs.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -21,10 +20,9 @@ import {MatListModule} from '@angular/material/list';
 // import { MatTableModule } from '@angular/material/table'  
 import { FormsModule } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
-import { CompanyComponent } from './components/dashboard/company/company.component';
 import { StepperModule } from './components/dashboard/stepper.module';
-import { RolesComponent } from './components/dashboard/roles/roles.component';
 import { ObjectToArrayPipe } from 'src/app/object-to-array.pipe';
+import { DomainsComponent } from './components/dashboard/stepper/domains/domains.component';
 
 
 @NgModule({
@@ -33,12 +31,7 @@ import { ObjectToArrayPipe } from 'src/app/object-to-array.pipe';
     LoginComponent,
     SignUpComponent,
     DashboardComponent,
-
-    ConfigsComponent,
-
     ObjectToArrayPipe
-
-    
   ],
   imports: [
     BrowserModule,

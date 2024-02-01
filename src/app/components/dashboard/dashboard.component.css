@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: 40px auto;
     gap: 10px;
+    padding: 0.5rem 0.75rem;
 }
 .welcoming > *{
     color: #5f4ede;
@@ -48,6 +49,9 @@ main{
 /* aside#separator-sidebar {
     class="fixed top-0 left-0 z-40 w-70 h-screen transition-transform -translate-x-full sm:translate-x-0"
 } */
+a{
+    padding:1.2rem .75rem;
+}
 a.active{
     background-color: #5f4ede;
     color: white;

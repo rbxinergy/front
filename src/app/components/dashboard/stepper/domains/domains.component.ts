@@ -80,11 +80,10 @@ export class DomainsComponent {
  
     const form = this.domainsForm.value 
     form.documentGroup = sessionStorage.getItem('documentNumber')
-    console.log(form)
 
     this.domainsService.postDomain(form)
-    this.domainsService.getDomainGroup().subscribe(data=>{
-    
+
+    this.domainsService.getDomainGroup().subscribe(data => {
       this.showTable = true
       this.domainsGroup = data.domains
       console.log(this.domainsGroup)

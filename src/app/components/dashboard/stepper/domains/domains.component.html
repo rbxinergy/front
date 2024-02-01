@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8 mb-5">
+<!-- <div class="mat-elevation-z8 mb-5">
     <table *ngIf="showTable" mat-table class="mat-elevation-z8" [dataSource]="domainsGroup">
       <ng-container matColumnDef="domainName">
         <th mat-header-cell *matHeaderCellDef> Nombre de dominio </th>
@@ -16,10 +16,24 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-</div>
+</div> -->
+<table *ngIf="showTable">
+  <thead>
+    <tr>
+      <th>Nombre de dominio</th>
+      <th>Descripción</th>
+      <th>Tipo de dominio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let domain of domainsGroup">
+      <td>{{domain.domainName}}</td>
+      <td>{{domain.domainDescription}}</td>
+      <td>{{domain.typeName}}</td>
+    </tr>
+  </tbody>
+</table>
 <form [formGroup]="domainsForm">
-
-
 <mat-form-field>
     <mat-label>Dominio</mat-label>
     <input matInput formControlName="name" placeholder="Ingrese el nombre del dominio" required>
@@ -41,7 +55,7 @@
 </div>
 <div>
     <br>
-    <button mat-button matStepperPrevious>Atrás</button>
+    <!-- <button mat-button matStepperPrevious>Atrás</button> -->
     <button mat-raised-button color="primary" (click)="onDomainCreate()">Guardar</button>
     <button mat-button matStepperNext *ngIf="show">Siguiente</button>
 </div>

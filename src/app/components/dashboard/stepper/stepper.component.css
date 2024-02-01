@@ -27,3 +27,13 @@
     padding: 2rem;
     border-radius: .5rem;
   }
+  /* .mat-step-header:hover:not([aria-disabled]), .mat-step-header:hover[aria-disabled=false] {
+    background-color: rgb(244 243 252) !important;
+  } */
+  .mat-step-header{
+    -webkit-tap-highlight-color: rgb(244 243 252) !important;
+    color: red;
+  }
+  .mat-step-header.cdk-keyboard-focused, .mat-step-header.cdk-program-focused {
+    background-color: rgb(244 243 252) !important;
+  }

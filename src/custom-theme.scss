@@ -1,20 +1,49 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 // Plus imports for other components in your app.
+@import "@angular/material/theming";
+
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
+$deep-purple:(
+  50:#f4f3fc,
+  100:#d0cbf5,
+  200:#5f4ede,
+  300:#5f4ede,
+  400:#5f4ede,
+  500:#5f4ede,
+  600:#241883,
+  700:#241883,
+  800:#241883,
+  contrast:(
+    50: #333333,
+    100:#333333,
+    200:#d2d2d2,
+    300:#333333,
+    400:#333333,
+    500:#ffffff,
+    600:#333333,
+    700:#ffffff,
+    800:#ffffff,
+  ),
+);
+
 @include mat.core();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 
-$x-risk-client-primary: mat.define-palette(mat.$deep-purple-palette);
-$x-risk-client-accent: mat.define-palette(mat.$deep-purple-palette);
+
+$x-risk-primary: mat-palette($deep-purple);
+$x-risk-accent: mat-palette($deep-purple);
+$x-risk-warn: mat-palette($deep-purple);
+
+// $x-risk-client-primary: mat.define-palette(mat.$deep-purple);
+// $x-risk-client-accent: mat.define-palette(mat.$deep-purple-palette);
 $my-typography: mat.define-typography-config();
 
 // The warn palette is optional (defaults to red).
@@ -32,9 +61,9 @@ $my-custom-typography: mat.define-typography-config(
 );
 $x-risk-client-theme: mat.define-light-theme((
   color: (
-    primary: $x-risk-client-primary,
-    accent: $x-risk-client-accent,
-    warn: $x-risk-client-warn,
+    primary: $x-risk-primary,
+    accent: $x-risk-accent,
+    warn: $x-risk-warn,
   ),
   typography:$my-custom-typography,
 ));

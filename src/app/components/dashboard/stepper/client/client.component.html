@@ -4,12 +4,12 @@
         <mat-label>Nombre del cliente</mat-label>
         <input matInput placeholder="Ingrese el nombre del cliente" formControlName="name" required>
     </mat-form-field>
-    <br>
+
     <mat-form-field>
         <mat-label>Nombre de la empresa</mat-label>
         <input matInput placeholder="Ingrese el nombre del cliente" formControlName="clientName" required>
     </mat-form-field>
-
+   
     <mat-form-field>
         <mat-label>Documento</mat-label>
         <mat-select [(ngModel)]="selectedValue" name="document" formControlName="documentType" placeholder="Ingrese el tipo de documento" required>
@@ -67,7 +67,6 @@
         <button mat-raised-button color="primary" type="button" (click)="onClientCreate()">Guardar</button> &nbsp;
         <button mat-button matStepperNext *ngIf="show">Siguiente</button>
     </div>
-  
 </form>
 
 

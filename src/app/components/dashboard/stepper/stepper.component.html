@@ -1,9 +1,9 @@
 <h2>Nuevo cliente</h2>
-
+<div>
   <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
     
     <mat-step [stepControl]="firstFormGroup" label="Ingrese información del cliente">
-        <app-client class="p-4"></app-client>
+      <app-client class="p-4"></app-client>
     </mat-step>
 
     <mat-step [stepControl]="secondFormGroup" label="Agregar dominios">
@@ -11,14 +11,14 @@
     </mat-step>
 
     <mat-step [stepControl]="thirdFormGroup" label="Ingrese información de la empresa">
-        <app-company class="p-4"></app-company>
+      <app-company class="p-4"></app-company>
     </mat-step>
 
     <mat-step [stepControl]="fourthFormGroup" label="Ingrese/Seleccione administradores">
-       <app-users class="p-4"></app-users>
+      <app-users class="p-4"></app-users>
     </mat-step>
     
-    <mat-step [stepControl]="sixthFormGroup" label="Ingrese/Seleccione Roles">
+    <!-- <mat-step [stepControl]="sixthFormGroup" label="Ingrese/Seleccione Roles">
         <mat-radio-group aria-label="Select an option" (change)="newRolChanged($event)">
             <mat-radio-button value="3">Crear nuevo rol</mat-radio-button>
             <mat-radio-button value="4">Selecionar rol existente</mat-radio-button>
@@ -65,7 +65,7 @@
                 <button mat-button matStepperNext>Siguiente</button>
             </div>
         </form>
-    </mat-step>
+    </mat-step> -->
 
     <mat-step>
       <ng-template matStepLabel>Terminado</ng-template>
@@ -76,3 +76,4 @@
       </div>
     </mat-step>
   </mat-stepper>
+</div>

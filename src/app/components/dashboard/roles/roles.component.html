@@ -1,63 +1,35 @@
 <h2>Usuarios y roles</h2>
-<mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup" label="Usuarios">
-        <form [formGroup]="fourthFormGroup">
-            <mat-form-field>
-            <mat-label>Nombre de usuario</mat-label>
-            <input matInput formControlName="fourthCtrl" placeholder="Escribe un nombre" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-            <mat-label>Cargo</mat-label>
-            <input matInput formControlName="fourthCtrl" placeholder="Escribe un cargo" required>
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input type="email" matInput>
-            </mat-form-field>
-            <br>
-            <div>
-                <table class="table">
-                    <tr>
-                        <td>hola</td>
-                    </tr>
-                </table>
-            </div>
-            <div>
-            <button mat-button matStepperPrevious>Atrás</button>
-            <button mat-raised-button color="primary">Guardar</button>
-            <button mat-button matStepperNext>Siguiente</button>
-            </div>
-        </form>
-    </mat-step>
-
-    <mat-step [stepControl]="secondFormGroup" label="Roles">
-      <form [formGroup]="secondFormGroup">
-        <mat-form-field>
-          <mat-label>Dominio</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ingrese el nombre del dominio" required>
-        </mat-form-field>
-        <br>
-        <mat-form-field class="example-full-width">
-            <mat-label>Descripción</mat-label>
-            <textarea matInput formControlName="secondCtrl" placeholder="Ingrese una descripción de dominio" required></textarea>
-        </mat-form-field>
-        <br>
-        <mat-form-field>
-            <mat-label>Selecciona un cliente</mat-label>
-            <mat-select >
-              <mat-option>Ninguna</mat-option>
-              <mat-option value="cliente1">Cliente 1</mat-option>
-              <mat-option value="cliente2">Cliente 2</mat-option>
-              <mat-option value="cliente3">Cliente 3</mat-option>
-            </mat-select>
-          </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Atrás</button>
-          <button mat-raised-button color="primary">Guardar</button>
-          <button mat-button matStepperNext>Siguiente</button>
-        </div>
-      </form>
-    </mat-step>
-    </mat-stepper>
+<div>
+  <table>
+      <thead>
+          <tr>
+              <th>Usuario</th>
+              <th>Cargo</th>
+              <th>E-mail</th>
+              <th>Rol</th>
+              <th>Empresa/Cliente</th>
+              <th>Estado</th>
+              <th>Acción</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>Pepito los palotes</td>
+              <td>Administrador</td>
+              <td>plospalotes@gmail.com</td>
+              <td>Administrador</td>
+              <td>Falabella</td>
+              <td><mat-slide-toggle></mat-slide-toggle></td>
+              <td>
+                <button type="button">
+                  <span class="material-symbols-outlined">edit_square</span>
+                </button>
+                <button type="button">
+                  <span class="material-symbols-outlined">scan_delete</span>
+                </button>
+              </td>
+          </tr>
+          
+      </tbody>
+  </table>
+</div>

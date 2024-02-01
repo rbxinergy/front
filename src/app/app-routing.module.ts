@@ -4,7 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuard } from './shared/guards/auth.guard';
-import { ConfigsComponent } from './components/dashboard/configs/configs.component';
+import { ConfigsComponent } from './components/dashboard/domains/domains.component';
 import { StepperComponent } from './components/dashboard/stepper/stepper.component';
 import { CompanyComponent } from './components/dashboard/company/company.component';
 import { IntegrationsComponent } from './components/dashboard/integrations/integrations.component';
