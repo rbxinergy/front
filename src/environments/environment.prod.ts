@@ -18,9 +18,9 @@ export const environment = {
   getDomainTypeUrl: "https://get-domain-type-ehqivncgha-uc.a.run.app/get-domain-type/api/get-domain-type",
   postDomainUrl: "https://post-domain-ehqivncgha-uc.a.run.app/post-domain/api/post-domain",
   getDomainGrpUrl: "https://get-domain-grp-ehqivncgha-uc.a.run.app/get-domain-grp/api/get-domain-grp",
+  getUsersUrl:"https://get-users-ehqivncgha-uc.a.run.app/get-users/api/get-all-users",
   getUsersRolesUrl: "https://get-users-roles-ehqivncgha-uc.a.run.app/get-users-roles/api/get-users-roles",
   getRolesUrl: "https://get-roles-ehqivncgha-uc.a.run.app/get-roles/api/get-roles",
   postUserUrl: "https://post-user-ehqivncgha-uc.a.run.app/post-user/api/post-user",
-  getAllUsersUrl: "http://34.42.207.23/get-users/api/get-all-users",
   postDomainGrpUrl: "https://post-domain-grp-ehqivncgha-uc.a.run.app/post-domain-grp/api/post-domain-grp",
 };

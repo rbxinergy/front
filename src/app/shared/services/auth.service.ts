@@ -1,4 +1,3 @@
-import { compileNgModule } from '@angular/compiler';
 import { Injectable, NgZone } from '@angular/core';
 import { GoogleAuthProvider } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';

@@ -8,7 +8,6 @@ export const environment = {
         messagingSenderId: "1084318886396",
     },
     channel: 1,
-
     getProfileUrl: "http://localhost:8081/get-profile/api/get-profile",
     getTokenUrl: "http://localhost:8080/get-token/api/get-token",
     getCompanyUrl: "http://localhost:8088/get-company/api/get-company",

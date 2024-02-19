@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { idToken } from '@angular/fire/auth';
 import { Observable, lastValueFrom } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })

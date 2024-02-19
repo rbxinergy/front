@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment.development';
+import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -24,8 +24,6 @@ import { StepperModule } from './components/dashboard/stepper.module';
 import { ObjectToArrayPipe } from 'src/app/object-to-array.pipe';
 import { DomainsComponent } from './components/dashboard/stepper/domains/domains.component';
 import { CommonModule } from '@angular/common';
-
-
 
 @NgModule({
   declarations: [
@@ -48,7 +46,7 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     BrowserAnimationsModule,
     // aquí importo el modulo que contiene los componentes del stepper en dashboard
-    StepperModule
+    StepperModule,
   ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
