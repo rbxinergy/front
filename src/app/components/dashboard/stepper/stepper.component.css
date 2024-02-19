@@ -2,7 +2,7 @@
     margin-top: 8px;
   }
   
-  .mat-mdc-form-field {
+  /* .mat-mdc-form-field {
     margin-top: 16px;
   }
   .mat-step-header:hover:not([aria-disabled]),.mat-step-header:hover[aria-disabled=false]{
@@ -10,7 +10,7 @@
   }
   .mat-mdc-form-field{
     margin-right: 10px !important;
-  }    
+  }     */
 
   .example-form {
     min-width: 150px;
@@ -26,14 +26,4 @@
     border: 1px solid #ab84d8;
     padding: 2rem;
     border-radius: .5rem;
-  }
-  /* .mat-step-header:hover:not([aria-disabled]), .mat-step-header:hover[aria-disabled=false] {
-    background-color: rgb(244 243 252) !important;
-  } */
-  .mat-step-header{
-    -webkit-tap-highlight-color: rgb(244 243 252) !important;
-    color: red;
-  }
-  .mat-step-header.cdk-keyboard-focused, .mat-step-header.cdk-program-focused {
-    background-color: rgb(244 243 252) !important;
   }

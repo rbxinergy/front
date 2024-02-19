@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.development';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -23,18 +23,20 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 import { StepperModule } from './components/dashboard/stepper.module';
 import { ObjectToArrayPipe } from 'src/app/object-to-array.pipe';
 import { DomainsComponent } from './components/dashboard/stepper/domains/domains.component';
+import { CommonModule } from '@angular/common';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     SignUpComponent,
     DashboardComponent,
     ObjectToArrayPipe
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     FormsModule,
     AppRoutingModule,
     MatSlideToggleModule,

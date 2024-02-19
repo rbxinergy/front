@@ -9,10 +9,7 @@ import { DomainsService } from 'src/app/shared/services/domains.service';
 import { MyErrorStateMatcher } from '../stepper.component';
 import { MatButtonModule } from '@angular/material/button';
 import { map, Observable } from 'rxjs';
-import { ClientService } from 'src/app/shared/services/client.service';
 import { MatTableModule } from '@angular/material/table';
-
-
 
 @Component({
   selector: 'app-domains',
@@ -33,8 +30,7 @@ import { MatTableModule } from '@angular/material/table';
   ]
 })
 
-
-export class DomainsComponent {
+export class DomainsComponent implements OnInit {
 
   showTable = false
   show = false
@@ -48,38 +44,12 @@ export class DomainsComponent {
   })
 
 
-  constructor(private _formBuilder: FormBuilder, private domainsService: DomainsService, clientService: ClientService) {}
-
-   
-  showDomains(){
-// this.domainsService.getDomains().subscribe((data) => {console.log(data)})
-// .pipe(map((res) => {
-//   const dominios = []
-//   for (const key in res){
-//     if(res.hasOwnProperty(key)){
-//       dominios.push ({...res[key], id: key})
-//     }
-//   }
-//   return dominios
-// }))
-
-  }
-
-  // get domainName(){
-  //   return this.domainsForm.get('name') as FormControl
-  // }
-  // get domainescription(){
-  //   return this.domainsForm.get('description') as FormControl
-  // }
-  // get idDomainType(){
-  //   return this.domainsForm.get('idDomainType') as FormControl
-  // }
+  constructor( private _formBuilder: FormBuilder, private domainsService: DomainsService ) {}
 
   onDomainCreate(){
     this.show = true 
- 
     const form = this.domainsForm.value 
-    form.documentGroup = sessionStorage.getItem('documentNumber')
+    form.documentGroup = sessionStorage.getItem('groupDocument')
 
     this.domainsService.postDomain(form)
 
@@ -88,22 +58,19 @@ export class DomainsComponent {
       this.domainsGroup = data.domains
       console.log(this.domainsGroup)
     })
-   
+
   }
- 
+
   domainsType:any 
   displayedColumns: string[] = [ 'domainName', 'domainDescription', 'typeName'];
   datasource:any
   domainsGroup:any 
+
   ngOnInit() {
     this.domainsService.getDomainsType().subscribe(data => {
       this.domainsType = data;
       console.log("DomainsType",data)
     })
-    // this.domainsService.getDomainGroup().subscribe(data=>{
-    //   this.domainsGroup = data.domains
-    //   console.log(this.domainsGroup)
-    // })
   }
 
   

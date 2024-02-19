@@ -35,6 +35,11 @@ h2{
     border-bottom: 0.1rem solid #d0cbf5;
     padding: 1rem;
 }
+h3{
+    color:#241783;
+    font-size: 1.2rem;
+    padding: 1rem;
+}
 header{
     color:#241883;
     font-size:20px;

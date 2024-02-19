@@ -13,12 +13,12 @@
           </tr>
       </thead>
       <tbody>
-          <tr>
-              <td>Pepito los palotes</td>
+          <tr *ngFor="let user of users">
+              <td>{{user.firstName}} {{user.lastName}}</td>
+              <td>{{user.position}}</td>
+              <td>{{user.email}}</td>
               <td>Administrador</td>
-              <td>plospalotes@gmail.com</td>
-              <td>Administrador</td>
-              <td>Falabella</td>
+              <td>{{user.companyname}}</td>
               <td><mat-slide-toggle></mat-slide-toggle></td>
               <td>
                 <button type="button">

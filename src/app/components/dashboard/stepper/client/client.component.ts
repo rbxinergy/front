@@ -61,8 +61,8 @@ export class ClientComponent {
 
   onClientCreate(){
     const form = this.clientForm.value
-    this.clientService.saveClient(form)
-    form != null ?  this.show = true : this.show = false
+    this.clientForm.value !== null ?  this.show = true : this.show = false
+   // this.clientService.saveClient(form)
 
   }
 

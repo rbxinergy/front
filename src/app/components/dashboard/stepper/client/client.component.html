@@ -1,5 +1,8 @@
 
-<form [formGroup]="clientForm">   
+<form [formGroup]="clientForm"> 
+    <div *ngIf="show"> muestra</div>  
+    <h3>Información del cliente</h3>
+
     <mat-form-field>
         <mat-label>Nombre del cliente</mat-label>
         <input matInput placeholder="Ingrese el nombre del cliente" formControlName="name" required>
@@ -9,10 +12,10 @@
         <mat-label>Nombre de la empresa</mat-label>
         <input matInput placeholder="Ingrese el nombre del cliente" formControlName="clientName" required>
     </mat-form-field>
-   
+
     <mat-form-field>
         <mat-label>Documento</mat-label>
-        <mat-select [(ngModel)]="selectedValue" name="document" formControlName="documentType" placeholder="Ingrese el tipo de documento" required>
+        <mat-select name="document" formControlName="documentType" placeholder="Ingrese el tipo de documento" required>
             <mat-option value="RUT">RUT</mat-option>
             <mat-option value="DNI">DNI</mat-option>
         </mat-select>
@@ -22,7 +25,10 @@
         <mat-label>Número de documento</mat-label>
         <input matInput placeholder="Ingrese el número de documento" formControlName="documentNumber" required>
     </mat-form-field>
+
     <br>
+    <h3>Datos de contacto</h3>
+
     <mat-form-field>
         <mat-label>Teléfono</mat-label>
         <input matInput placeholder="Ingrese un número telefónico" formControlName="phone" required>
@@ -40,7 +46,7 @@
     <br>
     <mat-form-field>
         <mat-label>País</mat-label>
-        <mat-select [(ngModel)]="selectedCountry" formControlName="countryId" placeholder="Ingrese el país" required>
+        <mat-select formControlName="countryId" placeholder="Ingrese el país" required>
             <mat-option value=1>Chile</mat-option>
             <mat-option value="2">Argentina</mat-option>
         </mat-select>
@@ -48,7 +54,7 @@
 
     <mat-form-field>
         <mat-label>Región</mat-label>
-        <mat-select [(ngModel)]="selectedState" formControlName="stateId" placeholder="Ingrese la ciudad" required>
+        <mat-select formControlName="stateId" placeholder="Ingrese la ciudad" required>
             <mat-option value=1>Región Metropolitana</mat-option>
             <mat-option value="2">Región de Valparaíso</mat-option>
         </mat-select>
@@ -56,7 +62,7 @@
     
     <mat-form-field>
         <mat-label>Ciudad</mat-label>
-        <mat-select [(ngModel)]="selectedCity" formControlName="cityId" placeholder="Ingrese la ciudad" required>
+        <mat-select formControlName="cityId" placeholder="Ingrese la ciudad" required>
             <mat-option value=1>Santiago</mat-option>
             <mat-option value="2">Valparaíso</mat-option>
             <mat-option value="3">Rancagua</mat-option>
@@ -65,7 +71,7 @@
 
     <div>
         <button mat-raised-button color="primary" type="button" (click)="onClientCreate()">Guardar</button> &nbsp;
-        <button mat-button matStepperNext *ngIf="show">Siguiente</button>
+        <button mat-button matStepperNext *ngIf="show" mat-raised-button color="basic">Siguiente</button>
     </div>
 </form>
 

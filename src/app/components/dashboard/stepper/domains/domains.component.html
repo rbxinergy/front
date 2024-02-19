@@ -34,13 +34,14 @@
   </tbody>
 </table>
 <form [formGroup]="domainsForm">
+  <h3>Información del dominio</h3>
 <mat-form-field>
     <mat-label>Dominio</mat-label>
     <input matInput formControlName="name" placeholder="Ingrese el nombre del dominio" required>
 </mat-form-field>
 <mat-form-field>
     <mat-label>Categoría de dominio</mat-label>
-    <mat-select  name="idDomainType" formControlName="idDomainType" placeholder="Ingrese categoría de dominio" required>
+    <mat-select name="idDomainType" formControlName="idDomainType" placeholder="Ingrese categoría de dominio" required>
         <mat-option value={{domain.id}} *ngFor="let domain of domainsType ">{{domain.name}}</mat-option>
         <!-- <mat-option value="2">Cyberseguridad</mat-option> -->
     </mat-select>
@@ -48,7 +49,7 @@
 <br>
 <mat-form-field class="example-full-width">
     <mat-label>Descripción</mat-label>
-    <textarea matInput formControlName="description"  placeholder="Ingrese una descripción de dominio" required></textarea>
+    <textarea matInput formControlName="description" placeholder="Ingrese una descripción de dominio" required></textarea>
 </mat-form-field>
 <div>
 
@@ -56,10 +57,8 @@
 <div>
     <br>
     <!-- <button mat-button matStepperPrevious>Atrás</button> -->
-    <button mat-raised-button color="primary" (click)="onDomainCreate()">Guardar</button>
-    <button mat-button matStepperNext *ngIf="show">Siguiente</button>
+    <button mat-raised-button color="primary" (click)="onDomainCreate()">Crear dominio</button>&nbsp;
+    <button mat-button matStepperNext *ngIf="show" mat-raised-button color="basic">Siguiente</button>
 </div>
-<br>
-    <button mat-raised-button color="primary">+ Crear nuevo dominio</button>
-    <br>
+
 </form>

@@ -1,38 +1,36 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
 
-   
   constructor(private http: HttpClient) {  }
 
-  token = localStorage.getItem('token')
+  token = sessionStorage.getItem('token')
   headers = new HttpHeaders({
-    'Authorization': 'Bearer ' +  this.token
+    'Authorization': 'Bearer ' +  this.token,
+    'cache-control': 'no-cache'
   })
-
+  groupDocument = sessionStorage.getItem('groupDocument')
+  url = environment.getCompanyUrl
 
   async saveCompany(form: any):Promise<any>{
-
-
-    // const url : string = environment.postClientUrl
-    const url = 'http://localhost:8081/post-client/api/post-client'
-   
-    const name: string = ''
-    const documentNumber:string = ''
-    const documentType: string = ''
-    const phone: string = ''
-    const email: string = ''
-    const addres: string = ''
-    const cityId: number = 0
-    const stateId: number = 0
-    const countryId: number = 0
-    const clientName: string = ''
- 
+    const url = environment.postClientUrl
+    // const name: string = ''
+    // const documentNumber:string = ''
+    // const documentType: string = ''
+    // const phone: string = ''
+    // const email: string = ''
+    // const groupDocument: string = ''
+    // const addres: string = ''
+    // const cityId: number = 0
+    // const stateId: number = 0
+    // const countryId: number = 0
+    // const clientName: string = ''
     
     const body = { 
       "name": form.name,
@@ -40,22 +38,35 @@ export class CompanyService {
       "documentType": form.documentType,
       "phone": form.phone,
       "email": form.email,
-      // "groupDocument": form.documentNumber,
+      "groupDocument": this.groupDocument,
       "address":form.address,
       "cityId": parseInt(form.cityId),
       "stateId": parseInt(form.stateId),
       "countryId": parseInt(form.countryId),
       "isGroup": false
     }
-    
-    const groupDocument = sessionStorage.getItem('groupDocument')
-    console.log(groupDocument)
-    form.groupDocument = groupDocument
-    
-    console.log(this.token)
     console.log(body)
-    // const postCompany = this.http.post<any>(url, body, { headers: this.headers })
+    const postCompany = this.http.post<any>(url, body, { headers: this.headers })
 
-    // return await lastValueFrom(postCompany)  
+    return await lastValueFrom(postCompany)  
   }
+
+  getCompany(){
+    const params = new HttpParams({
+      fromString: 'group=' + this.groupDocument + '&option=2'
+    })
+    return this.http.get<any>(this.url, { headers: this.headers , params})
+  }
+
+  getCompanies(){
+    return this.http.get<any>(this.url, { headers: this.headers })
+  }
+
+  getClients(){
+    const params = new HttpParams({
+      fromString: 'option=1' 
+    })
+    return this.http.get<any>(this.url, { headers: this.headers, params })
+  }
+
 }

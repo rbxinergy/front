@@ -10,10 +10,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Negocios</td>
-                <td>Capacidad de mantener la operación ante contingencias.</td>
-                <td>Continuidad de negocios</td>
+            <tr *ngFor="let domain of domains">
+                <td>{{domain.name}}</td>
+                <td>{{domain.description}}</td>
+                <td>{{domain.typename}}</td>
                 <td><button type="button" class="btn btn-primary">Editar</button></td>
             </tr>
             

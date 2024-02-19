@@ -11,13 +11,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Grupo Falabella </td>
-                <td>Falabella </td>
-                <td>78.897.987-8</td>
-                <td><mat-slide-toggle>
+            <tr *ngFor="let company of companies">
+                <td>{{company.companyname}}</td>
+                <td>{{company.companyname}}</td>
+                <td>{{company.documentNumber}}</td>
+                <td><mat-slide-toggle checked={{company.status}}>
                 </mat-slide-toggle></td>
-                <td><button type="button" class="btn btn-primary">Editar</button></td>
+                <td>
+                    <button mat-raised-button color="primary">Editar</button>
+                </td>
             </tr>
             
         </tbody>

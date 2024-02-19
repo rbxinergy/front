@@ -34,16 +34,20 @@ export class AuthService {
   // log-in with email and password
   async logInWithEmailAndPassword(email: string, password: string) {
     const result = await this.firebaseAuthenticationService.signInWithEmailAndPassword(email, password)
-    console.log(result)
     const token  = await result.user?.getIdToken() || ''
-    localStorage.setItem('token',token)
+    sessionStorage.setItem('token',token)
     const profile = await this.getProfileService.getUserProfile(email);
     sessionStorage.setItem('profile', JSON.stringify(profile))
+    const {id, email: userCreator } = profile
+    sessionStorage.setItem('userId', id)
+    sessionStorage.setItem('userCreator', userCreator)
+    console.log(userCreator)
+
     return this.firebaseAuthenticationService.signInWithEmailAndPassword(email, password) 
 
   
       .then((userCredential) => {
-        console.log(userCredential.user?.getIdToken())
+        // console.log(userCredential.user?.getIdToken())
         this.userData = userCredential.user
         this.observeUserState()
       })

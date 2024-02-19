@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +10,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
+import { UsersService } from 'src/app/shared/services/users.service';
+import { CompanyService } from 'src/app/shared/services/company.service';
 
 @Component({
   selector: 'app-users',
@@ -28,43 +30,51 @@ import { MatTableModule } from '@angular/material/table';
     MatDividerModule,
     ReactiveFormsModule,
     MatRadioModule,
-
   ],
 })
 
 
 
-export class UsersComponent {
-
+export class UsersComponent implements OnInit {
   usersForm = new FormGroup({
-    name: new FormControl('', Validators.minLength(2)),
-    jobTitle: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.minLength(2)),
+    lastName: new FormControl('', Validators.minLength(2)),
+    position: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
-    company: new FormControl('', Validators.required),
+    rolId: new FormControl('', Validators.required),
+    companyId: new FormControl('', Validators.required),
   })
 
-  roles = [
-    {'id':1, 'name': 'Administrador'},
-    {'id':2, 'name': 'Operador'},
-    {'id':3, 'name': 'ClientManager'},
-    {'id':4, 'name': 'companyManager'}
-  ]
-  companies = [
-    {'id':1, 'name': 'Grupo Falabella'},
-    {'id':2, 'name': 'Falabella'},
-  ]
-
-  company = ''
-  document = null
-  country = ''
-  city = ''
   showTable = false
+
+  constructor(private _formBuilder: FormBuilder, private userService: UsersService, private companyService: CompanyService) {}
+
+  roles:any
+  companies:any
+  users:any
 
   addUser(){
     this.showTable = true
+
+    const form = this.usersForm.value 
+    this.userService.postUser(form)
+
+    this.userService.getUsersRoles().subscribe(data => {
+      this.users = data.usersRoles
+      console.log(data)
+      console.log(this.users)
+    })
+  }
+  ngOnInit() {
+    this.userService.getRoles().subscribe(data => {
+      this.roles = data
+      console.log('roles', this.roles)
+    })
+    this.companyService.getCompany().subscribe(data => {
+      this.companies = data
+      console.log('companies',data)
+    })
   }
 
-
-  constructor(private _formBuilder: FormBuilder) {}
 
 }

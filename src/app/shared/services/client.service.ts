@@ -11,37 +11,32 @@ export class ClientService {
   
   constructor(private http: HttpClient) {  }
 
-  token = localStorage.getItem('token')
+  token = sessionStorage.getItem('token')
   headers = new HttpHeaders({
-    'Authorization': 'Bearer ' +  this.token
+    'Authorization': 'Bearer ' +  this.token,
+    'cache-control': 'no-cache'
   })
 
-  async getClient():Promise<any>{
-
-    const url = 'https://get-clients-ehqivncgha-uc.a.run.app/get-clients/api/get-clients'
-    const getClient = this.http.get<any>(url, { headers: this.headers })
-   
-    return await lastValueFrom(getClient)  
-  }
+  // async getClient():Promise<any>{
+  //   const url = 'https://get-clients-ehqivncgha-uc.a.run.app/get-clients/api/get-clients'
+  //   const getClient = this.http.get<any>(url, { headers: this.headers })
+  //   return await lastValueFrom(getClient)  
+  // }
 
   async saveClient(form: any):Promise<any>{
+    // this.getClient()
+    const url = environment.postClientUrl
 
-
-    // const url : string = environment.postClientUrl
-    this.getClient()
-    const url = 'http://localhost:8081/post-client/api/post-client'
-   
-    const name: string = ''
-    const documentNumber:string = ''
-    const documentType: string = ''
-    const phone: string = ''
-    const email: string = ''
-    const addres: string = ''
-    const cityId: number = 0
-    const stateId: number = 0
-    const countryId: number = 0
-    const clientName: string = ''
- 
+    // const name: string = ''
+    // const documentNumber:string = ''
+    // const documentType: string = ''
+    // const phone: string = ''
+    // const email: string = ''
+    // const addres: string = ''
+    // const cityId: number = 0
+    // const stateId: number = 0
+    // const countryId: number = 0
+    // const clientName: string = ''
     
     const body = { 
       "name": form.name,
@@ -61,7 +56,8 @@ export class ClientService {
     console.log(body)
     // guardo el documentNumber y se lo paso al domains.service para poder guardar el postDomain
     const id = form.documentNumber
-    sessionStorage.setItem('documentNumber', id)
+    console.log(id)
+    sessionStorage.setItem('groupDocument', '98765432-5')
 
     const postClient = this.http.post<any>(url, body, { headers: this.headers })
 
