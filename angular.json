@@ -10,7 +10,11 @@
       "sourceRoot": "src",
       "prefix": "app",
       "i18n": {
-        "sourceLocale":"en-US"
+        "sourceLocale":"en-US",
+        "locales": {
+          "en": "src/assets/i18n/en.json",
+          "es": "src/assets/i18n/es.json"
+        }
       },
       "architect": {
         "build": {

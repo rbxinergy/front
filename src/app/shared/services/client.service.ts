@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subscription, catchError, lastValueFrom } from 'rxjs';
+import { Observable, Subscription, catchError, lastValueFrom, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -22,21 +22,23 @@ export class ClientService {
   //   const getClient = this.http.get<any>(url, { headers: this.headers })
   //   return await lastValueFrom(getClient)  
   // }
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Something bad happened; please try again later.'));
+  }
 
   async saveClient(form: any):Promise<any>{
     // this.getClient()
     const url = environment.postClientUrl
-
-    // const name: string = ''
-    // const documentNumber:string = ''
-    // const documentType: string = ''
-    // const phone: string = ''
-    // const email: string = ''
-    // const addres: string = ''
-    // const cityId: number = 0
-    // const stateId: number = 0
-    // const countryId: number = 0
-    // const clientName: string = ''
     
     const body = { 
       "name": form.name,
@@ -57,9 +59,11 @@ export class ClientService {
     // guardo el documentNumber y se lo paso al domains.service para poder guardar el postDomain
     const id = form.documentNumber
     console.log(id)
-    sessionStorage.setItem('groupDocument', '98765432-5')
+    sessionStorage.setItem('groupDocument', id)
 
-    const postClient = this.http.post<any>(url, body, { headers: this.headers })
+    const postClient = this.http.post<any>(url, body, { headers: this.headers }).pipe(
+      catchError(this.handleError)
+    );
 
     return await lastValueFrom(postClient)  
   

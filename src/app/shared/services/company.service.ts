@@ -20,17 +20,6 @@ export class CompanyService {
 
   async saveCompany(form: any):Promise<any>{
     const url = environment.postClientUrl
-    // const name: string = ''
-    // const documentNumber:string = ''
-    // const documentType: string = ''
-    // const phone: string = ''
-    // const email: string = ''
-    // const groupDocument: string = ''
-    // const addres: string = ''
-    // const cityId: number = 0
-    // const stateId: number = 0
-    // const countryId: number = 0
-    // const clientName: string = ''
     
     const body = { 
       "name": form.name,

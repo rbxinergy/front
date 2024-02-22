@@ -1,5 +1,65 @@
 <h2>Usuarios y roles</h2>
 <div>
+  <table mat-table [dataSource]="dataSource">
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let element"> {{element.firstName}} {{element.lastName}} </td>
+      </ng-container>
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef> Cargo </th>
+          <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      </ng-container>
+
+      <!-- E-mail Column -->
+      <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> E-mail </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+
+      <!-- Company Name Column -->
+      <ng-container matColumnDef="companyname">
+        <th mat-header-cell *matHeaderCellDef> Empresa </th>
+          <td mat-cell *matCellDef="let element"> {{element.companyname}} </td>
+      </ng-container>
+    
+      <!-- Actions Column -->
+      <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element"> 
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                    <mat-icon> visibility</mat-icon>
+                    <span>Ver</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>edit</mat-icon>
+                    <span>Editar</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>delete</mat-icon>
+                    <span>Borrar</span>
+                </button>
+            </mat-menu>
+        </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="usersTableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: usersTableColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of users elements">
+  </mat-paginator>
+</div>
+
+
+<!-- <div>
   <table>
       <thead>
           <tr>
@@ -22,14 +82,23 @@
               <td><mat-slide-toggle></mat-slide-toggle></td>
               <td>
                 <button type="button">
-                  <span class="material-symbols-outlined">edit_square</span>
+                  <span class="material-symbols-outlined">
+                  visibility
+                  </span>
                 </button>
                 <button type="button">
-                  <span class="material-symbols-outlined">scan_delete</span>
+                  <span class="material-symbols-outlined">
+                      edit
+                  </span>
+                </button>
+                <button type="button">
+                  <span class="material-symbols-outlined">
+                      delete
+                  </span>
                 </button>
               </td>
           </tr>
           
       </tbody>
   </table>
-</div>
+</div> -->

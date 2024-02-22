@@ -8,6 +8,15 @@ import { CommonModule } from '@angular/common';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { MyErrorStateMatcher } from '../stepper.component';
 import { MatButtonModule } from '@angular/material/button';
+import {
+  MatDialog,
+  MatDialogRef,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogTitle,
+  MatDialogContent,
+} from '@angular/material/dialog';
+
 
 
 @Component({
@@ -22,7 +31,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatInputModule,
     MatButtonModule,
-    CommonModule
+    CommonModule,
+    MatButtonModule
   ]
 })
 export class ClientComponent {
@@ -61,11 +71,11 @@ export class ClientComponent {
 
   onClientCreate(){
     const form = this.clientForm.value
-    this.clientForm.value !== null ?  this.show = true : this.show = false
-   // this.clientService.saveClient(form)
-
+    this.clientService.saveClient(form)
   }
 
-  constructor(private _formBuilder: FormBuilder, private clientService: ClientService) {}
+  constructor(private _formBuilder: FormBuilder, private clientService: ClientService ) {}
+  
+
 
 }

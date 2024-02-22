@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -22,7 +21,6 @@ import { FormsModule } from '@angular/forms';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { StepperModule } from './components/dashboard/stepper.module';
 import { ObjectToArrayPipe } from 'src/app/object-to-array.pipe';
-import { DomainsComponent } from './components/dashboard/stepper/domains/domains.component';
 import { CommonModule } from '@angular/common';
 
 @NgModule({

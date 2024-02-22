@@ -53,17 +53,21 @@ export class UsersComponent implements OnInit {
   companies:any
   users:any
 
-  addUser(){
+  async addUser(){
     this.showTable = true
 
     const form = this.usersForm.value 
-    this.userService.postUser(form)
+    await this.userService.postUser(form)
 
-    this.userService.getUsersRoles().subscribe(data => {
-      this.users = data.usersRoles
-      console.log(data)
-      console.log(this.users)
+    return new Promise((resolve) => {
+      
+      this.userService.getUsersRoles().subscribe(data => {
+        this.users = data.usersRoles
+        console.log(data)
+        console.log(this.users)
+      })
     })
+
   }
   ngOnInit() {
     this.userService.getRoles().subscribe(data => {

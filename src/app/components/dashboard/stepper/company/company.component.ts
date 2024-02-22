@@ -51,21 +51,23 @@ export class CompanyComponent {
     countryId: new FormControl('', Validators.required),
   })
 
-  
-  onCompanyCreate(){
+  companyGroup:any
+  async onCompanyCreate(){
     this.show = true
     const form = this.companyForm.value
     form.groupDocument = sessionStorage.getItem('documentNumber')
     console.log(this.companyForm.value)
-    this.companyService.saveCompany(form)
-    
-    this.companyService.getCompany().subscribe(data => {
-      this.showTable = true
-      this.companyGroup = data
-      console.log(this.companyGroup)
-      console.log(data)
+    await this.companyService.saveCompany(form)
+
+    return new Promise((resolve) => {
+      this.companyService.getCompany().subscribe(data => {
+        this.showTable = true
+        this.companyGroup = data
+        console.log(this.companyGroup)
+        console.log(data)
+      })
     })
   }
-  companyGroup:any
+
   constructor(private companyService: CompanyService) {}
 }
