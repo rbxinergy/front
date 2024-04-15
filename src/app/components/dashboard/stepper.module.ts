@@ -5,6 +5,13 @@ import { DomainsComponent } from './stepper/domains/domains.component';
 import { CompanyComponent } from './stepper/company/company.component';
 import { DomainsService } from 'src/app/shared/services/domains.service';
 import { UsersComponent } from './stepper/users/users.component';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient){
+  return new TranslateHttpLoader(http)
+}
 
 @NgModule({
   declarations: [
@@ -14,13 +21,22 @@ import { UsersComponent } from './stepper/users/users.component';
     ClientComponent,
     DomainsComponent,
     CompanyComponent,
-    UsersComponent
+    UsersComponent,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
   ],
   exports:[
     ClientComponent,
     DomainsComponent,
     CompanyComponent,
-    UsersComponent
+    UsersComponent,
+    TranslateModule
   ],
   providers :[
     DomainsService

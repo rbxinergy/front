@@ -1,6 +1,10 @@
-<h2>Clientes</h2>
+<h2>{{"client.client" | translate }}</h2>
 <div>
-    <table mat-table [dataSource]="dataSource">
+    <div class="spinner" *ngIf="isLoading">
+        <mat-progress-spinner color="accent" mode="indeterminate" diameter="50">
+        </mat-progress-spinner>
+    </div>
+    <table mat-table [dataSource]="dataSource" [hidden]="isLoading">
 
         <!-- Position Column -->
         <ng-container matColumnDef="companyname">
@@ -26,7 +30,6 @@
         <ng-container matColumnDef="acciones">
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let element"> 
-
                 <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                     <mat-icon>more_vert</mat-icon>
                 </button>
@@ -35,62 +38,22 @@
                         <mat-icon> visibility</mat-icon>
                         <span>Ver</span>
                     </button>
-                    <button mat-menu-item>
+                    <button mat-menu-item (click)="openDialog(element.id)">
                         <mat-icon>edit</mat-icon>
                         <span>Editar</span>
                     </button>
-                    <button mat-menu-item>
+                    <button mat-menu-item (click)="openDelete(element.id)">
                         <mat-icon>delete</mat-icon>
                         <span>Borrar</span>
                     </button>
                 </mat-menu>
-            
             </td>
         </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="companiesTableColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: companiesTableColumns;"></tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="companiesTableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: companiesTableColumns;"></tr>
 
+    </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
 </div>
-
-<!-- <div>
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre de la Empresa</th>
-                <th>Número de Documento</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let company of companies">
-                <td>{{company.companyname}}</td>
-                <td>{{company.documentNumber}}</td>
-                <td><mat-slide-toggle checked={{company.status}}>
-                </mat-slide-toggle></td>
-                <td>
-                    <button type="button">
-                        <span class="material-symbols-outlined">
-                            visibility
-                        </span>
-                    </button>
-                    <button type="button">
-                        <span class="material-symbols-outlined">
-                            edit
-                        </span>
-                    </button>
-                    <button type="button">
-                        <span class="material-symbols-outlined">
-                            delete
-                        </span>
-                    </button>
-                </td>
-            </tr>
-            
-        </tbody>
-    </table>
-</div> -->

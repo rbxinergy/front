@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,6 +12,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { CompanyService } from 'src/app/shared/services/company.service';
+import { Companies } from 'src/app/intefaces/companies';
 
 @Component({
   selector: 'app-users',
@@ -34,8 +35,8 @@ import { CompanyService } from 'src/app/shared/services/company.service';
 })
 
 
-
 export class UsersComponent implements OnInit {
+
   usersForm = new FormGroup({
     firstName: new FormControl('', Validators.minLength(2)),
     lastName: new FormControl('', Validators.minLength(2)),
@@ -44,13 +45,15 @@ export class UsersComponent implements OnInit {
     rolId: new FormControl('', Validators.required),
     companyId: new FormControl('', Validators.required),
   })
-
+  
   showTable = false
-
-  constructor(private _formBuilder: FormBuilder, private userService: UsersService, private companyService: CompanyService) {}
-
-  roles:any
+  
+  constructor(private _formBuilder: FormBuilder, private userService: UsersService, private companyService: CompanyService) {
+    
+  }
+  
   companies:any
+  roles:any
   users:any
 
   async addUser(){
@@ -69,16 +72,22 @@ export class UsersComponent implements OnInit {
     })
 
   }
-  ngOnInit() {
-    this.userService.getRoles().subscribe(data => {
-      this.roles = data
-      console.log('roles', this.roles)
-    })
-    this.companyService.getCompany().subscribe(data => {
+
+  getCompaniesByGrp(){
+    this.companyService.getCompaniesByGroup().subscribe(async data => {
+      await data
       this.companies = data
       console.log('companies',data)
     })
   }
 
-
+  ngOnInit() {
+    this.userService.getRoles().subscribe(data => {
+      this.roles = data
+      console.log('roles', this.roles)
+      console.log("ngOnInit", this.roles)
+    })
+    this.getCompaniesByGrp();
+    
+  }
 }

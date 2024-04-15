@@ -1,6 +1,6 @@
 
 
-<button data-drawer-target="separator-sidebar" data-drawer-toggle="separator-sidebar" aria-controls="separator-sidebar"
+<!-- <button data-drawer-target="separator-sidebar" data-drawer-toggle="separator-sidebar" aria-controls="separator-sidebar"
    type="button"
    class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-primary-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
    <span class="sr-only">Open sidebar</span>
@@ -9,42 +9,40 @@
          d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
       </path>
    </svg>
-</button>
+</button> -->
+<div class="content-container">
 
 <aside id="separator-sidebar" aria-label="Sidebar">
-   <div class="h-full px-6 py-4 overflow-y-auto bg-primary-50 dark:bg-gray-800">
-      <div class="welcoming pb-6 mb-6">
+   <div class="grid-rows">
+      <div class="welcoming">
          <div role="img" [attr.aria-label]="name" class="name">{{initials}}</div>
          <div>
-            <p>Hola, {{name}}</p>
+            <p>{{"greeting" | translate}}, {{name}}</p>
             <span>Backoffice</span><br>
             
          </div>
       </div>
 
-      <ul class="space-y-2 font-light text-gray-light">
+      <ul>
          <li>
-            <a [routerLink]="['stepper']" routerLinkActive="active" ariaCurrentWhenActive="page"
-               class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a [routerLink]="['stepper']" routerLinkActive="active" ariaCurrentWhenActive="page">
                <span class="material-icons">
                   person_add_alt
                </span>
-               <span class="flex-1 ms-3 whitespace-nowrap">Crear nuevo cliente</span>
+               <span>{{"createNewClient" | translate}}</span>
             </a>
          </li>
          <hr>
          <li>
-            <a [routerLink]="['clients']" routerLinkActive="active" ariaCurrentWhenActive="page"
-               class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a [routerLink]="['clients']" routerLinkActive="active" ariaCurrentWhenActive="page">
                <span class="material-icons">
                   work_outline
                </span>
-               <span class="flex-1 ms-3 whitespace-nowrap">Clientes</span>
+               <span>{{"clients" | translate}}</span>
             </a>
          </li>
          <li>
-            <a [routerLink]="['configs']" routerLinkActive="active" ariaCurrentWhenActive="page"
-               class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a [routerLink]="['configs']" routerLinkActive="active" ariaCurrentWhenActive="page">
                <!-- <span class="material-icons">
                   category
                </span>
@@ -54,52 +52,45 @@
                <span class="material-icons">
                   post_add
                </span>
-               <span class="flex-1 ms-3 whitespace-nowrap">Dominios</span>
+               <span>{{"domains" | translate}}</span>
             </a>
          </li>
          <li>
-            <a [routerLink]="['company']" routerLinkActive="active" ariaCurrentWhenActive="page"
-               class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a [routerLink]="['company']" routerLinkActive="active" ariaCurrentWhenActive="page">
                <span class="material-icons">
                   business
                </span>
-               <span class="flex-1 ms-3 whitespace-nowrap">Empresas</span>
+               <span>{{"companies" | translate}}</span>
             </a>
          </li>
-         <li>
-            <a [routerLink]="['integrations']" routerLinkActive="active" ariaCurrentWhenActive="page"
-               class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+         <li class="disabled">
+            <a [routerLink]="['integrations']" routerLinkActive="active" ariaCurrentWhenActive="page">
                <!-- <span class="material-icons">
                   api
                </span> -->
                <span class="material-icons">
                   grid_view
                </span>
-               <span class="flex-1 ms-3 whitespace-nowrap">Integraciones</span>
+               <span>{{"apis" | translate}}</span>
             </a>
          </li>
          <li>
-            <a [routerLink]="['roles']" routerLinkActive="active" ariaCurrentWhenActive="page"
-               class="flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+            <a [routerLink]="['roles']" routerLinkActive="active" ariaCurrentWhenActive="page">
                <span class="material-icons">
                   people_outline
                </span>
-               <span class="flex-1 ms-3 whitespace-nowrap">Usuarios y Roles</span>
+               <span>{{"users&roles" | translate}}</span>
             </a>
          </li>
-      </ul>
-      <ul class="pt-4 mt-4 space-y-2 font-light border-t border-gray-200 dark:border-gray-700 text-gray-light">
+         <mat-divider></mat-divider>
          <li>
-            <button class="flex items-center p-2 rounded-lg  hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            <a routerLinkActive="active" ariaCurrentWhenActive="page"
                (click)="logOut()">
-               <svg viewBox="0 0 24 24" focusable="false"
-                  class="flex-shrink-0 w-5 h-5 text-primary-500 transition duration-75 dark:text-primary-400 group-hover:text-primary-900 dark:group-hover:text-white">
-                  <path
-                     d="M13 3H11V13H13V3ZM17.83 5.17L16.41 6.59C17.2199 7.23968 17.8733 8.0633 18.3216 8.9998C18.77 9.93631 19.0018 10.9617 19 12C19 15.87 15.87 19 12 19C10.5552 19.0009 9.14562 18.5543 7.96486 17.7218C6.78409 16.8892 5.89009 15.7114 5.40569 14.3503C4.92129 12.9891 4.87024 11.5114 5.25957 10.12C5.6489 8.72871 6.4595 7.49206 7.58 6.58L6.17 5.17C5.17622 6.00901 4.37765 7.05492 3.83011 8.23463C3.28257 9.41435 2.99927 10.6994 3 12C3 14.3869 3.94821 16.6761 5.63604 18.364C7.32387 20.0518 9.61305 21 12 21C14.3869 21 16.6761 20.0518 18.364 18.364C20.0518 16.6761 21 14.3869 21 12C21 9.26 19.77 6.82 17.83 5.17Z"
-                     fill="currentColor"></path>
-               </svg>
-               <span class="flex-1 ms-3 whitespace-nowrap">Cerrar sesión</span>
-            </button>
+               <span class="material-symbols-outlined">
+                  logout
+                  </span>
+               <span>{{"logout"| translate}}</span>
+               </a>
          </li>
       </ul>
       <div class="appversion">
@@ -110,3 +101,5 @@
 <main>
    <router-outlet></router-outlet>
 </main>
+
+</div>

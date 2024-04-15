@@ -7,20 +7,25 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CompanyService {
+  private groupDocument : string = '';
 
-  constructor(private http: HttpClient) {  }
+  constructor(private http: HttpClient) { 
+    this.groupDocument = sessionStorage?.getItem('groupDocument') || '0'
+  }
 
   token = sessionStorage.getItem('token')
   headers = new HttpHeaders({
     'Authorization': 'Bearer ' +  this.token,
     'cache-control': 'no-cache'
   })
-  groupDocument = sessionStorage.getItem('groupDocument')
+  
+
   url = environment.getCompanyUrl
+  url2 = environment.putClientUrl
 
   async saveCompany(form: any):Promise<any>{
     const url = environment.postClientUrl
-    
+    console.log(this.groupDocument)
     const body = { 
       "name": form.name,
       "documentNumber": form.documentNumber,
@@ -40,7 +45,7 @@ export class CompanyService {
     return await lastValueFrom(postCompany)  
   }
 
-  getCompany(){
+  getCompaniesByGroup(){
     const params = new HttpParams({
       fromString: 'group=' + this.groupDocument + '&option=2'
     })
@@ -56,6 +61,21 @@ export class CompanyService {
       fromString: 'option=1' 
     })
     return this.http.get<any>(this.url, { headers: this.headers, params })
+  }
+
+  putClient(form: any){
+    console.log(form)
+    const body = {
+      "id":form.id,
+      "address":form.address,
+      "phone":form.phone,
+      "email":form.email,
+      "cityId":form.cityId,
+      "stateId":form.stateId,
+      "countryId":form.countryId
+    }
+    console.log(this.url2, body)
+    return this.http.put<any>(this.url2, body, { headers: this.headers })
   }
 
 }

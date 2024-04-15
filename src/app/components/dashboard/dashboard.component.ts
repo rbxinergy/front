@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
+
+
+
 declare var require: any;
 
 @Component({
@@ -12,7 +16,11 @@ export class DashboardComponent {
   initials: string = ''
 
   version: string = require( '../../../../package.json').version;
-  constructor(private authService: AuthService ) {
+  constructor(private authService: AuthService, private translateService: TranslateService ) {
+    const userLang = navigator.language || 'es';
+    const languageCode = userLang.split('-')[0];
+    this.translateService.setDefaultLang(languageCode)
+    this.translateService.use(languageCode)
   }
   
   ngOnInit():void{
@@ -20,6 +28,7 @@ export class DashboardComponent {
     const firstName = profile.firstName
     const lastName = profile.lastName
     this.name =  `${firstName} ${lastName}`
+    console.log(this.name)
     this.initials = firstName.charAt(0) + lastName.charAt(0) 
   }
   

@@ -1,6 +1,7 @@
+
 .welcoming{
     display: grid;
-    grid-template-columns: 40px auto;
+    grid-template-columns: 50px auto;
     gap: 10px;
     padding: 0.5rem 0.75rem;
 }
@@ -8,10 +9,12 @@
     color: #5f4ede;
 }
 .welcoming > * > p{
-    font-weight:bold;
+    font-weight:800;
+    margin: 3px;
 }
 .welcoming > * > span{
     font-size:90%;
+    font-weight: 500;
 }
 span.material-icons {
     color: #5f4ede;
@@ -22,46 +25,62 @@ span.material-icons {
     background-color: #d0cbf5;
     color: #5f4ede;
     font-weight: bold;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 5px;
     padding: 5px 8px;
-    text-align: center;
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+.content-container{
+    display: grid;
+    grid-template-columns: 350px auto;
 }
 aside{
-    position: fixed;
-    top:0;
-    left:0;
-    width: 320px;
-    height: 100vh;
     border-right: 0.1rem solid #d0cbf5;
-}
-main{
-    width: calc(100% - 320px);
+    background-color: #f4f3fc;
+    padding: 10px;
     height: 100%;
-    float: right;
-    /* class="max-w-fit h-screen" */
-    /* flex-column justify-center py-5 p-4 sm:ml-80 ml-80 */
+    position: sticky;
 }
+.grid-rows{
+    display: grid;
+    grid-template-rows: auto auto auto;
+    height: 100%;
+}
+aside > * > ul {
+    list-style: none;
+    padding-inline-start: 30px;
+}
+
+aside > * > ul > li > a {
+    align-items: center;
+    color: #5f4ede;
+    display: flex;
+    gap: 10px;
+    font-family: 'Roboto';
+    font-weight: 400;
+    text-decoration: none;
+}
+
 
 /* aside#separator-sidebar {
     class="fixed top-0 left-0 z-40 w-70 h-screen transition-transform -translate-x-full sm:translate-x-0"
 } */
 a{
     padding:1.2rem .75rem;
+    color: #5f4ede;
 }
 a.active{
     background-color: #5f4ede;
     color: white;
+    border-radius: .5rem;
 }
 a.active > svg, a.active > span{
     color: white;
 }
 .appversion{
-    position: absolute;
-    bottom: 0;
     text-align: center;
     right: 0;
     left: 0;
@@ -71,4 +90,6 @@ a.active > svg, a.active > span{
     font-size: .9rem;
 }
 
- 
+@media (max-width: 1200px){ 
+    /* Styles! */
+}

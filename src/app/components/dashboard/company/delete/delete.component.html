@@ -1,0 +1,8 @@
+<div class="p-4">
+    <h3>Se está eliminando la empresa <b>{{data.companyname}}</b></h3>
+    <p class="text-center">¿Deseas continuar?</p>
+    <div class="text-center p-4">
+        <button mat-raised-button color="secondary" mat-dialog-close>Volver</button>&nbsp;
+        <button mat-raised-button color="primary" (click)="onCompanyDelete()">Continuar</button>&nbsp;
+    </div>
+</div>

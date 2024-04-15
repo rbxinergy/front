@@ -8,11 +8,15 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Users } from 'src/app/intefaces/users'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { EditComponent } from './edit/edit.component';
+import { DeleteComponent } from './delete/delete.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-roles',
   templateUrl: './roles.component.html',
-  styleUrls: ['./roles.component.css'],
   standalone:true,
   imports: [
     MatSlideToggleModule,
@@ -20,11 +24,14 @@ import { Users } from 'src/app/intefaces/users'
     MatTableModule,
     MatPaginatorModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatButtonModule
   ],
 })
 export class RolesComponent implements AfterViewInit {
-
+  isLoading= true
   users:Users[] = []
 
   usersTableColumns: string[] = [
@@ -33,33 +40,36 @@ export class RolesComponent implements AfterViewInit {
   
   dataSource = new MatTableDataSource<Users>();
   
-  constructor(private userService: UsersService){
+  constructor(private userService: UsersService, public dialog: MatDialog){
     this.getUsers()
   }
   
   getUsers(){
     this.userService.getUsers().subscribe((data: any) => {
       this.users = data;
+      this.isLoading = false
       this.dataSource.data = data
       console.log("Users", this.dataSource.data)
     })
   }
   
+
+  openEdit(id:number){
+    const result: any[] = this.users.filter((company:any) => company.id === id);
+    this.dialog.open(EditComponent, { 
+      data: result[0]
+    }) 
+  }
+  openDelete(id:number){
+    const result: any[] = this.users.filter((company:any) => company.id === id);
+    this.dialog.open(DeleteComponent, { 
+      data: result[0]
+    }) 
+  }
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-  
-  // constructor(private _formBuilder: FormBuilder, private userService: UsersService) {}
-
-  // users: any
-
-  // ngOnInit() {
-  //   this.userService.getUsers().subscribe((data: any) => {
-  //     this.users = data
-  //     console.log(this.users)
-  //   })
-  // }
 
 }

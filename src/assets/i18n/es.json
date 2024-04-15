@@ -1,3 +1,14 @@
 {
-    "greeting": "Hola"
+    "greeting": "Hola",
+    "createNewClient": "Crear nuevo cliente",
+    "clients": "Clientes",
+    "domains": "Dominios",
+    "companies": "Empresas",
+    "apis": "Integraciones",
+    "users&roles": "Usuarios y roles",
+    "logout": "Cerrar sesión", 
+    "client":{
+        "client": "Cliente",
+        "newclient": "Nuevo cliente"
+    }
 }

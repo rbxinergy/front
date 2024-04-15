@@ -9,12 +9,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
-import { ClientService } from 'src/app/shared/services/client.service';
 import {MatTableModule} from '@angular/material/table';
 import { ClientComponent } from './client/client.component';
 import { DomainsComponent } from './domains/domains.component';
 import { CompanyComponent } from './company/company.component';
 import { UsersComponent } from './users/users.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -45,97 +45,78 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     ClientComponent,
     DomainsComponent,
     CompanyComponent,
-    UsersComponent
+    UsersComponent,
+    TranslateModule
   ],
 
 })
 export class StepperComponent {
 
-  firstFormGroup = this._formBuilder.group({
+  clientForm = this._formBuilder.group({
     client: ['', Validators.required],
   });
-  secondFormGroup = this._formBuilder.group({
+  companyForm = this._formBuilder.group({
     domain: ['', Validators.required],
   });
-  thirdFormGroup = this._formBuilder.group({
+  domainsForm = this._formBuilder.group({
     company: ['', Validators.required],
   });
-  fourthFormGroup = this._formBuilder.group({
+  usersForm = this._formBuilder.group({
     fourthCtrl: ['', Validators.required],
   });
-  fifthFormGroup = this._formBuilder.group({
-    fifthCtrl: ['', Validators.required],
-  });
-  sixthFormGroup = this._formBuilder.group({
-    fifthCtrl: ['', Validators.required],
-  });
-  seventhFormGroup = this._formBuilder.group({
-    seventhCtrl: ['', Validators.required],
-  });
- 
+
   isLinear = false;
 
-  constructor(private _formBuilder: FormBuilder, private clientService: ClientService) {}
+  constructor(private _formBuilder: FormBuilder ) {}
 
-  selected = '';
-  documento = 'rut';
+  // selected = '';
+  // documento = 'rut';
 
-
-
-
-
-  show = false
+  // show = false
   
-  client:string = ''
-  domain:string = ''
-  domainDescription:string = ''
-  // cliente = ''
-
-  // onClientCreate(cliente:string){
-  //   this.clientService.saveClient(cliente)
-  //   cliente != '' ?  this.show = true : this.show = false
+  // client:string = ''
+  // domain:string = ''
+  // domainDescription:string = ''
+ 
+  
+  // showTable: boolean = false
+  // onDomainCreate(client:string, domain: string, domainDescription:string){
+  //   this.showTable = true
+  // }
+  // saveDomain (paso: number,client:string, domain: string, domainDescription:string){
 
   // }
+  // company = ''
+  // document = null
+  // country = ''
+  // city = ''
 
+  // showNewRol: boolean = false
+  // showSelectRol: boolean = false
+  // newRolChanged($event: {  value: number; }){
+  //   console.log( $event.value);
+  //   if($event.value == 3){
+  //       this.showNewRol = !this.showNewRol;
+  //       this.showSelectRol = false ;
+  //   } else if ($event.value == 4) {
+  //     this.showSelectRol = !this.showSelectRol ;
+  //     this.showNewRol = false;
+  //   }
+  // }
+  // saveCompany(company: string, document:number,client:string, country:string, city:string){
+  //   this.show = true
+  // }
+
+  // emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+
+  // matcher = new MyErrorStateMatcher();
+
+  // companies:any
   
-  showTable: boolean = false
-  onDomainCreate(client:string, domain: string, domainDescription:string){
-    this.showTable = true
-
-    // {
-    //   "name":"Seguridad",
-    //   "description":"",
-    //   "idDomainType": 3
-    // }
-
-  }
-  saveDomain (paso: number,client:string, domain: string, domainDescription:string){
-    // client = ''
-    // domain = ''
-   // this.domainDescription = domainDescription
-  }
-  company = ''
-  document = null
-  country = ''
-  city = ''
-
-  showNewRol: boolean = false
-  showSelectRol: boolean = false
-  newRolChanged($event: {  value: number; }){
-    console.log( $event.value);
-    if($event.value == 3){
-        this.showNewRol = !this.showNewRol;
-        this.showSelectRol = false ;
-    } else if ($event.value == 4) {
-      this.showSelectRol = !this.showSelectRol ;
-      this.showNewRol = false;
-    }
-  }
-  saveCompany(company: string, document:number,client:string, country:string, city:string){
-    this.show = true
-  }
-
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-
-  matcher = new MyErrorStateMatcher();
+  // onStepChange(event:any){
+  //   if (event.selectedIndex == 3 ) {
+      
+  //   }
+    
+  // }
 }
