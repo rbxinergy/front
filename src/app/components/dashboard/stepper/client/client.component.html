@@ -1,6 +1,7 @@
 
 <form [formGroup]="clientForm"> 
     <h3>Información del cliente</h3>
+
     <mat-form-field>
         <mat-label>Nombre del cliente</mat-label>
         <input matInput placeholder="Ingrese el nombre del cliente" formControlName="name" required>
@@ -45,23 +46,23 @@
     <mat-form-field>
         <mat-label>País</mat-label>
         <mat-select formControlName="countryId" placeholder="Ingrese el país" required>
-            <mat-option value=1>Chile</mat-option>
-            <mat-option value="2">Argentina</mat-option>
+            <mat-option value="1">Chile</mat-option>
         </mat-select>
     </mat-form-field>
 
     <mat-form-field>
         <mat-label>Región</mat-label>
         <mat-select formControlName="stateId" placeholder="Ingrese la ciudad" required>
-            <mat-option value=1>Región Metropolitana</mat-option>
-            <mat-option value="2">Región de Valparaíso</mat-option>
+            <mat-option value="13">Región Metropolitana</mat-option>
+            <mat-option value="5">Región de Valparaíso</mat-option>
+            <mat-option value="6">Región de O'Higgins</mat-option>
         </mat-select>
     </mat-form-field>
     
     <mat-form-field>
         <mat-label>Ciudad</mat-label>
         <mat-select formControlName="cityId" placeholder="Ingrese la ciudad" required>
-            <mat-option value=1>Santiago</mat-option>
+            <mat-option value="1">Santiago</mat-option>
             <mat-option value="2">Valparaíso</mat-option>
             <mat-option value="3">Rancagua</mat-option>
         </mat-select>
@@ -73,7 +74,6 @@
         <!-- <button mat-button matStepperNext *ngIf="show" mat-raised-button color="basic">Siguiente</button> -->
     </div>
 
-    <div *ngIf="show"> muestra</div>  
 </form>
 
 

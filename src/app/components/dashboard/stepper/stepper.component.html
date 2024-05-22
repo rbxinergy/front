@@ -1,21 +1,25 @@
-<h2>Nuevo cliente</h2>
+<h2>{{"client.newclient"| translate}}</h2>
 <div>
   <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
     
-    <mat-step [stepControl]="firstFormGroup" label="Ingrese información del cliente">
+    <mat-step [stepControl]="clientForm" label="Ingrese información del cliente">
       <app-client class="p-4"></app-client>
     </mat-step>
 
-    <mat-step [stepControl]="secondFormGroup" label="Agregue dominios">
-      <app-domains></app-domains>
+    <mat-step [stepControl]="domainsForm" label="Agregue dominios">
+      <ng-template matStepContent>
+        <app-domains class="p-4"></app-domains>
+      </ng-template>
     </mat-step>
 
-    <mat-step [stepControl]="thirdFormGroup" label="Ingrese información de las empresas">
+    <mat-step [stepControl]="companyForm" label="Ingrese información de las empresas">
       <app-company class="p-4"></app-company>
     </mat-step>
 
-    <mat-step [stepControl]="fourthFormGroup" label="Ingrese usuarios">
-      <app-users class="p-4"></app-users>
+    <mat-step [stepControl]="usersForm" label="Ingrese usuarios" >
+      <ng-template matStepContent>
+        <app-users class="p-4"></app-users>
+      </ng-template>
     </mat-step>
     
     <!-- <mat-step [stepControl]="sixthFormGroup" label="Ingrese/Seleccione Roles">

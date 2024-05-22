@@ -8,7 +8,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AngularFireModule } from '@angular/fire/compat';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -22,6 +22,12 @@ import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/materi
 import { StepperModule } from './components/dashboard/stepper.module';
 import { ObjectToArrayPipe } from 'src/app/object-to-array.pipe';
 import { CommonModule } from '@angular/common';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient){
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json')
+}
 
 @NgModule({
   declarations: [
@@ -42,6 +48,13 @@ import { CommonModule } from '@angular/common';
     // error solution NullInjectError
     AngularFireModule.initializeApp(environment.firebase),
     HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     BrowserAnimationsModule,
     // aquí importo el modulo que contiene los componentes del stepper en dashboard
     StepperModule,
@@ -49,6 +62,9 @@ import { CommonModule } from '@angular/common';
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports:[
+    TranslateModule
+  ]
 })
 export class AppModule { }

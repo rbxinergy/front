@@ -23,6 +23,7 @@ export const environment = {
     postUserUrl: "http://localhost:8094/post-user/api/post-user",
     getAllUsersUrl: "http://localhost:/get-users/api/get-all-users",
     postDomainGrpUrl: "http://localhost:/post-domain-grp/api/post-domain-grp",
+    putClientUrl: "http://localhost:8082/client-service/api/put-client"
 
 
     // getProfileUrl: "https://get-profile-ehqivncgha-uc.a.run.app/get-profile/api/get-profile",

@@ -1,3 +1,14 @@
 {
-    "greeting": "Hi"
+    "greeting": "Hi",
+    "createNewClient": "Create new Client",
+    "clients": "Clients",
+    "domains": "Domains",
+    "companies": "Companies",
+    "apis": "API's",
+    "users&roles": "Users and Roles",
+    "logout": "Logout",
+    "client":{
+        "client": "Client",
+        "newclient": "New Client"
+    }
 }

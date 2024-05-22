@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 html, body { height: 100%; }
 body { 
     margin: 0; 
@@ -38,11 +38,13 @@ h2{
     font-size: 1.5rem;
     border-bottom: 0.1rem solid #d0cbf5;
     padding: 1rem;
+    font-weight: 500 !important;
 }
 h3{
     color:#241783;
     font-size: 1.2rem;
     padding: 1rem 1rem 1rem 0;
+    font-weight: 500 !important;
 }
 header{
     color:#241883;
@@ -108,7 +110,7 @@ th{
 /* .mat-mdc-table .mat-mdc-header-cell{
     background-color: #f4f3fc !important;
 } */
- /* table th:not(:last-child),
+/* table th:not(:last-child),
 table td:not(:last-child) {
     padding-right:5px
 border-right: 1px solid #5f4ede; 
@@ -125,4 +127,15 @@ table>thead:not(:last-child),
 table>tbody:not(:last-child),
 table>tfoot:not(:last-child) {
  border-bottom: 1px solid #d0cbf5 !important;
+}
+
+/* SPINNER */
+.spinner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.6);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }

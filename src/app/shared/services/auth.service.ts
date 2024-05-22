@@ -79,7 +79,7 @@ export class AuthService {
 
   observeUserState() {
     this.firebaseAuthenticationService.authState.subscribe((userState) => {
-      userState && this.ngZone.run(() => this.router.navigate(['dashboard']))
+      userState && this.ngZone.run(() => this.router.navigate(['dashboard/stepper']))
     })
   }
 
@@ -95,6 +95,11 @@ export class AuthService {
   async logOut() {
     return this.firebaseAuthenticationService.signOut().then(() => {
       localStorage.removeItem('user');
+      sessionStorage.removeItem('groupDocument');
+      sessionStorage.removeItem('userCreator');
+      sessionStorage.removeItem('userId');
+      sessionStorage.removeItem('profile');
+      sessionStorage.removeItem('token');
       this.router.navigate(['login']);
     })
   }

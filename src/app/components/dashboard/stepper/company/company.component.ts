@@ -55,12 +55,12 @@ export class CompanyComponent {
   async onCompanyCreate(){
     this.show = true
     const form = this.companyForm.value
-    form.groupDocument = sessionStorage.getItem('documentNumber')
+    form.groupDocument = sessionStorage.getItem('groupDocument')
     console.log(this.companyForm.value)
     await this.companyService.saveCompany(form)
 
     return new Promise((resolve) => {
-      this.companyService.getCompany().subscribe(data => {
+      this.companyService.getCompaniesByGroup().subscribe(data => {
         this.showTable = true
         this.companyGroup = data
         console.log(this.companyGroup)

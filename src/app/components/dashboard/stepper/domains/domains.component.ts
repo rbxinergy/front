@@ -46,18 +46,20 @@ export class DomainsComponent implements OnInit {
 
   constructor( private _formBuilder: FormBuilder, private domainsService: DomainsService ) {}
 
-  onDomainCreate(){
+  async onDomainCreate(){
     this.show = true 
     const form = this.domainsForm.value 
     form.documentGroup = sessionStorage.getItem('groupDocument')
 
-    this.domainsService.postDomain(form)
+    await this.domainsService.postDomain(form)
 
     this.domainsService.getDomainGroup().subscribe(data => {
       this.showTable = true
       this.domainsGroup = data.domains
       console.log(this.domainsGroup)
     })
+
+    this.domainsForm.reset()
 
   }
 

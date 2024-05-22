@@ -1,6 +1,12 @@
 <h2>Configuración de dominio</h2>
 <div>
-    <table mat-table [dataSource]="dataSource">
+
+    <div class="spinner" *ngIf="isLoading">
+        <mat-progress-spinner color="accent" mode="indeterminate" diameter="50">
+        </mat-progress-spinner>
+    </div>
+
+    <table mat-table [dataSource]="dataSource" [hidden]="isLoading"> 
 
         <!-- Position Column -->
         <ng-container matColumnDef="name">
@@ -34,15 +40,15 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item>
+                    <button mat-menu-item (click)="openDialog(element.id)">
                         <mat-icon> visibility</mat-icon>
                         <span>Ver</span>
                     </button>
-                    <button mat-menu-item>
+                    <button mat-menu-item (click)="openEdit(element.id)">
                         <mat-icon>edit</mat-icon>
                         <span>Editar</span>
                     </button>
-                    <button mat-menu-item>
+                    <button mat-menu-item (click)="openDelete(element.id)">
                         <mat-icon>delete</mat-icon>
                         <span>Borrar</span>
                     </button>

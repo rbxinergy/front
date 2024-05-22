@@ -1,6 +1,12 @@
 <h2>Usuarios y roles</h2>
 <div>
-  <table mat-table [dataSource]="dataSource">
+
+  <div class="spinner" *ngIf="isLoading">
+    <mat-progress-spinner color="accent" mode="indeterminate" diameter="50">
+    </mat-progress-spinner>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" [hidden]="isLoading">
 
       <!-- Name Column -->
       <ng-container matColumnDef="name">
@@ -38,11 +44,11 @@
                     <mat-icon> visibility</mat-icon>
                     <span>Ver</span>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item  (click)="openEdit(element.id)">
                     <mat-icon>edit</mat-icon>
                     <span>Editar</span>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item  (click)="openDelete(element.id)">
                     <mat-icon>delete</mat-icon>
                     <span>Borrar</span>
                 </button>

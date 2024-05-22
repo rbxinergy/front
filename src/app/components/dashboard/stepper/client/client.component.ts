@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { MyErrorStateMatcher } from '../stepper.component';
 import { MatButtonModule } from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
 import {
   MatDialog,
   MatDialogRef,
@@ -15,7 +16,9 @@ import {
   MatDialogClose,
   MatDialogTitle,
   MatDialogContent,
+  
 } from '@angular/material/dialog';
+
 
 
 
@@ -32,7 +35,8 @@ import {
     MatInputModule,
     MatButtonModule,
     CommonModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
   ]
 })
 export class ClientComponent {

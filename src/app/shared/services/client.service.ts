@@ -60,6 +60,7 @@ export class ClientService {
     const id = form.documentNumber
     console.log(id)
     sessionStorage.setItem('groupDocument', id)
+  
 
     const postClient = this.http.post<any>(url, body, { headers: this.headers }).pipe(
       catchError(this.handleError)
