@@ -1,9 +1,5 @@
+<h2>{{"servicecompany"|translate}}</h2>
 <form [formGroup]="serviceCompanyForm">
-
-  <mat-form-field appearance="fill">
-    <mat-label>ID</mat-label>
-    <input matInput type="text" name="id" required disabled>
-  </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Nombre</mat-label>
@@ -25,15 +21,8 @@
     <textarea matInput name="description" required></textarea>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Activo</mat-label>
-    <mat-checkbox name="is_active" [(ngModel)]="serviceCompanyForm.get('is_active').value" color="primary">Si</mat-checkbox>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Eliminado</mat-label>
-    <mat-checkbox name="is_delete" [(ngModel)]="serviceCompanyForm.get('is_delete').value" color="primary">Si</mat-checkbox>
-  </mat-form-field>
+    <mat-checkbox name="is_active" color="primary">Activo</mat-checkbox>
+    <mat-checkbox name="is_delete" color="primary">Eliminado</mat-checkbox>
 
   <mat-form-field appearance="fill">
     <mat-label>Fecha de Creación</mat-label>
@@ -76,7 +65,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-
+  <button mat-raised-button type="submit">Volver</button>
   <button mat-raised-button color="primary" type="submit">Guardar</button>
 
 </form>

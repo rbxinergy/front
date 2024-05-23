@@ -8,6 +8,7 @@ import { CommonModule} from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-contact',
@@ -16,7 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [
     FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
-    ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule
+    ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
+    TranslateModule
   ],
 })
 export class ContactComponent {

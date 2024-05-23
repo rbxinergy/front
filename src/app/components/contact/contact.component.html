@@ -1,8 +1,5 @@
+<h2>{{"contact"|translate}}</h2>
 <form [formGroup]="contactForm">
-    <mat-form-field  appareance="fill">
-        <mat-label>ID</mat-label>
-        <input matInput type="text" formControlName="id" required>
-      </mat-form-field>
 
     <mat-form-field appareance="fill">
       <mat-label>Nombre</mat-label>
@@ -52,5 +49,6 @@
         <mat-label>Etiqueta</mat-label>
         <input matInput type="text" formControlName="tag">
       </mat-form-field>
+      <button mat-raised-button type="submit">Volver</button>
       <button mat-raised-button color="primary">Guardar</button>
 </form>

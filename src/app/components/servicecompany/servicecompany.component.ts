@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-servicecompany',
@@ -15,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
   imports: [
     FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
+    TranslateModule
   ],
   templateUrl: './servicecompany.component.html',
   styleUrls: ['./servicecompany.component.css']
@@ -39,4 +41,8 @@ export class ServicecompanyComponent {
   serviceCategories: any[] = [];
   domains: any[] = [];
   companies: any[] = [];
+
+  constructor() {
+
+  }
 }
