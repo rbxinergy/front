@@ -7,14 +7,14 @@
   Inicio de sesión
   </h1>
 <div class="form">
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Enter your e-mail</mat-label>
     <input matInput type="email" name="email" #email placeholder="example@email.com" required>
     <button mat-icon-button matSuffix>
       <mat-icon>mail</mat-icon>
     </button>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Enter your password</mat-label>
     <input matInput [type]="hide ? 'password' : 'text'" #password>
     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">

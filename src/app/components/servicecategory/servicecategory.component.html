@@ -1,45 +1,48 @@
-<form [formGroup]="serviceCategoryForm">
-
-    <mat-form-field appearance="fill">
+<h2>Servicio categoría</h2>
+<div>
+  <form [formGroup]="serviceCategoryForm">
+    <mat-form-field appearance="outline" class="col-2">
       <mat-label>ID</mat-label>
       <input matInput type="text" name="id" required>
     </mat-form-field>
   
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline" class="col-2">
       <mat-label>Nombre</mat-label>
       <input matInput type="text" name="name" required>
     </mat-form-field>
   
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline" class="col-1">
       <mat-label>Descripción</mat-label>
       <textarea matInput name="description" required></textarea>
     </mat-form-field>
   
-      <mat-checkbox name="is_active" color="primary">Activo</mat-checkbox>
-  
-      <mat-checkbox name="is_delete" color="primary">Eliminado</mat-checkbox>
-  
-    <mat-form-field appearance="fill">
+    <mat-checkbox name="is_active" color="primary" class="col-2 pb-3">Activo</mat-checkbox>
+
+    <mat-checkbox name="is_delete" color="primary" class="col-2 pb-3">Eliminado</mat-checkbox>
+
+    <mat-form-field appearance="outline" class="col-2">
       <mat-label>Fecha de Creación</mat-label>
-      <input matInput type="date" name="created_date" required>
+      <input matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matIconSuffix [for]="picker" name="created_date" required></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline" class="col-2">
       <mat-label>Fecha de Modificación</mat-label>
-      <input matInput type="date" name="modificated_date" required>
+      <input matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matIconSuffix [for]="picker" name="modificated_date" required></mat-datepicker-toggle>
     </mat-form-field>
   
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline" class="col-2">
       <mat-label>Etiqueta</mat-label>
       <input matInput type="text" name="tag">
     </mat-form-field>
   
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline" class="col-2">
       <mat-label>ID Grupo Empresa</mat-label>
       <input matInput type="text" name="id_group_company" required>
     </mat-form-field>
-  
-    <button mat-raised-button color="primary" type="submit">Guardar</button>
-  
+    <br>
+    <button mat-raised-button color="primary" type="submit" class="d-right">Guardar</button>
   </form>
-  
+</div>

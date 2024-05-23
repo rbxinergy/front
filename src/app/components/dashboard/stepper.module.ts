@@ -15,8 +15,6 @@ export function HttpLoaderFactory(http: HttpClient){
 }
 
 @NgModule({
-  declarations: [
-  ],
   imports: [
     CommonModule,
     ClientComponent,

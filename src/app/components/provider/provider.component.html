@@ -1,80 +1,79 @@
-<form [formGroup]="providerForm">
-
-    <mat-form-field appearance="fill">
+<h2>Proveedor</h2>
+<div>
+  <form [formGroup]="providerForm">
+    <mat-form-field appearance="outline" class="col-3">
       <mat-label>ID</mat-label>
       <input matInput type="text" name="id" required>
     </mat-form-field>
-  
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="outline" class="col-3">
       <mat-label>Nombre</mat-label>
       <input matInput type="text" name="name" required>
     </mat-form-field>
-  
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="outline" class="col-3">
       <mat-label>Razón Social</mat-label>
       <input matInput type="text" name="business_name" required>
     </mat-form-field>
-  
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="outline" class="col-3">
       <mat-label>Dirección</mat-label>
       <input matInput type="text" name="address" required>
     </mat-form-field>
-  
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="outline" class="col-3">
       <mat-label>Ciudad</mat-label>
       <input matInput type="text" name="city" required>
     </mat-form-field>
-  
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="outline" class="col-3">
       <mat-label>Estado/Provincia</mat-label>
       <input matInput type="text" name="state" required>
     </mat-form-field>
-  
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="outline" class="col-3">
       <mat-label>Condado</mat-label>
       <input matInput type="text" name="county">
     </mat-form-field>
-  
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="outline" class="col-3">
       <mat-label>Distrito</mat-label>
       <input matInput type="text" name="district">
     </mat-form-field>
-  
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="outline" class="col-3">
       <mat-label>País</mat-label>
       <input matInput type="text" name="country" required>
     </mat-form-field>
-  
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="outline" class="col-2">
       <mat-label>Tipo de Documento</mat-label>
       <input matInput type="text" name="document_type" required>
     </mat-form-field>
-  
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="outline" class="col-2">
       <mat-label>Número de Documento</mat-label>
       <input matInput type="text" name="document" required>
     </mat-form-field>
-  
-    <mat-checkbox name="is_active" color="primary">Activo</mat-checkbox>
-  
-    <mat-checkbox name="is_delete" color="primary">Eliminado</mat-checkbox>
-  
-    <mat-form-field appearance="fill">
+
+      <mat-checkbox name="is_active" color="primary"  class="col-2">Activo</mat-checkbox>
+      <mat-checkbox name="is_delete" color="primary" class="col-2">Eliminado</mat-checkbox>
+
+    <mat-form-field appearance="outline" class="col-2">
       <mat-label>Fecha de Creación</mat-label>
       <input matInput type="date" name="created_date" required>
     </mat-form-field>
-  
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="outline" class="col-2">
       <mat-label>Fecha de Modificación</mat-label>
       <input matInput type="date" name="modificated_date" required>
     </mat-form-field>
-  
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="outline" class="col-1">
       <mat-label>Etiqueta</mat-label>
       <input matInput type="text" name="tag">
     </mat-form-field>
-  
-    <button mat-raised-button color="primary" type="submit">Guardar</button>
-  
-  <form>
-  
+
+    <button mat-raised-button color="primary" type="submit" class="d-right">Guardar</button>
+  </form>
+</div>
