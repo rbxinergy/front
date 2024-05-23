@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "x-risk-client": {
+    "xr-backoffice": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/x-risk-client",
+            "outputPath": "dist/xr-backoffice",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -80,10 +80,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "x-risk-client:build:production"
+              "browserTarget": "xr-backoffice:build:production"
             },
             "development": {
-              "browserTarget": "x-risk-client:build:development"
+              "browserTarget": "xr-backoffice:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -91,7 +91,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "x-risk-client:build"
+            "browserTarget": "xr-backoffice:build"
           }
         },
         "test": {

@@ -9,7 +9,7 @@
 <div class="form">
   <mat-form-field>
     <mat-label>Enter your e-mail</mat-label>
-    <input matInput type="email" name="email" #email>
+    <input matInput type="email" name="email" #email placeholder="example@email.com" required>
     <button mat-icon-button matSuffix>
       <mat-icon>mail</mat-icon>
     </button>
@@ -24,7 +24,7 @@
 </div>
   
 
-<button mat-raised-button color="primary" (click)="logIn(email.value, password.value)">Login</button>
+<button mat-raised-button color="primary" (click)="logIn(email.value, password.value)" (keydown.enter)="logIn(email.value, password.value)">Login</button>
 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
   <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500"
     routerLink="/sign-up">Olvidé mi contraseña</a>

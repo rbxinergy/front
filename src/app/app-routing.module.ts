@@ -10,6 +10,7 @@ import { CompanyComponent } from './components/dashboard/company/company.compone
 import { IntegrationsComponent } from './components/dashboard/integrations/integrations.component';
 import { ClientsComponent } from './components/dashboard/clients/clients.component';
 import { RolesComponent } from './components/dashboard/roles/roles.component';
+import { ContactServiceCompanyComponent } from './components/dashboard/contact-service-company/contact-service-company.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
       { path: 'configs', component: ConfigsComponent},
       { path: 'company', component: CompanyComponent},
       { path: 'integrations', component: IntegrationsComponent},
-      { path: 'roles', component: RolesComponent }
+      { path: 'roles', component: RolesComponent },
+      { path: 'contact-service-company', component: ContactServiceCompanyComponent }
     ]
   },
 ];
