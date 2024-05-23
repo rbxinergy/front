@@ -35,4 +35,8 @@ export class ServicecompanyComponent {
     id_domain: new FormControl(null, Validators.required),
     id_company: new FormControl(null, Validators.required),
   });
+
+  serviceCategories: any[] = [];
+  domains: any[] = [];
+  companies: any[] = [];
 }
