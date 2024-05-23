@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-groupcompany',
@@ -16,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
-    TranslateModule
+    TranslateModule, MatNativeDateModule, MatDatepickerModule
   ],
   templateUrl: './groupcompany.component.html',
   styleUrls: ['./groupcompany.component.css']

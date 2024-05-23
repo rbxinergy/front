@@ -24,6 +24,7 @@ import { ObjectToArrayPipe } from 'src/app/object-to-array.pipe';
 import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { MessagesModalComponent } from './components/messages-modal/messages-modal.component';
 
 export function HttpLoaderFactory(http: HttpClient){
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -57,7 +58,7 @@ export function HttpLoaderFactory(http: HttpClient){
     }),
     BrowserAnimationsModule,
     // aquí importo el modulo que contiene los componentes del stepper en dashboard
-    StepperModule,
+    StepperModule
   ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}

@@ -8,14 +8,13 @@ import { UsersComponent } from './stepper/users/users.component';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ContactServiceCompanyComponent } from './contact-service-company/contact-service-company.component';
 
 export function HttpLoaderFactory(http: HttpClient){
   return new TranslateHttpLoader(http)
 }
 
 @NgModule({
-  declarations: [
-  ],
   imports: [
     CommonModule,
     ClientComponent,

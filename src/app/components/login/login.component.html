@@ -7,14 +7,14 @@
   Inicio de sesión
   </h1>
 <div class="form">
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Enter your e-mail</mat-label>
-    <input matInput type="email" name="email" #email>
+    <input matInput type="email" name="email" #email placeholder="example@email.com" required>
     <button mat-icon-button matSuffix>
       <mat-icon>mail</mat-icon>
     </button>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Enter your password</mat-label>
     <input matInput [type]="hide ? 'password' : 'text'" #password>
     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
@@ -24,7 +24,7 @@
 </div>
   
 
-<button mat-raised-button color="primary" (click)="logIn(email.value, password.value)">Login</button>
+<button mat-raised-button color="primary" (click)="logIn(email.value, password.value)" (keydown.enter)="logIn(email.value, password.value)">Login</button>
 <p class="text-sm font-light text-gray-500 dark:text-gray-400">
   <a href="#" class="font-medium text-primary-600 hover:underline dark:text-primary-500"
     routerLink="/sign-up">Olvidé mi contraseña</a>

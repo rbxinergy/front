@@ -10,6 +10,7 @@ import { CompanyComponent } from './components/dashboard/company/company.compone
 import { IntegrationsComponent } from './components/dashboard/integrations/integrations.component';
 import { ClientsComponent } from './components/dashboard/clients/clients.component';
 import { RolesComponent } from './components/dashboard/roles/roles.component';
+import { ContactServiceCompanyComponent } from './components/dashboard/contact-service-company/contact-service-company.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ServicecategoryComponent } from './components/servicecategory/servicecategory.component';
 import { ProviderComponent } from './components/provider/provider.component';
@@ -38,6 +39,7 @@ const routes: Routes = [
       { path: 'company', component: CompanyComponent},
       { path: 'integrations', component: IntegrationsComponent},
       { path: 'roles', component: RolesComponent },
+      { path: 'contact-service-company', component: ContactServiceCompanyComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'servicecategory', component: ServicecategoryComponent },
       { path: 'servicecompany', component: ServicecompanyComponent },

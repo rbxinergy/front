@@ -12,14 +12,14 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-servicecompany',
+  templateUrl: './servicecompany.component.html',
+  styleUrls: ['./servicecompany.component.css'],
   standalone: true,
   imports: [
     FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
     TranslateModule
   ],
-  templateUrl: './servicecompany.component.html',
-  styleUrls: ['./servicecompany.component.css']
 })
 export class ServicecompanyComponent {
   serviceCompanyForm = new FormGroup({

@@ -139,3 +139,88 @@ table>tfoot:not(:last-child) {
     height: 100%;
     z-index: 1;
 }
+
+/* GRIDS */
+.col-1{
+    width: calc(100% - 10px);
+}
+.col-2{
+    width: calc((100% / 2) - 10px);
+}
+.col-3{
+    width: calc((100% / 3) - 10px);
+}
+.col-4{
+    width: calc((100% /4) - 10px);
+}
+section[class*="col-"] {
+    display: inline-block;
+    padding: 0 0 1rem 0;
+}
+.pb-3{
+    padding-bottom: 20px;
+}
+.d-right{
+    float: right;
+    margin-right: 10px;
+}
+.mdc-text-field--outlined{
+    --mdc-outlined-text-field-container-shape: 5px !important;
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+/* .mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+    height: 9px;
+} 
+.mdc-text-field--outlined{
+    height: 56px;
+    overflow:visible
+}
+
+.mdc-text-field .mdc-floating-label {
+    top: 32%; 
+    transform: translateY(-78%);
+    pointer-events: none;
+}
+.mdc-floating-label {
+    position: absolute;
+    left: 0;
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+    line-height: 1rem;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: text;
+    overflow: hidden;
+    will-change: transform;
+}
+*/
+@media (max-width: 992px){ 
+    .col-1{
+        width:100%;
+    }
+    .col-2{
+        width: 100%;
+    }
+    .col-3{
+        width: 100%;
+    }
+    .col-4{
+        width:100%;
+    }
+   
+    .d-right{
+        float: right;
+        margin-right: 0;
+    }
+}
+@media (max-width: 500px){ 
+    .grid{
+        grid-template-columns: 100%;
+    }
+}
