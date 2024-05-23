@@ -1,0 +1,23 @@
+<form [formGroup]="sessionForm">
+
+    <mat-form-field appearance="fill">
+      <mat-label>ID</mat-label>
+      <input matInput type="text" name="id">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Token</mat-label>
+      <input matInput type="text" name="token">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Principal</mat-label>
+      <input matInput type="text" name="principal">
+    </mat-form-field>
+  
+    <mat-checkbox name="isActive" color="primary">Activo</mat-checkbox>
+  
+    <button mat-raised-button color="primary" type="submit">Guardar</button>
+  
+  </form>
+  

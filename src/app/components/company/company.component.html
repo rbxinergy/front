@@ -1,0 +1,57 @@
+<form [formGroup]="companyForm">
+
+    <mat-form-field appearance="fill">
+      <mat-label>ID</mat-label>
+      <input matInput type="text" name="id" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" name="name" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Razón Social</mat-label>
+      <input matInput type="text" name="business_name" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Dirección</mat-label>
+      <input matInput type="text" name="address" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Ciudad</mat-label>
+      <input matInput type="text" name="city" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Estado/Provincia</mat-label>
+      <input matInput type="text" name="state" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Condado</mat-label>
+      <input matInput type="text" name="county">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Distrito</mat-label>
+      <input matInput type="text" name="district">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>País</mat-label>
+      <input matInput type="text" name="country" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo de Documento</mat-label>
+      <input matInput type="text" name="document_type" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Número de Documento</mat-label>
+      <input matInput type="text" name="document" required>
+    </mat-form-field>     
+      <button mat-raised-button color="primary" type="submit">Guardar</button>

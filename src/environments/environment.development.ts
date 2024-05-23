@@ -25,7 +25,7 @@ export const environment = {
     // postDomainGrpUrl: "https://post-domain-grp-ehqivncgha-uc.a.run.app/post-domain-grp/api/post-domain-grp",
 
     
-    getProfileUrl: "http://localhost:8081/get-profile/api/get-profile",
+    getProfileUrl: "http://localhost:8086/get-profile/api/get-profile",
     getTokenUrl: "http://localhost:8080/get-token/api/get-token",
     getCompanyUrl: "http://localhost:8088/get-company/api/get-company",
     getClientUrl: "http://localhost:8082/get-clients/api/get-clients",

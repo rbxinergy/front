@@ -1,0 +1,56 @@
+<form [formGroup]="contactForm">
+    <mat-form-field  appareance="fill">
+        <mat-label>ID</mat-label>
+        <input matInput type="text" formControlName="id" required>
+      </mat-form-field>
+
+    <mat-form-field appareance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" formControlName="name" required>
+    </mat-form-field>
+
+    <mat-form-field appareance="fill">
+        <mat-label>Apellido</mat-label>
+        <input matInput type="text" formControlName="last_name" required>
+      </mat-form-field>
+
+      <mat-form-field appareance="fill">
+        <mat-label>Segundo Apellido</mat-label>
+        <input matInput type="text" formControlName="surname">
+      </mat-form-field>
+
+      <mat-form-field appareance="fill">
+        <mat-label>Correo Electrónico</mat-label>
+        <input matInput type="email" formControlName="email" required>
+      </mat-form-field>
+
+      <mat-form-field appareance="fill">
+        <mat-label>Teléfono Fijo</mat-label>
+        <input matInput type="tel" formControlName="phone">
+      </mat-form-field>
+
+      <mat-form-field appareance="fill">
+        <mat-label>Teléfono Celular</mat-label>
+        <input matInput type="tel" formControlName="cellphone">
+      </mat-form-field>
+
+      <mat-form-field appareance="fill">
+        <mat-label>Cargo</mat-label>
+        <input matInput type="text" formControlName="job_title">
+      </mat-form-field>
+
+      <mat-form-field appareance="fill">
+        <mat-label>Tipo de Contacto</mat-label>
+        <mat-select formControlName="contact_type">
+          <mat-option value="personal">Personal</mat-option>
+          <mat-option value="laboral">Laboral</mat-option>
+          <mat-option value="otro">Otro</mat-option>
+        </mat-select>
+      </mat-form-field>
+    <mat-checkbox formControlName="is_active" color="primary">Activo</mat-checkbox>
+    <mat-form-field appareance="fill">
+        <mat-label>Etiqueta</mat-label>
+        <input matInput type="text" formControlName="tag">
+      </mat-form-field>
+      <button mat-raised-button color="primary">Guardar</button>
+</form>
