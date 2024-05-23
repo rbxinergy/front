@@ -11,13 +11,13 @@ import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-servicecompany',
+  templateUrl: './servicecompany.component.html',
+  styleUrls: ['./servicecompany.component.css'],
   standalone: true,
   imports: [
     FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
-  ],
-  templateUrl: './servicecompany.component.html',
-  styleUrls: ['./servicecompany.component.css']
+  ]
 })
 export class ServicecompanyComponent {
   serviceCompanyForm = new FormGroup({

@@ -24,6 +24,7 @@ import { UserComponent } from './components/user/user.component';
 import { RoleComponent } from './components/role/role.component';
 import { PermissionComponent } from './components/permission/permission.component';
 import { SessionComponent } from './components/session/session.component';
+import { ServicecompanyComponent } from './components/servicecompany/servicecompany.component';
 
 
 const routes: Routes = [
@@ -41,7 +42,7 @@ const routes: Routes = [
       { path: 'contact-service-company', component: ContactServiceCompanyComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'servicecategory', component: ServicecategoryComponent },
-      { path: 'servicecompany', component: ServicecategoryComponent },
+      { path: 'servicecompany', component: ServicecompanyComponent },
       { path: 'provider', component: ProviderComponent },
       { path: 'company2', component: CompanyCmp },
       { path: 'domain', component: DomainComponent },

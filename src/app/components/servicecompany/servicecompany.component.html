@@ -1,82 +1,79 @@
-<form [formGroup]="serviceCompanyForm">
+<h2>Servicios y Empresa</h2>
+<div>
+    <form [formGroup]="serviceCompanyForm">
 
-  <mat-form-field appearance="fill">
-    <mat-label>ID</mat-label>
-    <input matInput type="text" name="id" required disabled>
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="col-4">
+      <mat-label>ID</mat-label>
+      <input matInput type="text" name="id" required disabled>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Nombre</mat-label>
-    <input matInput type="text" name="name" required>
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="col-4">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" name="name" required>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Código</mat-label>
-    <input matInput type="text" name="code" required>
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="col-4">
+      <mat-label>Código</mat-label>
+      <input matInput type="text" name="code" required>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Ubicación</mat-label>
-    <input matInput type="text" name="location" required>
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="col-4">
+      <mat-label>Ubicación</mat-label>
+      <input matInput type="text" name="location" required>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Descripción</mat-label>
-    <textarea matInput name="description" required></textarea>
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="col-2">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput name="description" required></textarea>
+    </mat-form-field>
+    <section class="col-2">
+      <mat-checkbox name="is_active" color="primary">Activo</mat-checkbox>
+      <mat-checkbox name="is_delete" color="primary">Eliminado</mat-checkbox>
+  </section>
+    <mat-form-field appearance="outline" class="col-2">
+      <mat-label>Fecha de Creación</mat-label>
+      <input matInput type="date" name="created_date" required disabled>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Activo</mat-label>
-    <mat-checkbox name="is_active" [(ngModel)]="serviceCompanyForm.get('is_active').value" color="primary">Si</mat-checkbox>
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="col-2">
+      <mat-label>Fecha de Modificación</mat-label>
+      <input matInput type="date" name="modificated_date" required disabled>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Eliminado</mat-label>
-    <mat-checkbox name="is_delete" [(ngModel)]="serviceCompanyForm.get('is_delete').value" color="primary">Si</mat-checkbox>
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="col-4">
+      <mat-label>Etiqueta</mat-label>
+      <input matInput type="text" name="tag">
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Fecha de Creación</mat-label>
-    <input matInput type="date" name="created_date" required disabled>
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="col-4">
+      <mat-label>Categoría de Servicio</mat-label>
+      <mat-select required name="id_service_category">
+        <mat-option *ngFor="let category of serviceCategories" [value]="category.id">
+          {{ category.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Fecha de Modificación</mat-label>
-    <input matInput type="date" name="modificated_date" required disabled>
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="col-4">
+      <mat-label>Dominio</mat-label>
+      <mat-select required name="id_domain">
+        <mat-option *ngFor="let domain of domains" [value]="domain.id">
+          {{ domain.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Etiqueta</mat-label>
-    <input matInput type="text" name="tag">
-  </mat-form-field>
+    <mat-form-field appearance="outline" class="col-4">
+      <mat-label>Empresa</mat-label>
+      <mat-select required name="id_company">
+        <mat-option *ngFor="let company of companies" [value]="company.id">
+          {{ company.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" type="submit" class="d-right">Guardar</button>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Categoría de Servicio</mat-label>
-    <mat-select required name="id_service_category">
-      <mat-option *ngFor="let category of serviceCategories" [value]="category.id">
-        {{ category.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  </form>
+</div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Dominio</mat-label>
-    <mat-select required name="id_domain">
-      <mat-option *ngFor="let domain of domains" [value]="domain.id">
-        {{ domain.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Empresa</mat-label>
-    <mat-select required name="id_company">
-      <mat-option *ngFor="let company of companies" [value]="company.id">
-        {{ company.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <button mat-raised-button color="primary" type="submit">Guardar</button>
-
-</form>

@@ -21,19 +21,24 @@
       <mat-label>Descripción</mat-label>
       <textarea matInput name="description" required></textarea>
     </mat-form-field>
-  
-    <mat-checkbox name="is_active" color="primary" class="col-2">Activo</mat-checkbox>
+    <section class="col-1">
+      <mat-checkbox name="is_active" color="primary">Activo</mat-checkbox>
 
-    <mat-checkbox name="is_delete" color="primary" class="col-2">Eliminado</mat-checkbox>
+      <mat-checkbox name="is_delete" color="primary">Eliminado</mat-checkbox>
+    </section>
   
     <mat-form-field appearance="outline" class="col-2">
       <mat-label>Fecha de Creación</mat-label>
-      <input matInput type="date" name="created_date" required>
+      <input matInput [matDatepicker]="created_date" required>
+      <mat-datepicker-toggle matIconSuffix [for]="created_date"></mat-datepicker-toggle>
+      <mat-datepicker #created_date></mat-datepicker>
     </mat-form-field>
   
     <mat-form-field appearance="outline" class="col-2">
       <mat-label>Fecha de Modificación</mat-label>
-      <input matInput type="date" name="modificated_date" required>
+      <input matInput [matDatepicker]="picker">
+      <mat-datepicker-toggle matIconSuffix [for]="picker" name="modificated_date" required></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
   
     <mat-form-field appearance="outline" class="col-3">

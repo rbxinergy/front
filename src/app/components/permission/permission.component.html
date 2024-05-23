@@ -1,19 +1,24 @@
-<form [formGroup]="permissionForm">
+<h2>Permisos</h2>
+<div>
+  <form [formGroup]="permissionForm">
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline" class="col-1">
       <mat-label>ID</mat-label>
       <input matInput type="text" name="id" required>
     </mat-form-field>
   
-    <mat-checkbox name="is_create" color="primary">Crear</mat-checkbox>
+    <section class="col-1">
+      <mat-checkbox name="is_create" color="primary">Crear</mat-checkbox>
+    
+      <mat-checkbox name="is_read" color="primary">Leer</mat-checkbox>
+    
+      <mat-checkbox name="is_update" color="primary">Actualizar</mat-checkbox>
+    
+      <mat-checkbox name="is_delete" color="primary">Eliminar</mat-checkbox>
+    </section>
+    
   
-    <mat-checkbox name="is_read" color="primary">Leer</mat-checkbox>
-  
-    <mat-checkbox name="is_update" color="primary">Actualizar</mat-checkbox>
-  
-    <mat-checkbox name="is_delete" color="primary">Eliminar</mat-checkbox>
-  
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline" class="col-1">
       <mat-label>Rol</mat-label>
       <mat-select required name="id_role">
         <mat-option *ngFor="let role of roles" [value]="role.id">
@@ -21,8 +26,8 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-  
-    <button mat-raised-button color="primary" type="submit">Guardar</button>
+    <br>
+    <button mat-raised-button color="primary" type="submit" class="d-right">Guardar</button>
   
   </form>
-  
+</div>

@@ -153,7 +153,10 @@ table>tfoot:not(:last-child) {
 .col-4{
     width: calc((100% /4) - 10px);
 }
-
+section[class*="col-"] {
+    display: inline-block;
+    padding: 0 0 1rem 0;
+}
 .pb-3{
     padding-bottom: 20px;
 }
@@ -197,9 +200,23 @@ table>tfoot:not(:last-child) {
     will-change: transform;
 }
 */
-@media (max-width: 768px){ 
-    .grid{
-        grid-template-columns: 50% 50%;
+@media (max-width: 992px){ 
+    .col-1{
+        width:100%;
+    }
+    .col-2{
+        width: 100%;
+    }
+    .col-3{
+        width: 100%;
+    }
+    .col-4{
+        width:100%;
+    }
+   
+    .d-right{
+        float: right;
+        margin-right: 0;
     }
 }
 @media (max-width: 500px){ 
