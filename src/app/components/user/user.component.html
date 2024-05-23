@@ -1,11 +1,6 @@
 <h2>{{"user"|translate}}</h2>
 <div>
   <form [formGroup]="userForm">
-
-    <mat-form-field appearance="outline" class="col-3">
-      <mat-label>ID</mat-label>
-      <input matInput type="text" name="id" required>
-    </mat-form-field>
   
     <mat-form-field appearance="outline" class="col-3">
       <mat-label>Nombre</mat-label>
@@ -71,8 +66,10 @@
       <mat-label>Etiqueta</mat-label>
       <input matInput type="text" name="tag">
     </mat-form-field>
-    <button mat-raised-button type="submit">Volver</button>
-    <button mat-raised-button color="primary" type="submit" class="d-right">Guardar</button>
+    <div class="btn-box">
+      <button mat-raised-button type="submit">Volver</button>
+      <button mat-raised-button color="primary" type="submit" class="d-right">Guardar</button>
+    </div>
   </form>
 </div>
   

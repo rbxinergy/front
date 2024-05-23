@@ -1,23 +1,6 @@
 <h2>{{"permission"|translate}}</h2>
 <div>
   <form [formGroup]="permissionForm">
-
-    <mat-form-field appearance="outline" class="col-1">
-      <mat-label>ID</mat-label>
-      <input matInput type="text" name="id" required>
-    </mat-form-field>
-  
-    <section class="col-1">
-      <mat-checkbox name="is_create" color="primary">Crear</mat-checkbox>
-    
-      <mat-checkbox name="is_read" color="primary">Leer</mat-checkbox>
-    
-      <mat-checkbox name="is_update" color="primary">Actualizar</mat-checkbox>
-    
-      <mat-checkbox name="is_delete" color="primary">Eliminar</mat-checkbox>
-    </section>
-    
-  
     <mat-form-field appearance="outline" class="col-1">
       <mat-label>Rol</mat-label>
       <mat-select required name="id_role">
@@ -26,7 +9,15 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-raised-button type="submit">Volver</button>
-    <button mat-raised-button color="primary" type="submit" class="d-right">Guardar</button>
+    <section class="col-1">
+      <mat-checkbox name="is_create" color="primary">Crear</mat-checkbox>
+      <mat-checkbox name="is_read" color="primary">Leer</mat-checkbox>
+      <mat-checkbox name="is_update" color="primary">Actualizar</mat-checkbox>
+      <mat-checkbox name="is_delete" color="primary">Eliminar</mat-checkbox>
+    </section>
+    <div class="btn-box">
+      <button mat-raised-button type="submit">Volver</button>
+      <button mat-raised-button color="primary" type="submit" class="d-right">Guardar</button>
+    </div>
   </form>
 </div>

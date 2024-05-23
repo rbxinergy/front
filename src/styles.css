@@ -162,7 +162,6 @@ section[class*="col-"] {
 }
 .d-right{
     float: right;
-    margin-right: 10px;
 }
 .mdc-text-field--outlined{
     --mdc-outlined-text-field-container-shape: 5px !important;
@@ -171,6 +170,10 @@ section[class*="col-"] {
 .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
     padding-top: 12px;
     padding-bottom: 12px;
+}
+
+.btn-box {
+    margin: 16px 0px 0px 0px;
 }
 
 /* .mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
