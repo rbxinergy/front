@@ -1,27 +1,23 @@
-<div mat-dialog-title>
-    <h2
-      [ngClass]="
-        data.type === 'error'
-          ? 'head-error'
-          : data.type === 'info'
-          ? 'head-info'
-          : 'head-primary'
-      "
-      class="text-white"
-    >
-      {{ modalTitle }}
-    </h2>
-  </div>
-  <div mat-dialog-content>
-    <p>{{ data.message }}</p>
-  </div>
-  <div mat-dialog-actions align="end">
-    <button
-      mat-raised-button 
-      (click)="onClose()"
-      >
-      <!-- [color]="data.type === 'error'? 'error' : data.type === 'info'? 'info': 'primary'" -->
-      Close
-    </button>
-  </div>
+<h3
+  [ngClass]="
+    data.type === 'error'
+      ? 'head-error'
+      : data.type === 'info'
+      ? 'head-info'
+      : 'head-primary'
+  "
+>
+{{ modalTitle === 'error' ? ("error"|translate): modalTitle === 'info' ? ("info"|translate) : ("success"|translate) }}
+</h3>
+<div mat-dialog-content>
+  <p>{{ data.message }}</p>
+</div>
+<div mat-dialog-actions align="end">
+  <button
+    mat-raised-button 
+    (click)="onClose()"
+    [color]="data.type === 'error'? 'warn' : data.type === 'info'? 'info': 'primary'">
+    {{"close"|translate}}
+  </button>
+</div>
   

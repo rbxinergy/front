@@ -11,6 +11,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 
 @Component({
   selector: 'app-role',
@@ -39,4 +41,18 @@ export class RoleComponent {
 
   companies: any[] = [];
   clients: any[] = [];
+
+  constructor(public dialog: MatDialog) { }
+
+  save() {
+    this.dialog.open(MessagesModalComponent, {
+      width: '500px',
+      enterAnimationDuration:'500ms',
+      exitAnimationDuration:'500ms',
+      data: {
+        message: 'Elemento creado satisfactoriamente',
+        type: 'sucsess'
+      }
+    });
+  }
 }

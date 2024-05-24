@@ -23,5 +23,9 @@
     "client":{
         "client": "Client",
         "newclient": "New Client"
-    }
+    },
+    "close": "Close",
+    "error": "Error",
+    "info": "Information",
+    "success": "Success"
 }

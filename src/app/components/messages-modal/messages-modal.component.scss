@@ -1,15 +1,33 @@
-.mdc-dialog__title::before {
-    height: 16px;
+:host {
+    display: block;
+    background: #FFF;
+    max-width: 500px;
 }
 
+
 .head-error {
-    color: #FF0000;
+    background-color: #f44336;
+    color: #FFF;
+    padding: 16px;
+    margin: 0px;
+    font-weight: 500;
+    font-size: 24px;
 }
 
 .head-info {
+    background-color: #939393;
     color: #FFF;
+    padding: 16px;
+    margin: 0px;
+    font-weight: 500;
+    font-size: 24px;
 }
 
 .head-primary {
-    color: #4caf50
+    background-color: #5f4ede;
+    color: #FFF;
+    padding: 16px;
+    margin: 0px;
+    font-weight: 500;
+    font-size: 24px;
 }
