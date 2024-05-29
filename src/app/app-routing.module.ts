@@ -25,6 +25,7 @@ import { RoleComponent } from './components/role/role.component';
 import { PermissionComponent } from './components/permission/permission.component';
 import { SessionComponent } from './components/session/session.component';
 import { ServicecompanyComponent } from './components/servicecompany/servicecompany.component';
+import { ResponsiveMenuComponent } from './components/dashboard/responsive-menu/responsive-menu.component';
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
       { path: 'company', component: CompanyComponent},
       { path: 'integrations', component: IntegrationsComponent},
       { path: 'roles', component: RolesComponent },
+      { path: 'nav', component: ResponsiveMenuComponent },
       { path: 'contact-service-company', component: ContactServiceCompanyComponent },
       { path: 'contact', component: ContactComponent },
       { path: 'servicecategory', component: ServicecategoryComponent },

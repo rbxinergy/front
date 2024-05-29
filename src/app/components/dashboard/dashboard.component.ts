@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
-
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { MatSidenav } from '@angular/material/sidenav';
 
 
 declare var require: any;
@@ -9,14 +11,18 @@ declare var require: any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
   name : string = ''
   initials: string = ''
-
   version: string = require( '../../../../package.json').version;
-  constructor(private authService: AuthService, private translateService: TranslateService ) {
+  @ViewChild(MatSidenav)
+  sidenav!: MatSidenav;
+  isMobile= true;
+  isCollapsed = true;
+
+  constructor(private authService: AuthService, private translateService: TranslateService, private observer: BreakpointObserver ) {
     const userLang = navigator.language || 'es';
     const languageCode = userLang.split('-')[0];
     this.translateService.setDefaultLang(languageCode)
@@ -30,9 +36,32 @@ export class DashboardComponent {
     this.name =  `${firstName} ${lastName}`
     console.log(this.name)
     this.initials = firstName.charAt(0) + lastName.charAt(0) 
+    this.observer.observe(['(max-width: 500px)']).subscribe((screenSize) => {
+      if(screenSize.matches){
+        this.isMobile = true;
+      } else {
+        this.isMobile = false;
+      }
+    });
   }
   
   logOut() {
     this.authService.logOut();
   }
+
+  toggleMenu() {
+    if(this.isMobile){
+      this.sidenav.toggle();
+      this.isCollapsed = false;
+    } else {
+      this.sidenav.open();
+      this.isCollapsed = !this.isCollapsed;
+    }
+  }
+  
 }
+
+
+
+
+

@@ -2,44 +2,44 @@
 <h2>Contacto</h2>
 <div>
   <form [formGroup]="contactForm" class="p-4">
-      <mat-form-field appearance="outline" class="col-4">
+      <!-- <mat-form-field appearance="outline" class="col-4">
           <mat-label>ID</mat-label>
           <input matInput type="text" formControlName="id" required>
-        </mat-form-field>
-
-      <mat-form-field appearance="outline" class="col-4">
+        </mat-form-field> -->
+        <h3>Datos de contacto</h3>
+      <mat-form-field appearance="outline" class="col-3">
         <mat-label>Nombre</mat-label>
-        <input matInput type="text" formControlName="name" required>
+        <input matInput type="text" formControlName="name" id="name" required >
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="col-4">
+      <mat-form-field appearance="outline" class="col-3">
           <mat-label>Apellido</mat-label>
-          <input matInput type="text" formControlName="last_name" required>
+          <input matInput type="text" formControlName="last_name" id="last_name" required>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="col-4">
+        <mat-form-field appearance="outline" class="col-3">
           <mat-label>Segundo Apellido</mat-label>
-          <input matInput type="text" formControlName="surname">
+          <input matInput type="text" formControlName="surname" id="surname">
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="col-3 w-180" maxlength="40">
           <mat-label>Correo Electrónico</mat-label>
-          <input matInput type="email" formControlName="email" required>
+          <input matInput type="email" formControlName="email" id="email" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="col-3">
           <mat-label>Teléfono Fijo</mat-label>
-          <input matInput type="tel" formControlName="phone">
+          <input matInput type="tel" formControlName="phone" id="phone">
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="col-3">
           <mat-label>Teléfono Celular</mat-label>
-          <input matInput type="tel" formControlName="cellphone">
+          <input matInput type="tel" formControlName="cellphone" id="tel">
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="col-3">
           <mat-label>Cargo</mat-label>
-          <input matInput type="text" formControlName="job_title">
+          <input matInput type="text" formControlName="job_title" id="job-title">
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="col-3">

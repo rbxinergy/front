@@ -34,8 +34,7 @@ export function HttpLoaderFactory(http: HttpClient){
   declarations: [
     AppComponent,
     SignUpComponent,
-    DashboardComponent,
-    ObjectToArrayPipe
+    ObjectToArrayPipe,
   ],
   imports: [
     BrowserModule,
@@ -58,7 +57,7 @@ export function HttpLoaderFactory(http: HttpClient){
     }),
     BrowserAnimationsModule,
     // aquí importo el modulo que contiene los componentes del stepper en dashboard
-    StepperModule
+    StepperModule,
   ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}

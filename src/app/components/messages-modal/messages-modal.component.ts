@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-messages-modal',
   templateUrl: './messages-modal.component.html',
-  styleUrls: ['./messages-modal.component.scss'],
+  styleUrls: ['./messages-modal.component.css'],
   standalone: true,
   imports: [MatButtonModule, MatDialogModule, CommonModule]
 })

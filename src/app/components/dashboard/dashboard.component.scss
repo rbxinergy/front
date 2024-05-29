@@ -1,3 +1,87 @@
+/**/
+h1 {
+    padding: 0 1rem;
+    font-size:1.75rem !important;
+    color: #241783;
+}
+
+h2 {padding: 1rem;}
+
+mat-toolbar{
+    position:fixed;
+    top:0;
+    z-index: 2;
+    background-color:#f4f3fc ;
+}
+
+mat-sidenav-container {
+    height:100%;
+    background-color:#f4f3fc ;
+}
+
+mat-icon{
+    color: #5f4ede;
+}
+
+mat-nav-list{
+    color: #5f4ede;
+}
+
+.mat-mdc-list-base{
+    margin: 10px;
+}
+
+a.mdc-list-item{
+    color: #5f4ede;
+}
+
+.mdc-list-item__primary-text{
+    color: #5f4ede !important;
+}
+
+mat-sidenav {
+    padding-top: 3.5rem;
+    transition: width 0.3s ease;
+    background-color:#f4f3fc ;
+    @media screen and (min-width: 768px) {
+      padding-top: 4rem;
+    }
+
+    .entry{
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding:0.75rem;
+    }
+
+  }
+
+// Move the content down so that it won't be hidden by the toolbar
+mat-sidenav-content{
+    padding-top: 3.5rem;
+    .mat-drawer-content{
+        .mat-sidenav-content{
+            *{
+                div{
+                    padding: 60px;
+                }
+            }
+        }
+    }
+    @media screen and (min-width: 600px) {
+        padding-top: 4rem;
+    }
+  
+}
+
+.expanded {
+    width: 250px;   
+}
+.mat-drawer-container{
+    background-color: #ffffff;
+}
+/**/
+
 
 .welcoming{
     display: grid;
@@ -7,13 +91,14 @@
 }
 .welcoming > *{
     color: #5f4ede;
+    font-size:14px;
 }
 .welcoming > * > p{
     font-weight:800;
     margin: 3px;
 }
 .welcoming > * > span{
-    font-size:90%;
+    font-size:14px;
     font-weight: 500;
 }
 span.material-icons {
