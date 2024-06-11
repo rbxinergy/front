@@ -20,7 +20,8 @@ import {
 } from '@angular/material/dialog';
 import { DeleteComponent } from './delete/delete.component';
 import { MatDividerModule } from '@angular/material/divider';
-import { Client } from 'src/app/intefaces/client.interface';
+import { Client } from '../../../intefaces/client.interface'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clients',
@@ -53,7 +54,7 @@ export class ClientsComponent implements AfterViewInit {
 
   dataSource = new MatTableDataSource<Client>();
   
-  constructor(private companyService: CompanyService, public dialog: MatDialog){
+  constructor(private companyService: CompanyService, public dialog: MatDialog, private router: Router){
     this.getClients()
   }
 
@@ -85,5 +86,9 @@ export class ClientsComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  navigateToNewClient() {
+    this.router.navigate(['/new-client']);
   }
 }

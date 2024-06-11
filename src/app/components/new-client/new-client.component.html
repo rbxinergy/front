@@ -1,0 +1,37 @@
+<mat-horizontal-stepper>
+  <mat-step label="Datos del cliente">
+    <app-client></app-client>
+    <div>
+      <button mat-button matStepperNext>Siguiente</button>
+    </div>
+  </mat-step>
+  <mat-step label="Añadir empresas del cliente">
+    <app-company></app-company>
+    <div>
+      <button mat-button matStepperPrevious>Anterior</button>
+      <button mat-button matStepperNext>Siguiente</button>
+    </div>
+  </mat-step>
+  <mat-step label="Roles">
+    <app-role></app-role>
+    <div>
+      <button mat-button matStepperPrevious>Anterior</button>
+      <button mat-button matStepperNext>Siguiente</button>
+    </div>
+  </mat-step>
+  <mat-step label="Usuarios">
+    <app-user></app-user>
+    <div>
+      <button mat-button matStepperPrevious>Anterior</button>
+      <button mat-button matStepperNext>Siguiente</button>
+    </div>
+  </mat-step>
+  <mat-step label="Dominios y Subdominios">
+    <app-domain></app-domain>
+    <app-subdomain></app-subdomain>
+    <div>
+      <button mat-button matStepperPrevious>Anterior</button>
+      <button mat-button>Finalizar</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
