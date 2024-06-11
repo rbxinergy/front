@@ -1,0 +1,9 @@
+/* Estilos personalizados para el componente client */
+.col-3 {
+    width: 30%;
+    margin-right: 1%;
+  }
+  
+  .btn-box {
+    margin-top: 20px;
+  }

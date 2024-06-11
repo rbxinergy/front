@@ -27,7 +27,6 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
 })
 export class ClientComponent {
   clientForm = new FormGroup({
-    id: new FormControl(null, Validators.required),
     name: new FormControl('', Validators.required),
     business_name: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
@@ -36,13 +35,10 @@ export class ClientComponent {
     county: new FormControl(''),
     district: new FormControl(''),
     country: new FormControl('', Validators.required),
-    document_type: new FormControl('', Validators.required),
+    document_type: new FormControl('RUT', Validators.required),
     document: new FormControl('', Validators.required),
     is_active: new FormControl(true),
-    is_delete: new FormControl(false),
-    created_date: new FormControl(new Date(), Validators.required),
-    modificated_date: new FormControl(new Date(), Validators.required),
-    tag: new FormControl(''),
+    tag: new FormControl('')
   });
 
   constructor(public dialog: MatDialog) { }
@@ -59,3 +55,4 @@ export class ClientComponent {
     });
   }
 }
+
