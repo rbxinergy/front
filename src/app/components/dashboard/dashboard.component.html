@@ -1,218 +1,203 @@
-
-
-<!-- <button data-drawer-target="separator-sidebar" data-drawer-toggle="separator-sidebar" aria-controls="separator-sidebar"
-   type="button"
-   class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-primary-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-   <span class="sr-only">Open sidebar</span>
-   <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-      <path clip-rule="evenodd" fill-rule="evenodd"
-         d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
-      </path>
-   </svg>
-</button> -->
 <div class="content-container">
-
-<aside id="separator-sidebar" aria-label="Sidebar">
-   <div class="grid-rows">
+  <aside id="separator-sidebar" aria-label="Sidebar">
+    <div class="grid-rows">
       <div class="welcoming">
-         <div role="img" [attr.aria-label]="name" class="name">{{initials}}</div>
-         <div>
-            <p>{{"greeting" | translate}}, {{name}}</p>
-            <span>Backoffice</span><br>
-            
-         </div>
+        <div role="img" [attr.aria-label]="name" class="name">{{initials}}</div>
+        <div>
+          <p>{{"greeting" | translate}}, {{name}}</p>
+          <span>Backoffice</span><br>
+        </div>
       </div>
 
       <ul>
-         <li>
-            <a [routerLink]="['stepper']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  person_add_alt
-               </span>
-               <span>{{"createNewClient" | translate}}</span>
-            </a>
-         </li>
-         <hr>
-         <li>
-            <a [routerLink]="['clients']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  work_outline
-               </span>
-               <span>{{"clients" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['configs']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <!-- <span class="material-icons">
-                  category
-               </span>
-               <span class="material-icons">
-                  label_important_outline
-               </span> -->
-               <span class="material-icons">
-                  post_add
-               </span>
-               <span>{{"domains" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['company']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  business
-               </span>
-               <span>{{"companies" | translate}}</span>
-            </a>
-         </li>
-         <li class="disabled">
-            <a [routerLink]="['integrations']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <!-- <span class="material-icons">
-                  api
-               </span> -->
-               <span class="material-icons">
-                  grid_view
-               </span>
-               <span>{{"apis" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['roles']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"users&roles" | translate}}</span>
-            </a>
-         </li>
-         <mat-divider></mat-divider>
-         <li>
-            <a [routerLink]="['contact']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"contact" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['servicecategory']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"servicecategory" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['servicecompany']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"servicecompany" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['provider']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"provider" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['company2']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"company" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['domain']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"domain" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['subdomain']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"subdomain" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['domaincategory']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"domaincategory" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['groupcompany']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"groupcompany" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['client']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"client.client" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['user']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"user" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['roles2']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"role" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['permission']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"permission" | translate}}</span>
-            </a>
-         </li>
-         <li>
-            <a [routerLink]="['session']" routerLinkActive="active" ariaCurrentWhenActive="page">
-               <span class="material-icons">
-                  people_outline
-               </span>
-               <span>{{"session" | translate}}</span>
-            </a>
-         </li>
-         <mat-divider></mat-divider>
-         <li>
-            <a routerLinkActive="active" ariaCurrentWhenActive="page"
-               (click)="logOut()">
-               <span class="material-symbols-outlined">
-                  logout
-                  </span>
-               <span>{{"logout"| translate}}</span>
-               </a>
-         </li>
+        <li>
+          <a [routerLink]="['stepper']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              person_add_alt
+            </span>
+            <span>{{"createNewClient" | translate}}</span>
+          </a>
+        </li>
+        <hr>
+        <li>
+          <a [routerLink]="['clients']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              work_outline
+            </span>
+            <span>{{"clients" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['configs']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              post_add
+            </span>
+            <span>{{"domains" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['company']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              business
+            </span>
+            <span>{{"companies" | translate}}</span>
+          </a>
+        </li>
+        <li class="disabled">
+          <a [routerLink]="['integrations']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              grid_view
+            </span>
+            <span>{{"apis" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['roles']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"users&roles" | translate}}</span>
+          </a>
+        </li>
+        <mat-divider></mat-divider>
+        <li>
+          <a [routerLink]="['contact']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"contact" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['servicecategory']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"servicecategory" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['servicecompany']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"servicecompany" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['provider']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"provider" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['company2']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"company" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['domain']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"domain" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['subdomain']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"subdomain" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['domaincategory']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"domaincategory" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['groupcompany']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"groupcompany" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['client']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"client.client" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['user']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"user" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['roles2']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"role" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['permission']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"permission" | translate}}</span>
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['session']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"session" | translate}}</span>
+          </a>
+        </li>
+        <mat-divider></mat-divider>
+        <li>
+          <a [routerLink]="['evaluation']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="material-icons">
+              people_outline
+            </span>
+            <span>{{"evaluation" | translate}}</span>
+          </a>
+        </li>
+        <mat-divider></mat-divider>
+        <li>
+          <a routerLinkActive="active" ariaCurrentWhenActive="page"
+             (click)="logOut()">
+            <span class="material-symbols-outlined">
+              logout
+            </span>
+            <span>{{"logout"| translate}}</span>
+          </a>
+        </li>
       </ul>
       <div class="appversion">
-         <p>XRisk - Versión: {{version}}</p>
+        <p>XRisk - Versión: {{version}}</p>
       </div>
-   </div>
-</aside>
-<main>
-   <router-outlet></router-outlet>
-</main>
-
+    </div>
+  </aside>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
 </div>
