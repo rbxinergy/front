@@ -8,8 +8,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { TranslateModule } from '@ngx-translate/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 
 @Component({
   selector: 'app-role',
@@ -17,7 +20,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
   imports: [
     FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
-    MatNativeDateModule, MatDatepickerModule
+    TranslateModule, MatNativeDateModule, MatDatepickerModule
   ],
   templateUrl: './role.component.html',
   styleUrls: ['./role.component.css']
@@ -38,4 +41,18 @@ export class RoleComponent {
 
   companies: any[] = [];
   clients: any[] = [];
+
+  constructor(public dialog: MatDialog) { }
+
+  save() {
+    this.dialog.open(MessagesModalComponent, {
+      width: '500px',
+      enterAnimationDuration:'500ms',
+      exitAnimationDuration:'500ms',
+      data: {
+        message: 'Elemento creado satisfactoriamente',
+        type: 'sucsess'
+      }
+    });
+  }
 }

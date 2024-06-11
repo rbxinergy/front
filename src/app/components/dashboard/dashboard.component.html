@@ -1,23 +1,26 @@
-
-
 <mat-toolbar>
    <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
       <mat-icon>menu</mat-icon>
    </button>
-   <h1>X-risk</h1>
-   <div class="welcoming">
-      <!-- <div role="img" [attr.aria-label]="name" class="name">{{initials}}</div> -->
+   <div class="title">
+      <h1>X-RISK</h1><span>Backoffice</span>
+   </div>
+   
+   <div class="welcoming" id="welcoming">
+      <div role="img" [attr.aria-label]="name" class="name">{{initials}}</div>
       <div>
-         <p>{{"greeting" | translate}}, {{name}}</p>
-         <span>Backoffice</span><br>
-         
+         <p>{{"greeting" | translate}}, {{name}}</p> 
       </div>
+      <a ariaCurrentWhenActive="page" (click)="logOut()">
+         <mat-icon>logout</mat-icon>{{"logout"| translate}}
+      </a>
    </div>
 </mat-toolbar>
+
 <mat-sidenav-container autosize="true">
    <mat-sidenav [ngClass]="!isCollapsed ? 'expanded' : ''" [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'">
       <mat-nav-list>
-         <a mat-list-item [routerLink]="['/']">
+         <a mat-list-item [routerLink]="['dashboard']">
             <span class="entry">
                <mat-icon>house</mat-icon>
                <span *ngIf="!isCollapsed">Dashboard</span>
@@ -86,13 +89,13 @@
          </a>
          <a mat-list-item [routerLink]="['company2']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
-               <mat-icon>people_outline</mat-icon>
+               <mat-icon> business </mat-icon>
                <span *ngIf="!isCollapsed">{{"company" | translate}}</span>
             </span>
          </a>
          <a mat-list-item [routerLink]="['domain']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
-               <mat-icon>people_outline</mat-icon>
+               <mat-icon>post_add</mat-icon>
                <span *ngIf="!isCollapsed">{{"domain" | translate}}</span>
             </span>
          </a>
@@ -145,27 +148,26 @@
             </span>
          </a>
          <mat-divider></mat-divider>
-         <a mat-list-item routerLinkActive="active" ariaCurrentWhenActive="page" (click)="logOut()">
+         <!-- <a mat-list-item routerLinkActive="active" ariaCurrentWhenActive="page" (click)="logOut()">
             <span class="entry">
                <mat-icon>logout</mat-icon>
                <span *ngIf="!isCollapsed">{{"logout"| translate}}</span>
             </span>
-         </a>
+         </a> -->
       </mat-nav-list>
-
-      
-       
-
-      
-
+      <!-- <div class="appversion">
+         <p>XRisk - Versión: {{version}}</p>
+      </div> -->
    </mat-sidenav>
    <mat-sidenav-content>
-      <router-outlet></router-outlet>
+      <main>
+         <router-outlet></router-outlet>
+      </main>
    </mat-sidenav-content>
 </mat-sidenav-container>
 
 
-<div class="content-container">
+<!-- <div class="content-container">
    <aside id="separator-sidebar" aria-label="Sidebar">
       <div class="grid-rows">
          <div class="welcoming">
@@ -359,4 +361,4 @@
    <main>
       
    </main>
-</div>
+</div> -->

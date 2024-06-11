@@ -1,11 +1,8 @@
+<h2>{{"subdomain"|translate}}</h2>
 <div>
   <form [formGroup]="subdomainForm">
-    <mat-form-field appearance="outline" class="col-2">
-      <mat-label>ID</mat-label>
-      <input matInput type="text" name="id" required>
-    </mat-form-field>
   
-    <mat-form-field appearance="outline" class="col-2">
+    <mat-form-field appearance="outline" class="col-1">
       <mat-label>Nombre</mat-label>
       <input matInput type="text" name="name" required>
     </mat-form-field>
@@ -42,8 +39,9 @@
       <mat-label>ID Dominio</mat-label>
       <input matInput type="text" name="id_domain" required>
     </mat-form-field>
-    <br>
-    <button mat-raised-button color="primary" type="submit" class="d-right">Guardar</button>
-  
+    <div class="btn-box">
+      <button mat-raised-button type="submit">Volver</button>
+      <button mat-raised-button color="primary" type="submit" class="d-right" (click)="save()">Guardar</button>
+    </div>
   </form>
 </div>

@@ -8,6 +8,9 @@ import { CommonModule} from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 
 @Component({
   selector: 'app-contact',
@@ -16,7 +19,8 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [
     FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
-    ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule
+    ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
+    TranslateModule
   ],
 })
 export class ContactComponent {
@@ -37,15 +41,17 @@ export class ContactComponent {
     tag: new FormControl('')
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(public dialog: MatDialog) { }
 
-  onSubmit() {
-    const formData = this.contactForm.value;
-    // Implementar lógica para enviar o actualizar los datos del formulario
-    console.log(formData);
-  }
-
-  onCancel() {
-    // Implementar lógica para cancelar si es necesario
+  save() {
+    this.dialog.open(MessagesModalComponent, {
+      width: '500px',
+      enterAnimationDuration:'500ms',
+      exitAnimationDuration:'500ms',
+      data: {
+        message: 'Elemento creado satisfactoriamente',
+        type: 'success'
+      }
+    });
   }
 }

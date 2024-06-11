@@ -1,18 +1,13 @@
-<h2>Cliente</h2>
+<h2>{{"client.client"|translate}}</h2>
 <div>
   <form [formGroup]="clientForm">
-
-    <mat-form-field appearance="outline" class="col-3">
-      <mat-label>ID</mat-label>
-      <input matInput type="text" name="id" required>
-    </mat-form-field>
   
-    <mat-form-field appearance="outline" class="col-3">
+    <mat-form-field appearance="outline" class="col-2">
       <mat-label>Nombre</mat-label>
       <input matInput type="text" name="name" required>
     </mat-form-field>
   
-    <mat-form-field appearance="outline" class="col-3">
+    <mat-form-field appearance="outline" class="col-2">
       <mat-label>Razón Social</mat-label>
       <input matInput type="text" name="business_name" required>
     </mat-form-field>
@@ -56,7 +51,7 @@
       <mat-label>Número de Documento</mat-label>
       <input matInput type="text" name="document" required>
     </mat-form-field>
-    <section>
+    <section class="col-3">
       <mat-checkbox name="is_active" color="primary">Activo</mat-checkbox>
       <mat-checkbox name="is_delete" color="primary">Eliminado</mat-checkbox>
     </section>
@@ -80,9 +75,10 @@
       <mat-label>Etiqueta</mat-label>
       <input matInput type="text" name="tag">
     </mat-form-field>
-  
-    <button mat-raised-button color="primary" type="submit" class="d-right">Guardar</button>
-  
+    <div class="btn-box">
+      <button mat-raised-button type="submit">Volver</button>
+      <button mat-raised-button color="primary" type="submit" class="d-right" (click)="save()">Guardar</button>
+    </div>
   </form>
 </div>
   

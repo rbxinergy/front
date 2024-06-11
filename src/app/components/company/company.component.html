@@ -1,10 +1,6 @@
-<h2>Empresa</h2>
+<h2>{{"company"|translate}}</h2>
 <div>
   <form [formGroup]="companyForm">
-    <mat-form-field appearance="outline" class="col-3">
-      <mat-label>ID</mat-label>
-      <input matInput type="text" name="id" required>
-    </mat-form-field>
   
     <mat-form-field appearance="outline" class="col-3">
       <mat-label>Nombre</mat-label>
@@ -54,8 +50,10 @@
     <mat-form-field appearance="outline" class="col-2">
       <mat-label>Número de Documento</mat-label>
       <input matInput type="text" name="document" required>
-    </mat-form-field>    
-    <br> 
-    <button mat-raised-button color="primary" type="submit" class="d-right">Guardar</button>
+    </mat-form-field>     
+    <div class="btn-box">
+      <button mat-raised-button type="submit">Volver</button>
+      <button mat-raised-button color="primary" type="submit" class="d-right" (click)="save()">Guardar</button>
+    </div>
   </form>
 </div>

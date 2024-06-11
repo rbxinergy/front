@@ -10,6 +10,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 
 @Component({
   selector: 'app-servicecompany',
@@ -19,8 +22,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
   imports: [
     FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
-    MatNativeDateModule, MatDatepickerModule
-  ]
+    MatNativeDateModule, MatDatepickerModule,
+    TranslateModule
+  ],
 })
 export class ServicecompanyComponent {
   serviceCompanyForm = new FormGroup({
@@ -42,4 +46,18 @@ export class ServicecompanyComponent {
   serviceCategories: any[] = [];
   domains: any[] = [];
   companies: any[] = [];
+
+  constructor(public dialog: MatDialog) { }
+
+  save() {
+    this.dialog.open(MessagesModalComponent, {
+      width: '500px',
+      enterAnimationDuration:'500ms',
+      exitAnimationDuration:'500ms',
+      data: {
+        message: 'Elemento creado satisfactoriamente',
+        type: 'sucsess'
+      }
+    });
+  }
 }

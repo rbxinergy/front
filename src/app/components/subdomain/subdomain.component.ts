@@ -8,8 +8,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { TranslateModule } from '@ngx-translate/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 
 @Component({
   selector: 'app-subdomain',
@@ -17,7 +20,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
   imports: [
     FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
-    MatNativeDateModule, MatDatepickerModule
+    TranslateModule, MatNativeDateModule, MatDatepickerModule
   ],
   templateUrl: './subdomain.component.html',
   styleUrls: ['./subdomain.component.css']
@@ -34,4 +37,18 @@ export class SubdomainComponent {
     tag: new FormControl(''),
     id_domain: new FormControl(null, Validators.required),
   });
+
+  constructor(public dialog: MatDialog) { }
+
+  save() {
+    this.dialog.open(MessagesModalComponent, {
+      width: '500px',
+      enterAnimationDuration:'500ms',
+      exitAnimationDuration:'500ms',
+      data: {
+        message: 'Elemento creado satisfactoriamente',
+        type: 'sucsess'
+      }
+    });
+  }
 }

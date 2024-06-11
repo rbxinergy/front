@@ -1,23 +1,18 @@
-<h2>Servicios y Empresa</h2>
+<h2>{{"servicecompany"|translate}}</h2>
 <div>
     <form [formGroup]="serviceCompanyForm">
 
-    <mat-form-field appearance="outline" class="col-4">
-      <mat-label>ID</mat-label>
-      <input matInput type="text" name="id" required disabled>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="col-4">
+    <mat-form-field appearance="outline" class="col-3">
       <mat-label>Nombre</mat-label>
       <input matInput type="text" name="name" required>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="col-4">
+    <mat-form-field appearance="outline" class="col-3">
       <mat-label>Código</mat-label>
       <input matInput type="text" name="code" required>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="col-4">
+    <mat-form-field appearance="outline" class="col-3">
       <mat-label>Ubicación</mat-label>
       <input matInput type="text" name="location" required>
     </mat-form-field>
@@ -26,7 +21,7 @@
       <mat-label>Descripción</mat-label>
       <textarea matInput name="description" required></textarea>
     </mat-form-field>
-    <section class="col-2">
+    <section class="col-3">
       <mat-checkbox name="is_active" color="primary">Activo</mat-checkbox>
       <mat-checkbox name="is_delete" color="primary">Eliminado</mat-checkbox>
     </section>
@@ -37,6 +32,8 @@
       <mat-datepicker #created_date></mat-datepicker>
     </mat-form-field>
 
+    <mat-checkbox name="is_active" color="primary">Activo</mat-checkbox>
+    <mat-checkbox name="is_delete" color="primary">Eliminado</mat-checkbox>
     <mat-form-field appearance="outline" class="col-2">
       <mat-label>Fecha de Modificación</mat-label>
       <input matInput [matDatepicker]="modificated_date" required disabled>
@@ -58,7 +55,7 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="col-4">
+    <mat-form-field appearance="outline">
       <mat-label>Dominio</mat-label>
       <mat-select required name="id_domain">
         <mat-option *ngFor="let domain of domains" [value]="domain.id">
@@ -67,7 +64,7 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="col-4">
+    <mat-form-field appearance="outline">
       <mat-label>Empresa</mat-label>
       <mat-select required name="id_company">
         <mat-option *ngFor="let company of companies" [value]="company.id">
@@ -75,9 +72,9 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <br>
-    <button mat-raised-button color="primary" type="submit" class="d-right">Guardar</button>
-
+    <div class="btn-box">
+      <button mat-raised-button type="submit">Volver</button>
+      <button mat-raised-button color="primary" type="submit" class="d-right" (click)="save()">Guardar</button>
+    </div>
   </form>
 </div>
-

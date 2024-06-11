@@ -1,11 +1,6 @@
-
-<h2>Contacto</h2>
+<h2>{{"contact"|translate}}</h2>
 <div>
-  <form [formGroup]="contactForm" class="p-4">
-      <!-- <mat-form-field appearance="outline" class="col-4">
-          <mat-label>ID</mat-label>
-          <input matInput type="text" formControlName="id" required>
-        </mat-form-field> -->
+  <form [formGroup]="contactForm">
         <h3>Datos de contacto</h3>
       <mat-form-field appearance="outline" class="col-3">
         <mat-label>Nombre</mat-label>
@@ -24,7 +19,7 @@
 
         <mat-form-field appearance="outline" class="col-3 w-180" maxlength="40">
           <mat-label>Correo Electrónico</mat-label>
-          <input matInput type="email" formControlName="email" id="email" required>
+          <input matInput type="email" formControSlName="email" id="email" required>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="col-3">
@@ -37,27 +32,27 @@
           <input matInput type="tel" formControlName="cellphone" id="tel">
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="col-3">
+        <mat-form-field appearance="outline" class="col-2">
           <mat-label>Cargo</mat-label>
           <input matInput type="text" formControlName="job_title" id="job-title">
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="col-3">
-          <mat-label>Tipo de Contacto</mat-label>
-          <mat-select formControlName="contact_type">
-            <mat-option value="personal">Personal</mat-option>
-            <mat-option value="laboral">Laboral</mat-option>
-            <mat-option value="otro">Otro</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <section class="col-4">
-          <mat-checkbox formControlName="is_active" color="primary" >Activo</mat-checkbox>
-        </section>
-        <mat-form-field appearance="outline" class="col-3">
-          <mat-label>Etiqueta</mat-label>
-          <input matInput type="text" formControlName="tag">
-        </mat-form-field>
-        <br>
-      </form>
-      <button mat-raised-button color="primary" class="d-right">Guardar</button>
+      <mat-form-field appearance="outline" class="col-2">
+        <mat-label>Tipo de Contacto</mat-label>
+        <mat-select formControlName="contact_type">
+          <mat-option value="personal">Personal</mat-option>
+          <mat-option value="laboral">Laboral</mat-option>
+          <mat-option value="otro">Otro</mat-option>
+        </mat-select>
+      </mat-form-field>
+    <mat-checkbox formControlName="is_active" color="primary">Activo</mat-checkbox>
+    <mat-form-field appearance="outline" class="col-1">
+        <mat-label>Etiqueta (chips)</mat-label>
+        <input matInput type="text" formControlName="tag">
+      </mat-form-field>
+      <div class="btn-box">
+        <button mat-raised-button type="submit">Volver</button>
+        <button mat-raised-button color="primary" type="submit" class="d-right" (click)="save()">Guardar</button>
+      </div>
+  </form>
 </div>

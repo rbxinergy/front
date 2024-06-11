@@ -19,8 +19,8 @@ export class DashboardComponent {
   version: string = require( '../../../../package.json').version;
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
-  isMobile= true;
-  isCollapsed = true;
+  isMobile= false;
+  isCollapsed = false;
 
   constructor(private authService: AuthService, private translateService: TranslateService, private observer: BreakpointObserver ) {
     const userLang = navigator.language || 'es';
@@ -36,7 +36,7 @@ export class DashboardComponent {
     this.name =  `${firstName} ${lastName}`
     console.log(this.name)
     this.initials = firstName.charAt(0) + lastName.charAt(0) 
-    this.observer.observe(['(max-width: 500px)']).subscribe((screenSize) => {
+    this.observer.observe(['(max-width: 900px)']).subscribe((screenSize) => {
       if(screenSize.matches){
         this.isMobile = true;
       } else {
