@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { lastValueFrom, Observable } from 'rxjs';
+import { lastValueFrom, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -56,11 +56,48 @@ export class CompanyService {
     return this.http.get<any>(this.url, { headers: this.headers })
   }
 
-  getClients(){
-    const params = new HttpParams({
-      fromString: 'option=1' 
-    })
-    return this.http.get<any>(this.url, { headers: this.headers, params })
+  getClients() {
+    // Objeto JSON dummy basado en la estructura de la consulta SQL proporcionada
+    const dummyData = [
+      {
+        id: 1,
+        companyname: 'Empresa Chilena A',
+        documentNumber: '76012345-6',
+        documentType: 'RUT',
+        address: 'Av. Libertador Bernardo O\'Higgins 1234',
+        phone: '+56 2 1234 5678',
+        email: 'contacto@empresachilenaa.cl',
+        status: 'active',
+        isGroup: false,
+        groupDocument: '0',
+        cityId: 1,
+        cityname: 'Santiago',
+        stateId: 1,
+        statename: 'Región Metropolitana',
+        countryId: 1,
+        countryname: 'Chile'
+      },
+      {
+        id: 2,
+        companyname: 'Empresa Chilena B',
+        documentNumber: '96543210-9',
+        documentType: 'RUT',
+        address: 'Calle Falsa 123',
+        phone: '+56 2 8765 4321',
+        email: 'info@empresachilenab.cl',
+        status: 'inactive',
+        isGroup: true,
+        groupDocument: '1',
+        cityId: 2,
+        cityname: 'Valparaíso',
+        stateId: 2,
+        statename: 'Región de Valparaíso',
+        countryId: 1,
+        countryname: 'Chile'
+      }
+    ];
+
+    return of(dummyData);
   }
 
   putClient(form: any){

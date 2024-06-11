@@ -20,12 +20,14 @@ import {
   MatDialogModule,
 } from '@angular/material/dialog';
 import { DeleteComponent } from './delete/delete.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
+  styleUrls: ['./clients.component.scss'],
   standalone: true,
   imports: [
     MatSlideToggleModule,
@@ -39,7 +41,8 @@ import { DeleteComponent } from './delete/delete.component';
     TranslateModule,
     MatButtonModule,
     EditComponent,
-    MatDialogModule
+    MatDialogModule,
+    MatDividerModule
   ],
 })
 export class ClientsComponent implements AfterViewInit {
@@ -53,16 +56,16 @@ export class ClientsComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<Clients>();
   
   constructor(private companyService: CompanyService, public dialog: MatDialog){
-    this.getCompanies()
+    this.getClients()
   }
 
-  openDialog(id:number){
+  openDialog(id: number){
     const result: any[] = this.companies.filter((company:any) => company.id === id);
     this.dialog.open(EditComponent, { 
       data: result[0]
     }) 
   }
-  openDelete(id:number){
+  openDelete(id: number){
     const result: any[] = this.companies.filter((company:any) => company.id === id);
     this.dialog.open(DeleteComponent, { 
       data: result[0]
@@ -70,7 +73,7 @@ export class ClientsComponent implements AfterViewInit {
   }
 
   // trae arreglo con clientes 
-  getCompanies(){
+  getClients(){
     this.companyService.getClients().subscribe((data: any) => {
       this.isLoading = true;
       this.companies = data;
@@ -86,6 +89,3 @@ export class ClientsComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 }
-
-
-
