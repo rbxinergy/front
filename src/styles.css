@@ -144,7 +144,20 @@ table>tfoot:not(:last-child) {
     height: 100%;
     z-index: 1;
 }
-
+/* FORMS */
+form {
+    border: 1px solid #d0cbf5;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.mat-mdc-form-field-infix {
+    min-height: 50px;
+}
+.mdc-text-field--outlined {
+    --mdc-outlined-text-field-container-shape: 36px !important;
+}
 /* GRIDS */
 .col-1{
     width: calc(100% - 10px);

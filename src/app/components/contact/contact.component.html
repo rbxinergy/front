@@ -1,7 +1,7 @@
 <h2>{{"contact"|translate}}</h2>
 <div>
   <form [formGroup]="contactForm">
-        <h3>Datos de contacto</h3>
+      <h3>Datos de personales</h3>
       <mat-form-field appearance="outline" class="col-3">
         <mat-label>Nombre</mat-label>
         <input matInput type="text" formControlName="name" id="name" required >
@@ -31,7 +31,7 @@
           <mat-label>Teléfono Celular</mat-label>
           <input matInput type="tel" formControlName="cellphone" id="tel">
         </mat-form-field>
-
+        <h3>Datos de contacto</h3>
         <mat-form-field appearance="outline" class="col-2">
           <mat-label>Cargo</mat-label>
           <input matInput type="text" formControlName="job_title" id="job-title">
