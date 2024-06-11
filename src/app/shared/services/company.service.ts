@@ -57,43 +57,40 @@ export class CompanyService {
   }
 
   getClients() {
-    // Objeto JSON dummy basado en la estructura de la consulta SQL proporcionada
+    // Objeto JSON dummy con datos más realistas de empresas chilenas
     const dummyData = [
       {
-        id: 1,
-        companyname: 'Empresa Chilena A',
-        documentNumber: '76012345-6',
+        id: '550e8400-e29b-41d4-a716-446655440001',
+        name: 'Empresa Chilena A',
+        businessName: 'Empresa A S.A.',
+        address: 'Av. Libertador Bernardo O\'Higgins 1234, Santiago, Chile',
+        country: 'Chile',
         documentType: 'RUT',
-        address: 'Av. Libertador Bernardo O\'Higgins 1234',
-        phone: '+56 2 1234 5678',
-        email: 'contacto@empresachilenaa.cl',
-        status: 'active',
-        isGroup: false,
-        groupDocument: '0',
-        cityId: 1,
-        cityname: 'Santiago',
-        stateId: 1,
-        statename: 'Región Metropolitana',
-        countryId: 1,
-        countryname: 'Chile'
+        document: '76012345-6',
+        tag: 'legal-related',
+        idContact: ['550e8400-e29b-41d4-a716-446655440001']
       },
       {
-        id: 2,
-        companyname: 'Empresa Chilena B',
-        documentNumber: '96543210-9',
+        id: '550e8400-e29b-41d4-a716-446655440002',
+        name: 'Empresa Chilena B',
+        businessName: 'Empresa B Ltda.',
+        address: 'Calle Falsa 123, Valparaíso, Chile',
+        country: 'Chile',
         documentType: 'RUT',
-        address: 'Calle Falsa 123',
-        phone: '+56 2 8765 4321',
-        email: 'info@empresachilenab.cl',
-        status: 'inactive',
-        isGroup: true,
-        groupDocument: '1',
-        cityId: 2,
-        cityname: 'Valparaíso',
-        stateId: 2,
-        statename: 'Región de Valparaíso',
-        countryId: 1,
-        countryname: 'Chile'
+        document: '96543210-9',
+        tag: 'legal-related',
+        idContact: ['550e8400-e29b-41d4-a716-446655440002']
+      },
+      {
+        id: '550e8400-e29b-41d4-a716-446655440003',
+        name: 'Empresa Chilena C',
+        businessName: 'Empresa C SpA',
+        address: 'Calle Real 456, Concepción, Chile',
+        country: 'Chile',
+        documentType: 'RUT',
+        document: '81234567-0',
+        tag: 'legal-related',
+        idContact: ['550e8400-e29b-41d4-a716-446655440003']
       }
     ];
 
