@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 
 @Component({
@@ -40,24 +40,12 @@ export class CompanyComponent {
     is_branch: new FormControl(false),
     is_active: new FormControl(true),
     is_delete: new FormControl(false),
-    created_date: new FormControl(new Date(), Validators.required),
-    modificated_date: new FormControl(new Date(), Validators.required),
-    tag: new FormControl(''),
-    id_group_company: new FormControl(null, Validators.required),
-    id_client: new FormControl(null, Validators.required),
+    tag: new FormControl('')
   });
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialogRef: MatDialogRef<CompanyComponent>) {}
 
-  save() {
-    this.dialog.open(MessagesModalComponent, {
-      width: '500px',
-      enterAnimationDuration:'500ms',
-      exitAnimationDuration:'500ms',
-      data: {
-        message: 'Elemento creado satisfactoriamente',
-        type: 'sucsess'
-      }
-    });
+  closeModal() {
+    this.dialogRef.close(this.companyForm.getRawValue());
   }
 }

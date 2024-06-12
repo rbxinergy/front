@@ -32,4 +32,6 @@ import { MatTableModule } from '@angular/material/table';
   templateUrl: './new-client.component.html',
   styleUrls: ['./new-client.component.css']
 })
-export class NewClientComponent {}
+export class NewClientComponent {
+  
+}

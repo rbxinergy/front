@@ -10,12 +10,14 @@ import { CompanyService } from 'src/app/shared/services/company.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ClientComponent } from '../client/client.component';
+import { CompanyComponent } from '../company/company.component';
 
 @Component({
   selector: 'app-company-table',
@@ -34,15 +36,18 @@ export class CompanyTableComponent implements AfterViewInit {
     'id', 'name', 'businessName', 'address', 'country', 'city', 'state', 'documentType', 'document', 'acciones'
   ];
   dataSource = new MatTableDataSource<Company>();
+  companies: Company[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(private companyService: CompanyService, private cdr: ChangeDetectorRef) {}
+  constructor(private companyService: CompanyService, private cdr: ChangeDetectorRef,
+      private dialog: MatDialog) {}
 
   ngAfterViewInit(): void {
     this.companyService.getCompanies().subscribe((data: any) => {
-      this.dataSource.data = data;
+      this.companies = data;
+      this.dataSource.data = this.companies;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
@@ -73,9 +78,22 @@ export class CompanyTableComponent implements AfterViewInit {
     this.applyFilter(event);
   }
 
-  addCompany() {
-    // Implementación para agregar una nueva empresa
-    console.log('Agregar empresa');
+  openCompanyModal() {
+    const maxId = this.companies.length > 0 ? Math.max(...this.companies.map(company => parseInt(company.id))) : 0;
+    const dialogRef = this.dialog.open(CompanyComponent, {
+      width: '600px',
+      data: {} // Puedes pasar datos al modal si es necesario
+    });
+  
+    dialogRef.afterClosed().subscribe((newCompany: Company) => {
+      if (newCompany) {
+        // Manejar los datos del formulario devueltos por CompanyComponent
+        console.log(newCompany, maxId);
+        newCompany.id =( maxId + 1).toString();
+        this.companies.push(newCompany); // Agregar la nueva empresa al arreglo
+        this.dataSource.data = this.companies; // Actualizar el dataSource de la tabla
+      }
+    });
   }
   
   
