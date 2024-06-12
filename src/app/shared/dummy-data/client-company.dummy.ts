@@ -36,7 +36,7 @@ export const clients = [
   
   export const companies = clients.flatMap(client => {
     return Array.from({ length: 10 }, (_, index) => ({
-      id: `${client.id}-${index + 1}`,
+      id: `${index + 1}`, // ${client.id}-
       name: `Company ${index + 1} of ${client.name}`,
       businessName: `Business ${index + 1}`,
       address: `Address ${index + 1}`,

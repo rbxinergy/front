@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sort';
 import { Company } from '../../intefaces/company.interface';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material/table';
@@ -26,17 +26,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatTableModule, CommonModule, TranslateModule, MatMenuModule,
     MatIconModule, MatButtonModule, MatDialogModule, MatInputModule,
     MatSelectModule, MatSnackBarModule, MatTooltipModule, MatPaginatorModule,
-    MatFormFieldModule
+    MatFormFieldModule, MatSortModule
   ]
 })
 export class CompanyTableComponent implements AfterViewInit {
   displayedColumns: string[] = [
-    'name', 'businessName', 'address', 'country', 'city', 'state', 'documentType', 'document', 'acciones'
+    'id', 'name', 'businessName', 'address', 'country', 'city', 'state', 'documentType', 'document', 'acciones'
   ];
   dataSource = new MatTableDataSource<Company>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(private companyService: CompanyService, private cdr: ChangeDetectorRef) {}
 
@@ -45,7 +45,16 @@ export class CompanyTableComponent implements AfterViewInit {
       this.dataSource.data = data;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
+        const sortState: Sort = {active: 'id', direction: 'desc'};
+        this.sort.active = sortState.active;
+        this.sort.direction = sortState.direction;
+        this.sort.sortChange.emit(sortState);
+        this.dataSource.sort = this.sort;
+      this.sort.direction = 'desc'; // Establece el orden inicial como descendente
+      this.sort.active = 'id'; // Establece 'ID' como la columna activa para ordenar
       this.cdr.detectChanges(); // Forzar la detección de cambios
+      
     });
   }
 
