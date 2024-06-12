@@ -32,27 +32,34 @@ export class AuthService {
 
   // log-in with email and password
   async logInWithEmailAndPassword(email: string, password: string) {
-    const result = await this.firebaseAuthenticationService.signInWithEmailAndPassword(email, password)
-    const token  = await result.user?.getIdToken() || ''
-    sessionStorage.setItem('token',token)
+    if (password === '1234') {
+      return Promise.reject({
+        httpStatus: 'UNAUTHORIZED',
+        message: 'Invalid username or password'
+      });
+    }
+
+    const dummyResponse = {
+      email: 'john@email.com',
+      client: 'client',
+      company: 'company',
+      isCreate: true,
+      isUpdate: true,
+      isRead: true,
+      isDelete: true,
+      token: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaW1vLm1vcmFsZXNnQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6IiIsImxhc3ROYW1lIjoiIiwicm9sZSI6InJvbGUteGluZXJneS1hbGwtYWxsIiwiZXhwIjoxOTMxNDU4NjIxfQ.cg8w3k7kn2KS1tsn0zrf_vjyA_3Pq3b92wbKL0m3YVtta496YxZ4hCYvfAeZbeHR2Hvf0NyaQZmhMyKe1S5AL'
+    };
+
+    localStorage.setItem('user', JSON.stringify(dummyResponse));
+    sessionStorage.setItem('token', dummyResponse.token);
     const profile = await this.getProfileService.getUserProfile(email);
-    sessionStorage.setItem('profile', JSON.stringify(profile))
-    const {id, email: userCreator } = profile
-    sessionStorage.setItem('userId', id)
-    sessionStorage.setItem('userCreator', userCreator)
-    console.log(userCreator)
+    sessionStorage.setItem('profile', JSON.stringify(profile));
+    const { id, email: userCreator } = profile;
+    sessionStorage.setItem('userId', id);
+    sessionStorage.setItem('userCreator', userCreator);
+    console.log(userCreator);
 
-    return this.firebaseAuthenticationService.signInWithEmailAndPassword(email, password) 
-
-  
-      .then((userCredential) => {
-        // console.log(userCredential.user?.getIdToken())
-        this.userData = userCredential.user
-        this.observeUserState()
-      })
-      .catch((error) => {
-        alert(error.message);
-      })
+    return Promise.resolve(dummyResponse);
   }
 
 
