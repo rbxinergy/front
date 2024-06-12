@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { clients, companies } from '../dummy-data/client-company.dummy';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
-  private groupDocument : string = '';
+  private groupDocument: string = '';
 
   constructor(private http: HttpClient) { 
     this.groupDocument = sessionStorage?.getItem('groupDocument') || '0'
@@ -52,49 +53,12 @@ export class CompanyService {
     return this.http.get<any>(this.url, { headers: this.headers , params})
   }
 
-  getCompanies(){
-    return this.http.get<any>(this.url, { headers: this.headers })
+  getCompanies() {
+    return of(companies);
   }
 
   getClients() {
-    // Objeto JSON dummy con datos más realistas de empresas chilenas
-    const dummyData = [
-      {
-        id: '550e8400-e29b-41d4-a716-446655440001',
-        name: 'Empresa Chilena A',
-        businessName: 'Empresa A S.A.',
-        address: 'Av. Libertador Bernardo O\'Higgins 1234, Santiago, Chile',
-        country: 'Chile',
-        documentType: 'RUT',
-        document: '76012345-6',
-        tag: 'legal-related',
-        idContact: ['550e8400-e29b-41d4-a716-446655440001']
-      },
-      {
-        id: '550e8400-e29b-41d4-a716-446655440002',
-        name: 'Empresa Chilena B',
-        businessName: 'Empresa B Ltda.',
-        address: 'Calle Falsa 123, Valparaíso, Chile',
-        country: 'Chile',
-        documentType: 'RUT',
-        document: '96543210-9',
-        tag: 'legal-related',
-        idContact: ['550e8400-e29b-41d4-a716-446655440002']
-      },
-      {
-        id: '550e8400-e29b-41d4-a716-446655440003',
-        name: 'Empresa Chilena C',
-        businessName: 'Empresa C SpA',
-        address: 'Calle Real 456, Concepción, Chile',
-        country: 'Chile',
-        documentType: 'RUT',
-        document: '81234567-0',
-        tag: 'legal-related',
-        idContact: ['550e8400-e29b-41d4-a716-446655440003']
-      }
-    ];
-
-    return of(dummyData);
+    return of(clients);
   }
 
   putClient(form: any){

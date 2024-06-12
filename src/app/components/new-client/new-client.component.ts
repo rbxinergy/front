@@ -9,6 +9,8 @@ import { RoleComponent } from '../role/role.component';
 import { UserComponent } from '../user/user.component';
 import { DomainComponent } from '../domain/domain.component';
 import { SubdomainComponent } from '../subdomain/subdomain.component';
+import { CompanyTableComponent } from '../company-table/company-table.component';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-new-client',
@@ -23,7 +25,9 @@ import { SubdomainComponent } from '../subdomain/subdomain.component';
     RoleComponent,
     UserComponent,
     DomainComponent,
-    SubdomainComponent
+    SubdomainComponent,
+    CompanyTableComponent,
+    MatTableModule
   ],
   templateUrl: './new-client.component.html',
   styleUrls: ['./new-client.component.css']
