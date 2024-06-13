@@ -1,61 +1,36 @@
-<h2>{{"role"|translate}}</h2>
-<div>
-  <form [formGroup]="roleForm">
-  
-    <mat-form-field appearance="outline" class="col-2">
-      <mat-label>Nombre</mat-label>
-      <input matInput type="text" name="name" required>
-    </mat-form-field>
-  
-    <mat-form-field appearance="outline" class="col-1">
-      <mat-label>Descripción</mat-label>
-      <textarea matInput name="description" required></textarea>
-    </mat-form-field>
-  
-    <mat-form-field appearance="outline" class="col-2">
-      <mat-label>Cliente</mat-label>
-      <mat-select required name="client">
-        <mat-option *ngFor="let client of clients" [value]="client.id">
-          {{ client.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  
-    <mat-form-field appearance="outline" class="col-2">
-      <mat-label>Empresa</mat-label>
-      <mat-select required name="company">
-        <mat-option *ngFor="let company of companies" [value]="company.id">
-          {{ company.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <section class="col-1">
-      <mat-checkbox name="is_active" color="primary">Activo</mat-checkbox>
-      <mat-checkbox name="is_delete" color="primary">Eliminado</mat-checkbox>
-    </section>
-    
-    <mat-form-field appearance="outline" class="col-2">
-      <mat-label>Fecha de Creación</mat-label>
-      <input matInput [matDatepicker]="created_date" required>
-      <mat-datepicker-toggle matIconSuffix [for]="created_date"></mat-datepicker-toggle>
-      <mat-datepicker #created_date></mat-datepicker>
-    </mat-form-field>
-  
-    <mat-form-field appearance="outline" class="col-2">
-      <mat-label>Fecha de Modificación</mat-label>
-      <input matInput [matDatepicker]="modificated_date" required>
-      <mat-datepicker-toggle matIconSuffix [for]="modificated_date"></mat-datepicker-toggle>
-      <mat-datepicker #modificated_date></mat-datepicker>
-    </mat-form-field>
-  
-    <mat-form-field appearance="outline" class="col-1">
-      <mat-label>Etiqueta</mat-label>
-      <input matInput type="text" name="tag">
-    </mat-form-field>
-    <div class="btn-box">
-      <button mat-raised-button type="submit">Volver</button>
-      <button mat-raised-button color="primary" type="submit" class="d-right" (click)="save()">Guardar</button>
-    </div>
-  </form>
-</div>
-  
+<h2>{{"roles"|translate}}</h2>
+<form [formGroup]="roleForm" (ngSubmit)="closeModal()">
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre:</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Descripción:</mat-label>
+    <input matInput formControlName="description">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Cliente:</mat-label>
+    <input matInput formControlName="client">
+  </mat-form-field>
+
+  <!-- <mat-form-field appearance="outline">
+    <mat-label>Empresa:</mat-label>
+    <input matInput formControlName="company">
+  </mat-form-field>
+
+  <mat-checkbox formControlName="isCreate">Crear</mat-checkbox>
+  <mat-checkbox formControlName="isUpdate">Actualizar</mat-checkbox>
+  <mat-checkbox formControlName="isRead">Leer</mat-checkbox>
+  <mat-checkbox formControlName="isDelete">Eliminar</mat-checkbox> -->
+
+  <mat-form-field appearance="outline">
+    <mat-label>Etiqueta:</mat-label>
+    <input matInput formControlName="tag">
+  </mat-form-field>
+
+  <div class="btn-box">
+    <button mat-raised-button type="submit">Guardar</button>
+  </div>
+</form>

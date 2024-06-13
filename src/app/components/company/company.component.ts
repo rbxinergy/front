@@ -25,24 +25,7 @@ import { Company } from 'src/app/intefaces/company.interface';
   styleUrls: ['./company.component.css']
 })
 export class CompanyComponent {
-  // companyForm = new FormGroup({
-  //   id: new FormControl(null, Validators.required),
-  //   name: new FormControl('', Validators.required),
-  //   business_name: new FormControl('', Validators.required),
-  //   address: new FormControl('', Validators.required),
-  //   city: new FormControl('', Validators.required),
-  //   state: new FormControl('', Validators.required),
-  //   county: new FormControl(''),
-  //   district: new FormControl(''),
-  //   country: new FormControl('', Validators.required),
-  //   document_type: new FormControl('', Validators.required),
-  //   document: new FormControl('', Validators.required),
-  //   is_headquarters: new FormControl(false),
-  //   is_branch: new FormControl(false),
-  //   is_active: new FormControl(true),
-  //   is_delete: new FormControl(false),
-  //   tag: new FormControl('')
-  // });
+
   companyForm: FormGroup;
 
   constructor(    private dialogRef: MatDialogRef<CompanyComponent>,

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
@@ -11,8 +11,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { Role } from 'src/app/intefaces/role.interface';
 
 @Component({
   selector: 'app-role',
@@ -26,33 +27,28 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
   styleUrls: ['./role.component.css']
 })
 export class RoleComponent {
-  roleForm = new FormGroup({
-    id: new FormControl(null, Validators.required),
-    name: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
-    client: new FormControl(null, Validators.required),
-    company: new FormControl(null, Validators.required),
-    is_active: new FormControl(true),
-    is_delete: new FormControl(false),
-    created_date: new FormControl(new Date(), Validators.required),
-    modificated_date: new FormControl(new Date(), Validators.required),
-    tag: new FormControl(''),
-  });
+  roleForm: FormGroup;
 
-  companies: any[] = [];
-  clients: any[] = [];
-
-  constructor(public dialog: MatDialog) { }
-
-  save() {
-    this.dialog.open(MessagesModalComponent, {
-      width: '500px',
-      enterAnimationDuration:'500ms',
-      exitAnimationDuration:'500ms',
-      data: {
-        message: 'Elemento creado satisfactoriamente',
-        type: 'sucsess'
+  constructor(private dialogRef: MatDialogRef<RoleComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Role,
+    private fb: FormBuilder) {
+      if(data) {
+        this.roleForm = new FormGroup({
+          id: new FormControl(data?.id || null),
+          name: new FormControl(data?.name || ''),
+          description: new FormControl(data?.description || ''),
+          client: new FormControl(data?.client || ''),
+          company: new FormControl(data?.company || ''),
+          isCreate: new FormControl(data?.isCreate || false),
+          isUpdate: new FormControl(data?.isUpdate || false),
+          isRead: new FormControl(data?.isRead || false),
+          isDelete: new FormControl(data?.isDelete || false),
+          tag: new FormControl(data?.tag || '')
+        });
       }
-    });
+    }
+
+  closeModal() {
+    this.dialogRef.close(this.roleForm.getRawValue());
   }
 }
