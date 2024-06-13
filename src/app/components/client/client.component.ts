@@ -13,6 +13,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { ClientDataService } from 'src/app/shared/services/client-data.service';
 
 @Component({
   selector: 'app-client',
@@ -41,10 +42,10 @@ export class ClientComponent {
     tag: new FormControl('')
   });
 
-  constructor() { } // public dialogRef: MatDialogRef<ClientComponent>
+  constructor(private clientDataService: ClientDataService) { } // public dialogRef: MatDialogRef<ClientComponent>
 
   save() {
-    //this.dialogRef.close(this.clientForm.getRawValue());
+    this.clientDataService.setClientData(this.clientForm.getRawValue());
   }
 }
 

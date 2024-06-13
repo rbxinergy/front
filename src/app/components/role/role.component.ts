@@ -14,6 +14,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { Role } from 'src/app/intefaces/role.interface';
+import { ClientDataService } from 'src/app/shared/services/client-data.service';
 
 @Component({
   selector: 'app-role',
@@ -31,13 +32,14 @@ export class RoleComponent {
 
   constructor(private dialogRef: MatDialogRef<RoleComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Role,
-    private fb: FormBuilder) {
+    private fb: FormBuilder, private clientDataService: ClientDataService) {
       if(data) {
+        const clientData = this.clientDataService.getClientData();
         this.roleForm = new FormGroup({
           id: new FormControl(data?.id || null),
           name: new FormControl(data?.name || ''),
           description: new FormControl(data?.description || ''),
-          client: new FormControl(data?.client || ''),
+          client: new FormControl(data?.client || clientData.name),
           company: new FormControl(data?.company || ''),
           isCreate: new FormControl(data?.isCreate || false),
           isUpdate: new FormControl(data?.isUpdate || false),
