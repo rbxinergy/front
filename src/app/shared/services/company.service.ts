@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { lastValueFrom, Observable } from 'rxjs';
+import { lastValueFrom, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { clients, companies } from '../dummy-data/client-company.dummy';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
-  private groupDocument : string = '';
+  private groupDocument: string = '';
 
   constructor(private http: HttpClient) { 
     this.groupDocument = sessionStorage?.getItem('groupDocument') || '0'
@@ -52,15 +53,12 @@ export class CompanyService {
     return this.http.get<any>(this.url, { headers: this.headers , params})
   }
 
-  getCompanies(){
-    return this.http.get<any>(this.url, { headers: this.headers })
+  getCompanies() {
+    return of(companies);
   }
 
-  getClients(){
-    const params = new HttpParams({
-      fromString: 'option=1' 
-    })
-    return this.http.get<any>(this.url, { headers: this.headers, params })
+  getClients() {
+    return of(clients);
   }
 
   putClient(form: any){

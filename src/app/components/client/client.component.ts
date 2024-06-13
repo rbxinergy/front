@@ -11,7 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 
 @Component({
@@ -20,14 +20,13 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
   imports: [
     FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
-    TranslateModule, MatNativeDateModule, MatDatepickerModule
+    TranslateModule, MatNativeDateModule, MatDatepickerModule, MatDialogModule
   ],
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.css']
 })
 export class ClientComponent {
   clientForm = new FormGroup({
-    id: new FormControl(null, Validators.required),
     name: new FormControl('', Validators.required),
     business_name: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
@@ -36,26 +35,16 @@ export class ClientComponent {
     county: new FormControl(''),
     district: new FormControl(''),
     country: new FormControl('', Validators.required),
-    document_type: new FormControl('', Validators.required),
+    document_type: new FormControl('RUT', Validators.required),
     document: new FormControl('', Validators.required),
     is_active: new FormControl(true),
-    is_delete: new FormControl(false),
-    created_date: new FormControl(new Date(), Validators.required),
-    modificated_date: new FormControl(new Date(), Validators.required),
-    tag: new FormControl(''),
+    tag: new FormControl('')
   });
 
-  constructor(public dialog: MatDialog) { }
+  constructor() { } // public dialogRef: MatDialogRef<ClientComponent>
 
   save() {
-    this.dialog.open(MessagesModalComponent, {
-      width: '500px',
-      enterAnimationDuration:'500ms',
-      exitAnimationDuration:'500ms',
-      data: {
-        message: 'Elemento creado satisfactoriamente',
-        type: 'sucsess'
-      }
-    });
+    //this.dialogRef.close(this.clientForm.getRawValue());
   }
 }
+

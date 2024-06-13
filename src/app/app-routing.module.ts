@@ -26,12 +26,13 @@ import { PermissionComponent } from './components/permission/permission.componen
 import { SessionComponent } from './components/session/session.component';
 import { ServicecompanyComponent } from './components/servicecompany/servicecompany.component';
 import { ResponsiveMenuComponent } from './components/dashboard/responsive-menu/responsive-menu.component';
-
+import { NewClientComponent } from './components/new-client/new-client.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
+  { path: 'new-client', component: NewClientComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
     children:[
       { path: 'stepper', component: StepperComponent},

@@ -8,7 +8,6 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { Clients } from 'src/app/intefaces/clients'
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { EditComponent } from './edit/edit.component';
 import {
@@ -20,12 +19,14 @@ import {
   MatDialogModule,
 } from '@angular/material/dialog';
 import { DeleteComponent } from './delete/delete.component';
-
-
+import { MatDividerModule } from '@angular/material/divider';
+import { Client } from '../../../intefaces/client.interface'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
+  styleUrls: ['./clients.component.scss'],
   standalone: true,
   imports: [
     MatSlideToggleModule,
@@ -39,41 +40,42 @@ import { DeleteComponent } from './delete/delete.component';
     TranslateModule,
     MatButtonModule,
     EditComponent,
-    MatDialogModule
+    MatDialogModule,
+    MatDividerModule
   ],
 })
 export class ClientsComponent implements AfterViewInit {
   isLoading = true
-  companies:Clients[] = []
+  clients: Client[] = []
   checked = false
-  companiesTableColumns: string[] = [
-    'companyname', 'documentNumber', 'status', 'acciones'
+  clientsTableColumns: string[] = [
+    'name', 'businessName', 'address', 'country', 'documentType', 'document', 'acciones'
   ];
 
-  dataSource = new MatTableDataSource<Clients>();
+  dataSource = new MatTableDataSource<Client>();
   
-  constructor(private companyService: CompanyService, public dialog: MatDialog){
-    this.getCompanies()
+  constructor(private companyService: CompanyService, public dialog: MatDialog, private router: Router){
+    this.getClients()
   }
 
-  openDialog(id:number){
-    const result: any[] = this.companies.filter((company:any) => company.id === id);
+  openDialog(id: string){
+    const result: any[] = this.clients.filter((client:any) => client.id === id);
     this.dialog.open(EditComponent, { 
       data: result[0]
     }) 
   }
-  openDelete(id:number){
-    const result: any[] = this.companies.filter((company:any) => company.id === id);
+  openDelete(id: string){
+    const result: any[] = this.clients.filter((client:any) => client.id === id);
     this.dialog.open(DeleteComponent, { 
       data: result[0]
     }) 
   }
 
   // trae arreglo con clientes 
-  getCompanies(){
+  getClients(){
     this.companyService.getClients().subscribe((data: any) => {
       this.isLoading = true;
-      this.companies = data;
+      this.clients = data;
       this.dataSource.data = data
       this.isLoading = false;
       console.log(data)
@@ -85,7 +87,8 @@ export class ClientsComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
+
+  navigateToNewClient() {
+    this.router.navigate(['/new-client']);
+  }
 }
-
-
-
