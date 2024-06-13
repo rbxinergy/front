@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
@@ -9,8 +9,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { Company } from 'src/app/intefaces/company.interface';
 
 @Component({
   selector: 'app-company',
@@ -24,26 +25,50 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
   styleUrls: ['./company.component.css']
 })
 export class CompanyComponent {
-  companyForm = new FormGroup({
-    id: new FormControl(null, Validators.required),
-    name: new FormControl('', Validators.required),
-    business_name: new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required),
-    state: new FormControl('', Validators.required),
-    county: new FormControl(''),
-    district: new FormControl(''),
-    country: new FormControl('', Validators.required),
-    document_type: new FormControl('', Validators.required),
-    document: new FormControl('', Validators.required),
-    is_headquarters: new FormControl(false),
-    is_branch: new FormControl(false),
-    is_active: new FormControl(true),
-    is_delete: new FormControl(false),
-    tag: new FormControl('')
-  });
+  // companyForm = new FormGroup({
+  //   id: new FormControl(null, Validators.required),
+  //   name: new FormControl('', Validators.required),
+  //   business_name: new FormControl('', Validators.required),
+  //   address: new FormControl('', Validators.required),
+  //   city: new FormControl('', Validators.required),
+  //   state: new FormControl('', Validators.required),
+  //   county: new FormControl(''),
+  //   district: new FormControl(''),
+  //   country: new FormControl('', Validators.required),
+  //   document_type: new FormControl('', Validators.required),
+  //   document: new FormControl('', Validators.required),
+  //   is_headquarters: new FormControl(false),
+  //   is_branch: new FormControl(false),
+  //   is_active: new FormControl(true),
+  //   is_delete: new FormControl(false),
+  //   tag: new FormControl('')
+  // });
+  companyForm: FormGroup;
 
-  constructor(public dialogRef: MatDialogRef<CompanyComponent>) {}
+  constructor(    private dialogRef: MatDialogRef<CompanyComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Company,
+    private fb: FormBuilder) {
+      if(data) {
+        this.companyForm = new FormGroup({
+          id: new FormControl(data?.id || null),
+          name: new FormControl(data?.name || ''),
+          business_name: new FormControl(data?.business_name || ''),
+          address: new FormControl(data?.address || ''),
+          city: new FormControl(data?.city || ''),
+          state: new FormControl(data?.state || ''),
+          county: new FormControl(data?.county || ''),
+          district: new FormControl(data?.district || ''),
+          country: new FormControl(data?.country || ''),
+          document_type: new FormControl(data?.document_type || ''),
+          document: new FormControl(data?.document || ''),
+          is_headquarters: new FormControl(data?.is_headquarters || false),
+          is_branch: new FormControl(data?.is_branch || false),
+          is_active: new FormControl(data?.is_active || true),
+          is_delete: new FormControl(data?.is_delete || false),
+          tag: new FormControl(data?.tag || '')
+        });
+      }
+    }
 
   closeModal() {
     this.dialogRef.close(this.companyForm.getRawValue());

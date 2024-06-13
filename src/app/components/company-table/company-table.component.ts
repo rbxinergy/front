@@ -37,6 +37,7 @@ export class CompanyTableComponent implements AfterViewInit {
   ];
   dataSource = new MatTableDataSource<Company>();
   companies: Company[] = [];
+  selectedCompany: Company | null = null;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
@@ -96,6 +97,23 @@ export class CompanyTableComponent implements AfterViewInit {
     });
   }
   
+  openEditCompanyModal(company: Company) {
+    this.selectedCompany = { ...company }; // Clonar el elemento seleccionado
+    const dialogRef = this.dialog.open(CompanyComponent, {
+      width: '600px',
+      data: this.selectedCompany // Pasar el elemento seleccionado al modal
+    });
+
+    dialogRef.afterClosed().subscribe((updatedCompany: Company) => {
+      if (updatedCompany) {
+        const index = this.companies.findIndex(c => c.id === updatedCompany.id);
+        if (index !== -1) {
+          this.companies[index] = updatedCompany; // Actualizar el elemento en el arreglo
+          this.dataSource.data = this.companies; // Actualizar el dataSource de la tabla
+        }
+      }
+    });
+  }
   
   openDialog(id: string) {
     // Implementación para abrir el diálogo de edición
