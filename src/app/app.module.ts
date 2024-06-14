@@ -25,6 +25,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DomainTableComponent } from './components/domain-table/domain-table.component';
 
 export function HttpLoaderFactory(http: HttpClient){
   return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -34,7 +35,6 @@ export function HttpLoaderFactory(http: HttpClient){
   declarations: [
     AppComponent,
     SignUpComponent,
-    DashboardComponent,
     ObjectToArrayPipe
   ],
   imports: [

@@ -16,8 +16,9 @@
     display: flex;
     justify-items: center;
     flex-direction: column;
+    text-align: center;
     gap: 1rem;
-    width: 500px;
+    width: 400px;
     background-color: #FFFFFF;
     border-radius: 0.75rem;
     height: auto;

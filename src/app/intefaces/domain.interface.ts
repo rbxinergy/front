@@ -1,13 +1,18 @@
-interface Domain {
-    id: string;
-    name: string;
-    code: string;
-    description: string;
-    is_active: boolean;
-    is_delete: boolean;
-    created_date: Date;
-    modificated_date: Date;
-    tag: string;
-    id_domain_category: string;
-    id_company: string;
-  }
+
+export interface Domain {
+  id: string,
+  name: string,
+  description: string,
+  code: string,
+  tag: string[],
+  idDomainCategory: string,
+  idCompany: string,
+  subdomains: SubDomain[]
+}
+
+export interface SubDomain {
+  name: string,
+  description: string,
+  tag: string,
+  idDomain: string
+}
