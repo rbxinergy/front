@@ -145,13 +145,13 @@ table>tfoot:not(:last-child) {
     z-index: 1;
 }
 /* FORMS */
-form {
+/* form {
     border: 1px solid #d0cbf5;
     padding: 1rem 2rem;
     border-radius: 1rem;
     max-width: 800px;
     margin: 0 auto;
-}
+} */
 .mat-mdc-form-field-infix {
     min-height: 50px;
 }
@@ -253,7 +253,7 @@ section[class*="col-"] {
 
 
 
-.container-rounded {
+/* .container-rounded {
     border-radius: 1rem;
     border: 2px solid #d0cbf5;
     padding: 0rem 0 1rem 0;
@@ -262,4 +262,30 @@ section[class*="col-"] {
     background-color: #f4f3fc;
     padding: 1rem 2rem;
     border-radius: 1rem 1rem 0 0;
+} */
+
+/* .mat-step-icon-state-edit {
+    color: white !important;
+    font-weight: bold !important;
 }
+
+html {
+    --mat-stepper-header-icon-foreground-color: #FFFFFF;
+    --mat-stepper-header-selected-state-icon-background-color: #5f4ede;
+    --mat-stepper-header-selected-state-icon-foreground-color: #FFFFFF;
+    --mat-stepper-header-done-state-icon-background-color: #5f4ede;
+    --mat-stepper-header-done-state-icon-foreground-color: black;
+    --mat-stepper-header-edit-state-icon-background-color: #5f4ede;
+    --mat-stepper-header-edit-state-icon-foreground-color: black;
+    --mat-stepper-container-color: white;
+    --mat-stepper-line-color: rgba(0, 0, 0, 0.12);
+    --mat-stepper-header-hover-state-layer-color: rgba(0, 0, 0, 0.04);
+    --mat-stepper-header-focus-state-layer-color: rgba(0, 0, 0, 0.04);
+    --mat-stepper-header-label-text-color: rgba(0, 0, 0, 0.54);
+    --mat-stepper-header-optional-label-text-color: rgba(0, 0, 0, 0.54);
+    --mat-stepper-header-selected-state-label-text-color: rgba(0, 0, 0, 0.87);
+    --mat-stepper-header-error-state-label-text-color: #f44336;
+    --mat-stepper-header-icon-background-color: rgba(0, 0, 0, 0.54);
+    --mat-stepper-header-error-state-icon-foreground-color: #f44336;
+    --mat-stepper-header-error-state-icon-background-color: transparent;
+} */

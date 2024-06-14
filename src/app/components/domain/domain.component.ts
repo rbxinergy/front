@@ -28,14 +28,8 @@ interface FoodNode {
 const TREE_DATA: FoodNode[] = [
   {
     name: 'Dominio #1',
-    // {
-    //   "name": "xynergy",
-    //   "description": "12345",
-    //   "code": "12345",
-    //   "tag": "legal-related",
-    //   "idDomainCategory": "550e8400-e29b-41d4-a716-446655440000",
-    //   "idCompany": "550e8400-e29b-41d4-a716-446655440000", {name: 'Subdominio #2'}, {name: 'Subdominio #3'}
-    // ,{name: 'Subdominio #2'},{name: 'Subdominio #3'}}
+    //  {name: 'Subdominio #2'}, {name: 'Subdominio #3'}
+    // {name: 'Subdominio #2'},{name: 'Subdominio #3'}
     children: [{name: 'Subdominio #1'}],
   },
   {
@@ -69,7 +63,7 @@ export class DomainComponent {
     return {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
-
+      // description: node.description,
       level: level,
     };
   }

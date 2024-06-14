@@ -11,6 +11,7 @@ import { DomainComponent } from '../domain/domain.component';
 import { SubdomainComponent } from '../subdomain/subdomain.component';
 import { CompanyTableComponent } from '../company-table/company-table.component';
 import { MatTableModule } from '@angular/material/table';
+import { DomainTableComponent } from '../domain-table/domain-table.component';
 
 @Component({
   selector: 'app-new-client',
@@ -27,6 +28,7 @@ import { MatTableModule } from '@angular/material/table';
     DomainComponent,
     SubdomainComponent,
     CompanyTableComponent,
+    DomainTableComponent,
     MatTableModule
   ],
   templateUrl: './new-client.component.html',
