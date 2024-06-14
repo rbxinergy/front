@@ -3,7 +3,8 @@ import { GoogleAuthProvider } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { GetprofileService } from './getprofile.service';
-
+import { Session } from '../../intefaces/session.interface';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -50,8 +51,16 @@ export class AuthService {
       token: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaW1vLm1vcmFsZXNnQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6IiIsImxhc3ROYW1lIjoiIiwicm9sZSI6InJvbGUteGluZXJneS1hbGwtYWxsIiwiZXhwIjoxOTMxNDU4NjIxfQ.cg8w3k7kn2KS1tsn0zrf_vjyA_3Pq3b92wbKL0m3YVtta496YxZ4hCYvfAeZbeHR2Hvf0NyaQZmhMyKe1S5AL'
     };
 
+    const dummySession: Session = {
+      id: uuidv4(),
+      token: dummyResponse.token,
+      principal: 'Test',
+      isActive: true
+    };
+
     localStorage.setItem('user', JSON.stringify(dummyResponse));
     sessionStorage.setItem('token', dummyResponse.token);
+    sessionStorage.setItem('session', JSON.stringify(dummySession));
     const profile = await this.getProfileService.getUserProfile(email);
     sessionStorage.setItem('profile', JSON.stringify(profile));
     const { id, email: userCreator } = profile;

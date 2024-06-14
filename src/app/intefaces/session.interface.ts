@@ -1,4 +1,4 @@
-interface Session {
+export interface Session {
     id: string;
     token: string;
     principal: string;
