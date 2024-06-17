@@ -35,19 +35,19 @@ export class CompanyComponent {
         this.companyForm = new FormGroup({
           id: new FormControl(data?.id || null),
           name: new FormControl(data?.name || ''),
-          business_name: new FormControl(data?.business_name || ''),
+          business_name: new FormControl(data?.businessName || ''),
           address: new FormControl(data?.address || ''),
           city: new FormControl(data?.city || ''),
           state: new FormControl(data?.state || ''),
           county: new FormControl(data?.county || ''),
           district: new FormControl(data?.district || ''),
           country: new FormControl(data?.country || ''),
-          document_type: new FormControl(data?.document_type || ''),
+          document_type: new FormControl(data?.documentType || ''),
           document: new FormControl(data?.document || ''),
-          is_headquarters: new FormControl(data?.is_headquarters || false),
-          is_branch: new FormControl(data?.is_branch || false),
-          is_active: new FormControl(data?.is_active || true),
-          is_delete: new FormControl(data?.is_delete || false),
+          is_headquarters: new FormControl(data?.isHeadquarters || false),
+          is_branch: new FormControl(data?.isBranch || false),
+          is_active: new FormControl(data?.isActive || true),
+          is_delete: new FormControl(data?.isDelete || false),
           tag: new FormControl(data?.tag || '')
         });
       }

@@ -2,30 +2,33 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { clients, companies } from '../dummy-data/client-company.dummy';
+import { clients, companies } from '../shared/dummy-data/client-company.dummy';
+import { Company } from '../intefaces/company.interface';
+import { ClientDataService } from '../shared/services/client-data.service';
+import { ServiceCompany } from '../intefaces/servicecompany.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
-  private groupDocument: string = '';
-
-  constructor(private http: HttpClient) { 
-    this.groupDocument = sessionStorage?.getItem('groupDocument') || '0'
-  }
+  groupDocument = '';
+  serverUrl = environment.serverUrl;
+  apiUrls = environment.apiUrls;
 
   token = sessionStorage.getItem('token')
+  client: any;
   headers = new HttpHeaders({
     'Authorization': 'Bearer ' +  this.token,
     'cache-control': 'no-cache'
   })
-  
 
-  url = environment.getCompanyUrl
-  url2 = environment.putClientUrl
+  constructor(private http: HttpClient, private clientDataService: ClientDataService) { 
+    this.groupDocument = sessionStorage?.getItem('groupDocument') || '0';
+    this.client = this.clientDataService.getClientData();
+    console.log(this.client);
+  }
 
   async saveCompany(form: any):Promise<any>{
-    const url = environment.postClientUrl
     console.log(this.groupDocument)
     const body = { 
       "name": form.name,
@@ -41,16 +44,16 @@ export class CompanyService {
       "isGroup": false
     }
     console.log(body)
-    const postCompany = this.http.post<any>(url, body, { headers: this.headers })
+    const postCompany = this.http.post<Company>(`${this.serverUrl}${this.apiUrls.company}/create`, body, { headers: this.headers })
 
     return await lastValueFrom(postCompany)  
   }
 
-  getCompaniesByGroup(){
+  getCompaniesByGroup(client: any){
     const params = new HttpParams({
       fromString: 'group=' + this.groupDocument + '&option=2'
-    })
-    return this.http.get<any>(this.url, { headers: this.headers , params})
+    });
+    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/cliente1/company`, { headers: this.headers})
   }
 
   getCompanies() {
@@ -72,8 +75,7 @@ export class CompanyService {
       "stateId":form.stateId,
       "countryId":form.countryId
     }
-    console.log(this.url2, body)
-    return this.http.put<any>(this.url2, body, { headers: this.headers })
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.client}/update`, body, { headers: this.headers })
   }
 
 }
