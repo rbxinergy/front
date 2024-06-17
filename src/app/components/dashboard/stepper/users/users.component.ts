@@ -11,7 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { UsersService } from 'src/app/shared/services/users.service';
-import { CompanyService } from 'src/app/shared/services/company.service';
+import { CompanyService } from 'src/app/services/company.service';
 import { Companies } from 'src/app/intefaces/companies';
 
 @Component({
@@ -74,7 +74,7 @@ export class UsersComponent implements OnInit {
   }
 
   getCompaniesByGrp(){
-    this.companyService.getCompaniesByGroup().subscribe(async data => {
+    this.companyService.getCompaniesByGroup(sessionStorage.getItem('client')).subscribe(async data => {
       await data
       this.companies = data
       console.log('companies',data)

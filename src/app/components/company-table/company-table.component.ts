@@ -6,7 +6,7 @@ import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sor
 import { Company } from '../../intefaces/company.interface';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { CompanyService } from 'src/app/shared/services/company.service';
+import { CompanyService } from 'src/app/services/company.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -46,7 +46,8 @@ export class CompanyTableComponent implements AfterViewInit {
       private dialog: MatDialog) {}
 
   ngAfterViewInit(): void {
-    this.companyService.getCompanies().subscribe((data: any) => {
+    this.companyService.getCompaniesByGroup(sessionStorage.getItem('client')).subscribe((data: Company[]) => {
+      console.log(data);
       this.companies = data;
       this.dataSource.data = this.companies;
       this.dataSource.paginator = this.paginator;

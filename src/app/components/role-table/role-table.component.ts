@@ -4,7 +4,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { CompanyService } from 'src/app/shared/services/company.service';
+import { CompanyService } from 'src/app/services/company.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,7 +16,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Role } from '../../intefaces/role.interface';
-import { RoleService } from 'src/app/shared/services/role.service';
+import { RoleService } from 'src/app/services/role.service';
 
 @Component({
   selector: 'app-role-table',
@@ -32,7 +32,7 @@ import { RoleService } from 'src/app/shared/services/role.service';
 })
 export class RoleTableComponent {
   displayedColumns: string[] = [
-    'id', 'name', 'client', 'actions'
+    'name', 'client', 'actions'
   ];
   dataSource = new MatTableDataSource<Role>();
   roles: Role[] = [];
@@ -45,8 +45,8 @@ export class RoleTableComponent {
       private dialog: MatDialog) {}
 
   ngAfterViewInit(): void {
-    this.roleService.getRoles().subscribe((data: any) => {
-      this.roles = data;
+    this.roleService.getRoles('client','company').subscribe((roles: Role[]) => {
+      this.roles = roles;
       this.dataSource.data = this.roles;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

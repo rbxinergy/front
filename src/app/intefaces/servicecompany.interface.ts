@@ -1,4 +1,4 @@
-interface ServiceCompany {
+export interface ServiceCompany {
     id: string;
     name: string;
     code: string;
