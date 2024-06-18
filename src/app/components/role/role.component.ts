@@ -14,7 +14,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { Role } from 'src/app/intefaces/role.interface';
-import { ClientDataService } from 'src/app/shared/services/client-data.service';
+import { ClientDataService } from 'src/app/services/client-data.service';
 
 @Component({
   selector: 'app-role',
