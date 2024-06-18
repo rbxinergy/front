@@ -99,7 +99,7 @@ export class CompanyTableComponent implements AfterViewInit {
                   data: { message: 'Compañía creada exitosamente.', type: 'success' }
                 });
                 newCompany.id = (maxId + 1).toString();
-                this.companies.push(newCompany); // Agregar la nueva empresa al arreglo
+                this.companies.push(newCompany); // Cambiar a response.body cuando se creen los servicios en GCP
                 this.dataSource.data = this.companies; // Actualizar el dataSource de la tabla
               } else {
                 this.dialog.open(MessagesModalComponent, {
@@ -126,7 +126,6 @@ export class CompanyTableComponent implements AfterViewInit {
       }
     });
   }
-  
   
   openEditCompanyModal(company: Company) {
     this.selectedCompany = { ...company }; // Clonar el elemento seleccionado
