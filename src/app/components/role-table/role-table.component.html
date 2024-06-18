@@ -7,7 +7,7 @@
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
-        <button mat-raised-button color="primary" (click)="openRoleModal()">
+        <button mat-raised-button color="primary" (click)="openNewRoleModal()">
             <mat-icon>add</mat-icon>Agregar Roles
         </button>
     </div>
@@ -39,7 +39,7 @@
             <mat-icon>edit</mat-icon>
             <span>Editar</span>
           </button>
-          <button mat-menu-item (click)="openDelete(element.id)">
+          <button mat-menu-item (click)="openDeleteRoleModal(element.id)">
             <mat-icon>delete</mat-icon>
             <span>Borrar</span>
           </button>

@@ -8,7 +8,7 @@ import { Domain } from '../../intefaces/domain.interface';
 import { Company } from '../../intefaces/company.interface';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { CompanyService } from 'src/app/shared/services/company.service';
+// import { CompanyService } from 'src/app/shared/services/company.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -53,7 +53,7 @@ export class DomainTableComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(private companyService: CompanyService, private cdr: ChangeDetectorRef,
+  constructor(private cdr: ChangeDetectorRef, // private companyService: CompanyService
       private dialog: MatDialog) {}
 
   ngAfterViewInit(): void {

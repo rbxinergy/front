@@ -84,12 +84,12 @@ export class EditComponent {
     return obj1 && obj2? obj1.stateId === obj2.id : obj1 === obj2
   }
   // Formulario para editar datos de clientes
-  onClientEdit(){
-    const form = this.clientForm.value
-    console.log(form)
-    this.companyService.putClient(form).subscribe((data: any) => {
-      this.clients = data;
-    })
-  }
+  // onClientEdit(){
+  //   const form = this.clientForm.value
+  //   console.log(form)
+  //   this.companyService.updateCompany(form).subscribe((data: any) => {
+  //     this.clients = data;
+  //   })
+  // }
 }
 

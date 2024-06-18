@@ -1,7 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { roles } from '../shared/dummy-data/role.dummy';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Role } from '../intefaces/role.interface';
 
@@ -24,7 +24,18 @@ export class RoleService {
     'cache-control': 'no-cache'
   })
 
-  getRoles(client: string, company: string) {
-    return this.http.get<Role[]>(`${this.serverUrl}${this.apiUrls.role}/get/${client}/${company}`, { headers: this.headers})
+  getRoles(client: string, company: string): Observable<HttpResponse<any>>{
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/${client}/${company}`, { headers: this.headers, observe: 'response'})
+  }
+
+  createRole(role: Role): Observable<HttpResponse<any>> {
+    return this.http.post<any>(`${this.serverUrl}${this.apiUrls.role}/create`, role, { headers: this.headers, observe: 'response'})
+  }
+  updateRole(role: Role): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.role}/update`, role, { headers: this.headers, observe: 'response'})
+  }
+
+  deleteRole(id: string): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.serverUrl}${this.apiUrls.role}/delete/${id}`, { headers: this.headers, observe: 'response'})
   }
 }

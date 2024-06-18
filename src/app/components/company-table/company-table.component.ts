@@ -16,8 +16,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ClientComponent } from '../client/client.component';
 import { CompanyComponent } from '../company/company.component';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-company-table',
@@ -80,23 +81,52 @@ export class CompanyTableComponent implements AfterViewInit {
     this.applyFilter(event);
   }
 
-  openCompanyModal() {
+  openNewCompanyModal() {
     const maxId = this.companies.length > 0 ? Math.max(...this.companies.map(company => parseInt(company.id))) : 0;
     const dialogRef = this.dialog.open(CompanyComponent, {
       width: '600px',
       data: {} // Puedes pasar datos al modal si es necesario
     });
   
-    dialogRef.afterClosed().subscribe((newCompany: Company) => {
-      if (newCompany) {
-        // Manejar los datos del formulario devueltos por CompanyComponent
-        console.log(newCompany, maxId);
-        newCompany.id =( maxId + 1).toString();
-        this.companies.push(newCompany); // Agregar la nueva empresa al arreglo
-        this.dataSource.data = this.companies; // Actualizar el dataSource de la tabla
+    dialogRef.afterClosed().subscribe({
+      next: (newCompany: Company) => {
+        if (newCompany) {
+          this.companyService.createCompany(newCompany).subscribe({
+            next: (response) => {
+              if (response.status === 200) {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '400px',
+                  data: { message: 'Compañía creada exitosamente.', type: 'success' }
+                });
+                newCompany.id = (maxId + 1).toString();
+                this.companies.push(newCompany); // Agregar la nueva empresa al arreglo
+                this.dataSource.data = this.companies; // Actualizar el dataSource de la tabla
+              } else {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '400px',
+                  data: { message: 'Error al crear la compañía.', type: 'error' }
+                });
+              }
+            },
+            error: (error) => {
+              this.dialog.open(MessagesModalComponent, {
+                width: '400px',
+                data: { message: 'Error al crear la compañía.', type: 'error' }
+              });
+            }
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Error al abrir el modal de nueva empresa:', error);
+        this.dialog.open(MessagesModalComponent, {
+          width: '400px',
+          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+        });
       }
     });
   }
+  
   
   openEditCompanyModal(company: Company) {
     this.selectedCompany = { ...company }; // Clonar el elemento seleccionado
@@ -105,22 +135,90 @@ export class CompanyTableComponent implements AfterViewInit {
       data: this.selectedCompany // Pasar el elemento seleccionado al modal
     });
 
-    dialogRef.afterClosed().subscribe((updatedCompany: Company) => {
-      if (updatedCompany) {
-        const index = this.companies.findIndex(c => c.id === updatedCompany.id);
-        if (index !== -1) {
-          this.companies[index] = updatedCompany; // Actualizar el elemento en el arreglo
-          this.dataSource.data = this.companies; // Actualizar el dataSource de la tabla
+    dialogRef.afterClosed().subscribe({
+      next: (updatedCompany: Company) => {
+        if (updatedCompany) {
+          this.companyService.updateCompany(updatedCompany).subscribe({
+            next: (response) => {
+              if (response.status === 200) {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '500px',
+                  data: { message: 'Empresa actualizada exitosamente.', type: 'success' }
+                });
+                const index = this.companies.findIndex(c => c.id === updatedCompany.id);
+                if (index !== -1) {
+                  this.companies[index] = updatedCompany;
+                  this.dataSource.data = this.companies;
+                }
+              } else {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '500px',
+                  data: { message: 'Error al actualizar la empresa.', type: 'error' }
+                });
+              }
+            },
+            error: (error) => {
+              this.dialog.open(MessagesModalComponent, {
+                width: '500px',
+                data: { message: 'Error al actualizar la empresa.', type: 'error' }
+              });
+            }
+          });
         }
+      },
+      error: (error) => {
+        this.dialog.open(MessagesModalComponent, {
+          width: '500px',
+          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+        });
       }
     });
   }
-  
-  openDialog(id: string) {
-    // Implementación para abrir el diálogo de edición
-  }
 
-  openDelete(id: string) {
-    // Implementación para abrir el diálogo de eliminación
+  openDeleteCompanyModal(company: Company) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: {
+        title: 'Confirmar eliminación',
+        message: `¿Está seguro de que deseas eliminar la compañía ${company.name}?`,
+        type: 'error'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          this.companyService.deleteCompany(company.id).subscribe({
+            next: (response) => {
+              if (response.status === 200) {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '500px',
+                  data: { message: 'Compañía eliminada exitosamente.', type: 'success' }
+                });
+                this.companies = this.companies.filter(c => c.id !== company.id);
+                this.dataSource.data = this.companies;
+              } else {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '500px',
+                  data: { message: 'Error al eliminar la compañía.', type: 'error' }
+                });
+              }
+            },
+            error: (error) => {
+              this.dialog.open(MessagesModalComponent, {
+                width: '500px',
+                data: { message: 'Error al eliminar la compañía.', type: 'error' }
+              });
+            }
+          });
+        }
+      },
+      error: (error) => {
+        this.dialog.open(MessagesModalComponent, {
+          width: '500px',
+          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+        });
+      }
+    });
   }
 }

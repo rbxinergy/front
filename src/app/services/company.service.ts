@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -60,22 +60,20 @@ export class CompanyService {
     return of(companies);
   }
 
+  // TODO: trasladar a servicio de clientes
   getClients() {
     return of(clients);
   }
 
-  putClient(form: any){
-    console.log(form)
-    const body = {
-      "id":form.id,
-      "address":form.address,
-      "phone":form.phone,
-      "email":form.email,
-      "cityId":form.cityId,
-      "stateId":form.stateId,
-      "countryId":form.countryId
-    }
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.client}/update`, body, { headers: this.headers })
+  createCompany(company: Company): Observable<HttpResponse<any>> {
+    return this.http.post<any>(`${this.serverUrl}${this.apiUrls.company}/create`, {company}, { observe: 'response' });
   }
 
+  updateCompany(company: Company): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.company}/update`, {company}, { observe: 'response' });
+  }
+
+  deleteCompany(id: string): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.company}/delete/${id}`, { observe: 'response' });
+  }
 }

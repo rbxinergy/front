@@ -1,0 +1,18 @@
+<h3
+  [ngClass]="
+    data.type === 'error'
+      ? 'head-error'
+      : data.type === 'info'
+      ? 'head-info'
+      : 'head-primary'
+  "
+>
+  {{ data.title }}
+</h3>
+<div mat-dialog-content>
+    <p>{{ data.message }}</p>
+</div>
+<div mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button (click)="onConfirm()" cdkFocusInitial>OK</button>
+</div>

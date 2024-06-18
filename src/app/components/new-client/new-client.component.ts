@@ -12,7 +12,8 @@ import { SubdomainComponent } from '../subdomain/subdomain.component';
 import { MatTableModule } from '@angular/material/table';
 import { RoleTableComponent } from '../role-table/role-table.component';
 import { CompanyTableComponent } from "../company-table/company-table.component";
-import { DomainTableComponent } from '../domain-table/domain-table.component';
+import { TranslateModule } from "@ngx-translate/core";
+
 
 @Component({
     selector: 'app-new-client',
@@ -33,7 +34,8 @@ import { DomainTableComponent } from '../domain-table/domain-table.component';
         RoleTableComponent,
         MatTableModule,
         CompanyTableComponent,
-        DomainTableComponent
+        TranslateModule
+
     ]
 })
 export class NewClientComponent {

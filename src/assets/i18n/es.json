@@ -27,5 +27,6 @@
     "close": "Cerrar",
     "error": "Error",
     "info": "Información",
-    "success": "Correcto"
+    "success": "Correcto",
+    "cancel": "Cancelar"
 }
