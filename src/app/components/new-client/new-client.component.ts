@@ -13,6 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { RoleTableComponent } from '../role-table/role-table.component';
 import { CompanyTableComponent } from "../company-table/company-table.component";
 import { TranslateModule } from "@ngx-translate/core";
+import { DomainTableComponent } from "../domain-table/domain-table.component";
 
 
 @Component({
@@ -34,8 +35,8 @@ import { TranslateModule } from "@ngx-translate/core";
         RoleTableComponent,
         MatTableModule,
         CompanyTableComponent,
-        TranslateModule
-
+        TranslateModule,
+        DomainTableComponent
     ]
 })
 export class NewClientComponent {
