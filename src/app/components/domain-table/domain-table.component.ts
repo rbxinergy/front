@@ -21,6 +21,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ClientComponent } from '../client/client.component';
 import { CompanyComponent } from '../company/company.component';
 import { DomainComponent } from '../domain/domain.component';
+import { SubdomainComponent } from '../subdomain/subdomain.component';
 
 @Component({
   selector: 'app-domain-table',
@@ -45,10 +46,9 @@ export class DomainTableComponent {
 
   dataSource = ELEMENT_DATA;
   columnsToDisplay = ['name', 'description', 'code', 'tag'];
-  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
+  columnsToDisplayWithExpand = [...this.columnsToDisplay,  'expand', 'actions'];
   expandedElement: Domain | null;
-
-
+  domainID = null
  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
@@ -87,6 +87,14 @@ export class DomainTableComponent {
     input.value = '';
     const event = { target: input } as Event & { target: HTMLInputElement };
     this.applyFilter(event);
+  }
+  openSubdomainModal(id: string) {
+    console.log(id)
+    const dialogRef = this.dialog.open(SubdomainComponent, {
+      width: '800px',
+      height: '100%',
+      data: {id} // Puedes pasar datos al modal si es necesario
+    });
   }
 
   openCompanyModal() {
@@ -136,13 +144,22 @@ const ELEMENT_DATA: Domain[] = [
         name: "subdominio 1",
         description: "Este es el primer subdominio", 
         tag: "legal-related",
-        idDomain:"550e8400-e29b-41d4-a716-446655440000"
+        id_domain:"550e8400-e29b-41d4-a716-446655440000",
+        is_active: true,
+        is_delete:false,
+        created_date:'',
+        modificated_date:''
+
       },
       {
         name: "subdominio 2",
         description: "Este es el segundo subdominio", 
         tag: "legal-related",
-        idDomain:"550e8400-e29b-41d4-a716-446655440000"
+        id_domain:"550e8400-e29b-41d4-a716-446655440000",
+        is_active: true,
+        is_delete:false,
+        created_date:'',
+        modificated_date:''
       }
     ]
   },
@@ -159,19 +176,31 @@ const ELEMENT_DATA: Domain[] = [
         name: "Subdominio 1",
         description: "Este es el primer subdominio",
         tag: "legal-related",
-        idDomain:"550e8400-e29b-41d4-a716-446655440001"
+        id_domain:"550e8400-e29b-41d4-a716-446655440001",
+        is_active: true,
+        is_delete:false,
+        created_date:'',
+        modificated_date:''
       },
       {
         name: "Subdominio 2",
         description: "Este es el segundo subdominio",
         tag: "legal-related",
-        idDomain:"550e8400-e29b-41d4-a716-446655440001"
+        id_domain:"550e8400-e29b-41d4-a716-446655440001",
+        is_active: true,
+        is_delete:false,
+        created_date:'',
+        modificated_date:''
       },
       {
         name: "Subdominio 3",
         description: "Este es el tercer subdominio",
         tag: "legal-related",
-        idDomain:"550e8400-e29b-41d4-a716-446655440001"
+        id_domain:"550e8400-e29b-41d4-a716-446655440001",
+        is_active: true,
+        is_delete:false,
+        created_date:'',
+        modificated_date:''
       }
     ]
   },
@@ -188,25 +217,41 @@ const ELEMENT_DATA: Domain[] = [
         name: "Subdominio 1",
         description: "Este es el primer subdominio",
         tag: "legal-related",
-        idDomain:"550e8400-e29b-41d4-a716-446655440002"
+        id_domain:"550e8400-e29b-41d4-a716-446655440002",
+        is_active: true,
+        is_delete:false,
+        created_date:'',
+        modificated_date:''
       },
       {
         name: "Subdominio 2",
         description: "Este es el segundo subdominio",
         tag: "legal-related",
-        idDomain:"550e8400-e29b-41d4-a716-446655440002"
+        id_domain:"550e8400-e29b-41d4-a716-446655440002",
+        is_active: true,
+        is_delete:false,
+        created_date:'',
+        modificated_date:''
       },
       {
         name: "Subdominio 3",
         description: "Este es el tercer subdominio",
         tag: "legal-related",
-        idDomain:"550e8400-e29b-41d4-a716-446655440002"
+        id_domain:"550e8400-e29b-41d4-a716-446655440002",
+        is_active: true,
+        is_delete:false,
+        created_date:'',
+        modificated_date:''
       },
       {
         name: "Subdominio 4",
         description: "Este es el cuarto subdominio",
         tag: "legal-related",
-        idDomain:"550e8400-e29b-41d4-a716-446655440002"
+        id_domain:"550e8400-e29b-41d4-a716-446655440002",
+        is_active: true,
+        is_delete:false,
+        created_date:'',
+        modificated_date:''
       },
     ]
   },
