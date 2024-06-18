@@ -13,6 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { RoleTableComponent } from '../role-table/role-table.component';
 import { CompanyTableComponent } from "../company-table/company-table.component";
 import { TranslateModule } from "@ngx-translate/core";
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 
 @Component({
@@ -35,7 +36,12 @@ import { TranslateModule } from "@ngx-translate/core";
         MatTableModule,
         CompanyTableComponent,
         TranslateModule
-
+    ],
+    providers: [
+      {
+        provide: STEPPER_GLOBAL_OPTIONS,
+        useValue: { showError: true }
+      }
     ]
 })
 export class NewClientComponent {
