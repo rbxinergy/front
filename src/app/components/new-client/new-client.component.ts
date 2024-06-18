@@ -14,6 +14,7 @@ import { RoleTableComponent } from '../role-table/role-table.component';
 import { CompanyTableComponent } from "../company-table/company-table.component";
 import { TranslateModule } from "@ngx-translate/core";
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { DomainTableComponent } from "../domain-table/domain-table.component";
 
 
 @Component({
@@ -21,6 +22,13 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
     standalone: true,
     templateUrl: './new-client.component.html',
     styleUrls: ['./new-client.component.css'],
+    providers: [
+        {
+            provide: STEPPER_GLOBAL_OPTIONS,
+            useValue: { showError: true }
+        },
+        DomainTableComponent
+    ],
     imports: [
         CommonModule,
         MatStepperModule,
@@ -35,13 +43,8 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
         RoleTableComponent,
         MatTableModule,
         CompanyTableComponent,
-        TranslateModule
-    ],
-    providers: [
-      {
-        provide: STEPPER_GLOBAL_OPTIONS,
-        useValue: { showError: true }
-      }
+        TranslateModule,
+        DomainTableComponent
     ]
 })
 export class NewClientComponent {

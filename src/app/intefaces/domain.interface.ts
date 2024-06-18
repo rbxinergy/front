@@ -13,6 +13,10 @@ export interface Domain {
 export interface SubDomain {
   name: string,
   description: string,
+  is_active: boolean,
+  is_delete: boolean,
+  created_date: string,
+  modificated_date: string,
   tag: string,
-  idDomain: string
+  id_domain: string
 }
