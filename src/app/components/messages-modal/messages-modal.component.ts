@@ -15,12 +15,14 @@ export class MessagesModalComponent {
   modalTitle: string = '';
   modalMessage: string = '';
   modalColor: string = '';
+  showCancel: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<MessagesModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { message: string, type: string}
+    @Inject(MAT_DIALOG_DATA) public data: { message: string, type: string, showCancel: boolean}
   ) {
     this.modalTitle = this.data.type;
+    this.showCancel = this.data.showCancel;
   }
 
 

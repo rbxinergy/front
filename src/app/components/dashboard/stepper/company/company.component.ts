@@ -7,7 +7,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { CommonModule } from '@angular/common';
 import { MyErrorStateMatcher } from '../stepper.component';
 import { MatButtonModule } from '@angular/material/button';
-import { CompanyService } from 'src/app/shared/services/company.service';
+import { CompanyService } from 'src/app/services/company.service';
 
 @Component({
   selector: 'app-company',
@@ -60,7 +60,7 @@ export class CompanyComponent {
     await this.companyService.saveCompany(form)
 
     return new Promise((resolve) => {
-      this.companyService.getCompaniesByGroup().subscribe(data => {
+      this.companyService.getCompaniesByGroup(sessionStorage.getItem('client')).subscribe(data => {
         this.showTable = true
         this.companyGroup = data
         console.log(this.companyGroup)

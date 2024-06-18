@@ -4,7 +4,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { CompanyService } from 'src/app/shared/services/company.service';
+import { CompanyService } from 'src/app/services/company.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,7 +16,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Role } from '../../intefaces/role.interface';
-import { RoleService } from 'src/app/shared/services/role.service';
+import { RoleService } from 'src/app/services/role.service';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-role-table',
@@ -32,7 +34,7 @@ import { RoleService } from 'src/app/shared/services/role.service';
 })
 export class RoleTableComponent {
   displayedColumns: string[] = [
-    'id', 'name', 'client', 'actions'
+    'name', 'client', 'actions'
   ];
   dataSource = new MatTableDataSource<Role>();
   roles: Role[] = [];
@@ -45,8 +47,9 @@ export class RoleTableComponent {
       private dialog: MatDialog) {}
 
   ngAfterViewInit(): void {
-    this.roleService.getRoles().subscribe((data: any) => {
-      this.roles = data;
+    this.roleService.getRoles('client','company').subscribe((roles: any) => {
+
+      this.roles = roles.body;
       this.dataSource.data = this.roles;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -78,49 +81,142 @@ export class RoleTableComponent {
     this.applyFilter(event);
   }
 
-  openRoleModal() {
+  openNewRoleModal() {
     const maxId = this.roles.length > 0 ? Math.max(...this.roles.map(role => role.id)) : 0;
     const dialogRef = this.dialog.open(RoleComponent, {
       width: '600px',
       data: {} // Puedes pasar datos al modal si es necesario
     });
   
-    dialogRef.afterClosed().subscribe((newRole: Role) => {
-      if (newRole) {
-        // Manejar los datos del formulario devueltos por RoleComponent
-        const maxId = this.roles.length + 1
-        console.log(newRole, maxId);
-        newRole.id = maxId;
-        this.roles.push(newRole); // Agregar la nueva empresa al arreglo
-        this.dataSource.data = this.roles; // Actualizar el dataSource de la tabla
+    dialogRef.afterClosed().subscribe({
+      next: (newRole: Role) => {
+        if (newRole) {
+          this.roleService.createRole(newRole).subscribe({
+            next: (response) => {
+              if (response.status === 200) {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '400px',
+                  data: { message: 'Rol creado exitosamente.', type: 'success' }
+                });
+                newRole.id = maxId + 1;
+                this.roles.push(newRole); // Cambiar a response.body cuando se creen los servicios en GCP
+                this.dataSource.data = this.roles; // Actualizar el dataSource de la tabla
+              } else {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '400px',
+                  data: { message: 'Error al crear el rol.', type: 'error' }
+                });
+              }
+            },
+            error: (error) => {
+              this.dialog.open(MessagesModalComponent, {
+                width: '400px',
+                data: { message: 'Error al crear el rol.', type: 'error' }
+              });
+            }
+          });
+        }
+      },
+      error: (error) => {
+        this.dialog.open(MessagesModalComponent, {
+          width: '500px',
+          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+        });
       }
     });
   }
   
   openEditRoleModal(role: Role) {
-    this.selectedRole = { ...role } as Role; // Clonar el elemento seleccionado
+    this.selectedRole = { ...role }; // Clonar el elemento seleccionado
     const dialogRef = this.dialog.open(RoleComponent, {
       width: '600px',
       data: this.selectedRole // Pasar el elemento seleccionado al modal
     });
 
-    dialogRef.afterClosed().subscribe((updatedRole: Role) => {
-      if (updatedRole) {
-
-        const index = this.roles.findIndex(c => c.id === updatedRole.id);
-        if (index !== -1) {
-          this.roles[index] = updatedRole; // Actualizar el elemento en el arreglo
-          this.dataSource.data = this.roles; // Actualizar el dataSource de la tabla
+    dialogRef.afterClosed().subscribe({
+      next: (updatedRole: Role) => {
+        if (updatedRole) {
+          this.roleService.updateRole(updatedRole).subscribe({
+            next: (response) => {
+              if (response.status === 200) {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '500px',
+                  data: { message: 'Rol actualizado exitosamente.', type: 'success' }
+                });
+                const index = this.roles.findIndex(c => c.id === updatedRole.id);
+                if (index !== -1) {
+                  this.roles[index] = updatedRole;
+                  this.dataSource.data = this.roles;
+                }
+              } else {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '500px',
+                  data: { message: 'Error al actualizar el rol.', type: 'error' }
+                });
+              }
+            },
+            error: (error) => {
+              this.dialog.open(MessagesModalComponent, {
+                width: '500px',
+                data: { message: 'Error al actualizar el rol.', type: 'error' }
+              });
+            }
+          });
         }
+      },
+      error: (error) => {
+        this.dialog.open(MessagesModalComponent, {
+          width: '500px',
+          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+        });
       }
     });
   }
-  
-  openDialog(id: string) {
-    // Implementación para abrir el diálogo de edición
-  }
 
-  openDelete(id: string) {
-    // Implementación para abrir el diálogo de eliminación
+  openDeleteRoleModal(role: Role) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: {
+        title: 'Confirmar eliminación',
+        message: `¿Está seguro de que deseas eliminar el rol ${role.name}?`,
+        type: 'error'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          this.roleService.deleteRole(role.id.toString()).subscribe({
+            next: (response) => {
+              if (response.status === 200) {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '500px',
+                  data: { message: 'Rol eliminado exitosamente.', type: 'success' }
+                });
+                this.roles = this.roles.filter(c => c.id !== role.id);
+                this.dataSource.data = this.roles;
+              } else {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '500px',
+                  data: { message: 'Error al eliminar el rol.', type: 'error' }
+                });
+              }
+            },
+            error: (error) => {
+              this.dialog.open(MessagesModalComponent, {
+                width: '500px',
+                data: { message: 'Error al eliminar el rol.', type: 'error' }
+              });
+            }
+          });
+        }
+      },
+      error: (error) => {
+        this.dialog.open(MessagesModalComponent, {
+          width: '500px',
+          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+        });
+      }
+    });
   }
 }

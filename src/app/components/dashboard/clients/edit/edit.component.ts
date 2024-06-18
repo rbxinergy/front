@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators,  ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { CompanyService } from 'src/app/shared/services/company.service';
+import { CompanyService } from 'src/app/services/company.service';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -84,12 +84,12 @@ export class EditComponent {
     return obj1 && obj2? obj1.stateId === obj2.id : obj1 === obj2
   }
   // Formulario para editar datos de clientes
-  onClientEdit(){
-    const form = this.clientForm.value
-    console.log(form)
-    this.companyService.putClient(form).subscribe((data: any) => {
-      this.clients = data;
-    })
-  }
+  // onClientEdit(){
+  //   const form = this.clientForm.value
+  //   console.log(form)
+  //   this.companyService.updateCompany(form).subscribe((data: any) => {
+  //     this.clients = data;
+  //   })
+  // }
 }
 

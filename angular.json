@@ -72,9 +72,23 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]
+            },
+            "dummydev": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dummy.ts"
+                }
+              ]
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "dummydev"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
