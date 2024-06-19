@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CompanyComponent } from '../company/company.component';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-company-table',
@@ -40,6 +41,10 @@ export class CompanyTableComponent implements AfterViewInit {
   companies: Company[] = [];
   selectedCompany: Company | null = null;
 
+  formCompanyTable: FormGroup = new FormGroup({
+    tempControl: new FormControl(null, Validators.required)
+  });
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
@@ -48,20 +53,23 @@ export class CompanyTableComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.companyService.getCompaniesByGroup(sessionStorage.getItem('client')).subscribe((data: Company[]) => {
-      console.log(data);
+      if(data.length === 0){
+        console.log('No hay empresas');
+        this.formCompanyTable.controls['tempControl'].setValue('');
+      }
       this.companies = data;
       this.dataSource.data = this.companies;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
-        const sortState: Sort = {active: 'id', direction: 'desc'};
-        this.sort.active = sortState.active;
-        this.sort.direction = sortState.direction;
-        this.sort.sortChange.emit(sortState);
-        this.dataSource.sort = this.sort;
-      this.sort.direction = 'desc'; // Establece el orden inicial como descendente
-      this.sort.active = 'id'; // Establece 'ID' como la columna activa para ordenar
-      this.cdr.detectChanges(); // Forzar la detección de cambios
+      const sortState: Sort = {active: 'id', direction: 'desc'};
+      this.sort.active = sortState.active;
+      this.sort.direction = sortState.direction;
+      this.sort.sortChange.emit(sortState);
+      this.dataSource.sort = this.sort;
+      this.sort.direction = 'desc';
+      this.sort.active = 'id';
+      this.cdr.detectChanges();
       
     });
   }
@@ -85,7 +93,7 @@ export class CompanyTableComponent implements AfterViewInit {
     const maxId = this.companies.length > 0 ? Math.max(...this.companies.map(company => parseInt(company.id))) : 0;
     const dialogRef = this.dialog.open(CompanyComponent, {
       width: '600px',
-      data: {} // Puedes pasar datos al modal si es necesario
+      data: {}
     });
   
     dialogRef.afterClosed().subscribe({
@@ -99,8 +107,9 @@ export class CompanyTableComponent implements AfterViewInit {
                   data: { message: 'Compañía creada exitosamente.', type: 'success' }
                 });
                 newCompany.id = (maxId + 1).toString();
-                this.companies.push(newCompany); // Cambiar a response.body cuando se creen los servicios en GCP
-                this.dataSource.data = this.companies; // Actualizar el dataSource de la tabla
+                this.companies.push(newCompany);
+                this.dataSource.data = this.companies;
+                this.formCompanyTable.controls['tempControl'].setValue(newCompany.name);
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
@@ -128,10 +137,10 @@ export class CompanyTableComponent implements AfterViewInit {
   }
   
   openEditCompanyModal(company: Company) {
-    this.selectedCompany = { ...company }; // Clonar el elemento seleccionado
+    this.selectedCompany = { ...company };
     const dialogRef = this.dialog.open(CompanyComponent, {
       width: '600px',
-      data: this.selectedCompany // Pasar el elemento seleccionado al modal
+      data: this.selectedCompany
     });
 
     dialogRef.afterClosed().subscribe({
@@ -195,6 +204,9 @@ export class CompanyTableComponent implements AfterViewInit {
                   data: { message: 'Compañía eliminada exitosamente.', type: 'success' }
                 });
                 this.companies = this.companies.filter(c => c.id !== company.id);
+                if(this.companies.length === 0){
+                  this.formCompanyTable.controls['tempControl'].setValue(null);
+                }
                 this.dataSource.data = this.companies;
               } else {
                 this.dialog.open(MessagesModalComponent, {

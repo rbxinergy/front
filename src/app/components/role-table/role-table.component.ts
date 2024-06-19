@@ -19,6 +19,7 @@ import { Role } from '../../intefaces/role.interface';
 import { RoleService } from 'src/app/services/role.service';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-role-table',
@@ -39,6 +40,9 @@ export class RoleTableComponent {
   dataSource = new MatTableDataSource<Role>();
   roles: Role[] = [];
   selectedRole: Role | null = null;
+  formRoleTable: FormGroup = new FormGroup({
+    tempControl: new FormControl(null, Validators.required)
+  });
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
@@ -48,7 +52,9 @@ export class RoleTableComponent {
 
   ngAfterViewInit(): void {
     this.roleService.getRoles('client','company').subscribe((roles: any) => {
-
+      if(roles.body.length === 0){
+        this.formRoleTable.controls['tempControl'].setValue('');
+      }
       this.roles = roles.body;
       this.dataSource.data = this.roles;
       this.dataSource.paginator = this.paginator;
@@ -94,13 +100,14 @@ export class RoleTableComponent {
           this.roleService.createRole(newRole).subscribe({
             next: (response) => {
               if (response.status === 200) {
+                this.formRoleTable.controls['tempControl'].setValue(newRole.name);
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
                   data: { message: 'Rol creado exitosamente.', type: 'success' }
                 });
                 newRole.id = maxId + 1;
-                this.roles.push(newRole); // Cambiar a response.body cuando se creen los servicios en GCP
-                this.dataSource.data = this.roles; // Actualizar el dataSource de la tabla
+                this.roles.push(newRole);
+                this.dataSource.data = this.roles;
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
@@ -127,10 +134,10 @@ export class RoleTableComponent {
   }
   
   openEditRoleModal(role: Role) {
-    this.selectedRole = { ...role }; // Clonar el elemento seleccionado
+    this.selectedRole = { ...role };
     const dialogRef = this.dialog.open(RoleComponent, {
       width: '600px',
-      data: this.selectedRole // Pasar el elemento seleccionado al modal
+      data: this.selectedRole
     });
 
     dialogRef.afterClosed().subscribe({
@@ -195,6 +202,9 @@ export class RoleTableComponent {
                 });
                 this.roles = this.roles.filter(c => c.id !== role.id);
                 this.dataSource.data = this.roles;
+                if(this.roles.length === 0){
+                  this.formRoleTable.controls['tempControl'].setValue(null);
+                }
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',

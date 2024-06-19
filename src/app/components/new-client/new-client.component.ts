@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
@@ -55,39 +55,32 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class NewClientComponent implements AfterViewInit {
 
-  @ViewChild(ClientComponent) clientComponent: ClientComponent
+  @ViewChild(ClientComponent) clientComponent: ClientComponent;
+  @ViewChild(CompanyTableComponent) companyTableComponent: CompanyTableComponent;
+  @ViewChild(RoleTableComponent) roleTableComponent: RoleTableComponent;
+
+  companyForm: FormGroup = new FormGroup({
+    field1: new FormControl('', Validators.required)
+  });
+
   errorSteps: Set<number> = new Set();
 
-  clientForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    business_name: new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required),
-    state: new FormControl('', Validators.required),
-    county: new FormControl(''),
-    district: new FormControl(''),
-    country: new FormControl('', Validators.required),
-    document_type: new FormControl('RUT', Validators.required),
-    document: new FormControl('', Validators.required),
-    is_active: new FormControl(true),
-    tag: new FormControl('')
-  });
-  
-  constructor(){}
-
-  ngAfterViewInit(): void {
-    this.clientComponent.validationStatus.subscribe(isValid => {
-      console.log(isValid);
-      if (!isValid) {
-        this.errorSteps.add(0);
-      } else {
-        this.errorSteps.delete(0);
-      }
-    });
+  get clientForm() {
+    return this.clientComponent?.clientForm;
   }
 
-  hasError(stepIndex: number): boolean {
-    return this.errorSteps.has(stepIndex);
+  get companyTableForm() {
+    return this.companyTableComponent?.formCompanyTable;
+  }
+
+  get roleTableForm() {
+    return this.roleTableComponent?.formRoleTable;
+  }
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
 
   onValidationStatus($event: boolean) {
@@ -97,9 +90,5 @@ export class NewClientComponent implements AfterViewInit {
     } else {
       this.errorSteps.delete(0);
     }
-  }
-
-  save() {
-    console.log(this.clientForm.getRawValue());
   }
 }

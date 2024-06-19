@@ -28,7 +28,7 @@ export class CompanyComponent {
 
   companyForm: FormGroup;
 
-  constructor(    private dialogRef: MatDialogRef<CompanyComponent>,
+  constructor(private dialogRef: MatDialogRef<CompanyComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Company,
     private fb: FormBuilder) {
       if(data) {

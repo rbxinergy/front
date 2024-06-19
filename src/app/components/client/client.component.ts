@@ -56,7 +56,4 @@ export class ClientComponent implements OnInit {
     this.clientDataService.setClientData(this.clientForm.getRawValue());
   }
 
-  get isCompleted(): boolean {
-    return !this.clientForm.valid;
-  }
 }
