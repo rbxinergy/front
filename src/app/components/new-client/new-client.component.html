@@ -1,31 +1,21 @@
 <mat-horizontal-stepper>
-  <mat-step label="Datos del cliente">
-    <app-client></app-client>
-    <div>
-      <button mat-button matStepperNext>Siguiente</button>
-    </div>
+  <mat-step label="Datos del cliente" [stepControl]="clientForm">
+    <app-client (validationStatus)="onValidationStatus($event)"></app-client>  
   </mat-step>
-  <mat-step label="Añadir empresas del cliente">
+  <mat-step label="Añadir empresas del cliente" [stepControl]="companyTableForm">
     <app-company-table></app-company-table>
     <div>
       <button mat-button matStepperPrevious>Anterior</button>
       <button mat-button matStepperNext>Siguiente</button>
     </div>
   </mat-step>
-  <mat-step label="Roles">
+  <mat-step label="Roles" [stepControl]="roleTableForm">
     <app-role-table></app-role-table>
     <div>
       <button mat-button matStepperPrevious>Anterior</button>
       <button mat-button matStepperNext>Siguiente</button>
     </div>
   </mat-step>
-  <!-- <mat-step label="Usuarios">
-    <app-user></app-user>
-    <div>
-      <button mat-button matStepperPrevious>Anterior</button>
-      <button mat-button matStepperNext>Siguiente</button>
-    </div>
-  </mat-step> -->
   <mat-step label="Dominios y Subdominios">
    <app-domain-table></app-domain-table>
   <!--    <app-domain></app-domain>

@@ -1,32 +1,27 @@
 import { Component, Input } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
-import {MatStepperModule} from '@angular/material/stepper';
-import { CommonModule } from '@angular/common';
-import { ClientService } from 'src/app/shared/services/client.service';
-import { MyErrorStateMatcher } from '../stepper.component';
-import { MatButtonModule } from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
 import {
-  MatDialog,
-  MatDialogRef,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogTitle,
-  MatDialogContent,
-  
-} from '@angular/material/dialog';
-
-
-
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
+import { CommonModule } from '@angular/common';
+import { ClientService } from 'src/app/services/client.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
   standalone: true,
-  imports:[
+  imports: [
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
@@ -36,14 +31,17 @@ import {
     MatButtonModule,
     CommonModule,
     MatButtonModule,
-    MatCardModule
-  ]
+    MatCardModule,
+    TranslateModule,
+  ],
 })
 export class ClientComponent {
+  show = false;
 
-  get clientName(){
-    return this.clientForm.get('clientName') as FormControl
-  }
+  selectedValue: string = '';
+  selectedCountry: number = 0;
+  selectedState: number = 0;
+  selectedCity: number = 0;
 
   clientForm = new FormGroup({
     clientName: new FormControl('', Validators.minLength(2)),
@@ -57,29 +55,20 @@ export class ClientComponent {
     cityId: new FormControl('', Validators.required),
     stateId: new FormControl('', Validators.required),
     countryId: new FormControl('', Validators.required),
-  })
-
-  @Input ()
+  });
 
   firstFormGroup = this._formBuilder.group({
     client: ['', Validators.required],
   });
-  cliente!: string | null | undefined;
+  cliente: string | null | undefined;
 
-  show = false
+  constructor(
+    private _formBuilder: FormBuilder,
+    private clientService: ClientService
+  ) {}
 
-  selectedValue: string = '';
-  selectedCountry: number = 0
-  selectedState: number = 0
-  selectedCity: number = 0
-
-  onClientCreate(){
-    const form = this.clientForm.value
-    this.clientService.saveClient(form)
+  onClientCreate() {
+    const form = this.clientForm.value;
+    this.clientService.saveClient(form);
   }
-
-  constructor(private _formBuilder: FormBuilder, private clientService: ClientService ) {}
-  
-
-
 }
