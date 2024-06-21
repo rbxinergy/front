@@ -7,11 +7,12 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { Companies } from 'src/app/intefaces/companies'
+import { Companies } from 'src/app/interfaces/companies'
 import { EditComponent } from './edit/edit.component';
 import { DeleteComponent } from './delete/delete.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company',
@@ -39,11 +40,11 @@ export class CompanyComponent implements AfterViewInit {
   
   dataSource = new MatTableDataSource<Companies>();
   
-  constructor(private companyService: CompanyService, public dialog: MatDialog){
+  constructor(private companyService: CompanyService, public dialog: MatDialog, private router: Router){
     this.getCompanies()
   }
   getCompanies(){
-    this.companyService.getCompanies().subscribe((data: any) => {
+    this.companyService.getCompaniesByGroup('client').subscribe((data: any) => {
       this.companies = data;
       this.isLoading = false;
       this.dataSource.data = data
@@ -66,5 +67,12 @@ export class CompanyComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+  openConfig(client: string, company?: string) {
+    if (company) {
+      this.router.navigate(['/dashboard/company-config', client, company]);
+    } else {
+      this.router.navigate(['/dashboard/company-config', client]);
+    }
   }
 }

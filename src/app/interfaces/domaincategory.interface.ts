@@ -1,4 +1,4 @@
-interface DomainCategory {
+export interface DomainCategory {
   id: string;
   name: string;
   description: string;

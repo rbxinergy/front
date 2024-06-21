@@ -4,8 +4,8 @@ import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef } from '
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sort';
-import { Domain } from '../../intefaces/domain.interface';
-import { Company } from '../../intefaces/company.interface';
+import { Domain } from '../../interfaces/domain.interface';
+import { Company } from '../../interfaces/company.interface';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { CompanyService } from 'src/app/services/company.service';

@@ -20,7 +20,7 @@ import {
 } from '@angular/material/dialog';
 import { DeleteComponent } from './delete/delete.component';
 import { MatDividerModule } from '@angular/material/divider';
-import { Client } from '../../../intefaces/client.interface'
+import { Client } from '../../../interfaces/client.interface'
 import { Router } from '@angular/router';
 
 @Component({

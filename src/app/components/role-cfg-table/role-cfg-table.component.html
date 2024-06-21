@@ -1,0 +1,69 @@
+<div>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="isCreate">
+      <th mat-header-cell *matHeaderCellDef> Crear </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox [checked]="element.isCreate"></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="isRead">
+      <th mat-header-cell *matHeaderCellDef> Leer </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox [checked]="element.isRead"></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="isUpdate">
+      <th mat-header-cell *matHeaderCellDef> Actualizar </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox [checked]="element.isUpdate"></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="isDelete">
+      <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox [checked]="element.isDelete"></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+          [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+          <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+          [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+  <div align="right">
+    <button mat-raised-button color="primary" (click)="addRolesToCompany()">Agregar roles</button>
+  </div>
+</div>

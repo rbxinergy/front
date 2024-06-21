@@ -7,7 +7,7 @@ export interface Domain {
   tag: string[],
   idDomainCategory: string,
   idCompany: string,
-  subdomains: SubDomain[]
+  subdomains?: SubDomain[]
 }
 
 export interface SubDomain {
