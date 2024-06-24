@@ -51,7 +51,7 @@ export class RoleTableComponent {
       private dialog: MatDialog) {}
 
   ngAfterViewInit(): void {
-    this.roleService.getRoles('client','company').subscribe((roles: any) => {
+    this.roleService.getRoles('client').subscribe((roles: any) => {
       if(roles.body.length === 0){
         this.formRoleTable.controls['tempControl'].setValue('');
       }

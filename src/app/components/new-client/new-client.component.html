@@ -1,6 +1,9 @@
 <mat-horizontal-stepper>
   <mat-step label="Datos del cliente" [stepControl]="clientForm">
-    <app-client (validationStatus)="onValidationStatus($event)"></app-client>  
+    <app-client (validationStatus)="onValidationStatus($event)" [showSaveBtn]="false"></app-client>
+    <div>
+      <button mat-button matStepperNext>Siguiente</button>
+    </div>
   </mat-step>
   <mat-step label="Añadir empresas del cliente" [stepControl]="companyTableForm">
     <app-company-table></app-company-table>
