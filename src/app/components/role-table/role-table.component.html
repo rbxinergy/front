@@ -1,6 +1,6 @@
 <div>
     <div class="search-container table-header">
-        <mat-form-field appearance="outline">
+        <mat-form-field *ngIf="roles.length > 0" appearance="outline">
           <mat-label>Buscar</mat-label>
           <input matInput (input)="applyFilter($event)" placeholder="Buscar" #searchInput>
           <button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch(searchInput)">
@@ -12,7 +12,10 @@
         </button>
     </div>
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <div *ngIf="roles.length === 0">
+    <h3>No hay roles para este cliente</h3>
+  </div>
+  <table *ngIf="roles.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Nombre </th>

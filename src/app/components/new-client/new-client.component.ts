@@ -114,5 +114,6 @@ export class NewClientComponent implements AfterViewInit {
         this.showAppDomain = true;
         break;
     }
+    this.cdr.detectChanges();
   }
 }

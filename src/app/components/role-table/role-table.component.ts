@@ -20,6 +20,8 @@ import { RoleService } from 'src/app/services/role.service';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Client } from 'src/app/interfaces/client.interface';
+import { ClientDataService } from 'src/app/services/client-data.service';
 
 @Component({
   selector: 'app-role-table',
@@ -46,12 +48,23 @@ export class RoleTableComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
+  client: Client;
 
   constructor(private roleService: RoleService, private cdr: ChangeDetectorRef,
-      private dialog: MatDialog) {}
+      private dialog: MatDialog, private clientDataService: ClientDataService) {}
 
   ngAfterViewInit(): void {
-    this.roleService.getRoles('client').subscribe((roles: any) => {
+    this.loadClientData();
+  }
+
+  loadClientData() {
+    this.client = this.clientDataService.getClientData();
+    console.log('client', this.client);
+    this.loadRoles(this.client.name);
+  }
+
+  loadRoles(clientName: string) {
+    this.roleService.getRoles(clientName).subscribe((roles: any) => {
       if(roles.body.length === 0){
         this.formRoleTable.controls['tempControl'].setValue('');
       }
@@ -68,9 +81,9 @@ export class RoleTableComponent {
       this.sort.direction = 'desc'; // Establece el orden inicial como descendente
       this.sort.active = 'id'; // Establece 'ID' como la columna activa para ordenar
       this.cdr.detectChanges(); // Forzar la detección de cambios
-      
     });
   }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
