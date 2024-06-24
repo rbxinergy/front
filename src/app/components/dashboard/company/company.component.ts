@@ -35,7 +35,7 @@ export class CompanyComponent implements AfterViewInit {
   companies:Companies[] = []
   checked = false
   companiesTableColumns: string[] = [
-    'companyname', 'documentNumber', 'status', 'acciones'
+    'name', 'documentType', 'documentNumber', 'status', 'acciones'
   ];
   
   dataSource = new MatTableDataSource<Companies>();
