@@ -14,6 +14,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { ClientDataService } from 'src/app/services/client-data.service';
+import { Client } from 'src/app/interfaces/client.interface';
 
 @Component({
   selector: 'app-client',
@@ -48,13 +49,12 @@ export class ClientComponent implements OnInit {
 
   ngOnInit(): void {
     this.clientForm.statusChanges.subscribe(status => {
-      console.log(status);
-      this.validationStatus.emit(this.clientForm.valid);
+      this.validationStatus.emit(status === 'VALID'? true : false);
     });
   }
 
   save() {
-    this.clientDataService.setClientData(this.clientForm.getRawValue());
+    this.clientDataService.setClientData(this.clientForm.getRawValue() as unknown as Client);
   }
 
 }
