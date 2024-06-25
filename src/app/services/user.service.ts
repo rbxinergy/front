@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { User } from '../intefaces/users';
+import { User } from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUsers(client: any, company: any): Observable<User[]> {
-    return this.http.get<User[]>(`${this.serverUrl}${this.apiUrl}`, {headers: this.headers});
+    return this.http.get<User[]>(`${this.serverUrl}${this.apiUrl}/get/${client}/${company}`, {headers: this.headers});
   }
 
   getUserById(id: string): Observable<User> {
@@ -27,14 +27,14 @@ export class UserService {
   }
 
   createUser(user: any): Observable<User> {
-    return this.http.post<User>(`${this.serverUrl}${this.apiUrl}`, user, {headers: this.headers});
+    return this.http.post<User>(`${this.serverUrl}${this.apiUrl}/create`, user, {headers: this.headers});
   }
 
   updateUser(id: string, user: User): Observable<User> {
-    return this.http.put<User>(`${this.serverUrl}${this.apiUrl}/${id}`, user, {headers: this.headers});
+    return this.http.put<User>(`${this.serverUrl}${this.apiUrl}/update/${id}`, user, {headers: this.headers});
   }
 
   deleteUser(id: string): Observable<User> {
-    return this.http.delete<User>(`${this.serverUrl}${this.apiUrl}/${id}`, {headers: this.headers});
+    return this.http.delete<User>(`${this.serverUrl}${this.apiUrl}/delete/${id}`, {headers: this.headers});
   }
 }

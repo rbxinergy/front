@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,10 +13,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
-import { Company } from 'src/app/intefaces/company.interface';
+import { Company } from 'src/app/interfaces/company.interface';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { Domain, SubDomain } from 'src/app/intefaces/domain.interface';
+import { Domain, SubDomain } from 'src/app/interfaces/domain.interface';
 
 @Component({
   selector: 'app-subdomain',
@@ -30,16 +30,16 @@ import { Domain, SubDomain } from 'src/app/intefaces/domain.interface';
   styleUrls: ['./subdomain.component.css']
 })
 export class SubdomainComponent {
-  selectedDomainId = this.data.id
-  selectedDomainName = this.data.name
+  selectedDomainId = this.data?.id
+  selectedDomainName = this.data?.name
   domainsMap: { [key: string]: SubDomain[] } = {};
   subdomainForm: FormGroup;
 
-  constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<SubdomainComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Company,
+  constructor(@Optional() public dialog: MatDialog, @Optional() private dialogRef: MatDialogRef<SubdomainComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: Company,
     private fb: FormBuilder) {
       if(data) {
-        this. subdomainForm = new FormGroup({
+        this.subdomainForm = new FormGroup({
           id: new FormControl('', Validators.required),
           name: new FormControl('', Validators.required),
           description: new FormControl('', Validators.required),

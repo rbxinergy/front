@@ -6,7 +6,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { Domains } from 'src/app/intefaces/domains'
+import { Domains } from 'src/app/interfaces/domains'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {
   MatDialogRef,

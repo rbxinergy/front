@@ -27,6 +27,7 @@ import { SessionComponent } from './components/session/session.component';
 import { ServicecompanyComponent } from './components/servicecompany/servicecompany.component';
 import { ResponsiveMenuComponent } from './components/dashboard/responsive-menu/responsive-menu.component';
 import { NewClientComponent } from './components/new-client/new-client.component';
+import { CompanyConfigComponent } from './components/company-config/company-config.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -56,7 +57,8 @@ const routes: Routes = [
       { path: 'user', component: UserComponent },
       { path: 'roles2', component: RoleComponent },
       { path: 'permission', component: PermissionComponent },
-      { path: 'session', component: SessionComponent }
+      { path: 'session', component: SessionComponent },
+      { path: 'company-config/:client/:company', component: CompanyConfigComponent }
     ]
   },
 ];

@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { lastValueFrom, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { clients, companies } from '../shared/dummy-data/client-company.dummy';
-import { Company } from '../intefaces/company.interface';
+import { Company } from '../interfaces/company.interface';
 import { ClientDataService } from './client-data.service';
-import { ServiceCompany } from '../intefaces/servicecompany.interface';
+import { ServiceCompany } from '../interfaces/servicecompany.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -53,16 +53,16 @@ export class CompanyService {
     const params = new HttpParams({
       fromString: 'group=' + this.groupDocument + '&option=2'
     });
-    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/cliente1/company`, { headers: this.headers})
+    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/cliente1`, { headers: this.headers})
   }
 
-  getCompanies() {
-    return of(companies);
+  getCompany(client: string, company: string) {
+    return this.http.get<Company>(`${this.serverUrl}${this.apiUrls.company}/get/${client}/${company}`, { headers: this.headers})
   }
 
-  // TODO: trasladar a servicio de clientes
   getClients() {
     return of(clients);
+    // this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/cliente1/company`, { headers: this.headers})
   }
 
   createCompany(company: Company): Observable<HttpResponse<any>> {

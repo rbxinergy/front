@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,7 +13,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
-import { Role } from 'src/app/intefaces/role.interface';
+import { Role } from 'src/app/interfaces/role.interface';
 import { ClientDataService } from 'src/app/services/client-data.service';
 
 @Component({
@@ -30,8 +30,8 @@ import { ClientDataService } from 'src/app/services/client-data.service';
 export class RoleComponent {
   roleForm: FormGroup;
 
-  constructor(private dialogRef: MatDialogRef<RoleComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Role,
+  constructor(@Optional()private dialogRef: MatDialogRef<RoleComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: Role,
     private fb: FormBuilder, private clientDataService: ClientDataService) {
       if(data) {
         const clientData = this.clientDataService.getClientData();
@@ -51,6 +51,6 @@ export class RoleComponent {
     }
 
   closeModal() {
-    this.dialogRef.close(this.roleForm.getRawValue());
+    this.dialogRef.close(this.roleForm?.getRawValue());
   }
 }

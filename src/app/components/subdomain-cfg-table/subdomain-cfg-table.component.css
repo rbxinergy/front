@@ -1,0 +1,50 @@
+/* Estilos para la tabla de usuarios */
+table {
+  width: 100%;
+}
+
+.mat-column-select {
+  width: 50px;
+}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: #000000;
+  animation: spinner .8s linear infinite;
+}
+
+button.mat-raised-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.mat-raised-button .mat-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+button.mat-raised-button span {
+  visibility: visible;
+}
+
+button.mat-raised-button[disabled] span {
+  visibility: hidden;
+}
