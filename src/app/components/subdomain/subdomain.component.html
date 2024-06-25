@@ -1,4 +1,4 @@
-<h2>{{"subdomain"|translate}}</h2>
+<!-- <h2>{{"subdomain"|translate}}</h2>
 <mat-card *ngIf="data" class="px-4">
   <mat-card-header>
     <div class="header-content">
@@ -11,55 +11,69 @@
     </div>
   </mat-card-header>
   <br>
-  <mat-card-content>
+  <mat-card-content> -->
 
-      <div *ngFor="let subdomain of domainsMap[selectedDomainId]">
-        <!-- <mat-icon class="drag-handle-question" cdkDragHandle>drag_indicator</mat-icon> -->
-        <mat-card class="question-card">
-          <mat-card-content>
-            <div class="question-header">
-              <div class="question-content">
-                <!-- <h5>Subdominio</h5> -->
-                <!-- <button mat-icon-button color="warn" >
-                  <mat-icon>delete</mat-icon>
-                </button> -->
-              </div>
-            </div>
-            <mat-form-field class="col-2" appearance="outline">
-              <mat-label>Subdominio</mat-label>
-              <input matInput [(ngModel)]="subdomain.name" [ngModelOptions]="{standalone:true}" />
-            </mat-form-field>
+<div class="p-4">
+  {{selectedDomainName}}
+  <form [formGroup]="subdomainForm" (ngSubmit)="onSubmit(selectedDomainId)">
 
-            <mat-form-field class="col-2" appearance="outline">
-              <mat-label>Descripción</mat-label>
-              <input matInput [(ngModel)]="subdomain.description" [ngModelOptions]="{standalone:true}" />
+ 
+      <button type="button" class="d-right mr-3" mat-raised-button color="primary" (click)="addSubdomains(selectedDomainId)">Agregar Subdominio</button>
+   
+    <br>
+    <mat-table [dataSource]="dataSourcePacks" class="mt-3">
+      <ng-container formArrayName="subdominios">
+
+        <!-- Subdomain name Column -->
+        <ng-container matColumnDef="Nombre">
+          <mat-header-cell *matHeaderCellDef>Subdominio</mat-header-cell>
+          <mat-cell *matCellDef="let element;" [formGroup]="element">
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Nombre de subdominio" formControlName="name" required>
             </mat-form-field>
-            <br>
-            <mat-checkbox [(ngModel)]="subdomain.is_active" [ngModelOptions]="{standalone:true}">Activo</mat-checkbox>
-            <mat-checkbox [(ngModel)]="subdomain.is_delete" [ngModelOptions]="{standalone:true}">Eliminado</mat-checkbox>
-            <br>
-            <mat-form-field class="col-2" appearance="outline">
-              <mat-label>Tag</mat-label>
-              <input matInput [(ngModel)]="subdomain.tag" [ngModelOptions]="{standalone:true}" />
+          </mat-cell>
+        </ng-container>
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="Descripción">
+          <mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>
+          <mat-cell *matCellDef="let element;" [formGroup]="element">
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Descripción" formControlName="description" required>
             </mat-form-field>
-            <!-- <mat-form-field appearance="outline" class="col-2">
-              <mat-label>Fecha de Creación</mat-label>
-              <input matInput [matDatepicker]="created_date" required>
-              <mat-datepicker-toggle matIconSuffix [for]="created_date"></mat-datepicker-toggle>
-              <mat-datepicker #created_date></mat-datepicker>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Tags Column -->
+        <ng-container matColumnDef="Tags">
+          <mat-header-cell *matHeaderCellDef>Tags</mat-header-cell>
+          <mat-cell *matCellDef="let element;" [formGroup]="element">
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="Tags" formControlName="tag" required>
             </mat-form-field>
-          
-            <mat-form-field appearance="outline" class="col-2">
-              <mat-label>Fecha de Modificación</mat-label>
-              <input matInput [matDatepicker]="modificated_date" required>
-              <mat-datepicker-toggle matIconSuffix [for]="modificated_date"></mat-datepicker-toggle>
-              <mat-datepicker #modificated_date></mat-datepicker>
-            </mat-form-field> -->
-        
-          </mat-card-content>
-        </mat-card>
-        <br>
-      </div>
-      <button mat-raised-button color="primary" type="submit" class="d-right" (click)="saveSubdomain()" *ngIf="this.domainsMap[selectedDomainId]">Guardar</button>
-  </mat-card-content>
-</mat-card>
+          </mat-cell>
+        </ng-container>
+
+        <!-- Delete Column -->
+        <ng-container matColumnDef="Eliminar">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element; index as i" [formGroup]="element">
+
+            <button type="button" (click)="deleteSubdomain(i)">
+              <mat-icon matSuffix>delete</mat-icon>
+            </button>
+
+          </mat-cell>
+        </ng-container>
+
+        <!-- header titles -->
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </ng-container>
+    </mat-table>
+
+    <button type="submit" class="d-right mr-3" mat-raised-button color="primary">Guardar</button>
+
+  </form>
+</div>

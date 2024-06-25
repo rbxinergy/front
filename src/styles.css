@@ -196,7 +196,7 @@ section[class*="col-"] {
     margin: 16px 0px 0px 0px;
 }
 .p-4 {
-    padding: 2rem;
+    padding: 0 2rem;
 }
 
 /* .mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {

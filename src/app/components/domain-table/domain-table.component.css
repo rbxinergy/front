@@ -48,7 +48,7 @@ table {
   
   .subdomains{
     padding: 16px;
-    display: block;
+    /* display: block; */
   }
   .subdomain-name{
     border-radius: .25rem;

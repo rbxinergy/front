@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-    serverUrl: 'http://localhost:8081',
+    serverUrl: 'http://localhost:8080',
     firebase: {
         projectId: "x-risk-qa",
         appId: "574871984926",
