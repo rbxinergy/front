@@ -15,7 +15,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { SubDomain } from 'src/app/intefaces/domain.interface';
+import { SubDomain } from 'src/app/interfaces/domain.interface';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';

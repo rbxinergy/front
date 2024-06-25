@@ -12,7 +12,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { CompanyService } from 'src/app/services/company.service';
-import { Companies } from 'src/app/intefaces/companies';
+import { Companies } from 'src/app/interfaces/companies';
 
 @Component({
   selector: 'app-users',

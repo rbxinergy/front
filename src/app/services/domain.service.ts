@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Domain } from '../intefaces/domain.interface';
+import { Domain } from '../interfaces/domain.interface';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, Subscription, catchError, lastValueFrom, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Domains } from '../shared/dummy-data/domain-client-company.dummy';
 import { DomainDataService } from './domain-data.service';
 import { domains } from '../shared/dummy-data/domains-client-company.dummy';
-import { Company } from '../intefaces/company.interface';
+import { Company } from '../interfaces/company.interface';
 
 
 

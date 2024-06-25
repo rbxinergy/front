@@ -3,7 +3,7 @@ import { GoogleAuthProvider } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { GetprofileService } from './getprofile.service';
-import { Session } from '../../intefaces/session.interface';
+import { Session } from '../../interfaces/session.interface';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({

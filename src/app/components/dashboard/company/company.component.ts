@@ -7,7 +7,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { Companies } from 'src/app/intefaces/companies'
+import { Companies } from 'src/app/interfaces/companies'
 import { EditComponent } from './edit/edit.component';
 import { DeleteComponent } from './delete/delete.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';

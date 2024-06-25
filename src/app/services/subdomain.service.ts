@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SubDomain } from '../intefaces/domain.interface';
+import { SubDomain } from '../interfaces/domain.interface';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, Subscription, catchError, lastValueFrom, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -58,7 +58,7 @@ export class SubdomainService {
   getSubdomains() {
     return of(subdomains);
   }
-  createSubdomain(subdomain: SubDomain[]): Observable<HttpResponse<any>> {
+  createSubdomain(subdomain: SubDomain): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${this.serverUrl}${this.apiUrls.subdomain}/create`, {subdomain}, { observe: 'response' });
   }
 

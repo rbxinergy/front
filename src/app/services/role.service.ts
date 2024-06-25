@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { roles } from '../shared/dummy-data/role.dummy';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Role } from '../intefaces/role.interface';
+import { Role } from '../interfaces/role.interface';
 
 @Injectable({
   providedIn: 'root'

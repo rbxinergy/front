@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { lastValueFrom, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { clients, companies } from '../shared/dummy-data/client-company.dummy';
-import { Company } from '../intefaces/company.interface';
+import { Company } from '../interfaces/company.interface';
 import { ClientDataService } from './client-data.service';
-import { ServiceCompany } from '../intefaces/servicecompany.interface';
+import { ServiceCompany } from '../interfaces/servicecompany.interface';
 
 @Injectable({
   providedIn: 'root'

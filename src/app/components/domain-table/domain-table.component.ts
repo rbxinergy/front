@@ -4,7 +4,7 @@ import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef } from '
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sort';
-import { Domain, SubDomain } from '../../intefaces/domain.interface';
+import { Domain, SubDomain } from '../../interfaces/domain.interface';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
@@ -22,7 +22,7 @@ import { DomainService } from 'src/app/services/domain.service';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SubdomainService } from 'src/app/services/subdomain.service';
-import { Subdomain } from 'src/app/intefaces/subdomain';
+import { Subdomain } from 'src/app/interfaces/subdomain';
 
 @Component({
   selector: 'app-domain-table',
@@ -111,7 +111,7 @@ export class DomainTableComponent implements AfterViewInit {
     });
     dialogRef.afterClosed().subscribe({
 
-      next: (newSubdomain: SubDomain[]) => {
+      next: (newSubdomain: SubDomain) => {
         if (newSubdomain) {
           this.SubdomainService.createSubdomain(newSubdomain).subscribe({
             next: (response) => {
@@ -123,19 +123,19 @@ export class DomainTableComponent implements AfterViewInit {
                 let news = Object.values(newSubdomain);
                 console.log(newSubdomain)
                 let i = 0
-                for (let subdomain of newSubdomain) {
-                  i++
-                  const maxId =  Math.max(...this.subdomains.map(subdomain => parseInt(subdomain.id)));
-                  subdomain.id = (maxId + 1).toString();
-                  subdomain.idDomain = id
-                  this.subdomains.push(subdomain);
-                }
-                // for(let i=0; i< news.length; i++){
+                // for (let subdomain of newSubdomain) {
+                //   i++
                 //   const maxId =  Math.max(...this.subdomains.map(subdomain => parseInt(subdomain.id)));
-                //   newSubdomain[i].id = (maxId + 1).toString();
-                //   newSubdomain[i].idDomain = id
-                //   this.subdomains.push(news[i]);
-                // } 
+                //   subdomain.id = (maxId + 1).toString();
+                //   subdomain.idDomain = id
+                //   this.subdomains.push(subdomain);
+                // }
+                for(let i=0; i< news.length; i++){
+                  const maxId =  Math.max(...this.subdomains.map(subdomain => parseInt(subdomain.id)));
+                  newSubdomain[i].id = (maxId + 1).toString();
+                  newSubdomain[i].idDomain = id
+                  this.subdomains.push(news[i]);
+                } 
                 console.log('SUBDOMAINS TABLA' ,this.subdomains)
                 // this.formDomainTable.controls['tempControl'].setValue(newSubdomain.name);
               } else {
