@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { UserService } from '../../services/user.service';
-import { User } from '../../interfaces/user.interface';
+import { DomainCategoryService } from '../../services/domaincategory.service';
+import { DomainCategory } from '../../interfaces/domaincategory.interface';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,14 +11,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
-import { SubDomain } from 'src/app/interfaces/domain.interface';
-import { SubdomainService } from 'src/app/services/subdomain.service';
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @Component({
-  selector: 'app-subdomain-cfg-table',
-  templateUrl: './subdomain-cfg-table.component.html',
-  styleUrls: ['./subdomain-cfg-table.component.css'],
+  selector: 'app-domain-category-table',
+  templateUrl: './domain-category-table.component.html',
+  styleUrls: ['./domain-category-table.component.css'],
   standalone: true,
   imports: [
     MatTableModule,
@@ -28,19 +25,17 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     MatToolbarModule,
     MatPaginatorModule,
     MatSortModule,
-    CommonModule,
-    MatProgressSpinnerModule
+    CommonModule
   ]
 })
-export class SubdomainCfgTableComponent {
-  displayedColumns: string[] = ['select', 'id', 'name', 'idDomain'];
-  dataSource = new MatTableDataSource<SubDomain>();
-  selection = new SelectionModel<SubDomain>(true, []);
-isLoading: boolean = false;
+export class DomainCategoryTableComponent {
+  displayedColumns: string[] = ['select', 'id', 'name'];
+  dataSource = new MatTableDataSource<DomainCategory>();
+  selection = new SelectionModel<DomainCategory>(true, []);
 
-  constructor(private subdomainService: SubdomainService) {
-    this.subdomainService.getSubdomains().subscribe((subdomains: SubDomain[]) => {
-      this.dataSource.data = subdomains;
+  constructor(private domainCategoryService: DomainCategoryService) {
+    this.domainCategoryService.getDomainCategories().subscribe((domainCategories: DomainCategory[]) => {
+      this.dataSource.data = domainCategories;
     });
   }
   // ngOnInit(): void {
@@ -63,27 +58,13 @@ isLoading: boolean = false;
   }
 
   /** La etiqueta de la casilla de verificación en la fila pasada. */
-  checkboxLabel(row?: SubDomain): string {
+  checkboxLabel(row?: DomainCategory): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
-  addSubdomainsToCompany() {
-    this.isLoading = true;
-    setTimeout(() => {
-      this.selection.selected.forEach((subdomain, index) => {
-        this.subdomainService.createSubdomain(subdomain).subscribe((subdomain:any) => {
-          this.isLoading = false;
-          console.log(subdomain, index);
-        }, (error) => {
-          this.isLoading = false;
-          console.error(error);
-        }, () => {
-          this.isLoading = false;
-        });
-      });
-    }, 2000);
-    
+  addDomainCategoriesToCompany() {
+    console.log(this.selection.selected);
   }
 }

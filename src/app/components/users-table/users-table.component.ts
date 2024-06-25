@@ -11,14 +11,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
-import { SubDomain } from 'src/app/interfaces/domain.interface';
-import { SubdomainService } from 'src/app/services/subdomain.service';
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @Component({
-  selector: 'app-subdomain-cfg-table',
-  templateUrl: './subdomain-cfg-table.component.html',
-  styleUrls: ['./subdomain-cfg-table.component.css'],
+  selector: 'app-users-table',
+  templateUrl: './users-table.component.html',
+  styleUrls: ['./users-table.component.css'],
   standalone: true,
   imports: [
     MatTableModule,
@@ -28,19 +25,17 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     MatToolbarModule,
     MatPaginatorModule,
     MatSortModule,
-    CommonModule,
-    MatProgressSpinnerModule
+    CommonModule
   ]
 })
-export class SubdomainCfgTableComponent {
-  displayedColumns: string[] = ['select', 'id', 'name', 'idDomain'];
-  dataSource = new MatTableDataSource<SubDomain>();
-  selection = new SelectionModel<SubDomain>(true, []);
-isLoading: boolean = false;
+export class UsersTableComponent {
+  displayedColumns: string[] = ['select', 'id', 'name', 'email', 'job_title'];
+  dataSource = new MatTableDataSource<User>();
+  selection = new SelectionModel<User>(true, []);
 
-  constructor(private subdomainService: SubdomainService) {
-    this.subdomainService.getSubdomains().subscribe((subdomains: SubDomain[]) => {
-      this.dataSource.data = subdomains;
+  constructor(private userService: UserService) {
+    this.userService.getUsers('client', 'company').subscribe((users: User[]) => {
+      this.dataSource.data = users;
     });
   }
   // ngOnInit(): void {
@@ -63,27 +58,13 @@ isLoading: boolean = false;
   }
 
   /** La etiqueta de la casilla de verificación en la fila pasada. */
-  checkboxLabel(row?: SubDomain): string {
+  checkboxLabel(row?: User): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
-  addSubdomainsToCompany() {
-    this.isLoading = true;
-    setTimeout(() => {
-      this.selection.selected.forEach((subdomain, index) => {
-        this.subdomainService.createSubdomain(subdomain).subscribe((subdomain:any) => {
-          this.isLoading = false;
-          console.log(subdomain, index);
-        }, (error) => {
-          this.isLoading = false;
-          console.error(error);
-        }, () => {
-          this.isLoading = false;
-        });
-      });
-    }, 2000);
-    
+  addUsersToCompany() {
+    console.log(this.selection.selected);
   }
 }

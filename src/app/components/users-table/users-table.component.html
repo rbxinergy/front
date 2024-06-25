@@ -14,9 +14,15 @@
     </ng-container>
 
     <!-- Email Column -->
-    <ng-container matColumnDef="idDomain">
-      <th mat-header-cell *matHeaderCellDef> Dominio </th>
-      <td mat-cell *matCellDef="let element"> {{element.idDomain}} </td>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Correo electrónico </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <!-- Job Title Column -->
+    <ng-container matColumnDef="job_title">
+      <th mat-header-cell *matHeaderCellDef> Cargo </th>
+      <td mat-cell *matCellDef="let element"> {{element.jobTitle}} </td>
     </ng-container>
 
     <!-- Checkbox Column -->
@@ -44,9 +50,6 @@
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
   <div align="right">
-    <button mat-raised-button color="primary" [disabled]="isLoading" (click)="addSubdomainsToCompany()">
-      <span *ngIf="!isLoading">Agregar subdominios</span>
-      <mat-spinner *ngIf="isLoading" diameter="24"></mat-spinner>
-    </button>
+    <button mat-raised-button color="primary" (click)="addUsersToCompany()">Agregar usuarios</button>
   </div>
 </div>

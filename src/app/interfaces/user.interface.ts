@@ -1,18 +1,18 @@
-interface User {
+export interface User {
     id: string;
     name: string;
-    last_name: string;
-    job_title: string;
+    lastName: string;
+    jobTitle: string;
     email: string;
-    document_type: string;
+    documentType: string;
     document: string;
     passwd: string;
-    is_provider: boolean;
-    is_client: boolean;
-    is_user_company: boolean;
-    is_active: boolean;
-    is_delete: boolean;
-    created_date: Date;
-    modificated_date: Date;
+    isProvider: boolean;
+    isClient: boolean;
+    isUserCompany: boolean;
+    isActive: boolean;
+    isDelete: boolean;
+    createdDate: Date;
+    modificatedDate: Date;
     tag: string;
   }

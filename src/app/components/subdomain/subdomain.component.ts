@@ -1,4 +1,4 @@
-import { Component, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, Inject, ChangeDetectorRef, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,6 +19,7 @@ import { SubDomain } from 'src/app/interfaces/domain.interface';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
+import { Company } from 'src/app/interfaces/company.interface';
 
 
 @Component({
@@ -34,8 +35,11 @@ import { MatTableModule } from '@angular/material/table';
   styleUrls: ['./subdomain.component.css']
 })
 export class SubdomainComponent {
-  subdomainForm!: FormGroup;
-  
+  selectedDomainId = this.data?.id
+  selectedDomainName = this.data?.name
+  domainsMap: { [key: string]: SubDomain[] } = {};
+  subdomainForm: FormGroup;
+
   dataSourcePacks!: MatTableDataSource<any>;
   displayedColumns = ["Nombre", "Descripción", "Tags", "Eliminar"]
 
@@ -43,25 +47,32 @@ export class SubdomainComponent {
   description = new FormControl('')
   tag = new FormControl('')
 
-  
-  selectedDomainId = this.data.id
-  selectedDomainName = this.data.name
+
   subdomainsMap: { [key: string]: SubDomain[] } = {};
 
-  constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<SubdomainComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: SubDomain,
-    private _fb: FormBuilder, private cd: ChangeDetectorRef) {
-      console.log('DATITOS: ',data)
+  constructor(@Optional() public dialog: MatDialog, @Optional() private dialogRef: MatDialogRef<SubdomainComponent>,
+  @Inject(MAT_DIALOG_DATA) public data: SubDomain,
+    // @Optional() @Inject(MAT_DIALOG_DATA) public data: Company,
+    private cd: ChangeDetectorRef,
+    private _fb: FormBuilder) {
       if(data) {
         this.subdomainForm = new FormGroup({
-          id: new FormControl(data?.id || '', Validators.required),
-          name: new FormControl(data?.name || '', Validators.required),
-          description: new FormControl(data?.description || '', Validators.required),
-          tag: new FormControl(data?.tag || ''),
-          idDomain: new FormControl(data?.id || '', Validators.required),
-        });
+          id: new FormControl('', Validators.required),
+          name: new FormControl('', Validators.required),
+          description: new FormControl('', Validators.required),
+          is_active: new FormControl(true),
+          is_delete: new FormControl(false),
+          created_date: new FormControl(new Date(), Validators.required),
+          modificated_date: new FormControl(new Date(), Validators.required),
+          tag: new FormControl(''),
+          idDomain: new FormControl(data?.id, Validators.required),
+        })
       }
     }
+        
+
+
+
     ngOnInit(): void {
 
       this.subdomainForm = this._fb.group({

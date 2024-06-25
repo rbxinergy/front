@@ -1,38 +1,17 @@
-<h2>{{"subdomain"|translate}}</h2>
-
-<!-- <div class="p-4">
-  <button mat-raised-button color="primary" class="d-right mr-3" (click)="addSubdomain(selectedDomainId)">
-    <mat-icon>add</mat-icon> Agregar Subdominio
-  </button>
-</div>
-<div class="p-4" >
-  <form [formGroup]="subdomainForm" >
-    <mat-card class="question-card" *ngFor="let subdomain of subdomainsMap[selectedDomainId]">
-      <mat-card-content>    
-          <mat-form-field class="col-2" appearance="outline">
-            <mat-label>Subdominio</mat-label>
-            <input matInput formControlName="name" />
-          </mat-form-field>
-
-          <mat-form-field class="col-2" appearance="outline">
-            <mat-label>Descripción</mat-label>
-            <input matInput  formControlName="description"/>
-          </mat-form-field>
-
-          <mat-form-field class="col-2" appearance="outline">
-            <mat-label>Tag</mat-label>
-            <input matInput  formControlName="tag"/>
-          </mat-form-field>
-      </mat-card-content>
-    </mat-card>
-    <br>
-  
-  
-    <button mat-raised-button color="primary" type="submit" class="d-right" (click)="closeModal(selectedDomainId)">Guardar</button>
-  </form>
-</div> -->
-
-
+<!-- <h2>{{"subdomain"|translate}}</h2>
+<mat-card *ngIf="data" class="px-4">
+  <mat-card-header>
+    <div class="header-content">
+      <h4 class="subdomain-title">Dominio: {{ selectedDomainId }}</h4>
+      <div class="button-group">
+        <button mat-raised-button color="primary" class="rounded-button d-right" (click)="addSubdomain(selectedDomainId)">
+          <mat-icon>add</mat-icon> Agregar Subdominio
+        </button>
+      </div>
+    </div>
+  </mat-card-header>
+  <br>
+  <mat-card-content> -->
 
 <div class="p-4">
   {{selectedDomainName}}

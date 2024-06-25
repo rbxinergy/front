@@ -11,14 +11,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
-import { SubDomain } from 'src/app/interfaces/domain.interface';
-import { SubdomainService } from 'src/app/services/subdomain.service';
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { RoleService } from '../../services/role.service';
+import { Role } from '../../interfaces/role.interface';
 
 @Component({
-  selector: 'app-subdomain-cfg-table',
-  templateUrl: './subdomain-cfg-table.component.html',
-  styleUrls: ['./subdomain-cfg-table.component.css'],
+  selector: 'app-role-cfg-table',
+  templateUrl: './role-cfg-table.component.html',
+  styleUrls: ['./role-cfg-table.component.css'],
   standalone: true,
   imports: [
     MatTableModule,
@@ -28,19 +27,18 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     MatToolbarModule,
     MatPaginatorModule,
     MatSortModule,
-    CommonModule,
-    MatProgressSpinnerModule
+    CommonModule
   ]
 })
-export class SubdomainCfgTableComponent {
-  displayedColumns: string[] = ['select', 'id', 'name', 'idDomain'];
-  dataSource = new MatTableDataSource<SubDomain>();
-  selection = new SelectionModel<SubDomain>(true, []);
-isLoading: boolean = false;
+export class RoleCfgTableComponent {
+  displayedColumns: string[] = ['select', 'id', 'name', 'isCreate', 'isRead', 'isUpdate', 'isDelete'];
+  dataSource = new MatTableDataSource<Role>();
+  selection = new SelectionModel<Role>(true, []);
 
-  constructor(private subdomainService: SubdomainService) {
-    this.subdomainService.getSubdomains().subscribe((subdomains: SubDomain[]) => {
-      this.dataSource.data = subdomains;
+  constructor(private roleService: RoleService) {
+    this.roleService.getRoles('client').subscribe((roles: any) => {
+      console.log(roles.body);
+      this.dataSource.data = roles.body as Role[];
     });
   }
   // ngOnInit(): void {
@@ -63,27 +61,13 @@ isLoading: boolean = false;
   }
 
   /** La etiqueta de la casilla de verificación en la fila pasada. */
-  checkboxLabel(row?: SubDomain): string {
+  checkboxLabel(row?: Role): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
-  addSubdomainsToCompany() {
-    this.isLoading = true;
-    setTimeout(() => {
-      this.selection.selected.forEach((subdomain, index) => {
-        this.subdomainService.createSubdomain(subdomain).subscribe((subdomain:any) => {
-          this.isLoading = false;
-          console.log(subdomain, index);
-        }, (error) => {
-          this.isLoading = false;
-          console.error(error);
-        }, () => {
-          this.isLoading = false;
-        });
-      });
-    }, 2000);
-    
+  addRolesToCompany() {
+    console.log(this.selection.selected);
   }
 }

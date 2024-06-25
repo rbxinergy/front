@@ -24,8 +24,11 @@ export class RoleService {
     'cache-control': 'no-cache'
   })
 
-  getRoles(client: string, company: string): Observable<HttpResponse<any>>{
-    return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/${client}/${company}`, { headers: this.headers, observe: 'response'})
+  getRoles(client: string, company?: string): Observable<HttpResponse<any>>{
+    if(company){
+      return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/${client}/${company}`, { headers: this.headers, observe: 'response'})
+    }
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/${client}`, { headers: this.headers, observe: 'response'})
   }
 
   createRole(role: Role): Observable<HttpResponse<any>> {

@@ -14,25 +14,30 @@ import { Company } from '../interfaces/company.interface';
   providedIn: 'root'
 })
 export class DomainService {
-  groupDocument = '';
-  serverUrl = environment.serverUrl;
-  apiUrls = environment.apiUrls;
 
-  token = sessionStorage.getItem('token')
+  groupDocument = '';
   domains: any;
   domain:any;
-  headers = new HttpHeaders({
+  private apiUrls = environment.apiUrls;
+  private serverUrl = environment.serverUrl;
+  token: string = sessionStorage.getItem('token') || '';
+  private headers = new HttpHeaders({
     'Authorization': 'Bearer ' +  this.token,
     'cache-control': 'no-cache'
   })
- 
 
+  constructor(private http: HttpClient, private domainDataService: DomainDataService) { 
+     this.groupDocument = sessionStorage?.getItem('groupDocument') || '0';
+     this.domain = this.domainDataService.getDomainData();
+     console.log(this.domain);
+   }
 
- constructor(private http: HttpClient, private domainDataService: DomainDataService) { 
-    this.groupDocument = sessionStorage?.getItem('groupDocument') || '0';
-    this.domain = this.domainDataService.getDomainData();
-    console.log(this.domain);
+  getDomains(): Observable<Domain[]> {
+    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/cliente1`, {headers: this.headers});
+
   }
+
+
   async saveDomain(form: any):Promise<any>{
     console.log(this.groupDocument)
     const body = { 
@@ -57,10 +62,7 @@ export class DomainService {
     return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls.domain}/get/cliente1/company`, { headers: this.headers})
   }
 
-  // TODO: trasladar a servicio de clientes
-  getDomains() {
-    return of(domains);
-  }
+
   createDomain(domain: Domain): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${this.serverUrl}${this.apiUrls.domain}/create`, {domain}, { observe: 'response' });
   }

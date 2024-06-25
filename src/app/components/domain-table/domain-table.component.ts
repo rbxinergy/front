@@ -22,7 +22,6 @@ import { DomainService } from 'src/app/services/domain.service';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SubdomainService } from 'src/app/services/subdomain.service';
-import { Subdomain } from 'src/app/interfaces/subdomain';
 
 @Component({
   selector: 'app-domain-table',
@@ -49,7 +48,7 @@ export class DomainTableComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<Domain>();
   columnsToDisplay = ['name', 'description', 'code', 'tag'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay,  'expand', 'actions'];
-  expandedElement: Domain | null;
+  expandedElement: SubDomain | null;
   domainID = null;
   domains: Domain[] = [];
   subdomains: SubDomain [] = [];
@@ -76,7 +75,7 @@ export class DomainTableComponent implements AfterViewInit {
       this.cdr.detectChanges();
       
     });
-    this.SubdomainService.getSubdomainsByDomain(sessionStorage.getItem('domain')).subscribe((data: Subdomain[]) => {
+    this.SubdomainService.getSubdomainsByDomain(sessionStorage.getItem('domain')).subscribe((data: SubDomain[]) => {
       if(data.length === 0){
         console.log('No hay subdominios');
         this.formDomainTable.controls['tempControl'].setValue('');
@@ -267,131 +266,3 @@ export class DomainTableComponent implements AfterViewInit {
     // Implementación para abrir el diálogo de eliminación
   }
 }
-
-
-// const ELEMENT_DATA: Domain[] = [
-//   {
-//     id: "550e8400-e29b-41d4-a716-446655440000",
-//     name: "Dominio 1",
-//     description: "12345",
-//     code: "12345",
-//     tag: "legal-related",
-//     idDomainCategory: "550e8400-e29b-41d4-a716-446655440000",
-//     idCompany: "550e8400-e29b-41d4-a716-446655440000",
-//     subdomains: [
-//       {
-//         name: "subdominio 1",
-//         description: "Este es el primer subdominio", 
-//         tag: "legal-related",
-//         id_domain:"550e8400-e29b-41d4-a716-446655440000",
-//         is_active: true,
-//         is_delete:false,
-//         created_date:'',
-//         modificated_date:''
-
-//       },
-//       {
-//         name: "subdominio 2",
-//         description: "Este es el segundo subdominio", 
-//         tag: "legal-related",
-//         id_domain:"550e8400-e29b-41d4-a716-446655440000",
-//         is_active: true,
-//         is_delete:false,
-//         created_date:'',
-//         modificated_date:''
-//       }
-//     ]
-//   },
-//   {
-//     id: "550e8400-e29b-41d4-a716-446655440001",
-//     name: "Cyberseguridad",
-//     description: "12345",
-//     code: "12345",
-//     tag: "legal-related",
-//     idDomainCategory: "550e8400-e29b-41d4-a716-446655440000",
-//     idCompany: "550e8400-e29b-41d4-a716-446655440000",
-//     subdomains: [
-//       {
-//         name: "Subdominio 1",
-//         description: "Este es el primer subdominio",
-//         tag: "legal-related",
-//         id_domain:"550e8400-e29b-41d4-a716-446655440001",
-//         is_active: true,
-//         is_delete:false,
-//         created_date:'',
-//         modificated_date:''
-//       },
-//       {
-//         name: "Subdominio 2",
-//         description: "Este es el segundo subdominio",
-//         tag: "legal-related",
-//         id_domain:"550e8400-e29b-41d4-a716-446655440001",
-//         is_active: true,
-//         is_delete:false,
-//         created_date:'',
-//         modificated_date:''
-//       },
-//       {
-//         name: "Subdominio 3",
-//         description: "Este es el tercer subdominio",
-//         tag: "legal-related",
-//         id_domain:"550e8400-e29b-41d4-a716-446655440001",
-//         is_active: true,
-//         is_delete:false,
-//         created_date:'',
-//         modificated_date:''
-//       }
-//     ]
-//   },
-//   {
-//     id: "550e8400-e29b-41d4-a716-446655440002",
-//     name: "Aseo",
-//     description: "12345",
-//     code: "12345",
-//     tag: "legal-related",
-//     idDomainCategory: "550e8400-e29b-41d4-a716-446655440000",
-//     idCompany: "550e8400-e29b-41d4-a716-446655440000",
-//     subdomains: [
-//       {
-//         name: "Subdominio 1",
-//         description: "Este es el primer subdominio",
-//         tag: "legal-related",
-//         id_domain:"550e8400-e29b-41d4-a716-446655440002",
-//         is_active: true,
-//         is_delete:false,
-//         created_date:'',
-//         modificated_date:''
-//       },
-//       {
-//         name: "Subdominio 2",
-//         description: "Este es el segundo subdominio",
-//         tag: "legal-related",
-//         id_domain:"550e8400-e29b-41d4-a716-446655440002",
-//         is_active: true,
-//         is_delete:false,
-//         created_date:'',
-//         modificated_date:''
-//       },
-//       {
-//         name: "Subdominio 3",
-//         description: "Este es el tercer subdominio",
-//         tag: "legal-related",
-//         id_domain:"550e8400-e29b-41d4-a716-446655440002",
-//         is_active: true,
-//         is_delete:false,
-//         created_date:'',
-//         modificated_date:''
-//       },
-//       {
-//         name: "Subdominio 4",
-//         description: "Este es el cuarto subdominio",
-//         tag: "legal-related",
-//         id_domain:"550e8400-e29b-41d4-a716-446655440002",
-//         is_active: true,
-//         is_delete:false,
-//         created_date:'',
-//         modificated_date:''
-//       },
-//     ]
-//   },
-// ];

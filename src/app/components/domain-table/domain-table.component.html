@@ -60,11 +60,18 @@
             <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
                 <div class="example-element-detail"
                         [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-
-                    <div *ngFor="let subdomain of subdomains">
-                        <div class="subdomains" *ngIf="subdomains && element.id === subdomain.idDomain">
-                            <span  class="subdomain-name">{{subdomain.name}}</span>  {{subdomain.description}}
-                        </div>
+                    <div class="subdomains-container">
+                        {{element.name}}
+                        <!-- <div *ngFor="let subdomain of subdomains" class="grid-row">
+                            <div class="subdomains" *ngIf=" element.id === subdomain.idDomain; else notSubdomain">
+                                <div class="subdomain">
+                                    <span  class="subdomain-name">{{subdomain.name}}</span>  {{subdomain.description}}
+                                </div>
+                            </div>
+                            <ng-template #notSubdomain>
+                                No existen <u>subdominios</u> asociados a este <u>dominio</u>
+                            </ng-template>
+                        </div> -->
                     </div>
                 </div>
                 
