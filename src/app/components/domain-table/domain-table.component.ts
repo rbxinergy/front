@@ -4,11 +4,9 @@ import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef } from '
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sort';
-import { Domain } from '../../intefaces/domain.interface';
-import { Company } from '../../intefaces/company.interface';
+import { Domain, SubDomain } from '../../intefaces/domain.interface';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { CompanyService } from 'src/app/services/company.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,10 +16,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ClientComponent } from '../client/client.component';
-import { CompanyComponent } from '../company/company.component';
 import { DomainComponent } from '../domain/domain.component';
 import { SubdomainComponent } from '../subdomain/subdomain.component';
+import { DomainService } from 'src/app/services/domain.service';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SubdomainService } from 'src/app/services/subdomain.service';
+import { Subdomain } from 'src/app/intefaces/subdomain';
 
 @Component({
   selector: 'app-domain-table',
@@ -42,45 +43,58 @@ import { SubdomainComponent } from '../subdomain/subdomain.component';
     MatFormFieldModule, MatSortModule
   ]
 })
-export class DomainTableComponent {
+export class DomainTableComponent implements AfterViewInit {
 
-  dataSource = ELEMENT_DATA;
+  // dataSource = ELEMENT_DATA;
+  dataSource = new MatTableDataSource<Domain>();
   columnsToDisplay = ['name', 'description', 'code', 'tag'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay,  'expand', 'actions'];
   expandedElement: Domain | null;
-  domainID = null
+  domainID = null;
+  domains: Domain[] = [];
+  subdomains: SubDomain [] = [];
+  selectedDomain: Domain | null = null;
+
+  formDomainTable: FormGroup = new FormGroup({
+    tempControl: new FormControl(null, Validators.required)
+  });
  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(private cdr: ChangeDetectorRef, // private companyService: CompanyService
-      private dialog: MatDialog) {}
-
+  constructor(private cdr: ChangeDetectorRef,  private DomainService: DomainService, private SubdomainService: SubdomainService, private dialog: MatDialog) {}
+  
   ngAfterViewInit(): void {
-    // this.companyService.getCompanies().subscribe((data: any) => {
-    //   this.dataSource.data = this.companies;
-    //   this.dataSource.paginator = this.paginator;
-    //   this.dataSource.sort = this.sort;
-    //   this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
-    //     const sortState: Sort = {active: 'id', direction: 'desc'};
-    //     this.sort.active = sortState.active;
-    //     this.sort.direction = sortState.direction;
-    //     this.sort.sortChange.emit(sortState);
-    //     this.dataSource.sort = this.sort;
-    //   this.sort.direction = 'desc'; // Establece el orden inicial como descendente
-    //   this.sort.active = 'id'; // Establece 'ID' como la columna activa para ordenar
-    //   this.cdr.detectChanges(); // Forzar la detección de cambios
+    this.DomainService.getDomainsByCompany(sessionStorage.getItem('company')).subscribe((data: Domain[]) => {
+      if(data.length === 0){
+        console.log('No hay dominios');
+        this.formDomainTable.controls['tempControl'].setValue('');
+      }
+      this.domains = data;
+      this.dataSource.data = this.domains;
+      this.dataSource.paginator = this.paginator;
+      this.cdr.detectChanges();
       
-    // });
+    });
+    this.SubdomainService.getSubdomainsByDomain(sessionStorage.getItem('domain')).subscribe((data: Subdomain[]) => {
+      if(data.length === 0){
+        console.log('No hay subdominios');
+        this.formDomainTable.controls['tempControl'].setValue('');
+      }
+      this.subdomains = data;
+      // console.log('SUBDOMINIOS',this.subdomains)
+      
+    })
   }
+  
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    // if (this.dataSource.paginator) {
-    //   this.dataSource.paginator.firstPage();
-    // }
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   clearSearch(input: HTMLInputElement) {
@@ -88,41 +102,166 @@ export class DomainTableComponent {
     const event = { target: input } as Event & { target: HTMLInputElement };
     this.applyFilter(event);
   }
+
   openSubdomainModal(id: string) {
-    console.log(id)
     const dialogRef = this.dialog.open(SubdomainComponent, {
       width: '800px',
       height: '100%',
       data: {id} // Puedes pasar datos al modal si es necesario
     });
+    dialogRef.afterClosed().subscribe({
+
+      next: (newSubdomain: SubDomain[]) => {
+        if (newSubdomain) {
+          this.SubdomainService.createSubdomain(newSubdomain).subscribe({
+            next: (response) => {
+              if (response.status === 200) {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '400px',
+                  data: { message: 'Subdominio creado exitosamente.', type: 'success' }
+                });
+                let news = Object.values(newSubdomain);
+                console.log(newSubdomain)
+                let i = 0
+                for (let subdomain of newSubdomain) {
+                  i++
+                  const maxId =  Math.max(...this.subdomains.map(subdomain => parseInt(subdomain.id)));
+                  subdomain.id = (maxId + 1).toString();
+                  subdomain.idDomain = id
+                  this.subdomains.push(subdomain);
+                }
+                // for(let i=0; i< news.length; i++){
+                //   const maxId =  Math.max(...this.subdomains.map(subdomain => parseInt(subdomain.id)));
+                //   newSubdomain[i].id = (maxId + 1).toString();
+                //   newSubdomain[i].idDomain = id
+                //   this.subdomains.push(news[i]);
+                // } 
+                console.log('SUBDOMAINS TABLA' ,this.subdomains)
+                // this.formDomainTable.controls['tempControl'].setValue(newSubdomain.name);
+              } else {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '400px',
+                  data: { message: 'Error al crear el subdominio.', type: 'error' }
+                });
+              }
+            },
+            error: (error) => {
+              this.dialog.open(MessagesModalComponent, {
+                width: '400px',
+                data: { message: 'Error al crear el subdominio.', type: 'error' }
+              });
+            }
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Error al abrir el modal de nuevo subdominio:', error);
+        this.dialog.open(MessagesModalComponent, {
+          width: '400px',
+          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+        });
+      }
+    });
+
   }
 
-  openCompanyModal() {
+  openNewDomainModal(){
+    const maxId = this.domains.length > 0 ? Math.max(...this.domains.map(domain => parseInt(domain.id))) : 0;
     const dialogRef = this.dialog.open(DomainComponent, {
-        width: '600px',
-        data: {} // Puedes pasar datos al modal si es necesario
-      });
-    // const maxId = this.companies.length > 0 ? Math.max(...this.companies.map(company => parseInt(company.id))) : 0;
-    // const dialogRef = this.dialog.open(CompanyComponent, {
-    //   width: '600px',
-    //   data: {} // Puedes pasar datos al modal si es necesario
-    // });
-  
-    // dialogRef.afterClosed().subscribe((newCompany: Company) => {
-    //   if (newCompany) {
-    //     // Manejar los datos del formulario devueltos por CompanyComponent
-    //     console.log(newCompany, maxId);
-    //     newCompany.id =( maxId + 1).toString();
-    //     this.companies.push(newCompany); // Agregar la nueva empresa al arreglo
-    //     this.dataSource.data = this.companies; // Actualizar el dataSource de la tabla
-    //   }
-    // });
+      width: '600px',
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe({
+      next: (newDomain: Domain) => {
+        if (newDomain) {
+          this.DomainService.createDomain(newDomain).subscribe({
+            next: (response) => {
+              if (response.status === 200) {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '400px',
+                  data: { message: 'Dominio creada exitosamente.', type: 'success' }
+                });
+                newDomain.id = (maxId + 1).toString();
+                console.log(this.domains)
+                this.domains.push(newDomain);
+                this.dataSource.data = this.domains;
+                this.formDomainTable.controls['tempControl'].setValue(newDomain.name);
+              } else {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '400px',
+                  data: { message: 'Error al crear el dominio.', type: 'error' }
+                });
+              }
+            },
+            error: (error) => {
+              this.dialog.open(MessagesModalComponent, {
+                width: '400px',
+                data: { message: 'Error al crear el dominio.', type: 'error' }
+              });
+            }
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Error al abrir el modal de nueva dominio:', error);
+        this.dialog.open(MessagesModalComponent, {
+          width: '400px',
+          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+        });
+      }
+    });
+
   }
   
-  
-  openDialog(id: string) {
-    // Implementación para abrir el diálogo de edición
+  // Implementación para abrir el diálogo de edición
+  openUpdate(domain: Domain) {
+    console.log(domain)
+    this.selectedDomain = { ...domain };
+    const dialogRef = this.dialog.open(DomainComponent, {
+      width: '600px',
+      data: this.selectedDomain
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (updatedDomain: Domain) => {
+        if (updatedDomain) {
+          this.DomainService.updateDomain(updatedDomain).subscribe({
+            next: (response) => {
+              if (response.status === 200) {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '500px',
+                  data: { message: 'Dominio actualizado exitosamente.', type: 'success' }
+                });
+                const index = this.domains.findIndex(c => c.id === updatedDomain.id);
+                if (index !== -1) {
+                  this.domains[index] = updatedDomain;
+                  this.dataSource.data = this.domains;
+                }
+              } else {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '500px',
+                  data: { message: 'Error al actualizar el dominio.', type: 'error' }
+                });
+              }
+            },
+            error: (error) => {
+              this.dialog.open(MessagesModalComponent, {
+                width: '500px',
+                data: { message: 'Error al actualizar el dominio.', type: 'error' }
+              });
+            }
+          });
+        }
+      },
+      error: (error) => {
+        this.dialog.open(MessagesModalComponent, {
+          width: '500px',
+          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+        });
+      }
+    });
   }
+
 
   openDelete(id: string) {
     // Implementación para abrir el diálogo de eliminación
@@ -130,129 +269,129 @@ export class DomainTableComponent {
 }
 
 
-const ELEMENT_DATA: Domain[] = [
-  {
-    id: "550e8400-e29b-41d4-a716-446655440000",
-    name: "Dominio 1",
-    description: "12345",
-    code: "12345",
-    tag: ["legal-related"],
-    idDomainCategory: "550e8400-e29b-41d4-a716-446655440000",
-    idCompany: "550e8400-e29b-41d4-a716-446655440000",
-    subdomains: [
-      {
-        name: "subdominio 1",
-        description: "Este es el primer subdominio", 
-        tag: "legal-related",
-        id_domain:"550e8400-e29b-41d4-a716-446655440000",
-        is_active: true,
-        is_delete:false,
-        created_date:'',
-        modificated_date:''
+// const ELEMENT_DATA: Domain[] = [
+//   {
+//     id: "550e8400-e29b-41d4-a716-446655440000",
+//     name: "Dominio 1",
+//     description: "12345",
+//     code: "12345",
+//     tag: "legal-related",
+//     idDomainCategory: "550e8400-e29b-41d4-a716-446655440000",
+//     idCompany: "550e8400-e29b-41d4-a716-446655440000",
+//     subdomains: [
+//       {
+//         name: "subdominio 1",
+//         description: "Este es el primer subdominio", 
+//         tag: "legal-related",
+//         id_domain:"550e8400-e29b-41d4-a716-446655440000",
+//         is_active: true,
+//         is_delete:false,
+//         created_date:'',
+//         modificated_date:''
 
-      },
-      {
-        name: "subdominio 2",
-        description: "Este es el segundo subdominio", 
-        tag: "legal-related",
-        id_domain:"550e8400-e29b-41d4-a716-446655440000",
-        is_active: true,
-        is_delete:false,
-        created_date:'',
-        modificated_date:''
-      }
-    ]
-  },
-  {
-    id: "550e8400-e29b-41d4-a716-446655440001",
-    name: "Cyberseguridad",
-    description: "12345",
-    code: "12345",
-    tag: ["legal-related"],
-    idDomainCategory: "550e8400-e29b-41d4-a716-446655440000",
-    idCompany: "550e8400-e29b-41d4-a716-446655440000",
-    subdomains: [
-      {
-        name: "Subdominio 1",
-        description: "Este es el primer subdominio",
-        tag: "legal-related",
-        id_domain:"550e8400-e29b-41d4-a716-446655440001",
-        is_active: true,
-        is_delete:false,
-        created_date:'',
-        modificated_date:''
-      },
-      {
-        name: "Subdominio 2",
-        description: "Este es el segundo subdominio",
-        tag: "legal-related",
-        id_domain:"550e8400-e29b-41d4-a716-446655440001",
-        is_active: true,
-        is_delete:false,
-        created_date:'',
-        modificated_date:''
-      },
-      {
-        name: "Subdominio 3",
-        description: "Este es el tercer subdominio",
-        tag: "legal-related",
-        id_domain:"550e8400-e29b-41d4-a716-446655440001",
-        is_active: true,
-        is_delete:false,
-        created_date:'',
-        modificated_date:''
-      }
-    ]
-  },
-  {
-    id: "550e8400-e29b-41d4-a716-446655440002",
-    name: "Aseo",
-    description: "12345",
-    code: "12345",
-    tag: ["legal-related"],
-    idDomainCategory: "550e8400-e29b-41d4-a716-446655440000",
-    idCompany: "550e8400-e29b-41d4-a716-446655440000",
-    subdomains: [
-      {
-        name: "Subdominio 1",
-        description: "Este es el primer subdominio",
-        tag: "legal-related",
-        id_domain:"550e8400-e29b-41d4-a716-446655440002",
-        is_active: true,
-        is_delete:false,
-        created_date:'',
-        modificated_date:''
-      },
-      {
-        name: "Subdominio 2",
-        description: "Este es el segundo subdominio",
-        tag: "legal-related",
-        id_domain:"550e8400-e29b-41d4-a716-446655440002",
-        is_active: true,
-        is_delete:false,
-        created_date:'',
-        modificated_date:''
-      },
-      {
-        name: "Subdominio 3",
-        description: "Este es el tercer subdominio",
-        tag: "legal-related",
-        id_domain:"550e8400-e29b-41d4-a716-446655440002",
-        is_active: true,
-        is_delete:false,
-        created_date:'',
-        modificated_date:''
-      },
-      {
-        name: "Subdominio 4",
-        description: "Este es el cuarto subdominio",
-        tag: "legal-related",
-        id_domain:"550e8400-e29b-41d4-a716-446655440002",
-        is_active: true,
-        is_delete:false,
-        created_date:'',
-        modificated_date:''
-      },
-    ]
-  },
-];
+//       },
+//       {
+//         name: "subdominio 2",
+//         description: "Este es el segundo subdominio", 
+//         tag: "legal-related",
+//         id_domain:"550e8400-e29b-41d4-a716-446655440000",
+//         is_active: true,
+//         is_delete:false,
+//         created_date:'',
+//         modificated_date:''
+//       }
+//     ]
+//   },
+//   {
+//     id: "550e8400-e29b-41d4-a716-446655440001",
+//     name: "Cyberseguridad",
+//     description: "12345",
+//     code: "12345",
+//     tag: "legal-related",
+//     idDomainCategory: "550e8400-e29b-41d4-a716-446655440000",
+//     idCompany: "550e8400-e29b-41d4-a716-446655440000",
+//     subdomains: [
+//       {
+//         name: "Subdominio 1",
+//         description: "Este es el primer subdominio",
+//         tag: "legal-related",
+//         id_domain:"550e8400-e29b-41d4-a716-446655440001",
+//         is_active: true,
+//         is_delete:false,
+//         created_date:'',
+//         modificated_date:''
+//       },
+//       {
+//         name: "Subdominio 2",
+//         description: "Este es el segundo subdominio",
+//         tag: "legal-related",
+//         id_domain:"550e8400-e29b-41d4-a716-446655440001",
+//         is_active: true,
+//         is_delete:false,
+//         created_date:'',
+//         modificated_date:''
+//       },
+//       {
+//         name: "Subdominio 3",
+//         description: "Este es el tercer subdominio",
+//         tag: "legal-related",
+//         id_domain:"550e8400-e29b-41d4-a716-446655440001",
+//         is_active: true,
+//         is_delete:false,
+//         created_date:'',
+//         modificated_date:''
+//       }
+//     ]
+//   },
+//   {
+//     id: "550e8400-e29b-41d4-a716-446655440002",
+//     name: "Aseo",
+//     description: "12345",
+//     code: "12345",
+//     tag: "legal-related",
+//     idDomainCategory: "550e8400-e29b-41d4-a716-446655440000",
+//     idCompany: "550e8400-e29b-41d4-a716-446655440000",
+//     subdomains: [
+//       {
+//         name: "Subdominio 1",
+//         description: "Este es el primer subdominio",
+//         tag: "legal-related",
+//         id_domain:"550e8400-e29b-41d4-a716-446655440002",
+//         is_active: true,
+//         is_delete:false,
+//         created_date:'',
+//         modificated_date:''
+//       },
+//       {
+//         name: "Subdominio 2",
+//         description: "Este es el segundo subdominio",
+//         tag: "legal-related",
+//         id_domain:"550e8400-e29b-41d4-a716-446655440002",
+//         is_active: true,
+//         is_delete:false,
+//         created_date:'',
+//         modificated_date:''
+//       },
+//       {
+//         name: "Subdominio 3",
+//         description: "Este es el tercer subdominio",
+//         tag: "legal-related",
+//         id_domain:"550e8400-e29b-41d4-a716-446655440002",
+//         is_active: true,
+//         is_delete:false,
+//         created_date:'',
+//         modificated_date:''
+//       },
+//       {
+//         name: "Subdominio 4",
+//         description: "Este es el cuarto subdominio",
+//         tag: "legal-related",
+//         id_domain:"550e8400-e29b-41d4-a716-446655440002",
+//         is_active: true,
+//         is_delete:false,
+//         created_date:'',
+//         modificated_date:''
+//       },
+//     ]
+//   },
+// ];

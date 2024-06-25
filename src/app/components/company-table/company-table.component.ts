@@ -137,6 +137,7 @@ export class CompanyTableComponent implements AfterViewInit {
   }
   
   openEditCompanyModal(company: Company) {
+    console.log(company)
     this.selectedCompany = { ...company };
     const dialogRef = this.dialog.open(CompanyComponent, {
       width: '600px',
