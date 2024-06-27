@@ -57,8 +57,9 @@ export class AuthService {
       const { id, email: userCreator } = profile;
       sessionStorage.setItem('userId', id);
       sessionStorage.setItem('userCreator', userCreator);
-      console.log(userCreator);
-      return profile;
+      const clients = Array.isArray(response.client) ? response.client : [response.client];
+
+      return { profile, clients };
     } catch (error) {
       console.error('Error during login:', error);
       return Promise.reject(error);
@@ -114,6 +115,7 @@ export class AuthService {
       sessionStorage.removeItem('userId');
       sessionStorage.removeItem('profile');
       sessionStorage.removeItem('token');
+      sessionStorage.removeItem('client');
       this.router.navigate(['login']);
     } catch (error) {
       console.error('Error during logout:', error);

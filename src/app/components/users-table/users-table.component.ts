@@ -32,38 +32,33 @@ export class UsersTableComponent {
   displayedColumns: string[] = ['select', 'id', 'name', 'email', 'job_title'];
   dataSource = new MatTableDataSource<User>();
   selection = new SelectionModel<User>(true, []);
+  client: string = sessionStorage.getItem('client') || '';
 
   constructor(private userService: UserService) {
-    this.userService.getUsers('client', 'company').subscribe((users: User[]) => {
+    this.userService.getUsers(this.client, 'company').subscribe((users: User[]) => {
       this.dataSource.data = users;
     });
   }
-  // ngOnInit(): void {
-  //   this.userService.getUsers('client', 'company').subscribe((users: User[]) => {
-  //     this.dataSource.data = users;
-  //   });
-  // }
-  /** Si el número de elementos seleccionados coincide con el número total de filas. */
+ 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
-  /** Selecciona todas las filas si no están todas seleccionadas; de lo contrario, limpia la selección. */
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  /** La etiqueta de la casilla de verificación en la fila pasada. */
   checkboxLabel(row?: User): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
+  
   addUsersToCompany() {
     console.log(this.selection.selected);
   }

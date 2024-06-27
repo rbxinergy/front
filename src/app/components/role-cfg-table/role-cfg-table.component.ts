@@ -34,9 +34,10 @@ export class RoleCfgTableComponent {
   displayedColumns: string[] = ['select', 'id', 'name', 'isCreate', 'isRead', 'isUpdate', 'isDelete'];
   dataSource = new MatTableDataSource<Role>();
   selection = new SelectionModel<Role>(true, []);
+  client: string = sessionStorage.getItem('client') || '';
 
   constructor(private roleService: RoleService) {
-    this.roleService.getRoles('client').subscribe((roles: any) => {
+    this.roleService.getRoles(this.client).subscribe((roles: any) => {
       console.log(roles.body);
       this.dataSource.data = roles.body as Role[];
     });

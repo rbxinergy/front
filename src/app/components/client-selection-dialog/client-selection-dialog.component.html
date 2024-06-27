@@ -1,0 +1,15 @@
+<h3 class="head-primary">Seleccionar Cliente</h3>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Cliente</mat-label>
+    <mat-select [(value)]="selectedClient">
+      <mat-option *ngFor="let client of data.clients as array" [value]="client">
+        {{ client }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [disabled]="!selectedClient" (click)="onSelect()">Seleccionar</button>
+</div>

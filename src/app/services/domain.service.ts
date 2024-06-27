@@ -32,9 +32,9 @@ export class DomainService {
      console.log(this.domain);
    }
 
-  getDomains(): Observable<Domain[]> {
-    console.log(`${this.serverUrl}${this.apiUrls}/domain/get/cliente1/company`);
-    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/cliente1/company`, {headers: this.headers});
+  getDomains(client: string): Observable<Domain[]> {
+    console.log(`${this.serverUrl}${this.apiUrls}/domain/get/${client}/company`);
+    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/${client}`, {headers: this.headers});
 
   }
 
