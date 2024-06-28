@@ -31,26 +31,7 @@ export class SubdomainService {
   }
 
   getSubdomains(): Observable<Subdomain[]> {
-    return this.http.get<Subdomain[]>(`${this.serverUrl}${this.apiUrls}/get/cliente1`, {headers: this.headers});
-  }
-
-  
- 
-
-
-  async saveSubdomain(form: any):Promise<any>{
-    console.log(this.groupDocument)
-    const body = { 
-      "name": form.name,
-      "description": form.description,
-      "tag": form.tag,
-      "idDomain": form.idDomain,
-      "groupDocument": this.groupDocument
-    }
-    console.log(body)
-    const postSubdomain = this.http.post<SubDomain>(`${this.serverUrl}${this.apiUrls.subdomain}/create`, body, { headers: this.headers })
-
-    return await lastValueFrom(postSubdomain)  
+    return this.http.get<Subdomain[]>(`${this.serverUrl}${this.apiUrls.subdomain}/get/cliente1`, {headers: this.headers});
   }
 
   getSubdomainsByDomain(subdomain: any){
@@ -60,10 +41,6 @@ export class SubdomainService {
     return this.http.get<SubDomain[]>(`${this.serverUrl}${this.apiUrls.subdomain}/get/cliente1/company`, { headers: this.headers})
   }
 
-  // createSubdomain(subdomain: Subdomain): Observable<Subdomain> {
-  //   return this.http.post<Subdomain>(`${this.serverUrl}${this.apiUrls}/create`, subdomain, {headers: this.headers});
-
-  // }
   createSubdomain(subdomain: SubDomain): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${this.serverUrl}${this.apiUrls.subdomain}/create`, {subdomain}, { observe: 'response' });
   }

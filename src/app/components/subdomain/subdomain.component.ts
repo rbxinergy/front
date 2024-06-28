@@ -35,7 +35,7 @@ import { Company } from 'src/app/interfaces/company.interface';
   styleUrls: ['./subdomain.component.css']
 })
 export class SubdomainComponent {
-  selectedDomainId = this.data?.id
+  selectedDomainId = this.data?.idDomain
   selectedDomainName = this.data?.name
   domainsMap: { [key: string]: SubDomain[] } = {};
   subdomainForm: FormGroup;
@@ -89,19 +89,15 @@ export class SubdomainComponent {
     };
   
     addSubdomains(selectedDomainId: string): void {
-  
       const subdomainsForm = this._fb.group({
         name: [''],
         description: [''],
-        tag: ['']
+        tag: [''],
+        idDomain: selectedDomainId
       });
-  
-  
       this.subdomains.push(subdomainsForm);
       this.dataSourcePacks = new MatTableDataSource(this.subdomains.controls);
-  
       this.cd.detectChanges();
-  
     };
   
   
@@ -122,12 +118,12 @@ export class SubdomainComponent {
       this.dialogRef.close(this.subdomains.value);
     }
   
-  closeModal(selectedDomainId:string){
-    const subdominios = []
-    subdominios.push(this.subdomainForm.getRawValue())
-    console.log('GUARDAR',subdominios)
-    this.dialogRef.close(this.subdomainForm.getRawValue());
-  }
+  // closeModal(selectedDomainId:string){
+  //   const subdominios = []
+  //   subdominios.push(this.subdomainForm.getRawValue())
+  //   console.log('GUARDAR',subdominios)
+  //   this.dialogRef.close(this.subdomainForm.getRawValue());
+  // }
 
   // saveSubdomain() {
   //   this.dialog.open(MessagesModalComponent, {

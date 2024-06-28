@@ -58,8 +58,13 @@ export class UsersTableComponent {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
-  
+
   addUsersToCompany() {
-    console.log(this.selection.selected);
+
+    for (const user of this.selection.selected) {
+      this.userService.createUser(user).subscribe((res: any) => {
+        console.log(res);
+      });
+    }
   }
 }

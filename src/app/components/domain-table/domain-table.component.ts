@@ -43,8 +43,6 @@ import { SubdomainService } from 'src/app/services/subdomain.service';
   ]
 })
 export class DomainTableComponent implements AfterViewInit {
-
-  // dataSource = ELEMENT_DATA;
   dataSource = new MatTableDataSource<Domain>();
   columnsToDisplay = ['name', 'description', 'code', 'tag'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay,  'expand', 'actions'];
@@ -53,6 +51,7 @@ export class DomainTableComponent implements AfterViewInit {
   domains: Domain[] = [];
   subdomains: SubDomain [] = [];
   selectedDomain: Domain | null = null;
+  client = sessionStorage.getItem('client');
 
   formDomainTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
@@ -64,28 +63,11 @@ export class DomainTableComponent implements AfterViewInit {
   constructor(private cdr: ChangeDetectorRef,  private DomainService: DomainService, private SubdomainService: SubdomainService, private dialog: MatDialog) {}
   
   ngAfterViewInit(): void {
-    // this.DomainService.getDomainsByCompany(sessionStorage.getItem('company')).subscribe((data: Domain[]) => {
-    //   if(data.length === 0){
-    //     console.log('No hay dominios');
-    //     this.formDomainTable.controls['tempControl'].setValue('');
-    //   }
-    //   this.domains = data;
-    //   this.dataSource.data = this.domains;
-    //   this.dataSource.paginator = this.paginator;
-    //   this.cdr.detectChanges();
-      
-    // });
-    // this.SubdomainService.getSubdomainsByDomain(sessionStorage.getItem('domain')).subscribe((data: SubDomain[]) => {
-    //   if(data.length === 0){
-    //     console.log('No hay subdominios');
-    //     this.formDomainTable.controls['tempControl'].setValue('');
-    //   }
-    //   this.subdomains = data;
-    //   // console.log('SUBDOMINIOS',this.subdomains)
-      
-    // })
+    this.DomainService.getDomains(this.client).subscribe((domains: Domain[]) => {
+      this.domains = domains;
+      this.dataSource.data = domains;
+    });
   }
-  
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -102,55 +84,41 @@ export class DomainTableComponent implements AfterViewInit {
     this.applyFilter(event);
   }
 
-  openSubdomainModal(id: string) {
+  openSubdomainModal(idDomain: string) {
     const dialogRef = this.dialog.open(SubdomainComponent, {
       width: '800px',
       height: '100%',
-      data: {id} // Puedes pasar datos al modal si es necesario
+      data: { idDomain }
     });
     dialogRef.afterClosed().subscribe({
-
-      next: (newSubdomain: SubDomain) => {
-        if (newSubdomain) {
-          this.SubdomainService.createSubdomain(newSubdomain).subscribe({
-            next: (response) => {
-              if (response.status === 200) {
-                this.dialog.open(MessagesModalComponent, {
-                  width: '400px',
-                  data: { message: 'Subdominio creado exitosamente.', type: 'success' }
-                });
-                let news = Object.values(newSubdomain);
-                console.log(newSubdomain)
-                let i = 0
-                // for (let subdomain of newSubdomain) {
-                //   i++
-                //   const maxId =  Math.max(...this.subdomains.map(subdomain => parseInt(subdomain.id)));
-                //   subdomain.id = (maxId + 1).toString();
-                //   subdomain.idDomain = id
-                //   this.subdomains.push(subdomain);
-                // }
-                for(let i=0; i< news.length; i++){
-                  const maxId =  Math.max(...this.subdomains.map(subdomain => parseInt(subdomain.id)));
-                  newSubdomain[i].id = (maxId + 1).toString();
-                  newSubdomain[i].idDomain = id
-                  this.subdomains.push(news[i]);
-                } 
-                console.log('SUBDOMAINS TABLA' ,this.subdomains)
-                // this.formDomainTable.controls['tempControl'].setValue(newSubdomain.name);
-              } else {
-                this.dialog.open(MessagesModalComponent, {
-                  width: '400px',
-                  data: { message: 'Error al crear el subdominio.', type: 'error' }
-                });
-              }
-            },
-            error: (error) => {
+      next: async (newSubdomains: SubDomain[]) => {
+        console.log('newSubdomain', newSubdomains);
+        if (newSubdomains) {
+          try {
+            const results = await Promise.all(newSubdomains.map(newSubdomain => 
+              this.SubdomainService.createSubdomain(newSubdomain).toPromise()
+            ));
+            const allSuccess = results.every(response => response && response.status === 200);
+            if (allSuccess) {
+              this.SubdomainService.getSubdomains().subscribe((subdomains: SubDomain[]) => {
+                this.subdomains = subdomains;
+              });
               this.dialog.open(MessagesModalComponent, {
                 width: '400px',
-                data: { message: 'Error al crear el subdominio.', type: 'error' }
+                data: { message: 'Todos los subdominios se han creado exitosamente.', type: 'success' }
+              });
+            } else {
+              this.dialog.open(MessagesModalComponent, {
+                width: '400px',
+                data: { message: 'Error al crear algunos subdominios.', type: 'error' }
               });
             }
-          });
+          } catch (error) {
+            this.dialog.open(MessagesModalComponent, {
+              width: '400px',
+              data: { message: 'Error al crear los subdominios.', type: 'error' }
+            });
+          }
         }
       },
       error: (error) => {
@@ -161,18 +129,15 @@ export class DomainTableComponent implements AfterViewInit {
         });
       }
     });
-
   }
 
   openNewDomainModal(){
-    const maxId = this.domains.length > 0 ? Math.max(...this.domains.map(domain => parseInt(domain.id))) : 0;
     const dialogRef = this.dialog.open(DomainComponent, {
       width: '600px',
       data: {}
     });
     dialogRef.afterClosed().subscribe({
       next: (newDomain: Domain) => {
-        console.log('newDomain', newDomain);
         if (newDomain) {
           this.DomainService.createDomain(newDomain).subscribe({
             next: (response) => {
@@ -181,9 +146,7 @@ export class DomainTableComponent implements AfterViewInit {
                   width: '400px',
                   data: { message: 'Dominio creado exitosamente.', type: 'success' }
                 });
-                newDomain.id = (maxId + 1).toString();
-                console.log("DOMAINS ARRAY",this.domains)
-                this.domains.push({...newDomain});
+                this.domains.push(newDomain);
                 this.dataSource.data = this.domains;
                 this.formDomainTable.controls['tempControl'].setValue(newDomain.name);
               } else {
@@ -215,7 +178,6 @@ export class DomainTableComponent implements AfterViewInit {
   
   // Implementación para abrir el diálogo de edición
   openUpdate(domain: Domain) {
-    console.log(domain)
     this.selectedDomain = { ...domain };
     const dialogRef = this.dialog.open(DomainComponent, {
       width: '600px',
