@@ -1,7 +1,17 @@
 <div>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    
+  <div class="search-container table-header">
+    <mat-form-field appearance="outline">
+    <mat-label>Buscar</mat-label>
+    <input matInput (input)="applyFilter($event)" placeholder="Buscar" #searchInput>
+    <button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch(searchInput)">
+        <mat-icon>close</mat-icon>
+    </button>
+    </mat-form-field>
+
+</div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> ID </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>

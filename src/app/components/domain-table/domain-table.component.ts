@@ -22,6 +22,8 @@ import { DomainService } from 'src/app/services/domain.service';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SubdomainService } from 'src/app/services/subdomain.service';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-domain-table',
@@ -39,12 +41,13 @@ import { SubdomainService } from 'src/app/services/subdomain.service';
     MatTableModule, NgFor, NgIf, CommonModule, TranslateModule, MatMenuModule,
     MatIconModule, MatButtonModule, MatDialogModule, MatInputModule,
     MatSelectModule, MatSnackBarModule, MatTooltipModule, MatPaginatorModule,
-    MatFormFieldModule, MatSortModule
+    MatFormFieldModule, MatSortModule, MatCheckboxModule
   ]
 })
 export class DomainTableComponent implements AfterViewInit {
+
   dataSource = new MatTableDataSource<Domain>();
-  columnsToDisplay = ['name', 'description', 'code', 'tag'];
+  columnsToDisplay = ['select', 'name', 'description', 'code', 'tag'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay,  'expand', 'actions'];
   expandedElement: Domain | null;
   domainID = null;
@@ -52,6 +55,7 @@ export class DomainTableComponent implements AfterViewInit {
   subdomains: SubDomain [] = [];
   selectedDomain: Domain | null = null;
   client = sessionStorage.getItem('client');
+  selection = new SelectionModel<Domain>(true, []);
 
   formDomainTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
@@ -227,5 +231,56 @@ export class DomainTableComponent implements AfterViewInit {
 
   openDelete(id: string) {
     // Implementación para abrir el diálogo de eliminación
+  }
+
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  hasValue() {
+    return this.selection.hasValue();
+  }
+
+  checkboxLabel(row?: Domain) {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  }
+
+  addDomainsToCompany() {
+    const selectedDomains = this.selection.selected;
+    const createDomainObservables = selectedDomains.map(domain => this.DomainService.createDomain(domain));
+  
+    Promise.all(createDomainObservables.map(obs => obs.toPromise()))
+      .then(responses => {
+        const allSuccess = responses.every(response => response && response.status === 200);
+        if (allSuccess) {
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Todos los dominios se han añadido exitosamente.', type: 'success' }
+          });
+        } else {
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Error al añadir algunos dominios.', type: 'error' }
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error al añadir dominios:', error);
+        this.dialog.open(MessagesModalComponent, {
+          width: '400px',
+          data: { message: 'Error al añadir los dominios.', type: 'error' }
+        });
+      });
   }
 }
