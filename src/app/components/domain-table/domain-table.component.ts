@@ -85,8 +85,7 @@ export class DomainTableComponent implements AfterViewInit {
       }
       this.subdomains = data;
       this.cdr.detectChanges();
-    })
-
+    });
   }
     
   anexaSub(){
