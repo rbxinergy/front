@@ -47,7 +47,7 @@
                 <mat-icon>edit</mat-icon>
                 <span>Editar</span>
                 </button>
-                <button mat-menu-item (click)="openDelete(element.id)">
+                <button mat-menu-item (click)="openDelete(element)">
                 <mat-icon>delete</mat-icon>
                 <span>Borrar</span>
                 </button>
@@ -61,20 +61,40 @@
                 <div class="example-element-detail"
                         [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                     <div class="subdomains-container">
-                        {{element.name}}
-                        <!-- <div *ngFor="let subdomain of subdomains" class="grid-row">
-                            <div class="subdomains" *ngIf=" element.id === subdomain.idDomain; else notSubdomain">
+                        <div *ngFor="let subdomain of subdomains" class="grid-row">
+                            <div class="subdomains" *ngIf="element.id == subdomain.idDomain">
                                 <div class="subdomain">
-                                    <span  class="subdomain-name">{{subdomain.name}}</span>  {{subdomain.description}}
+                                    <span class="subdomain-name">{{subdomain.name}}</span>
+                                    <span>{{subdomain.description}}</span>
+                                    <span> {{subdomain.id}}</span>
+                                    <span>{{subdomain.tag}}</span>
+                                    <button class="editable" mat-menu-item  (click)="editSubdomain(subdomain)"> 
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button class="editable" mat-menu-item (click)="deleteSubdomain(subdomain)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                    <!-- <span> 
+                                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="icon-button with a menu">
+                                            <mat-icon>more_vert</mat-icon>
+                                        </button>
+                                        <mat-menu #menu="matMenu">
+                                            <button mat-menu-item (click)="editSubdomain(subdomain)">
+                                            <mat-icon>edit</mat-icon>
+                                            <span>Editar</span>
+                                            </button>
+                                            <button mat-menu-item (click)="deleteSubdomain(subdomain.id)">
+                                            <mat-icon>delete</mat-icon>
+                                            <span>Borrar</span>
+                                            </button>
+                                        </mat-menu>
+                                    </span> -->
                                 </div>
                             </div>
-                            <ng-template #notSubdomain>
-                                No existen <u>subdominios</u> asociados a este <u>dominio</u>
-                            </ng-template>
-                        </div> -->
+                        </div>
+                        
                     </div>
                 </div>
-                
             </td>
         </ng-container>
 

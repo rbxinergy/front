@@ -7,12 +7,10 @@ import { environment } from 'src/environments/environment';
 import { SubdomainDataService } from './subdomain-data.service';
 import { subdomains } from '../shared/dummy-data/subdomains-domain.dummy';
 
-
-
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class SubdomainService {
   groupDocument = '';
   subdomains: any;
@@ -33,10 +31,6 @@ export class SubdomainService {
   getSubdomains(): Observable<Subdomain[]> {
     return this.http.get<Subdomain[]>(`${this.serverUrl}${this.apiUrls}/get/cliente1`, {headers: this.headers});
   }
-
-  
- 
-
 
   async saveSubdomain(form: any):Promise<any>{
     console.log(this.groupDocument)

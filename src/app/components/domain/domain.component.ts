@@ -33,10 +33,9 @@ import { Domain } from 'src/app/interfaces/domain.interface';
 })
 export class DomainComponent {
   domainForm: FormGroup;
-
+  
   constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<DomainComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Domain,
-    private fb: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data:Domain ) {
       if(data) {
         this.domainForm = new FormGroup({
           id: new FormControl(data?.id || '', Validators.required),
@@ -46,11 +45,14 @@ export class DomainComponent {
           tag: new FormControl(data?.tag || ''),
           idDomainCategory: new FormControl(data?.idDomainCategory || '', Validators.required),
           idCompany: new FormControl(data?.idCompany || '', Validators.required),
+          isActive: new FormControl(data?.isActive || '', Validators.required),
+          isDelete: new FormControl(data?.isDelete || '', Validators.required),
         });
-      
       }
     }
 
+  
+   
   closeModal(){
     this.dialogRef.close(this.domainForm.getRawValue());
   }
