@@ -7,14 +7,18 @@ export interface Domain {
   tag: string,
   idDomainCategory: string,
   idCompany: string,
+  isActive?: boolean,
+  isDelete?: boolean,
   subdomains?: SubDomain[]
 }
 
 export interface SubDomain {
   id:string,
   name: string,
-  isActive?: boolean,
   description: string,
   tag: string,
-  idDomain: string
+  idDomain: string,
+  is_active?: boolean,
+  is_delete?: boolean,
+  status: string
 }

@@ -1,0 +1,6 @@
+.showOnUpdate{
+    display: none;
+}
+.mat-mdc-dialog-container .mat-mdc-dialog-surface{
+    color: red;
+}

@@ -72,6 +72,7 @@ export class DomainService {
     return this.http.put<any>(`${this.serverUrl}${this.apiUrls}/update`, {domain}, { observe: 'response' });
   }
 
+
   deleteDomain(id: string): Observable<HttpResponse<any>> {
     return this.http.put<any>(`${this.serverUrl}${this.apiUrls}/delete/${id}`, { observe: 'response' });
   }
