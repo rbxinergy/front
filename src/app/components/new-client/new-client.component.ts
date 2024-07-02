@@ -61,6 +61,7 @@ export class NewClientComponent implements AfterViewInit {
   @ViewChild(ClientComponent) clientComponent: ClientComponent;
   @ViewChild(CompanyTableComponent) companyTableComponent: CompanyTableComponent;
   @ViewChild(RoleTableComponent) roleTableComponent: RoleTableComponent;
+  @ViewChild(GroupCompanyTableComponent) groupCompanyTableComponent: GroupCompanyTableComponent;
 
   showAppCompany: boolean = false
   showAppRole: boolean = false
@@ -82,6 +83,10 @@ export class NewClientComponent implements AfterViewInit {
 
   get roleTableForm() {
     return this.roleTableComponent?.formRoleTable;
+  }
+
+  get groupCompanyForm() {
+    return this.groupCompanyTableComponent?.formGroupCompanyTable;
   }
 
   constructor(private cdr: ChangeDetectorRef, private clientDataService: ClientDataService) {}

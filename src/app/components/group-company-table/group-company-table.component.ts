@@ -43,7 +43,7 @@ export class GroupCompanyTableComponent implements OnInit, AfterViewInit {
   groupCompanies: GroupCompany[] = [];
   selectedGroupCompany: GroupCompany | null = null;
 
-  formCompanyTable: FormGroup = new FormGroup({
+  formGroupCompanyTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
   });
 
@@ -77,7 +77,7 @@ export class GroupCompanyTableComponent implements OnInit, AfterViewInit {
       this.dataSource.data = this.groupCompanies;
       if(companies.length === 0){
         console.log('No hay empresas');
-        this.formCompanyTable.controls['tempControl'].setValue('');
+        this.formGroupCompanyTable.controls['tempControl'].setValue('');
       }
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -127,7 +127,7 @@ export class GroupCompanyTableComponent implements OnInit, AfterViewInit {
                 });
                 this.groupCompanies.push(response.body);
                 this.dataSource.data = this.groupCompanies;
-                this.formCompanyTable.controls['tempControl'].setValue(newGroupCompany.name);
+                this.formGroupCompanyTable.controls['tempControl'].setValue(newGroupCompany.name);
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
@@ -223,7 +223,7 @@ export class GroupCompanyTableComponent implements OnInit, AfterViewInit {
                 });
                 this.groupCompanies = this.groupCompanies.filter(c => c.id !== groupCompany.id);
                 if(this.groupCompanies.length === 0){
-                  this.formCompanyTable.controls['tempControl'].setValue(null);
+                  this.formGroupCompanyTable.controls['tempControl'].setValue(null);
                 }
                 this.dataSource.data = this.groupCompanies;
               } else {
