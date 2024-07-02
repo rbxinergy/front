@@ -20,7 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Client } from 'src/app/interfaces/client.interface';
 import { ClientDataService } from 'src/app/services/client-data.service';
-
+import { GroupCompanyTableComponent } from '../group-company-table/group-company-table.component';
 
 @Component({
     selector: 'app-new-client',
@@ -52,7 +52,8 @@ import { ClientDataService } from 'src/app/services/client-data.service';
         DomainTableComponent,
         MatFormFieldModule,
         MatInputModule,
-        MatSelectModule
+        MatSelectModule,
+        GroupCompanyTableComponent
     ]
 })
 export class NewClientComponent implements AfterViewInit {

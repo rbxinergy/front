@@ -5,6 +5,12 @@
       <button mat-button matStepperNext>Siguiente</button>
     </div>
   </mat-step>
+  <mat-step label="Grupos" [stepControl]="clientForm">
+    <app-group-company-table></app-group-company-table>
+    <div>
+      <button mat-button matStepperNext>Siguiente</button>
+    </div>
+  </mat-step>
   <mat-step label="Añadir empresas del cliente" [stepControl]="companyTableForm">
     <div *ngIf="showAppCompany">
       <app-company-table [clientName]="'Client'"></app-company-table>
