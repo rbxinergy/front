@@ -33,9 +33,9 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
-  { path: 'new-client', component: NewClientComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
     children:[
+      { path: 'new-client', component: NewClientComponent },
       { path: 'stepper', component: StepperComponent},
       { title: 'Clientes', path: 'clients', component: ClientsComponent},
       { path: 'configs', component: ConfigsComponent},
