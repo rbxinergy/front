@@ -1,6 +1,6 @@
 <div>
     <div class="search-container table-header">
-        <mat-form-field appearance="outline">
+        <mat-form-field *ngIf="companies.length > 0" appearance="outline">
           <mat-label>Buscar</mat-label>
           <input matInput (input)="applyFilter($event)" placeholder="Buscar" #searchInput>
           <button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch(searchInput)">
@@ -12,7 +12,11 @@
         </button>
     </div>
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <div *ngIf="companies.length === 0">
+    <h3>No hay empresas para este cliente</h3>
+  </div>
+
+  <table *ngIf="companies.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <!-- Id Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> Id </th>

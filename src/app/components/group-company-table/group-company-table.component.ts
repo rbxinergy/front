@@ -1,32 +1,32 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
-import { RoleComponent } from '../role/role.component';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
+import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { CompanyService } from 'src/app/services/company.service';
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+import { GroupCompany } from '../../interfaces/groupcompany.interface';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { TranslateModule } from '@ngx-translate/core';
-import { Role } from '../../interfaces/role.interface';
-import { RoleService } from 'src/app/services/role.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ClientDataService } from 'src/app/services/client-data.service'; 
 import { Client } from 'src/app/interfaces/client.interface';
-import { ClientDataService } from 'src/app/services/client-data.service';
+import { GroupCompanyService } from 'src/app/services/groupcompany.service';
+import { GroupcompanyComponent } from '../groupcompany/groupcompany.component';
 
 @Component({
-  selector: 'app-role-table',
-  templateUrl: './role-table.component.html',
-  styleUrls: ['./role-table.component.css'],
+  selector: 'app-group-company-table',
+  templateUrl: './group-company-table.component.html',
+  styleUrls: ['./group-company-table.component.css'],
   standalone: true,
   imports: [
     MatTableModule, CommonModule, TranslateModule, MatMenuModule,
@@ -35,23 +35,30 @@ import { ClientDataService } from 'src/app/services/client-data.service';
     MatFormFieldModule, MatSortModule
   ]
 })
-export class RoleTableComponent {
+export class GroupCompanyTableComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
-    'name', 'client', 'actions'
+    'id', 'name', 'description', 'tag', 'acciones'
   ];
-  dataSource = new MatTableDataSource<Role>();
-  roles: Role[] = [];
-  selectedRole: Role | null = null;
-  formRoleTable: FormGroup = new FormGroup({
+  dataSource = new MatTableDataSource<GroupCompany>();
+  groupCompanies: GroupCompany[] = [];
+  selectedGroupCompany: GroupCompany | null = null;
+
+  formCompanyTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
   });
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
-  client: Client;
 
-  constructor(private roleService: RoleService, private cdr: ChangeDetectorRef,
+  @Input() clientName: string;
+  client: Client | null = null;
+
+  constructor(private groupCompanyService: GroupCompanyService, private cdr: ChangeDetectorRef,
       private dialog: MatDialog, private clientDataService: ClientDataService) {}
+
+  ngOnInit(): void {
+    console.log('ngOnInit');
+  }
 
   ngAfterViewInit(): void {
     this.loadClientData();
@@ -60,30 +67,31 @@ export class RoleTableComponent {
   loadClientData() {
     this.client = this.clientDataService.getClientData();
     console.log('client', this.client);
-    this.loadRoles(this.client.name);
+    this.loadGroups(this.client.name);
   }
 
-  loadRoles(clientName: string) {
-    this.roleService.getRoles(clientName).subscribe((roles: any) => {
-      if(roles.body.length === 0){
-        this.formRoleTable.controls['tempControl'].setValue('');
+  loadGroups(clientName: string) {
+    console.log('clientName', clientName);
+    this.groupCompanyService.getGroupCompanies(clientName).subscribe(companies => {
+      this.groupCompanies = companies;
+      this.dataSource.data = this.groupCompanies;
+      if(companies.length === 0){
+        console.log('No hay empresas');
+        this.formCompanyTable.controls['tempControl'].setValue('');
       }
-      this.roles = roles.body;
-      this.dataSource.data = this.roles;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
-        const sortState: Sort = {active: 'id', direction: 'desc'};
-        this.sort.active = sortState.active;
-        this.sort.direction = sortState.direction;
-        this.sort.sortChange.emit(sortState);
-        this.dataSource.sort = this.sort;
-      this.sort.direction = 'desc'; // Establece el orden inicial como descendente
-      this.sort.active = 'id'; // Establece 'ID' como la columna activa para ordenar
-      this.cdr.detectChanges(); // Forzar la detección de cambios
+      const sortState: Sort = {active: 'id', direction: 'desc'};
+      this.sort.active = sortState.active;
+      this.sort.direction = sortState.direction;
+      this.sort.sortChange.emit(sortState);
+      this.dataSource.sort = this.sort;
+      this.sort.direction = 'desc';
+      this.sort.active = 'id';
+      this.cdr.detectChanges();
     });
   }
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -100,85 +108,85 @@ export class RoleTableComponent {
     this.applyFilter(event);
   }
 
-  openNewRoleModal() {
-    const maxId = this.roles.length > 0 ? Math.max(...this.roles.map(role => role.id)) : 0;
-    const dialogRef = this.dialog.open(RoleComponent, {
+  openNewGroupCompanyModal() {
+    const dialogRef = this.dialog.open(GroupcompanyComponent, {
       width: '600px',
-      data: {} // Puedes pasar datos al modal si es necesario
+      data: {}
     });
   
     dialogRef.afterClosed().subscribe({
-      next: (newRole: Role) => {
-        if (newRole) {
-          this.roleService.createRole(newRole).subscribe({
+      next: (newGroupCompany: GroupCompany) => {
+        if (newGroupCompany) {
+          console.log('newGroupCompany', newGroupCompany);
+          this.groupCompanyService.createGroupCompany(newGroupCompany).subscribe({
             next: (response) => {
               if (response.status === 200) {
-                this.formRoleTable.controls['tempControl'].setValue(newRole.name);
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
-                  data: { message: 'Rol creado exitosamente.', type: 'success' }
+                  data: { message: 'Compañía creada exitosamente.', type: 'success' }
                 });
-                newRole.id = maxId + 1;
-                this.roles.push(newRole);
-                this.dataSource.data = this.roles;
+                this.groupCompanies.push(response.body);
+                this.dataSource.data = this.groupCompanies;
+                this.formCompanyTable.controls['tempControl'].setValue(newGroupCompany.name);
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
-                  data: { message: 'Error al crear el rol.', type: 'error' }
+                  data: { message: 'Error al crear el grupo.', type: 'error' }
                 });
               }
             },
             error: (error) => {
               this.dialog.open(MessagesModalComponent, {
                 width: '400px',
-                data: { message: 'Error al crear el rol.', type: 'error' }
+                data: { message: 'Error al crear el grupo.', type: 'error' }
               });
             }
           });
         }
       },
       error: (error) => {
+        console.error('Error al abrir el modal de nuevo grupo:', error);
         this.dialog.open(MessagesModalComponent, {
-          width: '500px',
+          width: '400px',
           data: { message: 'Error al cerrar el diálogo.', type: 'error' }
         });
       }
     });
   }
   
-  openEditRoleModal(role: Role) {
-    this.selectedRole = { ...role };
-    const dialogRef = this.dialog.open(RoleComponent, {
+  openEditGroupCompanyModal(company: GroupCompany) {
+    this.selectedGroupCompany = { ...company };
+    const dialogRef = this.dialog.open(GroupcompanyComponent, {
       width: '600px',
-      data: this.selectedRole
+      data: this.selectedGroupCompany
     });
 
     dialogRef.afterClosed().subscribe({
-      next: (updatedRole: Role) => {
-        if (updatedRole) {
-          this.roleService.updateRole(updatedRole).subscribe({
+      next: (updatedCompany: GroupCompany) => {
+        if (updatedCompany) {
+          this.groupCompanyService.updateGroupCompany(updatedCompany).subscribe({
             next: (response) => {
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Rol actualizado exitosamente.', type: 'success' }
+                  data: { message: 'Empresa actualizada exitosamente.', type: 'success' }
                 });
-                const index = this.roles.findIndex(c => c.id === updatedRole.id);
+                const index = this.groupCompanies.findIndex(c => c.id === updatedCompany.id);
                 if (index !== -1) {
-                  this.roles[index] = updatedRole;
-                  this.dataSource.data = this.roles;
+                  this.groupCompanies[index] = response.body;
+                  this.dataSource.data = this.groupCompanies;
                 }
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Error al actualizar el rol.', type: 'error' }
+                  data: { message: 'Error al actualizar la empresa.', type: 'error' }
                 });
               }
             },
             error: (error) => {
               this.dialog.open(MessagesModalComponent, {
                 width: '500px',
-                data: { message: 'Error al actualizar el rol.', type: 'error' }
+                data: { message: 'Error al actualizar la empresa.', type: 'error' }
               });
             }
           });
@@ -193,12 +201,12 @@ export class RoleTableComponent {
     });
   }
 
-  openDeleteRoleModal(role: Role) {
+  openDeleteGroupCompanyModal(groupCompany: GroupCompany) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
       data: {
         title: 'Confirmar eliminación',
-        message: `¿Está seguro de que deseas eliminar el rol ${role.name}?`,
+        message: `¿Está seguro de que deseas eliminar el grupo ${groupCompany.name}?`,
         type: 'error'
       }
     });
@@ -206,29 +214,29 @@ export class RoleTableComponent {
     dialogRef.afterClosed().subscribe({
       next: (result) => {
         if (result) {
-          this.roleService.deleteRole(role.id.toString()).subscribe({
+          this.groupCompanyService.deleteGroupCompany(groupCompany.id).subscribe({
             next: (response) => {
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Rol eliminado exitosamente.', type: 'success' }
+                  data: { message: 'Compañía eliminada exitosamente.', type: 'success' }
                 });
-                this.roles = this.roles.filter(c => c.id !== role.id);
-                this.dataSource.data = this.roles;
-                if(this.roles.length === 0){
-                  this.formRoleTable.controls['tempControl'].setValue(null);
+                this.groupCompanies = this.groupCompanies.filter(c => c.id !== groupCompany.id);
+                if(this.groupCompanies.length === 0){
+                  this.formCompanyTable.controls['tempControl'].setValue(null);
                 }
+                this.dataSource.data = this.groupCompanies;
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Error al eliminar el rol.', type: 'error' }
+                  data: { message: 'Error al eliminar la compañía.', type: 'error' }
                 });
               }
             },
             error: (error) => {
               this.dialog.open(MessagesModalComponent, {
                 width: '500px',
-                data: { message: 'Error al eliminar el rol.', type: 'error' }
+                data: { message: 'Error al eliminar la compañía.', type: 'error' }
               });
             }
           });

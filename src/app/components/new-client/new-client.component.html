@@ -1,25 +1,38 @@
-<mat-horizontal-stepper>
+<mat-horizontal-stepper (selectionChange)="onStepChange($event)">
   <mat-step label="Datos del cliente" [stepControl]="clientForm">
-    <app-client (validationStatus)="onValidationStatus($event)"></app-client>  
+    <app-client (validationStatus)="onValidationStatus($event)" [showSaveBtn]="false"></app-client>
+    <div>
+      <button mat-button matStepperNext>Siguiente</button>
+    </div>
+  </mat-step>
+  <mat-step label="Grupos" [stepControl]="clientForm">
+    <app-group-company-table></app-group-company-table>
+    <div>
+      <button mat-button matStepperNext>Siguiente</button>
+    </div>
   </mat-step>
   <mat-step label="Añadir empresas del cliente" [stepControl]="companyTableForm">
-    <app-company-table></app-company-table>
+    <div *ngIf="showAppCompany">
+      <app-company-table [clientName]="'Client'"></app-company-table>
+    </div>
     <div>
       <button mat-button matStepperPrevious>Anterior</button>
       <button mat-button matStepperNext>Siguiente</button>
     </div>
   </mat-step>
-  <mat-step label="Roles" [stepControl]="roleTableForm">
-    <app-role-table></app-role-table>
+  <mat-step label="Roles"  [stepControl]="roleTableForm">
+    <div *ngIf="showAppRole">
+      <app-role-table></app-role-table>
+    </div>
     <div>
       <button mat-button matStepperPrevious>Anterior</button>
       <button mat-button matStepperNext>Siguiente</button>
     </div>
   </mat-step>
   <mat-step label="Dominios y Subdominios">
-   <app-domain-table></app-domain-table>
-  <!--    <app-domain></app-domain>
-    <app-subdomain></app-subdomain> -->
+    <div *ngIf="showAppDomain">
+      <app-domain-table></app-domain-table>
+    </div>
     <div>
       <button mat-button matStepperPrevious>Anterior</button>
       <button mat-button>Finalizar</button>

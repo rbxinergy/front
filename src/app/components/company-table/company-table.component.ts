@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sort';
@@ -20,6 +20,8 @@ import { CompanyComponent } from '../company/company.component';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ClientDataService } from 'src/app/services/client-data.service'; 
+import { Client } from 'src/app/interfaces/client.interface';
 
 @Component({
   selector: 'app-company-table',
@@ -33,7 +35,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
     MatFormFieldModule, MatSortModule
   ]
 })
-export class CompanyTableComponent implements AfterViewInit {
+export class CompanyTableComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
     'id', 'name', 'businessName', 'address', 'country', 'city', 'state', 'documentType', 'document', 'acciones'
   ];
@@ -48,17 +50,35 @@ export class CompanyTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  @Input() clientName: string;
+  client: Client | null = null;
+
   constructor(private companyService: CompanyService, private cdr: ChangeDetectorRef,
-      private dialog: MatDialog) {}
+      private dialog: MatDialog, private clientDataService: ClientDataService) {}
+
+  ngOnInit(): void {
+    console.log('ngOnInit');
+  }
 
   ngAfterViewInit(): void {
-    this.companyService.getCompaniesByGroup(sessionStorage.getItem('client')).subscribe((data: Company[]) => {
-      if(data.length === 0){
+    this.loadClientData();
+  }
+
+  loadClientData() {
+    this.client = this.clientDataService.getClientData();
+    console.log('client', this.client);
+    this.loadCompanies(this.client.name);
+  }
+
+  loadCompanies(clientName: string) {
+    console.log('clientName', clientName);
+    this.companyService.getCompaniesByGroup(clientName).subscribe(companies => {
+      this.companies = companies;
+      this.dataSource.data = this.companies;
+      if(companies.length === 0){
         console.log('No hay empresas');
         this.formCompanyTable.controls['tempControl'].setValue('');
       }
-      this.companies = data;
-      this.dataSource.data = this.companies;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
@@ -70,7 +90,6 @@ export class CompanyTableComponent implements AfterViewInit {
       this.sort.direction = 'desc';
       this.sort.active = 'id';
       this.cdr.detectChanges();
-      
     });
   }
 
