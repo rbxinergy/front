@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,9 +18,13 @@ import { DomainTableComponent } from "../domain-table/domain-table.component";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Client } from 'src/app/interfaces/client.interface';
 import { ClientDataService } from 'src/app/services/client-data.service';
 import { GroupCompanyTableComponent } from '../group-company-table/group-company-table.component';
+import { ClientService } from 'src/app/services/client.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { Subscription } from 'rxjs';
+
 
 @Component({
     selector: 'app-new-client',
@@ -53,19 +57,28 @@ import { GroupCompanyTableComponent } from '../group-company-table/group-company
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
-        GroupCompanyTableComponent
+        GroupCompanyTableComponent,
+        MessagesModalComponent
     ]
 })
-export class NewClientComponent implements AfterViewInit {
+export class NewClientComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild(ClientComponent) clientComponent: ClientComponent;
   @ViewChild(CompanyTableComponent) companyTableComponent: CompanyTableComponent;
   @ViewChild(RoleTableComponent) roleTableComponent: RoleTableComponent;
   @ViewChild(GroupCompanyTableComponent) groupCompanyTableComponent: GroupCompanyTableComponent;
 
-  showAppCompany: boolean = false
-  showAppRole: boolean = false
-  showAppDomain: boolean = false
+  showAppCompany: boolean = false;
+  showAppRole: boolean = false;
+  showAppDomain: boolean = false;
+  showAppGroupCompany: boolean = false;
+
+  clientFormValid: boolean = false;
+  companyFormValid: boolean = false;
+  roleFormValid: boolean = false;
+  groupCompanyFormValid: boolean = false;
+
+  subscriptions: Subscription[] = [];
 
   companyForm: FormGroup = new FormGroup({
     field1: new FormControl('', Validators.required)
@@ -89,9 +102,38 @@ export class NewClientComponent implements AfterViewInit {
     return this.groupCompanyTableComponent?.formGroupCompanyTable;
   }
 
-  constructor(private cdr: ChangeDetectorRef, private clientDataService: ClientDataService) {}
+  constructor(private cdr: ChangeDetectorRef, private clientDataService: ClientDataService,
+    private clientService: ClientService, private dialog: MatDialog) { }
 
   ngAfterViewInit(): void {
+    console.log("CLIENT FORM:", this.clientForm);
+    this.subscriptions.push(
+      this.clientForm?.statusChanges.subscribe(status => {
+        this.clientFormValid = status === 'VALID'? true : false;
+        this.cdr.detectChanges();
+      })
+    );
+
+    this.subscriptions.push(
+      this.companyTableForm?.statusChanges.subscribe(status => {
+        this.companyFormValid = status === 'VALID'? true : false;
+        this.cdr.detectChanges();
+      })
+    );
+
+    this.subscriptions.push(
+      this.roleTableForm?.statusChanges.subscribe(status => {
+        this.roleFormValid = status === 'VALID'? true : false;
+        this.cdr.detectChanges();
+      })
+    );
+
+    this.subscriptions.push(
+      this.groupCompanyForm?.statusChanges.subscribe(status => {
+        this.groupCompanyFormValid = status === 'VALID'? true : false;
+        this.cdr.detectChanges();
+      })
+    );  
     this.cdr.detectChanges();
   }
 
@@ -107,19 +149,53 @@ export class NewClientComponent implements AfterViewInit {
     console.log('Step changed', event);
     switch(event.selectedIndex) {
       case 0:
-        this.clientDataService.setClientData(this.clientForm.getRawValue() as unknown as Client);
+        this.saveClientData();
         break;
       case 1:
-        this.clientDataService.setClientData(this.clientForm.getRawValue() as unknown as Client);
-        this.showAppCompany = true;
+        this.saveClientData();
+        this.showAppGroupCompany = true;
         break;
       case 2:
-        this.showAppRole = true;
+        this.saveClientData();
+        this.showAppCompany = true;
         break;
       case 3:
+        this.saveClientData();
+        this.showAppRole = true;
+        break;
+      case 4:
+        this.saveClientData();
         this.showAppDomain = true;
         break;
     }
     this.cdr.detectChanges();
+  }
+
+  saveClientData() {
+    console.log("CLIENT FORM:", this.clientForm.getRawValue());
+    this.clientService.saveClient(this.clientForm.getRawValue()).subscribe({
+      next: (response) => {
+        if (response.status === 200) {
+          console.log("RESPONSE:", response.body);
+          this.clientDataService.setClientData(response.body);
+        } else {
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Error al crear el cliente.', type: 'error' }
+          });
+        }
+      },
+      error: (error) => {
+        console.log("ERROR:", error);
+        this.dialog.open(MessagesModalComponent, {
+          width: '400px',
+          data: { message: 'Error al crear el cliente.', type: 'error' }
+        });
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }
