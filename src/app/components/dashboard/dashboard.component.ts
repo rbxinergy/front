@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import {MatToolbarModule} from '@angular/material/toolbar';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 

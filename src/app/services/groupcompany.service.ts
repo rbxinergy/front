@@ -2,23 +2,22 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { Injectable } from '@angular/core';
 import { lastValueFrom, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { clients, companies } from '../shared/dummy-data/client-company.dummy';
-import { Company } from '../interfaces/company.interface';
+import { clients } from '../shared/dummy-data/client-company.dummy';
+import { GroupCompany } from '../interfaces/groupcompany.interface';
 import { ClientDataService } from './client-data.service';
-import { ServiceCompany } from '../interfaces/servicecompany.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CompanyService {
+export class GroupCompanyService {
   groupDocument = '';
   serverUrl = environment.serverUrl;
-  apiUrls = environment.apiUrls;
+  apiUrl = environment.apiUrls.groupCompany;
 
   token = sessionStorage.getItem('token')
   client: any;
   headers = new HttpHeaders({
-    'Authorization': 'Bearer ' +  this.token,
+    'Authorization': 'Bearer ' + this.token,
     'cache-control': 'no-cache'
   })
 
@@ -28,7 +27,7 @@ export class CompanyService {
     console.log(this.client);
   }
 
-  async saveCompany(form: any):Promise<any>{
+  async saveGroupCompany(form: any):Promise<any>{
     console.log(this.groupDocument)
     const body = { 
       "name": form.name,
@@ -39,41 +38,41 @@ export class CompanyService {
       "groupDocument": this.groupDocument,
       "address":form.address,
       "cityId": parseInt(form.cityId),
-      "stateId": parseInt(form.stateId),
+      "stateId": parseInt(form.stateId),  
       "countryId": parseInt(form.countryId),
       "isGroup": false
     }
     console.log(body)
-    const postCompany = this.http.post<Company>(`${this.serverUrl}${this.apiUrls.company}/create`, body, { headers: this.headers })
+    const postCompany = this.http.post<GroupCompany>(`${this.serverUrl}${this.apiUrl}/create`, body, { headers: this.headers })
 
     return await lastValueFrom(postCompany)  
   }
 
-  getCompaniesByGroup(client: any){
+  getGroupCompanies(client: any){
     const params = new HttpParams({
       fromString: 'group=' + this.groupDocument + '&option=2'
     });
-    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/cliente1`, { headers: this.headers})
+    return this.http.get<GroupCompany[]>(`${this.serverUrl}${this.apiUrl}/get/${client}`, { headers: this.headers})
   }
 
-  getCompany(client: string, company: string) {
-    return this.http.get<Company>(`${this.serverUrl}${this.apiUrls.company}/get/${client}/${company}`, { headers: this.headers})
-  }
+  // getGroupCompany(client: string, company: string) {
+  //   return this.http.get<Company>(`${this.serverUrl}${this.apiUrl}/get/${client}/${company}`, { headers: this.headers})
+  // }
 
   getClients() {
     return of(clients);
     // this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/cliente1/company`, { headers: this.headers})
   }
 
-  createCompany(company: Company): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.serverUrl}${this.apiUrls.company}/create`, {company}, { observe: 'response' });
+  createGroupCompany(company: GroupCompany): Observable<HttpResponse<any>> {
+    return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/create`, {company}, { observe: 'response' });
   }
 
-  updateCompany(company: Company): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.company}/update`, {company}, { observe: 'response' });
+  updateGroupCompany(company: GroupCompany): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update`, {company}, { observe: 'response' });
   }
 
-  deleteCompany(id: string): Observable<HttpResponse<any>> {
-    return this.http.delete<any>(`${this.serverUrl}${this.apiUrls.company}/delete/${id}`, { observe: 'response' });
+  deleteGroupCompany(id: string): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.serverUrl}${this.apiUrl}/delete/${id}`, { observe: 'response' });
   }
 }

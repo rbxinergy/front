@@ -89,6 +89,6 @@ export class ClientsComponent implements AfterViewInit {
   }
 
   navigateToNewClient() {
-    this.router.navigate(['/new-client']);
+    this.router.navigate(['/dashboard/new-client']);
   }
 }
