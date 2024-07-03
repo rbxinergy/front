@@ -61,14 +61,14 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.loadClientData();
+    // this.loadClientData();
   }
 
-  loadClientData() {
-    this.client = this.clientDataService.getClientData();
-    console.log('client', this.client);
-    this.loadCompanies(this.client.name);
-  }
+  // loadClientData() {
+  //   this.client = this.clientDataService.getClientData();
+  //   console.log('client', this.client);
+  //   this.loadCompanies(this.client.name);
+  // }
 
   loadCompanies(clientName: string) {
     console.log('clientName', clientName);
@@ -126,7 +126,7 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
                   data: { message: 'Compañía creada exitosamente.', type: 'success' }
                 });
                 newCompany.id = (maxId + 1).toString();
-                this.companies.push(newCompany);
+                this.companies.push(response.body);
                 this.dataSource.data = this.companies;
                 this.formCompanyTable.controls['tempControl'].setValue(newCompany.name);
               } else {
@@ -218,11 +218,13 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
         if (result) {
           this.companyService.deleteCompany(company.id).subscribe({
             next: (response) => {
+              console.log('response', response.body);
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
                   data: { message: 'Compañía eliminada exitosamente.', type: 'success' }
                 });
+                console.log('company', company);
                 this.companies = this.companies.filter(c => c.id !== company.id);
                 if(this.companies.length === 0){
                   this.formCompanyTable.controls['tempControl'].setValue(null);
