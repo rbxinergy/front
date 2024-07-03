@@ -18,6 +18,7 @@ import { DomainTableComponent } from "../domain-table/domain-table.component";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { DomainCategoryTableComponent } from '../domain-category-table/domain-category-table.component';
 
 
 @Component({
@@ -48,6 +49,7 @@ import { MatSelectModule } from '@angular/material/select';
         CompanyTableComponent,
         TranslateModule,
         DomainTableComponent,
+        DomainCategoryTableComponent,
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule
@@ -58,6 +60,7 @@ export class NewClientComponent implements AfterViewInit {
   @ViewChild(ClientComponent) clientComponent: ClientComponent;
   @ViewChild(CompanyTableComponent) companyTableComponent: CompanyTableComponent;
   @ViewChild(RoleTableComponent) roleTableComponent: RoleTableComponent;
+  @ViewChild(RoleTableComponent) domainCategoryTableComponent: DomainCategoryTableComponent;
 
   companyForm: FormGroup = new FormGroup({
     field1: new FormControl('', Validators.required)
@@ -75,6 +78,10 @@ export class NewClientComponent implements AfterViewInit {
 
   get roleTableForm() {
     return this.roleTableComponent?.formRoleTable;
+  }
+
+  get domainCategoryTableForm() {
+    return this.domainCategoryTableComponent
   }
 
   constructor(private cdr: ChangeDetectorRef) {}

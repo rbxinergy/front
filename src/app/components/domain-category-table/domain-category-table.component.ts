@@ -11,6 +11,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
+import { DomaincategoryComponent } from '../domaincategory/domaincategory.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-domain-category-table',
@@ -33,9 +35,10 @@ export class DomainCategoryTableComponent {
   dataSource = new MatTableDataSource<DomainCategory>();
   selection = new SelectionModel<DomainCategory>(true, []);
 
-  constructor(private domainCategoryService: DomainCategoryService) {
+  constructor(private domainCategoryService: DomainCategoryService, private dialog: MatDialog) {
     this.domainCategoryService.getDomainCategories().subscribe((domainCategories: DomainCategory[]) => {
       this.dataSource.data = domainCategories;
+      console.log(domainCategories)
     });
   }
   // ngOnInit(): void {
@@ -66,5 +69,11 @@ export class DomainCategoryTableComponent {
   }
   addDomainCategoriesToCompany() {
     console.log(this.selection.selected);
+    const dialogRef = this.dialog.open(DomaincategoryComponent, {
+      width: '600px',
+      data:  {}
+    });
+
+    
   }
 }
