@@ -28,7 +28,7 @@ import { Client } from 'src/app/interfaces/client.interface';
   styleUrls: ['./client.component.css']
 })
 export class ClientComponent implements OnInit {
-  clientForm = new FormGroup({
+  public clientForm = new FormGroup({
     name: new FormControl('', Validators.required),
     businessName: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),

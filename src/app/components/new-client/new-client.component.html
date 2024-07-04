@@ -1,17 +1,20 @@
-<mat-horizontal-stepper (selectionChange)="onStepChange($event)">
-  <mat-step label="Datos del cliente" [stepControl]="clientForm">
+<mat-horizontal-stepper linear (selectionChange)="onStepChange($event)">
+  <mat-step label="Datos del cliente" [stepControl]="clientForm" [completed]="clientFormValid">
     <app-client (validationStatus)="onValidationStatus($event)" [showSaveBtn]="false"></app-client>
     <div>
       <button mat-button matStepperNext>Siguiente</button>
     </div>
   </mat-step>
-  <mat-step label="Grupos" [stepControl]="groupCompanyForm">
-    <app-group-company-table></app-group-company-table>
+  <mat-step label="Grupos" [stepControl]="groupCompanyForm" [completed]="groupCompanyFormValid">
+    <div *ngIf="showAppGroupCompany">
+      <app-group-company-table></app-group-company-table>
+    </div>
     <div>
+      <button mat-button matStepperPrevious>Anterior</button>
       <button mat-button matStepperNext>Siguiente</button>
     </div>
   </mat-step>
-  <mat-step label="Añadir empresas del cliente" [stepControl]="companyTableForm">
+  <mat-step label="Añadir empresas del cliente" [stepControl]="companyTableForm" [completed]="companyFormValid">
     <div *ngIf="showAppCompany">
       <app-company-table [clientName]="'Client'"></app-company-table>
     </div>
@@ -20,7 +23,7 @@
       <button mat-button matStepperNext>Siguiente</button>
     </div>
   </mat-step>
-  <mat-step label="Roles"  [stepControl]="roleTableForm">
+  <mat-step label="Roles" [stepControl]="roleTableForm" [completed]="roleFormValid">
     <div *ngIf="showAppRole">
       <app-role-table></app-role-table>
     </div>

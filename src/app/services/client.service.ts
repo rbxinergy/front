@@ -1,7 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subscription, catchError, lastValueFrom, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Client } from '../interfaces/client.interface';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -36,9 +38,10 @@ export class ClientService {
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
-  async saveClient(form: any):Promise<any>{
+  saveClient(form: any): Observable<HttpResponse<Client>>{
     // this.getClient()
-    const url = environment.postClientUrl
+    const apiUrl = environment.apiUrls.client
+    const serverUrl = environment.serverUrl
     
     const body = { 
       "name": form.name,
@@ -46,7 +49,7 @@ export class ClientService {
       "documentType": form.documentType,
       "phone": form.phone,
       "email": form.email,
-      "groupDocument": form.documentNumber,
+      "groupDocument": form.documentNumber  ,
       "address":form.address,
       "cityId": parseInt(form.cityId),
       "stateId": parseInt(form.stateId),
@@ -54,19 +57,19 @@ export class ClientService {
       "clientName": form.clientName,
       "isGroup": true
     }
-    console.log(this.token)
-    console.log(body)
+
+    return this.http.post<Client>(`${serverUrl}${apiUrl}/create`, body, { headers: this.headers, observe: 'response' });
     // guardo el documentNumber y se lo paso al domains.service para poder guardar el postDomain
-    const id = form.documentNumber
-    console.log(id)
-    sessionStorage.setItem('groupDocument', id)
+    // const id = form.documentNumber
+    // console.log(id)
+    // sessionStorage.setItem('groupDocument', id)
   
 
-    const postClient = this.http.post<any>(url, body, { headers: this.headers }).pipe(
-      catchError(this.handleError)
-    );
+    // const postClient = this.http.post<any>(url, body, { headers: this.headers }).pipe(
+    //   catchError(this.handleError)
+    // );
 
-    return await lastValueFrom(postClient)  
+    // return await lastValueFrom(postClient)  
   
   }
  

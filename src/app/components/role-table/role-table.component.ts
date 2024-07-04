@@ -101,7 +101,6 @@ export class RoleTableComponent {
   }
 
   openNewRoleModal() {
-    const maxId = this.roles.length > 0 ? Math.max(...this.roles.map(role => role.id)) : 0;
     const dialogRef = this.dialog.open(RoleComponent, {
       width: '600px',
       data: {}
@@ -113,12 +112,11 @@ export class RoleTableComponent {
           this.roleService.createRole(newRole).subscribe({
             next: (response) => {
               if (response.status === 200) {
-                this.formRoleTable.controls['tempControl'].setValue(newRole.name);
+                this.formRoleTable.controls['tempControl'].setValue(response.body.name);
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
                   data: { message: 'Rol creado exitosamente.', type: 'success' }
                 });
-                newRole.id = maxId + 1;
                 this.roles.push(response.body);
                 this.dataSource.data = this.roles;
               } else {
