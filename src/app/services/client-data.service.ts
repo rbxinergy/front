@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Client } from '../interfaces/client.interface';
+import { ClientService } from './client.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class ClientDataService {
   private clientData: Client;
 
   setClientData(data: Client) {
-    console.log("CLIENT:", data);
+    console.log("CLIENT DATA:", data);
     this.clientData = data;
   }
 
