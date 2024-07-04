@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,6 +14,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { ClientDataService } from 'src/app/services/client-data.service';
+import { Client } from 'src/app/interfaces/client.interface';
 
 @Component({
   selector: 'app-client',
@@ -29,31 +30,31 @@ import { ClientDataService } from 'src/app/services/client-data.service';
 export class ClientComponent implements OnInit {
   clientForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    business_name: new FormControl('', Validators.required),
+    businessName: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
     city: new FormControl('', Validators.required),
     state: new FormControl('', Validators.required),
     county: new FormControl(''),
     district: new FormControl(''),
     country: new FormControl('', Validators.required),
-    document_type: new FormControl('RUT', Validators.required),
+    documentType: new FormControl('RUT', Validators.required),
     document: new FormControl('', Validators.required),
-    is_active: new FormControl(true),
+    isActive: new FormControl(true),
     tag: new FormControl('')
   });
   @Output() validationStatus = new EventEmitter<boolean>();
+  @Input() showSaveBtn = true;
 
   constructor(private clientDataService: ClientDataService) { }
 
   ngOnInit(): void {
     this.clientForm.statusChanges.subscribe(status => {
-      console.log(status);
-      this.validationStatus.emit(this.clientForm.valid);
+      this.validationStatus.emit(status === 'VALID'? true : false);
     });
   }
 
   save() {
-    this.clientDataService.setClientData(this.clientForm.getRawValue());
+    this.clientDataService.setClientData(this.clientForm.getRawValue() as unknown as Client);
   }
 
 }

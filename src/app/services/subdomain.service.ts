@@ -29,7 +29,7 @@ export class SubdomainService {
   }
 
   getSubdomains(): Observable<Subdomain[]> {
-    return this.http.get<Subdomain[]>(`${this.serverUrl}${this.apiUrls}/get/cliente1`, {headers: this.headers});
+    return this.http.get<Subdomain[]>(`${this.serverUrl}${this.apiUrls.subdomain}/get/cliente1`, {headers: this.headers});
   }
 
   async saveSubdomain(form: any):Promise<any>{
@@ -54,10 +54,6 @@ export class SubdomainService {
     return this.http.get<SubDomain[]>(`${this.serverUrl}${this.apiUrls.subdomain}/get/cliente1/company`, { headers: this.headers})
   }
 
-  // createSubdomain(subdomain: Subdomain): Observable<Subdomain> {
-  //   return this.http.post<Subdomain>(`${this.serverUrl}${this.apiUrls}/create`, subdomain, {headers: this.headers});
-
-  // }
   createSubdomain(subdomain: SubDomain): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${this.serverUrl}${this.apiUrls.subdomain}/create`, {subdomain}, { observe: 'response' });
   }

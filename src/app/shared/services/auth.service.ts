@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { GetprofileService } from './getprofile.service';
 import { Session } from '../../interfaces/session.interface';
 import { v4 as uuidv4 } from 'uuid';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,7 @@ export class AuthService {
     private getProfileService: GetprofileService,
     private router: Router,
     private ngZone: NgZone,
+    private http: HttpClient
   ) {
     // OBSERVER save user in localStorage (log-in) and setting up null when log-out
     this.firebaseAuthenticationService.authState.subscribe((user) => {
@@ -32,7 +35,7 @@ export class AuthService {
   }
 
   // log-in with email and password
-  async logInWithEmailAndPassword(email: string, password: string) {
+  async logInWithEmailAndPassword(email: string, password: string): Promise<any> {
     if (password === '1234') {
       return Promise.reject({
         httpStatus: 'UNAUTHORIZED',
@@ -40,35 +43,27 @@ export class AuthService {
       });
     }
 
-    const dummyResponse = {
-      email: 'john@email.com',
-      client: 'client',
-      company: 'company',
-      isCreate: true,
-      isUpdate: true,
-      isRead: true,
-      isDelete: true,
-      token: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaW1vLm1vcmFsZXNnQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6IiIsImxhc3ROYW1lIjoiIiwicm9sZSI6InJvbGUteGluZXJneS1hbGwtYWxsIiwiZXhwIjoxOTMxNDU4NjIxfQ.cg8w3k7kn2KS1tsn0zrf_vjyA_3Pq3b92wbKL0m3YVtta496YxZ4hCYvfAeZbeHR2Hvf0NyaQZmhMyKe1S5AL'
-    };
+    const apiUrls = environment.apiUrls;
+    const serverUrl = environment.serverUrl;
 
-    const dummySession: Session = {
-      id: uuidv4(),
-      token: dummyResponse.token,
-      principal: 'Test',
-      isActive: true
-    };
+    try {
+      const response: any = await this.http.post(`${serverUrl}${apiUrls.login}`, { email, password }).toPromise();
+      console.log('login:', response);
+      localStorage.setItem('user', JSON.stringify(response));
+      sessionStorage.setItem('token', response.token);
 
-    localStorage.setItem('user', JSON.stringify(dummyResponse));
-    sessionStorage.setItem('token', dummyResponse.token);
-    sessionStorage.setItem('session', JSON.stringify(dummySession));
-    const profile = await this.getProfileService.getUserProfile(email);
-    sessionStorage.setItem('profile', JSON.stringify(profile));
-    const { id, email: userCreator } = profile;
-    sessionStorage.setItem('userId', id);
-    sessionStorage.setItem('userCreator', userCreator);
-    console.log(userCreator);
+      const profile = await this.getProfileService.getUserProfile(email);
+      sessionStorage.setItem('profile', JSON.stringify(profile));
+      const { id, email: userCreator } = profile;
+      sessionStorage.setItem('userId', id);
+      sessionStorage.setItem('userCreator', userCreator);
+      const clients = Array.isArray(response.client) ? response.client : [response.client];
 
-    return Promise.resolve(dummyResponse);
+      return { profile, clients };
+    } catch (error) {
+      console.error('Error during login:', error);
+      return Promise.reject(error);
+    }
   }
 
 
@@ -108,16 +103,24 @@ export class AuthService {
 
 
   // logOut
-  async logOut() {
-    return this.firebaseAuthenticationService.signOut().then(() => {
+  async logOut(): Promise<void> {
+    const apiUrls = environment.apiUrls;
+    const serverUrl = environment.serverUrl;
+
+    try {
+      await this.http.delete(`${serverUrl}${apiUrls.logout}`, {}).toPromise();
       localStorage.removeItem('user');
       sessionStorage.removeItem('groupDocument');
       sessionStorage.removeItem('userCreator');
       sessionStorage.removeItem('userId');
       sessionStorage.removeItem('profile');
       sessionStorage.removeItem('token');
+      sessionStorage.removeItem('client');
       this.router.navigate(['login']);
-    })
+    } catch (error) {
+      console.error('Error during logout:', error);
+      return Promise.reject(error);
+    }
   }
 
 }

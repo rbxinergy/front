@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UserService } from '../../services/user.service';
@@ -30,13 +30,16 @@ import { Domain } from 'src/app/interfaces/domain.interface';
     CommonModule
   ]
 })
-export class DomainCfgTableComponent {
+export class DomainCfgTableComponent implements AfterViewInit {
   displayedColumns: string[] = ['select', 'id', 'name', 'category', 'code'];
   dataSource = new MatTableDataSource<Domain>();
   selection = new SelectionModel<Domain>(true, []);
+  client: string = sessionStorage.getItem('client') || '';
 
-  constructor(private domainService: DomainService) {
-    this.domainService.getDomains().subscribe((domains: Domain[]) => {
+  constructor(private domainService: DomainService) { }
+
+  ngAfterViewInit(): void {
+    this.domainService.getDomains(this.client).subscribe((domains: Domain[]) => {
       this.dataSource.data = domains;
     });
   }

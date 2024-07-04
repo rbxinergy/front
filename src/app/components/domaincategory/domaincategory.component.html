@@ -3,12 +3,12 @@
   <form [formGroup]="domainCategoryForm">
     <mat-form-field appearance="outline" class="col-1">
       <mat-label>Nombre</mat-label>
-      <input matInput type="text" name="name" required>
+      <input matInput type="text" formControlName="name" required>
     </mat-form-field>
   
     <mat-form-field appearance="outline" class="col-1">
       <mat-label>Descripción</mat-label>
-      <textarea matInput name="description" required></textarea>
+      <textarea matInput formControlName="description" required></textarea>
     </mat-form-field>
 <!--   
     <mat-checkbox name="is_active" color="primary">Activo</mat-checkbox>
@@ -31,7 +31,7 @@
   
     <mat-form-field appearance="outline" class="col-2">
       <mat-label>Etiqueta</mat-label>
-      <input matInput type="text" name="tag">
+      <input matInput type="text" formControlName="tag">
     </mat-form-field>
   
     <mat-form-field appearance="outline" class="col-2">

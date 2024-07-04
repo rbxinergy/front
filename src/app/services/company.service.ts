@@ -74,6 +74,6 @@ export class CompanyService {
   }
 
   deleteCompany(id: string): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.company}/delete/${id}`, { observe: 'response' });
+    return this.http.delete<any>(`${this.serverUrl}${this.apiUrls.company}/delete/${id}`, { observe: 'response' });
   }
 }

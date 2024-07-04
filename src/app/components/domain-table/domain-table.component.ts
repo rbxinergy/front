@@ -22,6 +22,8 @@ import { DomainService } from 'src/app/services/domain.service';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SubdomainService } from 'src/app/services/subdomain.service';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { subdomains } from 'src/app/shared/dummy-data/subdomains-domain.dummy';
 import { Subdomain } from 'src/app/interfaces/subdomain.interface';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
@@ -42,20 +44,22 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
     MatTableModule, NgFor, NgIf, CommonModule, TranslateModule, MatMenuModule,
     MatIconModule, MatButtonModule, MatDialogModule, MatInputModule,
     MatSelectModule, MatSnackBarModule, MatTooltipModule, MatPaginatorModule,
-    MatFormFieldModule, MatSortModule
+    MatFormFieldModule, MatSortModule, MatCheckboxModule
   ]
 })
 
 export class DomainTableComponent implements AfterViewInit {
 
   dataSource = new MatTableDataSource<Domain>();
-  columnsToDisplay = ['name', 'description', 'code', 'tag'];
+  columnsToDisplay = ['select', 'name', 'description', 'code', 'tag'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay,  'expand', 'actions'];
   expandedElement: SubDomain | null;
   domainID = null;
   domains: Domain[] = [];
   subdomains: SubDomain [] = [];
   selectedDomain: Domain | null = null;
+  client = sessionStorage.getItem('client');
+  selection = new SelectionModel<Domain>(true, []);
   selectedSubdomain: SubDomain | null = null;
   
 
@@ -70,16 +74,9 @@ export class DomainTableComponent implements AfterViewInit {
   }
   
   ngAfterViewInit(): void {
-    this.DomainService.getDomainsByCompany(sessionStorage.getItem('company')).subscribe((data: Domain[]) => {
-      if(data.length === 0){
-        console.log('No hay dominios');
-        this.formDomainTable.controls['tempControl'].setValue('');
-      }
-      this.domains = data;
-      this.dataSource.data = this.domains;
-      this.dataSource.paginator = this.paginator;
-      this.cdr.detectChanges();
-      
+    this.DomainService.getDomains(this.client).subscribe((domains: Domain[]) => {
+      this.domains = domains;
+      this.dataSource.data = domains;
     });
     this.SubdomainService.getSubdomainsByDomain(sessionStorage.getItem('domain')).subscribe((data: SubDomain[]) => {
       if(data.length === 0){
@@ -88,8 +85,7 @@ export class DomainTableComponent implements AfterViewInit {
       }
       this.subdomains = data;
       this.cdr.detectChanges();
-    })
-
+    });
   }
     
   anexaSub(){
@@ -126,57 +122,103 @@ export class DomainTableComponent implements AfterViewInit {
     const event = { target: input } as Event & { target: HTMLInputElement };
     this.applyFilter(event);
   }
-
-  openSubdomainModal(id: string) {
+  // openSubdomainModal(id: string) {
  
+  //   const dialogRef = this.dialog.open(SubdomainComponent, {
+  //     width: '800px',
+  //     height: '100%',
+  //     data: {id, addSubdomains: true} 
+  //   });
+  //   dialogRef.afterClosed().subscribe({
+
+  //     next: (newSubdomain: SubDomain) => {
+  //       if (newSubdomain) {
+  //         this.SubdomainService.createSubdomain(newSubdomain).subscribe({
+  //           next: (response) => {
+  //             if (response.status === 200) {
+  //               this.dialog.open(MessagesModalComponent, {
+  //                 width: '400px',
+  //                 data: { message: 'Subdominio creado exitosamente.', type: 'success' }
+  //               });
+  //               let news = Object.values(newSubdomain);
+  //               console.log(newSubdomain)
+  //               // let i = 0
+  //               // for (let subdomain of newSubdomain) {
+  //               //   i++
+  //               //   const maxId =  Math.max(...this.subdomains.map(subdomain => parseInt(subdomain.id)));
+  //               //   subdomain.id = (maxId + 1).toString();
+  //               //   subdomain.idDomain = id
+  //               //   this.subdomains.push(subdomain);
+  //               // }
+  //               for(let i=0; i< news.length; i++){
+  //                 const maxId =  Math.max(...this.subdomains.map(subdomain => parseInt(subdomain.id)));
+  //                 newSubdomain[i].id = (maxId + 1).toString();
+  //                 newSubdomain[i].idDomain = id
+  //                 this.subdomains.push(news[i]);
+  //               } 
+  //               console.log('SUBDOMAINS TABLA' ,this.subdomains)
+  //               // this.formDomainTable.controls['tempControl'].setValue(newSubdomain.name);
+  //             } else {
+  //               this.dialog.open(MessagesModalComponent, {
+  //                 width: '400px',
+  //                 data: { message: 'Error al crear el subdominio.', type: 'error' }
+  //               });
+  //             }
+  //           },
+  //           error: (error) => {
+  //             this.dialog.open(MessagesModalComponent, {
+  //               width: '400px',
+  //               data: { message: 'Todos los subdominios se han creado exitosamente.', type: 'success' }
+  //             })
+  //           } 
+  //         } )
+  //       }
+  //     },
+  //     error: (error) => {
+  //       console.error('Error al abrir el modal de nuevo subdominio:', error);
+  //       this.dialog.open(MessagesModalComponent, {
+  //         width: '400px',
+  //         data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+  //       });
+  //     }
+  //   });
+  // }
+
+  openSubdomainModal(idDomain: string) {
     const dialogRef = this.dialog.open(SubdomainComponent, {
       width: '800px',
       height: '100%',
-      data: {id, addSubdomains: true} 
+      data: { idDomain,  addSubdomains: true }
     });
     dialogRef.afterClosed().subscribe({
-
-      next: (newSubdomain: SubDomain) => {
-        if (newSubdomain) {
-          this.SubdomainService.createSubdomain(newSubdomain).subscribe({
-            next: (response) => {
-              if (response.status === 200) {
-                this.dialog.open(MessagesModalComponent, {
-                  width: '400px',
-                  data: { message: 'Subdominio creado exitosamente.', type: 'success' }
-                });
-                let news = Object.values(newSubdomain);
-                console.log(newSubdomain)
-                // let i = 0
-                // for (let subdomain of newSubdomain) {
-                //   i++
-                //   const maxId =  Math.max(...this.subdomains.map(subdomain => parseInt(subdomain.id)));
-                //   subdomain.id = (maxId + 1).toString();
-                //   subdomain.idDomain = id
-                //   this.subdomains.push(subdomain);
-                // }
-                for(let i=0; i< news.length; i++){
-                  const maxId =  Math.max(...this.subdomains.map(subdomain => parseInt(subdomain.id)));
-                  newSubdomain[i].id = (maxId + 1).toString();
-                  newSubdomain[i].idDomain = id
-                  this.subdomains.push(news[i]);
-                } 
-                console.log('SUBDOMAINS TABLA' ,this.subdomains)
-                // this.formDomainTable.controls['tempControl'].setValue(newSubdomain.name);
-              } else {
-                this.dialog.open(MessagesModalComponent, {
-                  width: '400px',
-                  data: { message: 'Error al crear el subdominio.', type: 'error' }
-                });
-              }
-            },
-            error: (error) => {
+      next: async (newSubdomains: SubDomain[]) => {
+        console.log('newSubdomain', newSubdomains);
+        if (newSubdomains) {
+          try {
+            const results = await Promise.all(newSubdomains.map(newSubdomain => 
+              this.SubdomainService.createSubdomain(newSubdomain).toPromise()
+            ));
+            const allSuccess = results.every(response => response && response.status === 200);
+            if (allSuccess) {
+              this.SubdomainService.getSubdomains().subscribe((subdomains: SubDomain[]) => {
+                this.subdomains = subdomains;
+              });
               this.dialog.open(MessagesModalComponent, {
                 width: '400px',
-                data: { message: 'Error al crear el subdominio.', type: 'error' }
+                data: { message: 'Todos los subdominios se han creado exitosamente.', type: 'success' }
+              });
+            } else {
+              this.dialog.open(MessagesModalComponent, {
+                width: '400px',
+                data: { message: 'Error al crear algunos subdominios.', type: 'error' }
               });
             }
-          });
+          } catch (error) {
+            this.dialog.open(MessagesModalComponent, {
+              width: '400px',
+              data: { message: 'Error al crear los subdominios.', type: 'error' }
+            });
+          }
         }
       },
       error: (error) => {
@@ -187,7 +229,6 @@ export class DomainTableComponent implements AfterViewInit {
         });
       }
     });
-
   }
 
   openNewDomainModal(){
@@ -206,10 +247,8 @@ export class DomainTableComponent implements AfterViewInit {
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
-                  data: { message: 'Dominio creada exitosamente.', type: 'success' }
+                  data: { message: 'Dominio creado exitosamente.', type: 'success' }
                 });
-                newDomain.id = (maxId + 1).toString();
-                console.log(this.domains)
                 this.domains.push(newDomain);
                 this.dataSource.data = this.domains;
                 this.formDomainTable.controls['tempControl'].setValue(newDomain.name);
@@ -443,5 +482,56 @@ export class DomainTableComponent implements AfterViewInit {
         });
       }
     });
+  }
+
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  hasValue() {
+    return this.selection.hasValue();
+  }
+
+  checkboxLabel(row?: Domain) {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  }
+
+  addDomainsToCompany() {
+    const selectedDomains = this.selection.selected;
+    const createDomainObservables = selectedDomains.map(domain => this.DomainService.createDomain(domain));
+  
+    Promise.all(createDomainObservables.map(obs => obs.toPromise()))
+      .then(responses => {
+        const allSuccess = responses.every(response => response && response.status === 200);
+        if (allSuccess) {
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Todos los dominios se han añadido exitosamente.', type: 'success' }
+          });
+        } else {
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Error al añadir algunos dominios.', type: 'error' }
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error al añadir dominios:', error);
+        this.dialog.open(MessagesModalComponent, {
+          width: '400px',
+          data: { message: 'Error al añadir los dominios.', type: 'error' }
+        });
+      });
   }
 }

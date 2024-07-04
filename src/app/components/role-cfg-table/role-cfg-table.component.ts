@@ -13,6 +13,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { RoleService } from '../../services/role.service';
 import { Role } from '../../interfaces/role.interface';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-role-cfg-table',
@@ -27,47 +30,61 @@ import { Role } from '../../interfaces/role.interface';
     MatToolbarModule,
     MatPaginatorModule,
     MatSortModule,
-    CommonModule
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class RoleCfgTableComponent {
   displayedColumns: string[] = ['select', 'id', 'name', 'isCreate', 'isRead', 'isUpdate', 'isDelete'];
   dataSource = new MatTableDataSource<Role>();
   selection = new SelectionModel<Role>(true, []);
+  client: string = sessionStorage.getItem('client') || '';
+  searchInput: any;
 
   constructor(private roleService: RoleService) {
-    this.roleService.getRoles('client').subscribe((roles: any) => {
+    this.roleService.getRoles(this.client).subscribe((roles: any) => {
       console.log(roles.body);
       this.dataSource.data = roles.body as Role[];
     });
   }
-  // ngOnInit(): void {
-  //   this.userService.getUsers('client', 'company').subscribe((users: User[]) => {
-  //     this.dataSource.data = users;
-  //   });
-  // }
-  /** Si el número de elementos seleccionados coincide con el número total de filas. */
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  clearSearch(input: HTMLInputElement) {
+    input.value = '';
+    this.dataSource.filter = '';
+  }
+
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
-  /** Selecciona todas las filas si no están todas seleccionadas; de lo contrario, limpia la selección. */
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  /** La etiqueta de la casilla de verificación en la fila pasada. */
   checkboxLabel(row?: Role): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
+
   addRolesToCompany() {
     console.log(this.selection.selected);
+    for (const role of this.selection.selected) {
+      this.roleService.createRole(role).subscribe((res: any) => {
+        console.log(res);
+      });
+    }
   }
+
 }

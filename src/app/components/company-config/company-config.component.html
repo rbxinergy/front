@@ -2,40 +2,29 @@
     <div>
         <h2>Configuración de Empresa {{company.name}} </h2>
     </div>
-    <mat-stepper>
+    <!-- <mat-stepper>
         <mat-step label="Usuarios">
             <app-users-table></app-users-table>
         </mat-step>
         <mat-step label="Dominios">
-            <app-domain-cfg-table></app-domain-cfg-table>
-        </mat-step>
-        <mat-step label="Subdominios">
-            <app-subdomain-cfg-table></app-subdomain-cfg-table>
-        </mat-step>
-        <mat-step label="Categorías de dominios">
-            <app-domain-category-table></app-domain-category-table>
+            <app-domain-table></app-domain-table>
         </mat-step>
         <mat-step label="Roles">
             <app-role-cfg-table></app-role-cfg-table>
         </mat-step>
-    </mat-stepper>
+    </mat-stepper> -->
     <div>
         <mat-tab-group>
+            <mat-tab label="Roles">
+                <app-role-cfg-table></app-role-cfg-table>
+            </mat-tab>
             <mat-tab label="Usuarios">
                 <app-users-table></app-users-table>
             </mat-tab>
             <mat-tab label="Dominios">
-                <app-domain-cfg-table></app-domain-cfg-table>
+                <app-domain-table></app-domain-table>
             </mat-tab>
-            <mat-tab label="Subdominios">
-                <app-subdomain-cfg-table></app-subdomain-cfg-table>
-            </mat-tab>
-            <mat-tab label="Categorías de dominios">
-                <app-domain-category-table></app-domain-category-table>
-            </mat-tab>
-            <mat-tab label="Roles">
-                <app-role-cfg-table></app-role-cfg-table>
-            </mat-tab>
+            
         </mat-tab-group>
     </div>
 </div>

@@ -7,5 +7,5 @@ export interface DomainCategory {
   created_date: Date;
   modificated_date: Date;
   tag: string;
-  id_group_company: string;
+  idGroupCompany: string;
 }

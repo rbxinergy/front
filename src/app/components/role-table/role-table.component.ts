@@ -20,6 +20,8 @@ import { RoleService } from 'src/app/services/role.service';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Client } from 'src/app/interfaces/client.interface';
+import { ClientDataService } from 'src/app/services/client-data.service';
 
 @Component({
   selector: 'app-role-table',
@@ -46,31 +48,42 @@ export class RoleTableComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
+  client: Client;
 
   constructor(private roleService: RoleService, private cdr: ChangeDetectorRef,
-      private dialog: MatDialog) {}
+      private dialog: MatDialog, private clientDataService: ClientDataService) {}
 
   ngAfterViewInit(): void {
-    this.roleService.getRoles('client','company').subscribe((roles: any) => {
-      if(roles.body.length === 0){
-        this.formRoleTable.controls['tempControl'].setValue('');
-      }
-      this.roles = roles.body;
-      this.dataSource.data = this.roles;
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
-        const sortState: Sort = {active: 'id', direction: 'desc'};
-        this.sort.active = sortState.active;
-        this.sort.direction = sortState.direction;
-        this.sort.sortChange.emit(sortState);
-        this.dataSource.sort = this.sort;
-      this.sort.direction = 'desc'; // Establece el orden inicial como descendente
-      this.sort.active = 'id'; // Establece 'ID' como la columna activa para ordenar
-      this.cdr.detectChanges(); // Forzar la detección de cambios
-      
-    });
+    //this.loadClientData();
   }
+
+  // loadClientData() {s
+  //   this.client = this.clientDataService.getClientData();
+  //   console.log('client', this.client);
+  //   this.loadRoles(this.client.name);
+  // }
+
+  // loadRoles(clientName: string) {
+  //   this.roleService.getRoles(clientName).subscribe((roles: any) => {
+  //     if(roles.body.length === 0){
+  //       this.formRoleTable.controls['tempControl'].setValue('');
+  //     }
+  //     this.roles = roles.body;
+  //     this.dataSource.data = this.roles;
+  //     this.dataSource.paginator = this.paginator;
+  //     this.dataSource.sort = this.sort;
+  //     this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
+  //       const sortState: Sort = {active: 'id', direction: 'desc'};
+  //       this.sort.active = sortState.active;
+  //       this.sort.direction = sortState.direction;
+  //       this.sort.sortChange.emit(sortState);
+  //       this.dataSource.sort = this.sort;
+  //     this.sort.direction = 'desc'; // Establece el orden inicial como descendente
+  //     this.sort.active = 'id'; // Establece 'ID' como la columna activa para ordenar
+  //     this.cdr.detectChanges(); // Forzar la detección de cambios
+  //   });
+  // }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -91,7 +104,7 @@ export class RoleTableComponent {
     const maxId = this.roles.length > 0 ? Math.max(...this.roles.map(role => role.id)) : 0;
     const dialogRef = this.dialog.open(RoleComponent, {
       width: '600px',
-      data: {} // Puedes pasar datos al modal si es necesario
+      data: {}
     });
   
     dialogRef.afterClosed().subscribe({
@@ -106,7 +119,7 @@ export class RoleTableComponent {
                   data: { message: 'Rol creado exitosamente.', type: 'success' }
                 });
                 newRole.id = maxId + 1;
-                this.roles.push(newRole);
+                this.roles.push(response.body);
                 this.dataSource.data = this.roles;
               } else {
                 this.dialog.open(MessagesModalComponent, {
@@ -150,9 +163,9 @@ export class RoleTableComponent {
                   width: '500px',
                   data: { message: 'Rol actualizado exitosamente.', type: 'success' }
                 });
-                const index = this.roles.findIndex(c => c.id === updatedRole.id);
+                const index = this.roles.findIndex(c => c.name === updatedRole.name);
                 if (index !== -1) {
-                  this.roles[index] = updatedRole;
+                  this.roles[index] = response.body;
                   this.dataSource.data = this.roles;
                 }
               } else {
@@ -193,14 +206,14 @@ export class RoleTableComponent {
     dialogRef.afterClosed().subscribe({
       next: (result) => {
         if (result) {
-          this.roleService.deleteRole(role.id.toString()).subscribe({
+          this.roleService.deleteRole(role.name).subscribe({
             next: (response) => {
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
                   data: { message: 'Rol eliminado exitosamente.', type: 'success' }
                 });
-                this.roles = this.roles.filter(c => c.id !== role.id);
+                this.roles = this.roles.filter(c => c.name !== role.name);
                 this.dataSource.data = this.roles;
                 if(this.roles.length === 0){
                   this.formRoleTable.controls['tempControl'].setValue(null);

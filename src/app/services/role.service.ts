@@ -35,6 +35,7 @@ export class RoleService {
     return this.http.post<any>(`${this.serverUrl}${this.apiUrls.role}/create`, role, { headers: this.headers, observe: 'response'})
   }
   updateRole(role: Role): Observable<HttpResponse<any>> {
+    console.log('role', role);
     return this.http.put<any>(`${this.serverUrl}${this.apiUrls.role}/update`, role, { headers: this.headers, observe: 'response'})
   }
 

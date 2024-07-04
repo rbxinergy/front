@@ -18,7 +18,7 @@ export class DomainService {
   groupDocument = '';
   domains: any;
   domain:any;
-  private apiUrls = environment.apiUrls;
+  private apiUrls = environment.apiUrls.domain;
   private serverUrl = environment.serverUrl;
   token: string = sessionStorage.getItem('token') || '';
   private headers = new HttpHeaders({
@@ -32,8 +32,9 @@ export class DomainService {
      console.log(this.domain);
    }
 
-  getDomains(): Observable<Domain[]> {
-    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/cliente1`, {headers: this.headers});
+  getDomains(client: string): Observable<Domain[]> {
+    console.log(`${this.serverUrl}${this.apiUrls}/domain/get/${client}/company`);
+    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/${client}`, {headers: this.headers});
 
   }
 
@@ -50,7 +51,7 @@ export class DomainService {
       "idCompany":form.idCompany,
     }
     console.log(body)
-    const postDomain = this.http.post<Domain>(`${this.serverUrl}${this.apiUrls.domain}/create`, body, { headers: this.headers })
+    const postDomain = this.http.post<Domain>(`${this.serverUrl}${this.apiUrls}/create`, body, { headers: this.headers })
 
     return await lastValueFrom(postDomain)  
   }
@@ -59,20 +60,20 @@ export class DomainService {
     const params = new HttpParams({
       fromString: 'group=' + this.groupDocument + '&option=2'
     });
-    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls.domain}/get/cliente1/company`, { headers: this.headers})
+    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/cliente1/company`, { headers: this.headers})
   }
 
 
   createDomain(domain: Domain): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.serverUrl}${this.apiUrls.domain}/create`, {domain}, { observe: 'response' });
+    return this.http.post<any>(`${this.serverUrl}${this.apiUrls}/create`, {domain}, { observe: 'response' });
   }
 
   updateDomain(domain: Domain): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.domain}/update`, {domain}, { observe: 'response' });
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls}/update`, {domain}, { observe: 'response' });
   }
 
 
   deleteDomain(id: string): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.domain}/delete/${id}`, { observe: 'response' });
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls}/delete/${id}`, { observe: 'response' });
   }
 }

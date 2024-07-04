@@ -35,7 +35,9 @@ import { Company } from 'src/app/interfaces/company.interface';
   styleUrls: ['./subdomain.component.css']
 })
 export class SubdomainComponent {
-  selectedDomainId = this.data?.id
+  selectedDomainId = this.data?.idDomain
+  selectedDomainName = this.data?.name
+  domainsMap: { [key: string]: SubDomain[] } = {};
   subdomainForm: FormGroup;
   subdomainsForm: FormGroup;
 
@@ -76,7 +78,6 @@ export class SubdomainComponent {
     };
   
     addSubdomains(selectedDomainId: string): void {
-  
       const subdomainsForm = this._fb.group({
         name:[''],
         description: [''],
@@ -87,9 +88,7 @@ export class SubdomainComponent {
   
       this.subdomains.push(subdomainsForm);
       this.dataSourcePacks = new MatTableDataSource(this.subdomains.controls);
-  
       this.cd.detectChanges();
-  
     };
   
     onSubmit(selectedDomainId: string):void {
@@ -100,6 +99,12 @@ export class SubdomainComponent {
       this.dialogRef.close(this.subdomainForm.getRawValue());
     }
   
+  // closeModal(selectedDomainId:string){
+  //   const subdominios = []
+  //   subdominios.push(this.subdomainForm.getRawValue())
+  //   console.log('GUARDAR',subdominios)
+  //   this.dialogRef.close(this.subdomainForm.getRawValue());
+  // }
     deleteSubdomain(i: number): void {
       console.log(i)
       console.log(this.subdomains)
