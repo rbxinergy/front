@@ -3,8 +3,6 @@ import { GoogleAuthProvider } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { GetprofileService } from './getprofile.service';
-import { Session } from '../../interfaces/session.interface';
-import { v4 as uuidv4 } from 'uuid';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 

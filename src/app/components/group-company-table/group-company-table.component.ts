@@ -54,20 +54,23 @@ export class GroupCompanyTableComponent implements OnInit, AfterViewInit {
   client: Client | null = null;
 
   constructor(private groupCompanyService: GroupCompanyService, private cdr: ChangeDetectorRef,
-      private dialog: MatDialog, private clientDataService: ClientDataService) {}
+      private dialog: MatDialog, private clientDataService: ClientDataService) {
+        this.client = this.clientDataService.getClientData();
+        console.log('client', this.client);
+      }
 
   ngOnInit(): void {
     console.log('ngOnInit');
   }
 
   ngAfterViewInit(): void {
-    this.loadClientData();
+    
   }
 
   loadClientData() {
-    this.client = this.clientDataService.getClientData();
-    console.log('client', this.client);
-    this.loadGroups(this.client.name);
+    // this.client = this.clientDataService.getClientData();
+    // console.log('client', this.client);
+    // this.loadGroups(this.client.name);
   }
 
   loadGroups(clientName: string) {
@@ -116,7 +119,9 @@ export class GroupCompanyTableComponent implements OnInit, AfterViewInit {
   
     dialogRef.afterClosed().subscribe({
       next: (newGroupCompany: GroupCompany) => {
+        console.log("NEW GROUP COMPANY:", newGroupCompany);
         if (newGroupCompany) {
+          newGroupCompany.id = this.client?.id;
           console.log('newGroupCompany', newGroupCompany);
           this.groupCompanyService.createGroupCompany(newGroupCompany).subscribe({
             next: (response) => {
@@ -127,7 +132,8 @@ export class GroupCompanyTableComponent implements OnInit, AfterViewInit {
                 });
                 this.groupCompanies.push(response.body);
                 this.dataSource.data = this.groupCompanies;
-                this.formGroupCompanyTable.controls['tempControl'].setValue(newGroupCompany.name);
+                this.formGroupCompanyTable.controls['tempControl'].setValue(response.body.name);
+                console.log('this.formGroupCompanyTable VALID', this.formGroupCompanyTable);
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',

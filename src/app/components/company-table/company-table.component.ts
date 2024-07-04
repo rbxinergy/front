@@ -128,7 +128,7 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
                 newCompany.id = (maxId + 1).toString();
                 this.companies.push(response.body);
                 this.dataSource.data = this.companies;
-                this.formCompanyTable.controls['tempControl'].setValue(newCompany.name);
+                this.formCompanyTable.controls['tempControl'].setValue(response.body.name);
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
@@ -175,7 +175,7 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
                 });
                 const index = this.companies.findIndex(c => c.id === updatedCompany.id);
                 if (index !== -1) {
-                  this.companies[index] = updatedCompany;
+                  this.companies[index] = response.body;
                   this.dataSource.data = this.companies;
                 }
               } else {
