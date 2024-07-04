@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
@@ -11,8 +11,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { DomainCategory } from 'src/app/interfaces/domaincategory.interface';
 
 @Component({
   selector: 'app-domaincategory',
@@ -26,29 +27,26 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
   styleUrls: ['./domaincategory.component.css']
 })
 export class DomaincategoryComponent {
-  domainCategoryForm = new FormGroup({
-    id: new FormControl(null, Validators.required),
-    name: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
-    is_active: new FormControl(true),
-    is_delete: new FormControl(false),
-    created_date: new FormControl(new Date(), Validators.required),
-    modificated_date: new FormControl(new Date(), Validators.required),
-    tag: new FormControl(''),
-    id_group_company: new FormControl(null, Validators.required),
-  });
+  domainCategoryForm : FormGroup
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private dialogRef: MatDialogRef<DomaincategoryComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DomainCategory,
+    private fb: FormBuilder) { 
+      if(data) {
+        this.domainCategoryForm = new FormGroup({
+          id: new FormControl(data?.id || null, Validators.required),
+          name: new FormControl(data?.name || ''),
+          description: new FormControl(data?.description || '', Validators.required),
+          is_active: new FormControl(data?.is_active || true),
+          is_delete: new FormControl(data?.is_delete || false),
+          tag: new FormControl(data?.tag || ''),
+          idGroupCompany: new FormControl(data?.idGroupCompany || null, Validators.required),
+        });
+      }
+
+    }
 
   save() {
-    this.dialog.open(MessagesModalComponent, {
-      width: '500px',
-      enterAnimationDuration:'500ms',
-      exitAnimationDuration:'500ms',
-      data: {
-        message: 'Elemento creado satisfactoriamente',
-        type: 'sucsess'
-      }
-    });
+    this.dialogRef.close(this.domainCategoryForm.getRawValue());
   }
 }

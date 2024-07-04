@@ -70,28 +70,28 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
   //   this.loadCompanies(this.client.name);
   // }
 
-  loadCompanies(clientName: string) {
-    console.log('clientName', clientName);
-    this.companyService.getCompaniesByGroup(clientName).subscribe(companies => {
-      this.companies = companies;
-      this.dataSource.data = this.companies;
-      if(companies.length === 0){
-        console.log('No hay empresas');
-        this.formCompanyTable.controls['tempControl'].setValue('');
-      }
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
-      const sortState: Sort = {active: 'id', direction: 'desc'};
-      this.sort.active = sortState.active;
-      this.sort.direction = sortState.direction;
-      this.sort.sortChange.emit(sortState);
-      this.dataSource.sort = this.sort;
-      this.sort.direction = 'desc';
-      this.sort.active = 'id';
-      this.cdr.detectChanges();
-    });
-  }
+  // loadCompanies(clientName: string) {
+  //   console.log('clientName', clientName);
+  //   this.companyService.getCompaniesByGroup(clientName).subscribe(companies => {
+  //     this.companies = companies;
+  //     this.dataSource.data = this.companies;
+  //     if(companies.length === 0){
+  //       console.log('No hay empresas');
+  //       this.formCompanyTable.controls['tempControl'].setValue('');
+  //     }
+  //     this.dataSource.paginator = this.paginator;
+  //     this.dataSource.sort = this.sort;
+  //     this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
+  //     const sortState: Sort = {active: 'id', direction: 'desc'};
+  //     this.sort.active = sortState.active;
+  //     this.sort.direction = sortState.direction;
+  //     this.sort.sortChange.emit(sortState);
+  //     this.dataSource.sort = this.sort;
+  //     this.sort.direction = 'desc';
+  //     this.sort.active = 'id';
+  //     this.cdr.detectChanges();
+  //   });
+  // }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
