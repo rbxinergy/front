@@ -1,0 +1,86 @@
+{
+  "/api/v1/role": {
+    "target": "https://xrisk-client-drzcbalp5q-uk.a.run.app",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/v1/contact": {
+    "target": "https://xrisk-company-drzcbalp5q-uk.a.run.app",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/v1/company": {
+    "target": "https://xrisk-contact-drzcbalp5q-uk.a.run.app",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/v1/domain": {
+    "target": "https://xrisk-domain-drzcbalp5q-uk.a.run.app",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/v1/service-category": {
+    "target": "https://xrisk-domain-category-drzcbalp5q-uk.a.run.app",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/v1/group-company": {
+    "target": "https://xrisk-group-company-drzcbalp5q-uk.a.run.app",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/v1/login/auth/login": {
+    "target": "https://xrisk-login-drzcbalp5q-uk.a.run.app",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/v1/login/auth/logout": {
+    "target": "https://xrisk-login-drzcbalp5q-uk.a.run.app",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/v1/provider": {
+    "target": "https://xrisk-provider-drzcbalp5q-uk.a.run.app",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/v1/client": {
+    "target": "https://xrisk-role-drzcbalp5q-uk.a.run.app",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/v1/subdomain": {
+    "target": "https://xrisk-subdomain-drzcbalp5q-uk.a.run.app",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/v1/user": {
+    "target": "https://xrisk-user-drzcbalp5q-uk.a.run.app",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/v1/report": {
+    "target": "https://xrisk-report-drzcbalp5q-uk.a.run.app",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/api/v1/service-company": {
+    "target": "https://xrisk-service-company-drzcbalp5q-uk.a.run.app",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
