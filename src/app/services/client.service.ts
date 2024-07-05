@@ -42,23 +42,8 @@ export class ClientService {
     // this.getClient()
     const apiUrl = environment.apiUrls.client
     const serverUrl = environment.serverUrl
-    
-    const body = { 
-      "name": form.name,
-      "documentNumber": form.documentNumber,
-      "documentType": form.documentType,
-      "phone": form.phone,
-      "email": form.email,
-      "groupDocument": form.documentNumber  ,
-      "address":form.address,
-      "cityId": parseInt(form.cityId),
-      "stateId": parseInt(form.stateId),
-      "countryId": parseInt(form.countryId),
-      "clientName": form.clientName,
-      "isGroup": true
-    }
 
-    return this.http.post<Client>(`${serverUrl}${apiUrl}/create`, body, { headers: this.headers, observe: 'response' });
+    return this.http.post<Client>(`${serverUrl}${apiUrl}/create`, form, { headers: this.headers, observe: 'response' });
     // guardo el documentNumber y se lo paso al domains.service para poder guardar el postDomain
     // const id = form.documentNumber
     // console.log(id)
