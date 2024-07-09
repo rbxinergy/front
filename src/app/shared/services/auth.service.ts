@@ -1,11 +1,8 @@
-import { Injectable, NgZone } from '@angular/core';
-import { GoogleAuthProvider } from '@angular/fire/auth';
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { GetprofileService } from './getprofile.service';
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -14,26 +11,8 @@ export class AuthService {
 
   userData: any;
 
-  constructor(
-    private firebaseAuthenticationService: AngularFireAuth,
-    private getProfileService: GetprofileService,
-    private router: Router,
-    private ngZone: NgZone,
-    private http: HttpClient
-  ) {
-    // OBSERVER save user in localStorage (log-in) and setting up null when log-out
-    this.firebaseAuthenticationService.authState.subscribe((user) => {
-      if (user) {
-        this.userData = user;
-        const token = user?.getIdToken()
-        localStorage.setItem('user', JSON.stringify(this.userData));
-      } else {
-        localStorage.setItem('user', 'null');
-      }
-    })
-  }
-
-  // log-in with email and password
+  constructor(private router: Router, private http: HttpClient) { }
+  
   async logInWithEmailAndPassword(email: string, password: string): Promise<any> {
     const apiUrls = environment.apiUrls;
     const serverUrl = environment.serverUrl;
@@ -54,42 +33,11 @@ export class AuthService {
     }
   }
 
-  // log-in with google
-  logInWithGoogleProvider() {
-    return this.firebaseAuthenticationService.signInWithPopup(new GoogleAuthProvider())
-      .then(() => this.observeUserState())
-      .catch((error: Error) => {
-        alert(error.message);
-      })
-  }
-
-  // sign-up with email and password
-  signUpWithEmailAndPassword(email: string, password: string) {
-    return this.firebaseAuthenticationService.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        this.userData = userCredential.user
-        this.observeUserState()
-      })
-      .catch((error) => {
-        alert(error.message);
-      })
-  }
-
-  observeUserState() {
-    this.firebaseAuthenticationService.authState.subscribe((userState) => {
-      userState && this.ngZone.run(() => this.router.navigate(['dashboard/stepper']))
-    })
-  }
-
-  // return true when user is logged in
   get isLoggedIn(): boolean {
     const user = sessionStorage.getItem('user');
     return user !== null;
   }
 
-
-
-  // logOut
   async logOut(): Promise<void> {
     const apiUrls = environment.apiUrls;
     const serverUrl = environment.serverUrl;
@@ -109,5 +57,4 @@ export class AuthService {
       return Promise.reject(error);
     }
   }
-
 }
