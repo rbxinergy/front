@@ -1,0 +1,1285 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>xr-backoffice documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">xr-backoffice documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  SubdomainComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/subdomain/subdomain.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-subdomain</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>FormsModule</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatCheckboxModule</code>
+                            <code>MatSelectModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>CommonModule</code>
+                            <code>MatDividerModule</code>
+                            <code>MatRadioModule</code>
+                            <code>MatButtonModule</code>
+                            <code>TranslateModule</code>
+                            <code>MatNativeDateModule</code>
+                            <code>MatDatepickerModule</code>
+                            <code>MatCardModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatTableModule</code>
+                            <code>NgFor</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./subdomain.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./subdomain.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                <a href="#data" >data</a>
+                            </li>
+                            <li>
+                                <a href="#dataSourcePacks" >dataSourcePacks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                <a href="#displayedColumns" >displayedColumns</a>
+                            </li>
+                            <li>
+                                <a href="#domainsMap" >domainsMap</a>
+                            </li>
+                            <li>
+                                <a href="#selectedDomainId" >selectedDomainId</a>
+                            </li>
+                            <li>
+                                <a href="#selectedDomainName" >selectedDomainName</a>
+                            </li>
+                            <li>
+                                <a href="#subdomainForm" >subdomainForm</a>
+                            </li>
+                            <li>
+                                <a href="#subdomainsForm" >subdomainsForm</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addSubdomains" >addSubdomains</a>
+                            </li>
+                            <li>
+                                <a href="#deleteSubdomain" >deleteSubdomain</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#onUpdate" >onUpdate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#subdomains" >subdomains</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dialog: MatDialog, dialogRef: <a href="../components/SubdomainComponent.html" target="_self">MatDialogRef&lt;SubdomainComponent&gt;</a>, data, cd: ChangeDetectorRef, _fb: FormBuilder)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:45</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialogRef</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../components/SubdomainComponent.html" target="_self" >MatDialogRef&lt;SubdomainComponent&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>data</td>
+                                                  
+                                                        <td>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>cd</td>
+                                                  
+                                                        <td>
+                                                                    <code>ChangeDetectorRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_fb</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addSubdomains"></a>
+                    <span class="name">
+                        <span ><b>addSubdomains</b></span>
+                        <a href="#addSubdomains"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addSubdomains(selectedDomainId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>selectedDomainId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteSubdomain"></a>
+                    <span class="name">
+                        <span ><b>deleteSubdomain</b></span>
+                        <a href="#deleteSubdomain"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteSubdomain(i: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="108"
+                                    class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:108</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>i</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit(selectedDomainId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="94"
+                                    class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:94</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>selectedDomainId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onUpdate"></a>
+                    <span class="name">
+                        <span ><b>onUpdate</b></span>
+                        <a href="#onUpdate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onUpdate()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="98"
+                                    class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:98</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="data"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                        <span ><b>data</b></span>
+                        <a href="#data"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Inject(MAT_DIALOG_DATA)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dataSourcePacks"></a>
+                    <span class="name">
+                        <span ><b>dataSourcePacks</b></span>
+                        <a href="#dataSourcePacks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatTableDataSource&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatDialog</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Optional()<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayedColumns"></a>
+                    <span class="name">
+                        <span ><b>displayedColumns</b></span>
+                        <a href="#displayedColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&quot;Nombre&quot;, &quot;Descripción&quot;, &quot;Tags&quot;, &quot;Eliminar&quot;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="domainsMap"></a>
+                    <span class="name">
+                        <span ><b>domainsMap</b></span>
+                        <a href="#domainsMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedDomainId"></a>
+                    <span class="name">
+                        <span ><b>selectedDomainId</b></span>
+                        <a href="#selectedDomainId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.data?.idDomain</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedDomainName"></a>
+                    <span class="name">
+                        <span ><b>selectedDomainName</b></span>
+                        <a href="#selectedDomainName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.data?.name</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subdomainForm"></a>
+                    <span class="name">
+                        <span ><b>subdomainForm</b></span>
+                        <a href="#subdomainForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subdomainsForm"></a>
+                    <span class="name">
+                        <span ><b>subdomainsForm</b></span>
+                        <a href="#subdomainsForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="subdomains"></a>
+                        <span class="name"><b>subdomains</b><a href="#subdomains"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>subdomains()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/components/subdomain/subdomain.component.ts:76</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Inject, ChangeDetectorRef, Optional } from &#x27;@angular/core&#x27;;
+import { CommonModule, NgFor } from &#x27;@angular/common&#x27;;
+import { FormArray, FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule, FormBuilder } from &#x27;@angular/forms&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatCheckboxModule } from &#x27;@angular/material/checkbox&#x27;;
+import { MatDividerModule } from &#x27;@angular/material/divider&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatRadioModule } from &#x27;@angular/material/radio&#x27;;
+import { MatSelectModule } from &#x27;@angular/material/select&#x27;;
+import { TranslateModule } from &#x27;@ngx-translate/core&#x27;;
+import { MatNativeDateModule } from &#x27;@angular/material/core&#x27;;
+import {MatDatepickerModule} from &#x27;@angular/material/datepicker&#x27;;
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from &#x27;@angular/material/dialog&#x27;;
+import { MessagesModalComponent } from &#x27;../messages-modal/messages-modal.component&#x27;;
+import { MatCardModule } from &#x27;@angular/material/card&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { SubDomain } from &#x27;src/app/interfaces/domain.interface&#x27;;
+
+import { MatTableDataSource } from &#x27;@angular/material/table&#x27;;
+import { MatTableModule } from &#x27;@angular/material/table&#x27;;
+import { Company } from &#x27;src/app/interfaces/company.interface&#x27;;
+
+
+@Component({
+  selector: &#x27;app-subdomain&#x27;,
+  standalone: true,
+  imports: [
+    FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
+    ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
+    TranslateModule, MatNativeDateModule, MatDatepickerModule, MatCardModule, MatIconModule,
+    MatTableModule, NgFor
+  ],
+  templateUrl: &#x27;./subdomain.component.html&#x27;,
+  styleUrls: [&#x27;./subdomain.component.css&#x27;]
+})
+export class SubdomainComponent {
+  selectedDomainId &#x3D; this.data?.idDomain
+  selectedDomainName &#x3D; this.data?.name
+  domainsMap: { [key: string]: SubDomain[] } &#x3D; {};
+  subdomainForm: FormGroup;
+  subdomainsForm: FormGroup;
+
+  dataSourcePacks!: MatTableDataSource&lt;any&gt;;
+  displayedColumns &#x3D; [&quot;Nombre&quot;, &quot;Descripción&quot;, &quot;Tags&quot;, &quot;Eliminar&quot;]
+
+
+  constructor(@Optional() public dialog: MatDialog, @Optional() private dialogRef: MatDialogRef&lt;SubdomainComponent&gt;,
+  @Inject(MAT_DIALOG_DATA) public data,
+    private cd: ChangeDetectorRef,
+    private _fb: FormBuilder) {
+      if(data.data) {
+        this.subdomainForm &#x3D; this._fb.group({
+          id: new FormControl(data?.data.id , Validators.required),
+          name: new FormControl(data?.data.name || &#x27;&#x27;, Validators.required),
+          description: new FormControl(data.data.description || &#x27;&#x27;, Validators.required),
+          is_active: new FormControl(true),
+          is_delete: new FormControl(false),
+          created_date: new FormControl(new Date(), Validators.required),
+          modificated_date: new FormControl(new Date(), Validators.required),
+          tag: new FormControl(data?.data.tag || &#x27;&#x27;),
+          idDomain: new FormControl(data?.data.idDomain || &#x27;&#x27;, Validators.required)
+        })
+      }
+
+      this.subdomainsForm &#x3D; this._fb.group({
+        id: new FormControl([&#x27;&#x27;], Validators.required),
+        name: new FormControl([&#x27;&#x27;], Validators.required),
+        description: new FormControl([&#x27;&#x27;], Validators.required),
+        tag: new FormControl([&#x27;&#x27;]),
+        subdominios: this._fb.array([])
+      })
+      
+    }
+  
+    get subdomains() {
+      return this.subdomainsForm.controls[&quot;subdominios&quot;] as FormArray;
+    };
+  
+    addSubdomains(selectedDomainId: string): void {
+      const subdomainsForm &#x3D; this._fb.group({
+        name:[&#x27;&#x27;],
+        description: [&#x27;&#x27;],
+        tag: [&#x27;&#x27;],
+        idDomain:[&#x27;&#x27;],
+        subdominios: this._fb.array([])
+      });
+  
+      this.subdomains.push(subdomainsForm);
+      this.dataSourcePacks &#x3D; new MatTableDataSource(this.subdomains.controls);
+      this.cd.detectChanges();
+    };
+  
+    onSubmit(selectedDomainId: string):void {
+      this.dialogRef.close(this.subdomains.value) 
+      
+    }
+    onUpdate(){
+      this.dialogRef.close(this.subdomainForm.getRawValue());
+    }
+  
+  // closeModal(selectedDomainId:string){
+  //   const subdominios &#x3D; []
+  //   subdominios.push(this.subdomainForm.getRawValue())
+  //   console.log(&#x27;GUARDAR&#x27;,subdominios)
+  //   this.dialogRef.close(this.subdomainForm.getRawValue());
+  // }
+    deleteSubdomain(i: number): void {
+      console.log(i)
+      console.log(this.subdomains)
+      this.subdomains.removeAt(i);
+      this.dataSourcePacks &#x3D; new MatTableDataSource(this.subdomains.controls);
+    };
+
+}
+
+
+
+
+
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html"> &lt;h2&gt;{{&quot;subdomain&quot;|translate}}&lt;/h2&gt;
+&lt;div class&#x3D;&quot;p-4&quot;&gt;
+  &lt;form [formGroup]&#x3D;&quot;subdomainForm&quot; (ngSubmit)&#x3D;&quot;onUpdate()&quot; *ngIf&#x3D;&quot;data.updateSubdomain&quot;&gt;
+    &lt;mat-form-field appearance&#x3D;&quot;outline&quot; class&#x3D;&quot;col-1&quot;&gt;
+      &lt;mat-label&gt;Nombre&lt;/mat-label&gt;
+      &lt;input matInput type&#x3D;&quot;text&quot; formControlName&#x3D;&quot;name&quot; required&gt;
+    &lt;/mat-form-field&gt;
+
+    &lt;mat-form-field appearance&#x3D;&quot;outline&quot; class&#x3D;&quot;col-1&quot;&gt;
+      &lt;mat-label&gt;Descripción&lt;/mat-label&gt;
+      &lt;textarea matInput formControlName&#x3D;&quot;description&quot; required&gt;&lt;/textarea&gt;
+    &lt;/mat-form-field&gt;
+
+    &lt;mat-form-field appearance&#x3D;&quot;outline&quot; class&#x3D;&quot;col-2&quot;&gt;
+      &lt;mat-label&gt;Etiqueta&lt;/mat-label&gt;
+      &lt;input matInput type&#x3D;&quot;text&quot; formControlName&#x3D;&quot;tag&quot;&gt;
+    &lt;/mat-form-field&gt;
+  
+    &lt;mat-form-field appearance&#x3D;&quot;outline&quot; class&#x3D;&quot;col-2&quot;&gt;
+      &lt;mat-label&gt;ID Dominio&lt;/mat-label&gt;
+      &lt;input matInput type&#x3D;&quot;text&quot; formControlName&#x3D;&quot;idDomain&quot; readonly required&gt;
+    &lt;/mat-form-field&gt;
+  
+    &lt;div class&#x3D;&quot;btn-box&quot;&gt;
+      &lt;button mat-raised-button type&#x3D;&quot;submit&quot;&gt;Volver&lt;/button&gt;
+      &lt;button mat-raised-button color&#x3D;&quot;primary&quot; type&#x3D;&quot;submit&quot; class&#x3D;&quot;d-right&quot; &gt;Guardar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+  &lt;form [formGroup]&#x3D;&quot;subdomainsForm&quot; (ngSubmit)&#x3D;&quot;onSubmit(selectedDomainId)&quot; *ngIf&#x3D;&quot;data.addSubdomains&quot;&gt;
+    &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;d-right mr-3&quot; mat-raised-button color&#x3D;&quot;primary&quot; (click)&#x3D;&quot;addSubdomains(selectedDomainId)&quot;&gt;Agregar Subdominio&lt;/button&gt;
+  &lt;br&gt;
+
+
+ 
+
+  &lt;mat-table [dataSource]&#x3D;&quot;dataSourcePacks&quot; class&#x3D;&quot;mt-3&quot;&gt;
+    &lt;ng-container formArrayName&#x3D;&quot;subdominios&quot;&gt;
+      &lt;!-- Subdomain name Column --&gt;
+      &lt;ng-container matColumnDef&#x3D;&quot;Nombre&quot;&gt;
+        &lt;mat-header-cell *matHeaderCellDef&gt;Subdominio&lt;/mat-header-cell&gt;
+        &lt;mat-cell *matCellDef&#x3D;&quot;let element;&quot; [formGroup]&#x3D;&quot;element&quot;&gt;
+          &lt;mat-form-field appearance&#x3D;&quot;outline&quot;&gt;
+            &lt;input matInput placeholder&#x3D;&quot;Nombre de subdominio&quot; formControlName&#x3D;&quot;name&quot; required&gt;
+          &lt;/mat-form-field&gt;
+        &lt;/mat-cell&gt;
+      &lt;/ng-container&gt;
+
+      &lt;!-- Description Column --&gt;
+      &lt;ng-container matColumnDef&#x3D;&quot;Descripción&quot;&gt;
+        &lt;mat-header-cell *matHeaderCellDef&gt;Descripción&lt;/mat-header-cell&gt;
+        &lt;mat-cell *matCellDef&#x3D;&quot;let element;&quot; [formGroup]&#x3D;&quot;element&quot;&gt;
+          &lt;mat-form-field appearance&#x3D;&quot;outline&quot;&gt;
+            &lt;input matInput placeholder&#x3D;&quot;Descripción&quot; formControlName&#x3D;&quot;description&quot; required&gt;
+          &lt;/mat-form-field&gt;
+        &lt;/mat-cell&gt;
+      &lt;/ng-container&gt;
+
+      &lt;!-- Tags Column --&gt;
+      &lt;ng-container matColumnDef&#x3D;&quot;Tags&quot;&gt;
+        &lt;mat-header-cell *matHeaderCellDef&gt;Tags&lt;/mat-header-cell&gt;
+        &lt;mat-cell *matCellDef&#x3D;&quot;let element;&quot; [formGroup]&#x3D;&quot;element&quot;&gt;
+          &lt;mat-form-field appearance&#x3D;&quot;outline&quot;&gt;
+            &lt;input matInput placeholder&#x3D;&quot;Tags&quot; formControlName&#x3D;&quot;tag&quot; required&gt;
+          &lt;/mat-form-field&gt;
+        &lt;/mat-cell&gt;
+      &lt;/ng-container&gt;
+
+      &lt;!-- Delete Column --&gt;
+      &lt;ng-container matColumnDef&#x3D;&quot;Eliminar&quot;&gt;
+        &lt;mat-header-cell *matHeaderCellDef&gt;&lt;/mat-header-cell&gt;
+        &lt;mat-cell *matCellDef&#x3D;&quot;let element; index as i&quot; [formGroup]&#x3D;&quot;element&quot;&gt;
+
+          &lt;button type&#x3D;&quot;button&quot; (click)&#x3D;&quot;deleteSubdomain(i)&quot;&gt;
+            &lt;mat-icon matSuffix&gt;delete&lt;/mat-icon&gt;
+          &lt;/button&gt;
+
+        &lt;/mat-cell&gt;
+      &lt;/ng-container&gt;
+
+      &lt;!-- header titles --&gt;
+
+      &lt;mat-header-row *matHeaderRowDef&#x3D;&quot;displayedColumns&quot;&gt;&lt;/mat-header-row&gt;
+      &lt;mat-row *matRowDef&#x3D;&quot;let row; columns: displayedColumns;&quot;&gt;&lt;/mat-row&gt;
+    &lt;/ng-container&gt;
+  &lt;/mat-table&gt;
+
+  &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;d-right mr-3&quot; mat-raised-button color&#x3D;&quot;primary&quot;&gt;Guardar&lt;/button&gt;
+
+&lt;/form&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./subdomain.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.question-card{
+    margin-bottom:1rem;
+}
+
+.mt-3{
+    margin-top:3rem;
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div> <h2>{{"subdomain"|translate}}</h2><div class="p-4">  <form [formGroup]="subdomainForm" (ngSubmit)="onUpdate()" *ngIf="data.updateSubdomain">    <mat-form-field appearance="outline" class="col-1">      <mat-label>Nombre</mat-label>      <input matInput type="text" formControlName="name" required>    </mat-form-field>    <mat-form-field appearance="outline" class="col-1">      <mat-label>Descripción</mat-label>      <textarea matInput formControlName="description" required></textarea>    </mat-form-field>    <mat-form-field appearance="outline" class="col-2">      <mat-label>Etiqueta</mat-label>      <input matInput type="text" formControlName="tag">    </mat-form-field>      <mat-form-field appearance="outline" class="col-2">      <mat-label>ID Dominio</mat-label>      <input matInput type="text" formControlName="idDomain" readonly required>    </mat-form-field>      <div class="btn-box">      <button mat-raised-button type="submit">Volver</button>      <button mat-raised-button color="primary" type="submit" class="d-right" >Guardar</button>    </div>  </form>  <form [formGroup]="subdomainsForm" (ngSubmit)="onSubmit(selectedDomainId)" *ngIf="data.addSubdomains">    <button type="button" class="d-right mr-3" mat-raised-button color="primary" (click)="addSubdomains(selectedDomainId)">Agregar Subdominio</button>  <br>   <mat-table [dataSource]="dataSourcePacks" class="mt-3">    <ng-container formArrayName="subdominios">      <!-- Subdomain name Column -->      <ng-container matColumnDef="Nombre">        <mat-header-cell *matHeaderCellDef>Subdominio</mat-header-cell>        <mat-cell *matCellDef="let element;" [formGroup]="element">          <mat-form-field appearance="outline">            <input matInput placeholder="Nombre de subdominio" formControlName="name" required>          </mat-form-field>        </mat-cell>      </ng-container>      <!-- Description Column -->      <ng-container matColumnDef="Descripción">        <mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>        <mat-cell *matCellDef="let element;" [formGroup]="element">          <mat-form-field appearance="outline">            <input matInput placeholder="Descripción" formControlName="description" required>          </mat-form-field>        </mat-cell>      </ng-container>      <!-- Tags Column -->      <ng-container matColumnDef="Tags">        <mat-header-cell *matHeaderCellDef>Tags</mat-header-cell>        <mat-cell *matCellDef="let element;" [formGroup]="element">          <mat-form-field appearance="outline">            <input matInput placeholder="Tags" formControlName="tag" required>          </mat-form-field>        </mat-cell>      </ng-container>      <!-- Delete Column -->      <ng-container matColumnDef="Eliminar">        <mat-header-cell *matHeaderCellDef></mat-header-cell>        <mat-cell *matCellDef="let element; index as i" [formGroup]="element">          <button type="button" (click)="deleteSubdomain(i)">            <mat-icon matSuffix>delete</mat-icon>          </button>        </mat-cell>      </ng-container>      <!-- header titles -->      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>    </ng-container>  </mat-table>  <button type="submit" class="d-right mr-3" mat-raised-button color="primary">Guardar</button></form></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'ClientsComponent', 'selector': 'app-clients'},{'name': 'ClientSelectionDialogComponent', 'selector': 'app-client-selection-dialog'},{'name': 'CompanyComponent', 'selector': 'app-company'},{'name': 'CompanyComponent', 'selector': 'app-company'},{'name': 'CompanyComponent', 'selector': 'app-company'},{'name': 'CompanyConfigComponent', 'selector': 'app-company-config'},{'name': 'CompanyTableComponent', 'selector': 'app-company-table'},{'name': 'ConfigsComponent', 'selector': 'app-domains'},{'name': 'ConfirmDialogComponent', 'selector': 'app-confirm-dialog'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'ContactServiceCompanyComponent', 'selector': 'app-contact-service-company'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DomaincategoryComponent', 'selector': 'app-domaincategory'},{'name': 'DomainCategoryTableComponent', 'selector': 'app-domain-category-table'},{'name': 'DomainCfgTableComponent', 'selector': 'app-domain-cfg-table'},{'name': 'DomainComponent', 'selector': 'app-domain'},{'name': 'DomainsComponent', 'selector': 'app-domains'},{'name': 'DomainTableComponent', 'selector': 'app-domain-table'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'GroupcompanyComponent', 'selector': 'app-groupcompany'},{'name': 'GroupCompanyTableComponent', 'selector': 'app-group-company-table'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MessagesModalComponent', 'selector': 'app-messages-modal'},{'name': 'NewClientComponent', 'selector': 'app-new-client'},{'name': 'PermissionComponent', 'selector': 'app-permission'},{'name': 'ProviderComponent', 'selector': 'app-provider'},{'name': 'ResponsiveMenuComponent', 'selector': 'app-responsive-menu'},{'name': 'RoleCfgTableComponent', 'selector': 'app-role-cfg-table'},{'name': 'RoleComponent', 'selector': 'app-role'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RoleTableComponent', 'selector': 'app-role-table'},{'name': 'SeeComponent', 'selector': 'app-see'},{'name': 'ServicecategoryComponent', 'selector': 'app-servicecategory'},{'name': 'ServicecompanyComponent', 'selector': 'app-servicecompany'},{'name': 'SessionComponent', 'selector': 'app-session'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'StepperComponent', 'selector': 'app-stepper'},{'name': 'SubdomainCfgTableComponent', 'selector': 'app-subdomain-cfg-table'},{'name': 'SubdomainComponent', 'selector': 'app-subdomain'},{'name': 'UserComponent', 'selector': 'app-user'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UsersconfigsComponent', 'selector': 'app-usersconfigs'},{'name': 'UsersTableComponent', 'selector': 'app-users-table'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SubdomainComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SubdomainComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
