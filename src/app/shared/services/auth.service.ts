@@ -4,7 +4,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { GetprofileService } from './getprofile.service';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -34,36 +35,24 @@ export class AuthService {
 
   // log-in with email and password
   async logInWithEmailAndPassword(email: string, password: string): Promise<any> {
-    if (password === '1234') {
-      return Promise.reject({
-        httpStatus: 'UNAUTHORIZED',
-        message: 'Invalid username or password'
-      });
-    }
-
     const apiUrls = environment.apiUrls;
     const serverUrl = environment.serverUrl;
 
     try {
-      const response: any = await this.http.post(`${serverUrl}${apiUrls.login}`, { email, password }).toPromise();
-      console.log('login:', response);
-      localStorage.setItem('user', JSON.stringify(response));
+      const response: any = await this.http.post(
+        `${serverUrl}${apiUrls.login}`,
+        { email, password }
+      ).toPromise();
+      sessionStorage.setItem('user', response.email);
       sessionStorage.setItem('token', response.token);
-
-      const profile = await this.getProfileService.getUserProfile(email);
-      sessionStorage.setItem('profile', JSON.stringify(profile));
-      const { id, email: userCreator } = profile;
-      sessionStorage.setItem('userId', id);
-      sessionStorage.setItem('userCreator', userCreator);
-      const clients = Array.isArray(response.client) ? response.client : [response.client];
-
-      return { profile, clients };
+      sessionStorage.setItem('client', response.client);
+      sessionStorage.setItem('company', response.company);
+      return response;
     } catch (error) {
       console.error('Error during login:', error);
       return Promise.reject(error);
     }
   }
-
 
   // log-in with google
   logInWithGoogleProvider() {
@@ -94,7 +83,7 @@ export class AuthService {
 
   // return true when user is logged in
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
+    const user = sessionStorage.getItem('user');
     return user !== null;
   }
 

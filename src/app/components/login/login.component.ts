@@ -27,42 +27,51 @@ import { ClientSelectionDialogComponent } from '../client-selection-dialog/clien
 })
 export class LoginComponent {
   hide = true;
-  
-
   userProfile = new Array<any>();
-  constructor(private authService: AuthService, private getUserProfile:AuthService,
+
+  constructor(private authService: AuthService,
     private router: Router,public dialog: MatDialog) { }
   
   async logIn(email: string, password: string) {
-    this.authService.logInWithEmailAndPassword(email, password)
-    .then((data) => {
+    try {
+      const data = await this.authService.logInWithEmailAndPassword(email, password);
       console.log("DATA LOGIN", data);
-      if (data.clients.length > 1) {
+      sessionStorage.setItem('client', Array.isArray(data.client) ? JSON.stringify(data.client) : data.client);
+      sessionStorage.setItem('company', Array.isArray(data.company) ? JSON.stringify(data.company) : data.company);
+      if (Array.isArray(data.client)) {
         const dialogRef = this.dialog.open(ClientSelectionDialogComponent, {
-          data: { clients: data.clients }
+          data: { clients: data.client }
         });
-        dialogRef.afterClosed().subscribe(() => {
-          this.router.navigate(['/dashboard']);
+  
+        dialogRef.afterClosed().subscribe({
+          next: (selectedClient) => {
+            if (selectedClient) {
+              console.log("selectedClient", selectedClient);
+            }
+            console.log("to dashboard after dialog");
+            this.router.navigate(['/dashboard']);
+          },
+          error: (err) => {
+            console.error('Error closing dialog:', err);
+          }
         });
       } else {
-        this.router.navigate(['/dashboard']);
+        console.log("to dashboard");
+        this.router.navigate(['/dashboard']).then(() => {
+          window.location.reload();
+        });
       }
-
-    })
-    .catch((error) => {
+    } catch (error) {
       this.dialog.open(MessagesModalComponent, {
         data: {
           message: 'Error en inicio de sesión. Intente nuevamente.',
           type: 'error'
         }
       });
-    });
+    }
   }
 
   logInWithGoogle() {
     this.authService.logInWithGoogleProvider();
   }
-
-
-  
 }
