@@ -1,0 +1,1068 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>xr-backoffice documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">xr-backoffice documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Variables</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#AuthGuard" title="src/app/shared/guards/auth.guard.ts" ><b>AuthGuard</b>&nbsp;&nbsp;&nbsp;(src/.../auth.guard.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#clients" title="src/app/shared/dummy-data/client-company.dummy.ts" ><b>clients</b>&nbsp;&nbsp;&nbsp;(src/.../client-company.dummy.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#companies" title="src/app/shared/dummy-data/client-company.dummy.ts" ><b>companies</b>&nbsp;&nbsp;&nbsp;(src/.../client-company.dummy.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#domains" title="src/app/shared/dummy-data/domain-client-company.dummy.ts" ><b>domains</b>&nbsp;&nbsp;&nbsp;(src/.../domain-client-company.dummy.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#domains" title="src/app/shared/dummy-data/domains-client-company.dummy.ts" ><b>domains</b>&nbsp;&nbsp;&nbsp;(src/.../domains-client-company.dummy.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Domains" title="src/app/shared/dummy-data/domain-client-company.dummy.ts" ><b>Domains</b>&nbsp;&nbsp;&nbsp;(src/.../domain-client-company.dummy.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Domains" title="src/app/shared/dummy-data/domains-client-company.dummy.ts" ><b>Domains</b>&nbsp;&nbsp;&nbsp;(src/.../domains-client-company.dummy.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#environment" title="src/environments/environment.development.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.development.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#environment" title="src/environments/environment.dummy.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.dummy.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#environment" title="src/environments/environment.prod.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.prod.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#environment" title="src/environments/environment.staging.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.staging.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#environment" title="src/environments/environment.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#require" title="src/app/components/dashboard/dashboard.component.ts" ><b>require</b>&nbsp;&nbsp;&nbsp;(src/.../dashboard.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#roles" title="src/app/shared/dummy-data/role.dummy.ts" ><b>roles</b>&nbsp;&nbsp;&nbsp;(src/.../role.dummy.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#subdomains" title="src/app/shared/dummy-data/subdomains-domain.dummy.ts" ><b>subdomains</b>&nbsp;&nbsp;&nbsp;(src/.../subdomains-domain.dummy.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#Subdomains" title="src/app/shared/dummy-data/subdomains-domain.dummy.ts" ><b>Subdomains</b>&nbsp;&nbsp;&nbsp;(src/.../subdomains-domain.dummy.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/app/shared/guards/auth.guard.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="AuthGuard"></a>
+                    <span class="name">
+                        <span ><b>AuthGuard</b></span>
+                        <a href="#AuthGuard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>CanActivateFn</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) &#x3D;&gt; {
+
+    const authService &#x3D; inject(AuthService);
+    const router &#x3D; inject(Router);
+
+    authService.isLoggedIn || router.navigate([&quot;login&quot;]);
+
+    return true;
+  }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/shared/dummy-data/client-company.dummy.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clients"></a>
+                    <span class="name">
+                        <span ><b>clients</b></span>
+                        <a href="#clients"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      id: &#x27;550e8400-e29b-41d4-a716-446655440001&#x27;,
+      name: &#x27;Empresa Chilena A&#x27;,
+      businessName: &#x27;Empresa A S.A.&#x27;,
+      address: &#x27;Av. Libertador Bernardo O\&#x27;Higgins 1234, Santiago, Chile&#x27;,
+      country: &#x27;Chile&#x27;,
+      documentType: &#x27;RUT&#x27;,
+      document: &#x27;76012345-6&#x27;,
+      tag: &#x27;legal-related&#x27;,
+      idContact: [&#x27;550e8400-e29b-41d4-a716-446655440001&#x27;]
+    },
+    {
+      id: &#x27;550e8400-e29b-41d4-a716-446655440002&#x27;,
+      name: &#x27;Empresa Chilena B&#x27;,
+      businessName: &#x27;Empresa B Ltda.&#x27;,
+      address: &#x27;Calle Falsa 123, Valparaíso, Chile&#x27;,
+      country: &#x27;Chile&#x27;,
+      documentType: &#x27;RUT&#x27;,
+      document: &#x27;96543210-9&#x27;,
+      tag: &#x27;legal-related&#x27;,
+      idContact: [&#x27;550e8400-e29b-41d4-a716-446655440002&#x27;]
+    },
+    {
+      id: &#x27;550e8400-e29b-41d4-a716-446655440003&#x27;,
+      name: &#x27;Empresa Chilena C&#x27;,
+      businessName: &#x27;Empresa C SpA&#x27;,
+      address: &#x27;Calle Real 456, Concepción, Chile&#x27;,
+      country: &#x27;Chile&#x27;,
+      documentType: &#x27;RUT&#x27;,
+      document: &#x27;81234567-0&#x27;,
+      tag: &#x27;legal-related&#x27;,
+      idContact: [&#x27;550e8400-e29b-41d4-a716-446655440003&#x27;]
+    }
+  ]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="companies"></a>
+                    <span class="name">
+                        <span ><b>companies</b></span>
+                        <a href="#companies"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>clients.flatMap(client &#x3D;&gt; {
+    return Array.from({ length: 10 }, (_, index) &#x3D;&gt; ({
+      id: &#x60;${index + 1}&#x60;, // ${client.id}-
+      name: &#x60;Company ${index + 1} of ${client.name}&#x60;,
+      businessName: &#x60;Business ${index + 1}&#x60;,
+      address: &#x60;Address ${index + 1}&#x60;,
+      country: client.country,
+      city: &#x60;City ${index + 1}&#x60;,
+      state: &#x60;State ${index + 1}&#x60;,
+      county: &#x60;County ${index + 1}&#x60;,
+      district: &#x60;District ${index + 1}&#x60;,
+      documentType: &#x27;RUT&#x27;,
+      document: generateValidRUT(),
+      isHeadQuarters: index &#x3D;&#x3D;&#x3D; 0,
+      isBranch: index !&#x3D;&#x3D; 0,
+      tag: client.tag,
+      idClient: client.id,
+      idGroupCompany: client.id,
+      idContact: [client.id]
+    }));
+  })</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/shared/dummy-data/domain-client-company.dummy.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="domains"></a>
+                    <span class="name">
+                        <span ><b>domains</b></span>
+                        <a href="#domains"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Domains.flatMap(dominio &#x3D;&gt; {
+    return Array.from({ length: 10 }, (_, index) &#x3D;&gt; ({
+      id: &#x60;${index + 1}&#x60;, // ${domain.id}-
+      name: &#x60;Dominio ${index + 1} of ${dominio.name}&#x60;,
+      businessName: &#x60;Business ${index + 1}&#x60;,
+      description: dominio.description,
+      code: dominio.code,
+      tag: dominio.tag,
+      idDomainCategory: dominio.idDomainCategory,
+      idCompany: dominio.idCompany,
+    }));
+  })</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Domains"></a>
+                    <span class="name">
+                        <span ><b>Domains</b></span>
+                        <a href="#Domains"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      id: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+      name: &quot;xynergy&quot;,
+      description: &quot;12345&quot;,
+      code: &quot;12345&quot;,
+      tag: [&quot;legal-related&quot;],
+      idDomainCategory: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+      idCompany: &quot;550e8400-e29b-41d4-a716-446655440000&quot;
+    },
+    {
+      id: &quot;550e8400-e29b-41d4-a716-446655440001&quot;,
+      name: &quot;Cyberseguridad&quot;,
+      description: &quot;12345&quot;,
+      code: &quot;12345&quot;,
+      tag: [&quot;legal-related&quot;],
+      idDomainCategory: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+      idCompany: &quot;550e8400-e29b-41d4-a716-446655440000&quot;
+    },
+    {
+      id: &quot;550e8400-e29b-41d4-a716-446655440002&quot;,
+      name: &quot;Aseo&quot;,
+      description: &quot;12345&quot;,
+      code: &quot;12345&quot;,
+      tag: [&quot;legal-related&quot;],
+      idDomainCategory: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+      idCompany: &quot;550e8400-e29b-41d4-a716-446655440000&quot;
+    },
+  ]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/shared/dummy-data/domains-client-company.dummy.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="domains"></a>
+                    <span class="name">
+                        <span ><b>domains</b></span>
+                        <a href="#domains"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Domains.flatMap(dominio &#x3D;&gt; {
+    return Array.from({ length: 10 }, (_, index) &#x3D;&gt; ({
+        id: &#x60;${index + 1}&#x60;, // ${domain.id}-
+        name: &#x60;Dominio ${index + 1} of ${dominio.name}&#x60;,
+        businessName: &#x60;Business ${index + 1}&#x60;,
+        description: dominio.description,
+        code: dominio.code,
+        tag: dominio.tag,
+        idDomainCategory: dominio.idDomainCategory,
+        idCompany: dominio.idCompany,
+    }));
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Domains"></a>
+                    <span class="name">
+                        <span ><b>Domains</b></span>
+                        <a href="#Domains"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+        id: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+        name: &quot;xynergy&quot;,
+        description: &quot;12345&quot;,
+        code: &quot;12345&quot;,
+        tag: [&quot;legal-related&quot;],
+        idDomainCategory: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+        idCompany: &quot;550e8400-e29b-41d4-a716-446655440000&quot;
+    },
+    {
+        id: &quot;550e8400-e29b-41d4-a716-446655440001&quot;,
+        name: &quot;Cyberseguridad&quot;,
+        description: &quot;12345&quot;,
+        code: &quot;12345&quot;,
+        tag: [&quot;legal-related&quot;],
+        idDomainCategory: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+        idCompany: &quot;550e8400-e29b-41d4-a716-446655440000&quot;
+    },
+    {
+        id: &quot;550e8400-e29b-41d4-a716-446655440002&quot;,
+        name: &quot;Aseo&quot;,
+        description: &quot;12345&quot;,
+        code: &quot;12345&quot;,
+        tag: [&quot;legal-related&quot;],
+        idDomainCategory: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+        idCompany: &quot;550e8400-e29b-41d4-a716-446655440000&quot;
+    },
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/environments/environment.development.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="environment"></a>
+                    <span class="name">
+                        <span ><b>environment</b></span>
+                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  production: false,
+  serverUrl: &#x27;http://localhost:8080&#x27;,
+  firebase: {
+      projectId: &quot;x-risk-qa&quot;,
+      appId: &quot;574871984926&quot;,
+      storageBucket: &quot;x-risk-qa.appspot.com&quot;,
+      apiKey: &quot;AIzaSyAh9JrcUBfjbCPmGB-J1IQ5hf-2JKzjrbQ&quot;,
+      authDomain: &quot;x-risk-qa.firebaseapp.com&quot;,
+      messagingSenderId: &quot;1084318886396&quot;,
+  },
+  channel: 1,
+  getProfileUrl: &quot;http://localhost:8086/get-profile/api/get-profile&quot;,
+  getTokenUrl: &quot;http://localhost:8080/get-token/api/get-token&quot;,
+  getCompanyUrl: &quot;http://localhost:8088/get-company/api/get-company&quot;,
+  getClientUrl: &quot;http://localhost:8082/get-clients/api/get-clients&quot;,
+  postClientUrl: &quot;http://localhost:8083/post-client/api/post-client&quot;,
+  getDomainsUrl: &quot;http://localhost:9086/get-domains/api/get-domains&quot;,
+  getDomainTypeUrl: &quot;http://localhost:8087/get-domain-type/api/get-domain-type&quot;,
+  postDomainUrl: &quot;http://localhost:8085/post-domain/api/post-domain&quot;,
+  getDomainGrpUrl: &quot;http://localhost:8084/get-domain-grp/api/get-domain-grp&quot;,
+  getUsersUrl:&quot;http://localhost:9089/get-users/api/get-all-users&quot;,
+  getUsersRolesUrl: &quot;http://localhost:8093/get-users-roles/api/get-users-roles&quot;,
+  getRolesUrl: &quot;http://localhost:8092/get-roles/api/get-roles&quot;,
+  postUserUrl: &quot;http://localhost:8094/post-user/api/post-user&quot;,
+  getAllUsersUrl: &quot;http://localhost:/get-users/api/get-all-users&quot;,
+  postDomainGrpUrl: &quot;http://localhost:/post-domain-grp/api/post-domain-grp&quot;,
+  putClientUrl: &quot;http://localhost:8082/client-service/api/put-client&quot;,
+  apiUrls: {
+    role: &#x60;/v1/role&#x60;,
+    contact: &#x60;/v1/contact&#x60;,
+    company: &#x60;/v1/company&#x60;,
+    domain: &#x60;/v1/domain&#x60;,
+    serviceCategory: &#x60;/v1/service-category&#x60;,
+    login: &#x60;/v1/login/auth/login&#x60;,
+    logout: &#x60;/v1/login/auth/logout&#x60;,
+    client: &#x60;/v1/client&#x60;,
+    provider: &#x60;/v1/provider&#x60;,
+    report: &#x60;/v1/report&#x60;,
+    subdomain: &#x60;/v1/subdomain&#x60;,
+    domainCategory: &#x60;/v1/domain-category&#x60;,
+    groupCompany: &#x60;/v1/group-company&#x60;,
+    serviceCompany: &#x60;/v1/service-company&#x60;,
+    user: &#x60;/v1/user&#x60;
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/environments/environment.dummy.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="environment"></a>
+                    <span class="name">
+                        <span ><b>environment</b></span>
+                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    production: false,
+    serverUrl: &#x27;http://localhost:8080&#x27;,
+    firebase: {
+        projectId: &quot;x-risk-qa&quot;,
+        appId: &quot;574871984926&quot;,
+        storageBucket: &quot;x-risk-qa.appspot.com&quot;,
+        apiKey: &quot;AIzaSyAh9JrcUBfjbCPmGB-J1IQ5hf-2JKzjrbQ&quot;,
+        authDomain: &quot;x-risk-qa.firebaseapp.com&quot;,
+        messagingSenderId: &quot;1084318886396&quot;,
+    },
+    channel: 1,
+    getProfileUrl: &quot;http://localhost:8086/get-profile/api/get-profile&quot;,
+    getTokenUrl: &quot;http://localhost:8080/get-token/api/get-token&quot;,
+    getCompanyUrl: &quot;http://localhost:8088/get-company/api/get-company&quot;,
+    getClientUrl: &quot;http://localhost:8082/get-clients/api/get-clients&quot;,
+    postClientUrl: &quot;http://localhost:8083/post-client/api/post-client&quot;,
+    getDomainsUrl: &quot;http://localhost:9086/get-domains/api/get-domains&quot;,
+    getDomainTypeUrl: &quot;http://localhost:8087/get-domain-type/api/get-domain-type&quot;,
+    postDomainUrl: &quot;http://localhost:8085/post-domain/api/post-domain&quot;,
+    getDomainGrpUrl: &quot;http://localhost:8084/get-domain-grp/api/get-domain-grp&quot;,
+    getUsersUrl:&quot;http://localhost:9089/get-users/api/get-all-users&quot;,
+    getUsersRolesUrl: &quot;http://localhost:8093/get-users-roles/api/get-users-roles&quot;,
+    getRolesUrl: &quot;http://localhost:8092/get-roles/api/get-roles&quot;,
+    postUserUrl: &quot;http://localhost:8094/post-user/api/post-user&quot;,
+    getAllUsersUrl: &quot;http://localhost:/get-users/api/get-all-users&quot;,
+    postDomainGrpUrl: &quot;http://localhost:/post-domain-grp/api/post-domain-grp&quot;,
+    putClientUrl: &quot;http://localhost:8082/client-service/api/put-client&quot;,
+    apiUrls: {
+      role: &#x60;/v1/role&#x60;,
+      contact: &#x60;/v1/contact&#x60;,
+      company: &#x60;/v1/company&#x60;,
+      domain: &#x60;/v1/domain&#x60;,
+      serviceCategory: &#x60;/v1/service-category&#x60;,
+      login: &#x60;/v1/login/auth/login&#x60;,
+      logout: &#x60;/v1/login/auth/logout&#x60;,
+      client: &#x60;/v1/client&#x60;,
+      provider: &#x60;/v1/provider&#x60;,
+      report: &#x60;/v1/report&#x60;,
+      subdomain: &#x60;/v1/subdomain&#x60;,
+      domainCategory: &#x60;/v1/domain-category&#x60;,
+      groupCompany: &#x60;/v1/group-company&#x60;,
+      serviceCompany: &#x60;/v1/service-company&#x60;,
+      user: &#x60;/v1/user&#x60;
+    }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/environments/environment.prod.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="environment"></a>
+                    <span class="name">
+                        <span ><b>environment</b></span>
+                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  production: true,
+  serverUrl: &#x27;http://localhost:8080&#x27;,
+  firebase: {
+      projectId: &quot;x-risk-qa&quot;,
+      appId: &quot;574871984926&quot;,
+      storageBucket: &quot;x-risk-qa.appspot.com&quot;,
+      apiKey: &quot;AIzaSyAh9JrcUBfjbCPmGB-J1IQ5hf-2JKzjrbQ&quot;,
+      authDomain: &quot;x-risk-qa.firebaseapp.com&quot;,
+      messagingSenderId: &quot;1084318886396&quot;,
+  },
+  channel: 1,
+  getProfileUrl: &quot;http://localhost:8086/get-profile/api/get-profile&quot;,
+  getTokenUrl: &quot;http://localhost:8080/get-token/api/get-token&quot;,
+  getCompanyUrl: &quot;http://localhost:8088/get-company/api/get-company&quot;,
+  getClientUrl: &quot;http://localhost:8082/get-clients/api/get-clients&quot;,
+  postClientUrl: &quot;http://localhost:8083/post-client/api/post-client&quot;,
+  getDomainsUrl: &quot;http://localhost:9086/get-domains/api/get-domains&quot;,
+  getDomainTypeUrl: &quot;http://localhost:8087/get-domain-type/api/get-domain-type&quot;,
+  postDomainUrl: &quot;http://localhost:8085/post-domain/api/post-domain&quot;,
+  getDomainGrpUrl: &quot;http://localhost:8084/get-domain-grp/api/get-domain-grp&quot;,
+  getUsersUrl:&quot;http://localhost:9089/get-users/api/get-all-users&quot;,
+  getUsersRolesUrl: &quot;http://localhost:8093/get-users-roles/api/get-users-roles&quot;,
+  getRolesUrl: &quot;http://localhost:8092/get-roles/api/get-roles&quot;,
+  postUserUrl: &quot;http://localhost:8094/post-user/api/post-user&quot;,
+  getAllUsersUrl: &quot;http://localhost:/get-users/api/get-all-users&quot;,
+  postDomainGrpUrl: &quot;http://localhost:/post-domain-grp/api/post-domain-grp&quot;,
+  putClientUrl: &quot;http://localhost:8082/client-service/api/put-client&quot;,
+  apiUrls: {
+    role: &#x60;/v1/role&#x60;,
+    contact: &#x60;/v1/contact&#x60;,
+    company: &#x60;/v1/company&#x60;,
+    domain: &#x60;/v1/domain&#x60;,
+    serviceCategory: &#x60;/v1/service-category&#x60;,
+    login: &#x60;/v1/login/auth/login&#x60;,
+    logout: &#x60;/v1/login/auth/logout&#x60;,
+    client: &#x60;/v1/client&#x60;,
+    provider: &#x60;/v1/provider&#x60;,
+    report: &#x60;/v1/report&#x60;,
+    subdomain: &#x60;/v1/subdomain&#x60;,
+    domainCategory: &#x60;/v1/domain-category&#x60;,
+    groupCompany: &#x60;/v1/group-company&#x60;,
+    serviceCompany: &#x60;/v1/service-company&#x60;,
+    user: &#x60;/v1/user&#x60;
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/environments/environment.staging.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="environment"></a>
+                    <span class="name">
+                        <span ><b>environment</b></span>
+                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  production: false,
+  serverUrl: &#x27;https://xrisk-&#x27;,
+  firebase: {
+      projectId: &quot;x-risk-qa&quot;,
+      appId: &quot;574871984926&quot;,
+      storageBucket: &quot;x-risk-qa.appspot.com&quot;,
+      apiKey: &quot;AIzaSyAh9JrcUBfjbCPmGB-J1IQ5hf-2JKzjrbQ&quot;,
+      authDomain: &quot;x-risk-qa.firebaseapp.com&quot;,
+      messagingSenderId: &quot;1084318886396&quot;,
+  },
+  channel: 1,
+  getProfileUrl: &quot;http://localhost:8086/get-profile/api/get-profile&quot;,
+  getTokenUrl: &quot;http://localhost:8080/get-token/api/get-token&quot;,
+  getCompanyUrl: &quot;http://localhost:8088/get-company/api/get-company&quot;,
+  getClientUrl: &quot;http://localhost:8082/get-clients/api/get-clients&quot;,
+  postClientUrl: &quot;http://localhost:8083/post-client/api/post-client&quot;,
+  getDomainsUrl: &quot;http://localhost:9086/get-domains/api/get-domains&quot;,
+  getDomainTypeUrl: &quot;http://localhost:8087/get-domain-type/api/get-domain-type&quot;,
+  postDomainUrl: &quot;http://localhost:8085/post-domain/api/post-domain&quot;,
+  getDomainGrpUrl: &quot;http://localhost:8084/get-domain-grp/api/get-domain-grp&quot;,
+  getUsersUrl:&quot;http://localhost:9089/get-users/api/get-all-users&quot;,
+  getUsersRolesUrl: &quot;http://localhost:8093/get-users-roles/api/get-users-roles&quot;,
+  getRolesUrl: &quot;http://localhost:8092/get-roles/api/get-roles&quot;,
+  postUserUrl: &quot;http://localhost:8094/post-user/api/post-user&quot;,
+  getAllUsersUrl: &quot;http://localhost:/get-users/api/get-all-users&quot;,
+  postDomainGrpUrl: &quot;http://localhost:/post-domain-grp/api/post-domain-grp&quot;,
+  putClientUrl: &quot;http://localhost:8082/client-service/api/put-client&quot;,
+  apiUrls: {
+    client: &#x60;client-drzcbalp5q-uk.a.run.app/v1/role&#x60;,
+    company: &#x60;company-drzcbalp5q-uk.a.run.app/v1/contact&#x60;,
+    contact: &#x60;contact-drzcbalp5q-uk.a.run.app/v1/company&#x60;,
+    domain: &#x60;domain-drzcbalp5q-uk.a.run.app/v1/domain&#x60;,
+    domainCategory: &#x60;domain-category-drzcbalp5q-uk.a.run.app/v1/service-category&#x60;,
+    groupCompany: &#x60;group-company-drzcbalp5q-uk.a.run.app/v1/group-company&#x60;,
+    login: &#x60;login-drzcbalp5q-uk.a.run.app/v1/login/auth/login&#x60;,
+    logout: &#x60;login-drzcbalp5q-uk.a.run.app/v1/login/auth/logout&#x60;,
+    provider: &#x60;provider-drzcbalp5q-uk.a.run.app/v1/provider&#x60;,
+    role: &#x60;role-drzcbalp5q-uk.a.run.app/v1/client&#x60;,
+    subdomain: &#x60;subdomain-drzcbalp5q-uk.a.run.app/v1/subdomain&#x60;,
+    user: &#x60;user-drzcbalp5q-uk.a.run.app/v1/user&#x60;,
+    report: &#x60;/v1/report&#x60;,  
+    serviceCompany: &#x60;/v1/service-company&#x60;,
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/environments/environment.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="environment"></a>
+                    <span class="name">
+                        <span ><b>environment</b></span>
+                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  production: false,
+    serverUrl: &#x27;http://localhost:8080&#x27;,
+    firebase: {
+        projectId: &quot;x-risk-qa&quot;,
+        appId: &quot;574871984926&quot;,
+        storageBucket: &quot;x-risk-qa.appspot.com&quot;,
+        apiKey: &quot;AIzaSyAh9JrcUBfjbCPmGB-J1IQ5hf-2JKzjrbQ&quot;,
+        authDomain: &quot;x-risk-qa.firebaseapp.com&quot;,
+        messagingSenderId: &quot;1084318886396&quot;,
+    },
+    channel: 1,
+    getProfileUrl: &quot;http://localhost:8086/get-profile/api/get-profile&quot;,
+    getTokenUrl: &quot;http://localhost:8080/get-token/api/get-token&quot;,
+    getCompanyUrl: &quot;http://localhost:8088/get-company/api/get-company&quot;,
+    getClientUrl: &quot;http://localhost:8082/get-clients/api/get-clients&quot;,
+    postClientUrl: &quot;http://localhost:8083/post-client/api/post-client&quot;,
+    getDomainsUrl: &quot;http://localhost:9086/get-domains/api/get-domains&quot;,
+    getDomainTypeUrl: &quot;http://localhost:8087/get-domain-type/api/get-domain-type&quot;,
+    postDomainUrl: &quot;http://localhost:8085/post-domain/api/post-domain&quot;,
+    getDomainGrpUrl: &quot;http://localhost:8084/get-domain-grp/api/get-domain-grp&quot;,
+    getUsersUrl:&quot;http://localhost:9089/get-users/api/get-all-users&quot;,
+    getUsersRolesUrl: &quot;http://localhost:8093/get-users-roles/api/get-users-roles&quot;,
+    getRolesUrl: &quot;http://localhost:8092/get-roles/api/get-roles&quot;,
+    postUserUrl: &quot;http://localhost:8094/post-user/api/post-user&quot;,
+    getAllUsersUrl: &quot;http://localhost:/get-users/api/get-all-users&quot;,
+    postDomainGrpUrl: &quot;http://localhost:/post-domain-grp/api/post-domain-grp&quot;,
+    putClientUrl: &quot;http://localhost:8082/client-service/api/put-client&quot;,
+    apiUrls: {
+      role: &#x60;/v1/role&#x60;,
+      contact: &#x60;/v1/contact&#x60;,
+      company: &#x60;/v1/company&#x60;,
+      domain: &#x60;/v1/login/auth/login&#x60;,
+      serviceCategory: &#x60;/v1/service-category&#x60;,
+      login: &#x60;/v1/login/auth/login&#x60;,
+      logout: &#x60;/v1/login/auth/logout&#x60;,
+      client: &#x60;/v1/client&#x60;,
+      provider: &#x60;/v1/provider&#x60;,
+      report: &#x60;/v1/report&#x60;,
+      subdomain: &#x60;/v1/subdomain&#x60;,
+      domainCategory: &#x60;/v1/domain-category&#x60;,
+      groupCompany: &#x60;/v1/group-company&#x60;,
+      serviceCompany: &#x60;/v1/service-company&#x60;,
+      user: &#x60;/v1/user&#x60;
+    }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/components/dashboard/dashboard.component.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="require"></a>
+                    <span class="name">
+                        <span ><b>require</b></span>
+                        <a href="#require"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/shared/dummy-data/role.dummy.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="roles"></a>
+                    <span class="name">
+                        <span ><b>roles</b></span>
+                        <a href="#roles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  {
+    name: &#x27;role-xynergy-xynergy-all&#x27;,
+    description: &#x27;12345&#x27;,
+    client: &#x27;client&#x27;,
+    company: &#x27;company&#x27;,
+    isCreate: true,
+    isUpdate: true,
+    isRead: true,
+    isDelete: true,
+    tag: &#x27;legal-related&#x27;,
+  },
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/shared/dummy-data/subdomains-domain.dummy.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subdomains"></a>
+                    <span class="name">
+                        <span ><b>subdomains</b></span>
+                        <a href="#subdomains"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Subdomains.flatMap(subdominio &#x3D;&gt; {
+    return Array.from({ length: 10 }, (_, index) &#x3D;&gt; ({
+        id: &#x60;${index + 1}&#x60;, // ${domain.id}-
+        name: &#x60;Subdominio ${index + 1} of ${subdominio.name}&#x60;,
+        businessName: &#x60;Business ${index + 1}&#x60;,
+        description: subdominio.description,
+        tag: subdominio.tag,
+        idDomain: subdominio.idDomain
+    }));
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Subdomains"></a>
+                    <span class="name">
+                        <span ><b>Subdomains</b></span>
+                        <a href="#Subdomains"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+        id: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+        name: &quot;Confidencialidad e integridad del sistema&quot;,
+        description: &quot;12345&quot;,
+        tag: &quot;legal-related&quot;,
+        idDomain: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: &quot;550e8400-e29b-41d4-a716-446655440000&quot;,
+        name: &quot;Protección de Datos&quot;,
+        description: &quot;12345&quot;,
+        tag: &quot;legal-related&quot;,
+        idDomain: &quot;550e8400-e29b-41d4-a716-446655440001&quot;,
+        createdAt: new Date().toISOString()
+      }
+]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

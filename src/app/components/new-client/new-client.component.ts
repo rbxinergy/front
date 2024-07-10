@@ -25,6 +25,7 @@ import { ClientService } from 'src/app/services/client.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { Subscription } from 'rxjs';
+import { Client } from 'src/app/interfaces/client.interface';
 
 
 @Component({
@@ -156,50 +157,22 @@ export class NewClientComponent implements AfterViewInit, OnDestroy {
     console.log('Step changed', event);
     switch(event.selectedIndex) {
       case 0:
-        this.saveClientData();
+        this.clientDataService.setClientData(this.clientForm.getRawValue() as unknown as Client);
         break;
       case 1:
-        this.saveClientData();
         this.showAppGroupCompany = true;
         break;
       case 2:
-        this.saveClientData();
         this.showAppCompany = true;
         break;
       case 3:
-        this.saveClientData();
         this.showAppRole = true;
         break;
       case 4:
-        this.saveClientData();
         this.showAppDomain = true;
         break;
     }
     this.cdr.detectChanges();
-  }
-
-  saveClientData() {
-    console.log("CLIENT FORM:", this.clientForm.getRawValue());
-    this.clientService.saveClient(this.clientForm.getRawValue()).subscribe({
-      next: (response) => {
-        if (response.status === 200) {
-          console.log("RESPONSE:", response.body);
-          this.clientDataService.setClientData(response.body);
-        } else {
-          this.dialog.open(MessagesModalComponent, {
-            width: '400px',
-            data: { message: 'Error al crear el cliente.', type: 'error' }
-          });
-        }
-      },
-      error: (error) => {
-        console.log("ERROR:", error);
-        this.dialog.open(MessagesModalComponent, {
-          width: '400px',
-          data: { message: 'Error al crear el cliente.', type: 'error' }
-        });
-      }
-    });
   }
 
   ngOnDestroy(): void {

@@ -1,106 +1,53 @@
-import { Injectable, NgZone } from '@angular/core';
-import { GoogleAuthProvider } from '@angular/fire/auth';
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { GetprofileService } from './getprofile.service';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
+/**
+ * Servicio de autenticación.
+ * Este servicio maneja la lógica de autenticación y la gestión de sesiones.
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  /** Datos del usuario autenticado. */
   userData: any;
 
-  constructor(
-    private firebaseAuthenticationService: AngularFireAuth,
-    private getProfileService: GetprofileService,
-    private router: Router,
-    private ngZone: NgZone,
-    private http: HttpClient
-  ) {
-    // OBSERVER save user in localStorage (log-in) and setting up null when log-out
-    this.firebaseAuthenticationService.authState.subscribe((user) => {
-      if (user) {
-        this.userData = user;
-        const token = user?.getIdToken()
-        localStorage.setItem('user', JSON.stringify(this.userData));
-      } else {
-        localStorage.setItem('user', 'null');
-      }
-    })
-  }
+  /**
+   * Constructor del servicio de autenticación.
+   * @param router Servicio de enrutamiento.
+   * @param http Cliente HTTP para realizar solicitudes.
+   */
+  constructor(private router: Router,private http: HttpClient) {}
 
-  // log-in with email and password
+  /**
+   * Inicia sesión con correo electrónico y contraseña.
+   * @param email Correo electrónico del usuario.
+   * @param password Contraseña del usuario.
+   * @returns Una promesa que se resuelve con los datos del usuario autenticado.
+   */
   async logInWithEmailAndPassword(email: string, password: string): Promise<any> {
-    if (password === '1234') {
-      return Promise.reject({
-        httpStatus: 'UNAUTHORIZED',
-        message: 'Invalid username or password'
-      });
-    }
-
     const apiUrls = environment.apiUrls;
     const serverUrl = environment.serverUrl;
 
     try {
-      const response: any = await this.http.post(`${serverUrl}${apiUrls.login}`, { email, password }).toPromise();
-      console.log('login:', response);
-      localStorage.setItem('user', JSON.stringify(response));
-      sessionStorage.setItem('token', response.token);
-
-      const profile = await this.getProfileService.getUserProfile(email);
-      sessionStorage.setItem('profile', JSON.stringify(profile));
-      const { id, email: userCreator } = profile;
-      sessionStorage.setItem('userId', id);
-      sessionStorage.setItem('userCreator', userCreator);
-      const clients = Array.isArray(response.client) ? response.client : [response.client];
-
-      return { profile, clients };
+      const response: any = await this.http.post(
+        `${serverUrl}${apiUrls.login}`,
+        { email, password },
+      ).toPromise();
+      return response;
     } catch (error) {
       console.error('Error during login:', error);
       return Promise.reject(error);
     }
   }
 
-
-  // log-in with google
-  logInWithGoogleProvider() {
-    return this.firebaseAuthenticationService.signInWithPopup(new GoogleAuthProvider())
-      .then(() => this.observeUserState())
-      .catch((error: Error) => {
-        alert(error.message);
-      })
-  }
-
-  // sign-up with email and password
-  signUpWithEmailAndPassword(email: string, password: string) {
-    return this.firebaseAuthenticationService.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        this.userData = userCredential.user
-        this.observeUserState()
-      })
-      .catch((error) => {
-        alert(error.message);
-      })
-  }
-
-  observeUserState() {
-    this.firebaseAuthenticationService.authState.subscribe((userState) => {
-      userState && this.ngZone.run(() => this.router.navigate(['dashboard/stepper']))
-    })
-  }
-
-  // return true when user is logged in
-  get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null;
-  }
-
-
-
-  // logOut
+  /**
+   * Cierra la sesión del usuario.
+   */
   async logOut(): Promise<void> {
     const apiUrls = environment.apiUrls;
     const serverUrl = environment.serverUrl;
@@ -121,4 +68,14 @@ export class AuthService {
     }
   }
 
+  /**
+   * Verifica si el usuario está autenticado.
+   * @returns `true` si el usuario está autenticado, `false` en caso contrario.
+   * Este método es invocado por AuthGuard para verificar si el usuario está autenticado.
+   * Si no está autenticado, redirige al usuario a la página de inicio de sesión.
+   */
+  get isLoggedIn(): boolean {
+    const user = sessionStorage.getItem('user');
+    return user !== null;
+  }
 }

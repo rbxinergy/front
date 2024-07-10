@@ -57,9 +57,7 @@
     <input matInput formControlName="tag">
   </mat-form-field>
 
-  <mat-checkbox formControlName="isActive">Activo</mat-checkbox>
-
   <div *ngIf="showSaveBtn" class="btn-box">
-    <button mat-raised-button color="primary" [disabled]="clientForm.invalid" (click)="save()">Guardar</button>
+    <button mat-raised-button color="primary" [disabled]="clientForm.invalid || btnDisabled" (click)="save()">Guardar</button>
   </div>
 </form>
