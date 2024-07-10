@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 import { ClientSelectionDialogComponent } from '../client-selection-dialog/client-selection-dialog.component';
 
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -35,31 +34,28 @@ export class LoginComponent {
   async logIn(email: string, password: string) {
     try {
       const data = await this.authService.logInWithEmailAndPassword(email, password);
-      console.log("DATA LOGIN", data);
       sessionStorage.setItem('client', Array.isArray(data.client) ? JSON.stringify(data.client) : data.client);
       sessionStorage.setItem('company', Array.isArray(data.company) ? JSON.stringify(data.company) : data.company);
+      this.getProfile();
       if (Array.isArray(data.client)) {
         const dialogRef = this.dialog.open(ClientSelectionDialogComponent, {
           data: { clients: data.client }
         });
-  
         dialogRef.afterClosed().subscribe({
           next: (selectedClient) => {
             if (selectedClient) {
-              console.log("selectedClient", selectedClient);
+              sessionStorage.setItem('client', selectedClient);
             }
-            console.log("to dashboard after dialog");
             this.router.navigate(['/dashboard']);
           },
           error: (err) => {
             console.error('Error closing dialog:', err);
+            throw err;
           }
         });
       } else {
-        console.log("to dashboard");
-        this.router.navigate(['/dashboard']).then(() => {
-          window.location.reload();
-        });
+        sessionStorage.setItem('client', data.client);
+        this.router.navigate(['/dashboard']);
       }
     } catch (error) {
       this.dialog.open(MessagesModalComponent, {
@@ -69,5 +65,13 @@ export class LoginComponent {
         }
       });
     }
+  }
+
+  getProfile() {
+    this.authService.getProfile().then((data) => {
+      console.log("DATA PROFILE", data);
+    }).catch((error) => {
+      console.error('Error during getProfile:', error);
+    });
   }
 }

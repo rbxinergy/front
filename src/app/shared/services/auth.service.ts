@@ -10,16 +10,15 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
 
   userData: any;
+  apiUrls: any = environment.apiUrls;
+  serverUrl: any = environment.serverUrl;
 
   constructor(private router: Router, private http: HttpClient) { }
   
   async logInWithEmailAndPassword(email: string, password: string): Promise<any> {
-    const apiUrls = environment.apiUrls;
-    const serverUrl = environment.serverUrl;
-
     try {
       const response: any = await this.http.post(
-        `${serverUrl}${apiUrls.login}`,
+        `${this.serverUrl}${this.apiUrls.login}`,
         { email, password }
       ).toPromise();
       sessionStorage.setItem('user', response.email);
@@ -39,11 +38,8 @@ export class AuthService {
   }
 
   async logOut(): Promise<void> {
-    const apiUrls = environment.apiUrls;
-    const serverUrl = environment.serverUrl;
-
     try {
-      await this.http.delete(`${serverUrl}${apiUrls.logout}`, {}).toPromise();
+      await this.http.delete(`${this.serverUrl}${this.apiUrls.logout}`, {}).toPromise();
       localStorage.removeItem('user');
       sessionStorage.removeItem('groupDocument');
       sessionStorage.removeItem('userCreator');
@@ -54,6 +50,18 @@ export class AuthService {
       this.router.navigate(['login']);
     } catch (error) {
       console.error('Error during logout:', error);
+      return Promise.reject(error);
+    }
+  }
+
+  async getProfile() {
+    try {
+      // const user = sessionStorage.getItem('user');
+      const client = sessionStorage.getItem('client');
+      const company = sessionStorage.getItem('company');
+      return await this.http.get(`${this.serverUrl}${this.apiUrls.user}/get/${client}/${company}`).toPromise();
+    } catch (error) {
+      console.error('Error during getProfile:', error);
       return Promise.reject(error);
     }
   }
