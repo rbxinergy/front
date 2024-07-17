@@ -22,6 +22,9 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ClientDataService } from 'src/app/services/client-data.service'; 
 import { Client } from 'src/app/interfaces/client.interface';
+import { CompanyDataService } from 'src/app/services/company-data.service';
+import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
+import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.service';
 
 @Component({
   selector: 'app-company-table',
@@ -52,9 +55,14 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
 
   @Input() clientName: string;
   client: Client | null = null;
+  groupCompany: GroupCompany | null = null;
 
   constructor(private companyService: CompanyService, private cdr: ChangeDetectorRef,
-      private dialog: MatDialog, private clientDataService: ClientDataService) {}
+      private dialog: MatDialog, private clientDataService: ClientDataService, private groupCompanyDataService: GroupcompanyDataService) {
+        this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
+        this.client= this.clientDataService.getClientData();
+        console.log("datos: ", this.groupCompany, this.client)
+      }
 
   ngOnInit(): void {
     console.log('ngOnInit');
@@ -114,36 +122,69 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
       width: '600px',
       data: {}
     });
-  
+   
     dialogRef.afterClosed().subscribe({
       next: (newCompany: Company) => {
         if (newCompany) {
+          newCompany.idGroupCompany = this.groupCompany?.id;
+          newCompany.idClient = this.client?.id
+          console.log('newCompany', newCompany);
           this.companyService.createCompany(newCompany).subscribe({
             next: (response) => {
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
-                  data: { message: 'Compañía creada exitosamente.', type: 'success' }
+                  data: { message: 'Empresa creada exitosamente.', type: 'success' }
                 });
-                newCompany.id = (maxId + 1).toString();
                 this.companies.push(response.body);
                 this.dataSource.data = this.companies;
                 this.formCompanyTable.controls['tempControl'].setValue(response.body.name);
+                console.log('this.formGroupCompanyTable VALID', this.formCompanyTable);
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
-                  data: { message: 'Error al crear la compañía.', type: 'error' }
+                  data: { message: 'Error al crear la empresa.', type: 'error' }
                 });
               }
             },
             error: (error) => {
               this.dialog.open(MessagesModalComponent, {
                 width: '400px',
-                data: { message: 'Error al crear la compañía.', type: 'error' }
+                data: { message: 'Error al crear la empresa.', type: 'error' }
               });
             }
           });
         }
+        // if (newCompany) {
+        //   newCompany.idGroupCompany = this.groupCompany?.id;
+        //   newCompany.idClient = this.client?.id
+        //   console.log('newCompany', newCompany);
+        //   // this.companyService.createCompany(newCompany).subscribe({
+        //   //   next: (response) => {
+        //   //     if (response.status === 200) {
+        //   //       this.dialog.open(MessagesModalComponent, {
+        //   //         width: '400px',
+        //   //         data: { message: 'Compañía creada exitosamente.', type: 'success' }
+        //   //       });
+        //   //       newCompany.id = (maxId + 1).toString();
+        //   //       this.companies.push(response.body);
+        //   //       this.dataSource.data = this.companies;
+        //   //       this.formCompanyTable.controls['tempControl'].setValue(response.body.name);
+        //   //     } else {
+        //   //       this.dialog.open(MessagesModalComponent, {
+        //   //         width: '400px',
+        //   //         data: { message: 'Error al crear la compañía.', type: 'error' }
+        //   //       });
+        //   //     }
+        //   //   },
+        //   //   error: (error) => {
+        //   //     this.dialog.open(MessagesModalComponent, {
+        //   //       width: '400px',
+        //   //       data: { message: 'Error al crear la compañía.', type: 'error' }
+        //   //     });
+        //   //   }
+        //   // });
+        // }
       },
       error: (error) => {
         console.error('Error al abrir el modal de nueva empresa:', error);

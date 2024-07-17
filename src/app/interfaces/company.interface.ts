@@ -10,13 +10,12 @@ export interface Company {
   country: string;
   documentType: string;
   document: string;
-  isHeadquarters: boolean;
-  isBranch: boolean;
-  isActive: boolean;
-  isDelete: boolean;
-  created_date: Date;
-  modificated_date: Date;
+  headquarters: boolean;
+  branch?: boolean;
+  active?: boolean;
+  delete?: boolean;
   tag: string;
   idGroupCompany: string;
   idClient: string;
+  idContact?:string[]
 }

@@ -37,8 +37,7 @@ export class DomaincategoryComponent {
           id: new FormControl(data?.id || null, Validators.required),
           name: new FormControl(data?.name || ''),
           description: new FormControl(data?.description || '', Validators.required),
-          is_active: new FormControl(data?.is_active || true),
-          is_delete: new FormControl(data?.is_delete || false),
+          active: new FormControl(data?.active || true),
           tag: new FormControl(data?.tag || ''),
           idGroupCompany: new FormControl(data?.idGroupCompany || null, Validators.required),
         });

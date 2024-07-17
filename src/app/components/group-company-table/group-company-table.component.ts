@@ -22,6 +22,7 @@ import { ClientDataService } from 'src/app/services/client-data.service';
 import { Client } from 'src/app/interfaces/client.interface';
 import { GroupCompanyService } from 'src/app/services/groupcompany.service';
 import { GroupcompanyComponent } from '../groupcompany/groupcompany.component';
+import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.service';
 
 @Component({
   selector: 'app-group-company-table',
@@ -35,7 +36,7 @@ import { GroupcompanyComponent } from '../groupcompany/groupcompany.component';
     MatFormFieldModule, MatSortModule
   ]
 })
-export class GroupCompanyTableComponent implements OnInit, AfterViewInit {
+export class GroupCompanyTableComponent implements AfterViewInit {
   displayedColumns: string[] = [
     'id', 'name', 'description', 'tag', 'acciones'
   ];
@@ -54,23 +55,22 @@ export class GroupCompanyTableComponent implements OnInit, AfterViewInit {
   client: Client | null = null;
 
   constructor(private groupCompanyService: GroupCompanyService, private cdr: ChangeDetectorRef,
-      private dialog: MatDialog, private clientDataService: ClientDataService) {
+      private dialog: MatDialog, private clientDataService: ClientDataService, private groupCompanyDataService: GroupcompanyDataService) {
         this.client = this.clientDataService.getClientData();
         console.log('client', this.client);
       }
 
-  ngOnInit(): void {
-    console.log('ngOnInit');
-  }
+  // ngOnInit(): void {
+  //   console.log('ngOnInit');
+  // }
 
   ngAfterViewInit(): void {
     
   }
 
   loadClientData() {
-    // this.client = this.clientDataService.getClientData();
-    // console.log('client', this.client);
-    // this.loadGroups(this.client.name);
+    this.client = this.clientDataService.getClientData();
+    console.log('client de loadClient', this.client.id);
   }
 
   loadGroups(clientName: string) {
@@ -121,14 +121,15 @@ export class GroupCompanyTableComponent implements OnInit, AfterViewInit {
       next: (newGroupCompany: GroupCompany) => {
         console.log("NEW GROUP COMPANY:", newGroupCompany);
         if (newGroupCompany) {
-          newGroupCompany.id = this.client?.id;
+          newGroupCompany.idClient = this.client?.id;
           console.log('newGroupCompany', newGroupCompany);
           this.groupCompanyService.createGroupCompany(newGroupCompany).subscribe({
             next: (response) => {
               if (response.status === 200) {
+                this.groupCompanyDataService.setGroupCompanyData(response.body);
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
-                  data: { message: 'Compañía creada exitosamente.', type: 'success' }
+                  data: { message: 'Grupo creado exitosamente.', type: 'success' }
                 });
                 this.groupCompanies.push(response.body);
                 this.dataSource.data = this.groupCompanies;

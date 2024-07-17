@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../interfaces/user.interface';
@@ -26,9 +26,11 @@ export class UserService {
     return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/${id}`, {headers: this.headers});
   }
 
-  createUser(user: any): Observable<User> {
-    return this.http.post<User>(`${this.serverUrl}${this.apiUrl}/create`, user, {headers: this.headers});
+  createUser(user: User): Observable<HttpResponse<any> >{
+    return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/create`, {user}, { observe: 'response' });
   }
+
+
 
   updateUser(id: string, user: User): Observable<User> {
     return this.http.put<User>(`${this.serverUrl}${this.apiUrl}/update/${id}`, user, {headers: this.headers});

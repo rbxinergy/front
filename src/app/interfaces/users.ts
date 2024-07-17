@@ -10,15 +10,16 @@ export interface Users {
 export interface User{
     id: string,
     name: string,
-    passwd: string,
     lastName: string,
+    surename: string,
+    passwd: string,
+    documentType: string,
+    document: string,
+    email: string,
     isProvider: boolean,
     isClient: boolean,
     isUserCompany: boolean,
     jobTitle: string,
-    email: string,
-    documentType: string,
-    document: string,
     tag: string,
     idRole: string[]
 }

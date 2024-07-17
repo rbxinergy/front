@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Client } from '../interfaces/client.interface';
-import { ClientService } from './client.service';
 
 @Injectable({
   providedIn: 'root'

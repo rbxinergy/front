@@ -3,28 +3,30 @@
         <h2>Configuración de Empresa {{company.name}} </h2>
     </div>
     <!-- <mat-stepper>
+        <mat-step label="Roles">
+            <app-role-cfg-table></app-role-cfg-table>
+        </mat-step>
         <mat-step label="Usuarios">
             <app-users-table></app-users-table>
         </mat-step>
         <mat-step label="Dominios">
             <app-domain-table></app-domain-table>
         </mat-step>
-        <mat-step label="Roles">
-            <app-role-cfg-table></app-role-cfg-table>
-        </mat-step>
     </mat-stepper> -->
     <div>
         <mat-tab-group>
             <mat-tab label="Roles">
-                <app-role-cfg-table></app-role-cfg-table>
+                <app-role-cfg-table class="p-4"></app-role-cfg-table>
+            </mat-tab>
+            <mat-tab label="Crear Usuarios">
+                <app-user class="p-4"></app-user>
             </mat-tab>
             <mat-tab label="Usuarios">
-                <app-users-table></app-users-table>
+                <app-users-table class="p-4"></app-users-table>
             </mat-tab>
             <mat-tab label="Dominios">
-                <app-domain-table></app-domain-table>
-            </mat-tab>
-            
+                <app-domain-table class="p-4"></app-domain-table>
+            </mat-tab> 
         </mat-tab-group>
     </div>
 </div>

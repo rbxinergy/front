@@ -55,11 +55,11 @@ export class ClientComponent implements OnInit {
   }
 
   save() {
-    this.clientDataService.setClientData(this.clientForm.getRawValue() as unknown as Client);
     this.clientService.saveClient(this.clientForm.getRawValue() as unknown as Client).subscribe({
       next: (response) => {
         this.btnDisabled = true;
         if (response.status === 200) {
+          this.clientDataService.setClientData(response.body);
           this.dialog.open(MessagesModalComponent, {
             width: '400px',
             data: { message: 'Cliente creado exitosamente.', type: 'success' }

@@ -28,6 +28,7 @@ import { ServicecompanyComponent } from './components/servicecompany/servicecomp
 import { ResponsiveMenuComponent } from './components/dashboard/responsive-menu/responsive-menu.component';
 import { NewClientComponent } from './components/new-client/new-client.component';
 import { CompanyConfigComponent } from './components/company-config/company-config.component';
+import { CompanyTableComponent } from './components/company-table/company-table.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -40,6 +41,7 @@ const routes: Routes = [
       { title: 'Clientes', path: 'clients', component: ClientsComponent},
       { path: 'configs', component: ConfigsComponent},
       { path: 'company', component: CompanyComponent},
+      { path: 'company-table', component: CompanyTableComponent},
       { path: 'integrations', component: IntegrationsComponent},
       { path: 'roles', component: RolesComponent },
       { path: 'nav', component: ResponsiveMenuComponent },

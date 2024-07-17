@@ -27,17 +27,15 @@ export class ContactComponent {
   contactForm = new FormGroup({
     id: new FormControl('',Validators.required),
     name: new FormControl('',Validators.required),
-    last_name: new FormControl('',Validators.required),
+    lastName: new FormControl('',Validators.required),
     surname: new FormControl(''),
     email: new FormControl('',[Validators.required, Validators.email]),
     phone: new FormControl(''),
     cellphone: new FormControl(''),
-    job_title: new FormControl(''),
-    contact_type: new FormControl(''),
-    is_active: new FormControl(''),
-    is_delete: new FormControl(''),
-    created_date:new FormControl(''),
-    modificated_date: new FormControl(''),
+    jobTitle: new FormControl(''),
+    contactType: new FormControl(''),
+    active: new FormControl(''),
+    delete: new FormControl(''),
     tag: new FormControl('')
   });
 

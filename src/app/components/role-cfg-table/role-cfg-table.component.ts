@@ -36,7 +36,7 @@ import { MatDialog } from '@angular/material/dialog';
   ]
 })
 export class RoleCfgTableComponent {
-  displayedColumns: string[] = ['select', 'id', 'name', 'isCreate', 'isRead', 'isUpdate', 'isDelete'];
+  displayedColumns: string[] = ['select', 'id', 'name', 'isCreate', 'isList', 'isModify', 'isDelete'];
   dataSource = new MatTableDataSource<Role>();
   selection = new SelectionModel<Role>(true, []);
   client: string = sessionStorage.getItem('client') || '';
