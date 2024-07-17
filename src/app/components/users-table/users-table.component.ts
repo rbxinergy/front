@@ -17,7 +17,7 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
 import { UserDataService } from 'src/app/services/user-data.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { UserComponent } from '../user/user.component';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-users-table',
