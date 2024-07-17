@@ -18,7 +18,6 @@ import { RoleCfgTableComponent } from "../role-cfg-table/role-cfg-table.componen
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
-
 @Component({
     selector: 'app-company-config',
     templateUrl: './company-config.component.html',
@@ -39,8 +38,8 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
         DomainCategoryTableComponent,
         RoleCfgTableComponent,
         MatTabsModule,
-        MatProgressSpinnerModule
-    ]
+        MatProgressSpinnerModule,
+    ],
 })
 export class CompanyConfigComponent implements OnInit{
 
