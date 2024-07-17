@@ -44,6 +44,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 })
 export class CompanyConfigComponent implements OnInit{
 
+  clientId: string;
   companyId: string;
   company: Company | null = null; // Inicializa company como null
 
@@ -51,9 +52,10 @@ export class CompanyConfigComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.companyId = params['id'];
-      const companyParam = params['company'] || null;
-      this.loadCompanyData(this.companyId, companyParam);
+      this.clientId = params['client'];
+      this.companyId = params['company'] || null;
+      console.log('companyConfig', this.clientId, this.companyId);
+      this.loadCompanyData(this.clientId, this.companyId);
     });
   }
 

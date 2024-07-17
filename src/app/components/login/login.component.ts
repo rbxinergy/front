@@ -54,11 +54,9 @@ export class LoginComponent {
   async logIn(email: string, password: string) {
     try {
       const data = await this.authService.logInWithEmailAndPassword(email, password);
-      sessionStorage.setItem('user', data.email);
-      sessionStorage.setItem('token', data.token);
       sessionStorage.setItem('client', Array.isArray(data.client) ? JSON.stringify(data.client) : data.client);
       sessionStorage.setItem('company', Array.isArray(data.company) ? JSON.stringify(data.company) : data.company);
-
+      this.getProfile();
       if (Array.isArray(data.client)) {
         const dialogRef = this.dialog.open(ClientSelectionDialogComponent, {
           data: { clients: data.client }
@@ -70,7 +68,6 @@ export class LoginComponent {
               //** Guardar el cliente seleccionado en sessionStorage */
               sessionStorage.setItem('client', selectedClient);
             }
-            console.log("to dashboard after dialog");
             this.router.navigate(['/dashboard']);
           },
           error: (err) => {
@@ -89,5 +86,14 @@ export class LoginComponent {
         }
       });
     }
+  }
+
+  getProfile() {
+    this.authService.getProfile().then((data) => {
+      console.log("DATA PROFILE", data);
+      sessionStorage.setItem('profile', JSON.stringify(data));
+    }).catch((error) => {
+      console.error('Error during getProfile:', error);
+    });
   }
 }

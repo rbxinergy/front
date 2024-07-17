@@ -15,6 +15,8 @@ export class AuthService {
 
   /** Datos del usuario autenticado. */
   userData: any;
+  apiUrls: any = environment.apiUrls;
+  serverUrl: any = environment.serverUrl;
 
   /**
    * Constructor del servicio de autenticación.
@@ -30,13 +32,10 @@ export class AuthService {
    * @returns Una promesa que se resuelve con los datos del usuario autenticado.
    */
   async logInWithEmailAndPassword(email: string, password: string): Promise<any> {
-    const apiUrls = environment.apiUrls;
-    const serverUrl = environment.serverUrl;
-
     try {
       const response: any = await this.http.post(
-        `${serverUrl}${apiUrls.login}`,
-        { email, password },
+        `${this.serverUrl}${this.apiUrls.login}`,
+        { email, password }
       ).toPromise();
       return response;
     } catch (error) {
@@ -49,11 +48,8 @@ export class AuthService {
    * Cierra la sesión del usuario.
    */
   async logOut(): Promise<void> {
-    const apiUrls = environment.apiUrls;
-    const serverUrl = environment.serverUrl;
-
     try {
-      await this.http.delete(`${serverUrl}${apiUrls.logout}`, {}).toPromise();
+      await this.http.delete(`${this.serverUrl}${this.apiUrls.logout}`, {}).toPromise();
       localStorage.removeItem('user');
       sessionStorage.removeItem('groupDocument');
       sessionStorage.removeItem('userCreator');
@@ -77,5 +73,22 @@ export class AuthService {
   get isLoggedIn(): boolean {
     const user = sessionStorage.getItem('user');
     return user !== null;
+  }
+
+  async getProfile() {
+    try {
+      // const user = sessionStorage.getItem('user');
+      const client = sessionStorage.getItem('client');
+      const company = sessionStorage.getItem('company');
+      //return await this.http.get(`${this.serverUrl}${this.apiUrls.user}/get/${client}/${company}`).toPromise();
+      return {
+        firstName: "Armin",
+        lastName: "Vera",
+        email: "armin.vera@gmail.com",
+      }
+    } catch (error) {
+      console.error('Error during getProfile:', error);
+      return Promise.reject(error);
+    }
   }
 }

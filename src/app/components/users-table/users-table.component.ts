@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UserService } from '../../services/user.service';
@@ -45,23 +45,16 @@ export class UsersTableComponent {
 
   selection = new SelectionModel<User>(true, []);
   client: string = sessionStorage.getItem('client') || '';
-
   formUserTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
   });
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  @Input() companyId: string = '';
 
-
-
-
-
-  constructor(private userService: UserService,  private cdr: ChangeDetectorRef,
-    private dialog: MatDialog, private userDataService: UserDataService) {
-    // this.userService.getUsers(this.users, 'user').subscribe((users: User[]) => {
-    //   this.dataSource.data = users;
-    // });
+  constructor(private userService: UserService, public dialog: MatDialog) {
+    this.userService.getUsers(this.client).subscribe((users: User[]) => {
+      this.dataSource.data = users;
+    });
   }
 
   isAllSelected() {
@@ -143,159 +136,5 @@ export class UsersTableComponent {
           });
         }
       });
-    // for (const user of this.selection.selected) {
-    //   this.userService.createUser(user).subscribe((res: any) => {
-    //     console.log(res);
-    //   });
-    // }
   }
-
-
-    // REVISAR
-  // openNewCompanyModal() {
-  //   const maxId = this.companies.length > 0 ? Math.max(...this.companies.map(company => parseInt(company.id))) : 0;
-  //   const dialogRef = this.dialog.open(CompanyComponent, {
-  //     width: '600px',
-  //     data: {}
-  //   });
-  
-  //   dialogRef.afterClosed().subscribe({
-  //     next: (newCompany: Company) => {
-  //       if (newCompany) {
-  //         this.companyService.createCompany(newCompany).subscribe({
-  //           next: (response) => {
-  //             if (response.status === 200) {
-  //               this.dialog.open(MessagesModalComponent, {
-  //                 width: '400px',
-  //                 data: { message: 'Compañía creada exitosamente.', type: 'success' }
-  //               });
-  //               newCompany.id = (maxId + 1).toString();
-  //               this.companies.push(response.body);
-  //               this.dataSource.data = this.companies;
-  //               this.formCompanyTable.controls['tempControl'].setValue(response.body.name);
-  //             } else {
-  //               this.dialog.open(MessagesModalComponent, {
-  //                 width: '400px',
-  //                 data: { message: 'Error al crear la compañía.', type: 'error' }
-  //               });
-  //             }
-  //           },
-  //           error: (error) => {
-  //             this.dialog.open(MessagesModalComponent, {
-  //               width: '400px',
-  //               data: { message: 'Error al crear la compañía.', type: 'error' }
-  //             });
-  //           }
-  //         });
-  //       }
-  //     },
-  //     error: (error) => {
-  //       console.error('Error al abrir el modal de nueva empresa:', error);
-  //       this.dialog.open(MessagesModalComponent, {
-  //         width: '400px',
-  //         data: { message: 'Error al cerrar el diálogo.', type: 'error' }
-  //       });
-  //     }
-  //   });
-  // }
-  
-  // openEditCompanyModal(company: Company) {
-  //   console.log(company)
-  //   this.selectedCompany = { ...company };
-  //   const dialogRef = this.dialog.open(CompanyComponent, {
-  //     width: '600px',
-  //     data: this.selectedCompany
-  //   });
-
-  //   dialogRef.afterClosed().subscribe({
-  //     next: (updatedCompany: Company) => {
-  //       if (updatedCompany) {
-  //         this.companyService.updateCompany(updatedCompany).subscribe({
-  //           next: (response) => {
-  //             if (response.status === 200) {
-  //               this.dialog.open(MessagesModalComponent, {
-  //                 width: '500px',
-  //                 data: { message: 'Empresa actualizada exitosamente.', type: 'success' }
-  //               });
-  //               const index = this.companies.findIndex(c => c.id === updatedCompany.id);
-  //               if (index !== -1) {
-  //                 this.companies[index] = response.body;
-  //                 this.dataSource.data = this.companies;
-  //               }
-  //             } else {
-  //               this.dialog.open(MessagesModalComponent, {
-  //                 width: '500px',
-  //                 data: { message: 'Error al actualizar la empresa.', type: 'error' }
-  //               });
-  //             }
-  //           },
-  //           error: (error) => {
-  //             this.dialog.open(MessagesModalComponent, {
-  //               width: '500px',
-  //               data: { message: 'Error al actualizar la empresa.', type: 'error' }
-  //             });
-  //           }
-  //         });
-  //       }
-  //     },
-  //     error: (error) => {
-  //       this.dialog.open(MessagesModalComponent, {
-  //         width: '500px',
-  //         data: { message: 'Error al cerrar el diálogo.', type: 'error' }
-  //       });
-  //     }
-  //   });
-  // }
-
-  // openDeleteCompanyModal(company: Company) {
-  //   const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-  //     width: '400px',
-  //     data: {
-  //       title: 'Confirmar eliminación',
-  //       message: `¿Está seguro de que deseas eliminar la compañía ${company.name}?`,
-  //       type: 'error'
-  //     }
-  //   });
-
-  //   dialogRef.afterClosed().subscribe({
-  //     next: (result) => {
-  //       if (result) {
-  //         this.companyService.deleteCompany(company.id).subscribe({
-  //           next: (response) => {
-  //             console.log('response', response.body);
-  //             if (response.status === 200) {
-  //               this.dialog.open(MessagesModalComponent, {
-  //                 width: '500px',
-  //                 data: { message: 'Compañía eliminada exitosamente.', type: 'success' }
-  //               });
-  //               console.log('company', company);
-  //               this.companies = this.companies.filter(c => c.id !== company.id);
-  //               if(this.companies.length === 0){
-  //                 this.formCompanyTable.controls['tempControl'].setValue(null);
-  //               }
-  //               this.dataSource.data = this.companies;
-  //             } else {
-  //               this.dialog.open(MessagesModalComponent, {
-  //                 width: '500px',
-  //                 data: { message: 'Error al eliminar la compañía.', type: 'error' }
-  //               });
-  //             }
-  //           },
-  //           error: (error) => {
-  //             this.dialog.open(MessagesModalComponent, {
-  //               width: '500px',
-  //               data: { message: 'Error al eliminar la compañía.', type: 'error' }
-  //             });
-  //           }
-  //         });
-  //       }
-  //     },
-  //     error: (error) => {
-  //       this.dialog.open(MessagesModalComponent, {
-  //         width: '500px',
-  //         data: { message: 'Error al cerrar el diálogo.', type: 'error' }
-  //       });
-  //     }
-  //   });
-  // }
 }
