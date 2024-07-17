@@ -70,6 +70,7 @@ export class LoginComponent {
   getProfile() {
     this.authService.getProfile().then((data) => {
       console.log("DATA PROFILE", data);
+      sessionStorage.setItem('profile', JSON.stringify(data));
     }).catch((error) => {
       console.error('Error during getProfile:', error);
     });

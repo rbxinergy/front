@@ -59,7 +59,12 @@ export class AuthService {
       // const user = sessionStorage.getItem('user');
       const client = sessionStorage.getItem('client');
       const company = sessionStorage.getItem('company');
-      return await this.http.get(`${this.serverUrl}${this.apiUrls.user}/get/${client}/${company}`).toPromise();
+      //return await this.http.get(`${this.serverUrl}${this.apiUrls.user}/get/${client}/${company}`).toPromise();
+      return {
+        firstName: "Armin",
+        lastName: "Vera",
+        email: "armin.vera@gmail.com",
+      }
     } catch (error) {
       console.error('Error during getProfile:', error);
       return Promise.reject(error);

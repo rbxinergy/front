@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UserService } from '../../services/user.service';
@@ -33,9 +33,10 @@ export class UsersTableComponent {
   dataSource = new MatTableDataSource<User>();
   selection = new SelectionModel<User>(true, []);
   client: string = sessionStorage.getItem('client') || '';
+  @Input() companyId: string = '';
 
   constructor(private userService: UserService) {
-    this.userService.getUsers(this.client, 'company').subscribe((users: User[]) => {
+    this.userService.getUsers(this.client).subscribe((users: User[]) => {
       this.dataSource.data = users;
     });
   }

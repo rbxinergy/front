@@ -18,8 +18,12 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers(client: any, company: any): Observable<User[]> {
-    return this.http.get<User[]>(`${this.serverUrl}${this.apiUrl}/get/${client}/${company}`, {headers: this.headers});
+  getUsers(client: any, company?: any): Observable<User[]> {
+    if (company) {
+      return this.http.get<User[]>(`${this.serverUrl}${this.apiUrl}/get/${client}/${company}`, {headers: this.headers});
+    } else {
+      return this.http.get<User[]>(`${this.serverUrl}${this.apiUrl}/get/${client}`, {headers: this.headers});
+    }
   }
 
   getUserById(id: string): Observable<User> {

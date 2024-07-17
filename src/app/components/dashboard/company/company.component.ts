@@ -7,7 +7,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { Companies } from 'src/app/interfaces/companies'
+import { Company } from 'src/app/interfaces/company.interface'
 import { EditComponent } from './edit/edit.component';
 import { DeleteComponent } from './delete/delete.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -32,44 +32,52 @@ import { Router } from '@angular/router';
 })
 export class CompanyComponent implements AfterViewInit {
   isLoading = true
-  companies:Companies[] = []
+  companies: Company[] = []
   checked = false
   companiesTableColumns: string[] = [
     'name', 'documentType', 'documentNumber', 'status', 'acciones'
   ];
+  client: string = sessionStorage.getItem('client') || '';
+  dataSource = new MatTableDataSource<Company>();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   
-  dataSource = new MatTableDataSource<Companies>();
-  
-  constructor(private companyService: CompanyService, public dialog: MatDialog, private router: Router){
+  constructor(private companyService: CompanyService, public dialog: MatDialog,
+    private router: Router){
     this.getCompanies()
   }
+
   getCompanies(){
-    this.companyService.getCompaniesByGroup('client').subscribe((data: any) => {
+    this.companyService.getCompaniesByGroup(this.client).subscribe((data: any) => {
       this.companies = data;
       this.isLoading = false;
       this.dataSource.data = data
       console.log("Companies", this.dataSource.data)
     })
   }
+
   openEdit(id:number){
     const result: any[] = this.companies.filter((company:any) => company.id === id);
     this.dialog.open(EditComponent, { 
       data: result[0]
     }) 
   }
+
   openDelete(id:number){
     const result: any[] = this.companies.filter((company:any) => company.id === id);
     this.dialog.open(DeleteComponent, { 
       data: result[0]
     }) 
   }
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
+
   openConfig(client: string, company?: string) {
+    company === null ? company = '2f32cc26-a28f-486b-91e1-4906832aa885' : company = '';
     if (company) {
+      console.log('openConfig', client, company);
       this.router.navigate(['/dashboard/company-config', client, company]);
     } else {
       this.router.navigate(['/dashboard/company-config', client]);
