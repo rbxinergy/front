@@ -10,8 +10,4 @@ export class SignUpComponent {
   constructor(private authService: AuthService) {
 
   }
-
-  signUp(email: string, password: string) {
-    this.authService.signUpWithEmailAndPassword(email, password);
-  }
 }

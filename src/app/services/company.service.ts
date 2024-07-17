@@ -6,6 +6,7 @@ import { clients, companies } from '../shared/dummy-data/client-company.dummy';
 import { Company } from '../interfaces/company.interface';
 import { ClientDataService } from './client-data.service';
 import { ServiceCompany } from '../interfaces/servicecompany.interface';
+import { GroupcompanyDataService } from './groupcompany-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +18,16 @@ export class CompanyService {
 
   token = sessionStorage.getItem('token')
   client: any;
+  groupCompany: any
   headers = new HttpHeaders({
     'Authorization': 'Bearer ' +  this.token,
     'cache-control': 'no-cache'
   })
 
-  constructor(private http: HttpClient, private clientDataService: ClientDataService) { 
+  constructor(private http: HttpClient, private clientDataService: ClientDataService, private groupCompanyDataService: GroupcompanyDataService) { 
     this.groupDocument = sessionStorage?.getItem('groupDocument') || '0';
     this.client = this.clientDataService.getClientData();
+    this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
     console.log(this.client);
   }
 
@@ -50,13 +53,15 @@ export class CompanyService {
   }
 
   getCompaniesByGroup(client: any){
+    console.log('getCompaniesByGroup', client);
     const params = new HttpParams({
       fromString: 'group=' + this.groupDocument + '&option=2'
     });
-    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/cliente1`, { headers: this.headers})
+    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/${client}`, { headers: this.headers})
   }
 
   getCompany(client: string, company: string) {
+    console.log('getCompany', client, company);
     return this.http.get<Company>(`${this.serverUrl}${this.apiUrls.company}/get/${client}/${company}`, { headers: this.headers})
   }
 
@@ -66,8 +71,10 @@ export class CompanyService {
   }
 
   createCompany(company: Company): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.serverUrl}${this.apiUrls.company}/create`, {company}, { observe: 'response' });
+    console.log(company)
+    return this.http.post<any>(`${this.serverUrl}${this.apiUrls.company}/create`, company, { observe: 'response' });
   }
+
 
   updateCompany(company: Company): Observable<HttpResponse<any>> {
     return this.http.put<any>(`${this.serverUrl}${this.apiUrls.company}/update`, {company}, { observe: 'response' });

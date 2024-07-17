@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, lastValueFrom, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Client } from '../interfaces/client.interface';
 import { HttpResponse } from '@angular/common/http';
@@ -10,7 +10,6 @@ import { HttpResponse } from '@angular/common/http';
 })
 export class ClientService {
   
-  
   constructor(private http: HttpClient) {  }
 
   token = sessionStorage.getItem('token')
@@ -19,11 +18,6 @@ export class ClientService {
     'cache-control': 'no-cache'
   })
 
-  // async getClient():Promise<any>{
-  //   const url = 'https://get-clients-ehqivncgha-uc.a.run.app/get-clients/api/get-clients'
-  //   const getClient = this.http.get<any>(url, { headers: this.headers })
-  //   return await lastValueFrom(getClient)  
-  // }
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -39,40 +33,10 @@ export class ClientService {
   }
 
   saveClient(form: any): Observable<HttpResponse<Client>>{
-    // this.getClient()
     const apiUrl = environment.apiUrls.client
     const serverUrl = environment.serverUrl
-    
-    const body = { 
-      "name": form.name,
-      "documentNumber": form.documentNumber,
-      "documentType": form.documentType,
-      "phone": form.phone,
-      "email": form.email,
-      "groupDocument": form.documentNumber  ,
-      "address":form.address,
-      "cityId": parseInt(form.cityId),
-      "stateId": parseInt(form.stateId),
-      "countryId": parseInt(form.countryId),
-      "clientName": form.clientName,
-      "isGroup": true
-    }
 
-    return this.http.post<Client>(`${serverUrl}${apiUrl}/create`, body, { headers: this.headers, observe: 'response' });
-    // guardo el documentNumber y se lo paso al domains.service para poder guardar el postDomain
-    // const id = form.documentNumber
-    // console.log(id)
-    // sessionStorage.setItem('groupDocument', id)
-  
-
-    // const postClient = this.http.post<any>(url, body, { headers: this.headers }).pipe(
-    //   catchError(this.handleError)
-    // );
-
-    // return await lastValueFrom(postClient)  
-  
+    return  this.http.post<Client>(`${serverUrl}${apiUrl}/create`, form, { headers: this.headers, observe: 'response' });
   }
- 
-
 
 }

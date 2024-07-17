@@ -1,0 +1,806 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>xr-backoffice documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">xr-backoffice documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  StepperComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/dashboard/stepper/stepper.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-stepper</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatTableModule</code>
+                            <code>MatButtonModule</code>
+                                <code><a href="../modules/StepperModule.html" target="_self" >MatStepperModule</a></code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatSelectModule</code>
+                            <code>MatDividerModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>MatRadioModule</code>
+                            <code>CommonModule</code>
+                                <code><a href="../components/ClientComponent.html" target="_self" >ClientComponent</a></code>
+                                <code><a href="../components/DomainsComponent.html" target="_self" >DomainsComponent</a></code>
+                                <code><a href="../components/CompanyComponent.html" target="_self" >CompanyComponent</a></code>
+                                <code><a href="../components/UsersComponent.html" target="_self" >UsersComponent</a></code>
+                            <code>TranslateModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./stepper.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./stepper.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#clientForm" >clientForm</a>
+                            </li>
+                            <li>
+                                <a href="#companyForm" >companyForm</a>
+                            </li>
+                            <li>
+                                <a href="#domainsForm" >domainsForm</a>
+                            </li>
+                            <li>
+                                <a href="#isLinear" >isLinear</a>
+                            </li>
+                            <li>
+                                <a href="#usersForm" >usersForm</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(_formBuilder: FormBuilder)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/components/dashboard/stepper/stepper.component.ts:68</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_formBuilder</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clientForm"></a>
+                    <span class="name">
+                        <span ><b>clientForm</b></span>
+                        <a href="#clientForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this._formBuilder.group({
+    client: [&#x27;&#x27;, Validators.required],
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/components/dashboard/stepper/stepper.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="companyForm"></a>
+                    <span class="name">
+                        <span ><b>companyForm</b></span>
+                        <a href="#companyForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this._formBuilder.group({
+    domain: [&#x27;&#x27;, Validators.required],
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/components/dashboard/stepper/stepper.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="domainsForm"></a>
+                    <span class="name">
+                        <span ><b>domainsForm</b></span>
+                        <a href="#domainsForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this._formBuilder.group({
+    company: [&#x27;&#x27;, Validators.required],
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/components/dashboard/stepper/stepper.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLinear"></a>
+                    <span class="name">
+                        <span ><b>isLinear</b></span>
+                        <a href="#isLinear"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/components/dashboard/stepper/stepper.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usersForm"></a>
+                    <span class="name">
+                        <span ><b>usersForm</b></span>
+                        <a href="#usersForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this._formBuilder.group({
+    fourthCtrl: [&#x27;&#x27;, Validators.required],
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/components/dashboard/stepper/stepper.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import {FormBuilder, Validators, FormsModule, ReactiveFormsModule, NgForm, FormControl, FormGroupDirective} from &#x27;@angular/forms&#x27;;
+import {MatInputModule} from &#x27;@angular/material/input&#x27;;
+import {MatFormFieldModule} from &#x27;@angular/material/form-field&#x27;;
+import {MatStepperModule} from &#x27;@angular/material/stepper&#x27;;
+import {MatButtonModule} from &#x27;@angular/material/button&#x27;;
+import {MatSelectModule } from &#x27;@angular/material/select&#x27;;
+import { MatDividerModule } from &#x27;@angular/material/divider&#x27;;
+import {ErrorStateMatcher} from &#x27;@angular/material/core&#x27;;
+import {MatRadioModule} from &#x27;@angular/material/radio&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import {MatTableModule} from &#x27;@angular/material/table&#x27;;
+import { ClientComponent } from &#x27;./client/client.component&#x27;;
+import { DomainsComponent } from &#x27;./domains/domains.component&#x27;;
+import { CompanyComponent } from &#x27;./company/company.component&#x27;;
+import { UsersComponent } from &#x27;./users/users.component&#x27;;
+import { TranslateModule } from &#x27;@ngx-translate/core&#x27;;
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted &#x3D; form &amp;&amp; form.submitted;
+    return !!(control &amp;&amp; control.invalid &amp;&amp; (control.dirty || control.touched || isSubmitted));
+  }
+}
+
+@Component({
+  selector: &#x27;app-stepper&#x27;,
+  templateUrl: &#x27;./stepper.component.html&#x27;,
+  styleUrls: [&#x27;./stepper.component.css&#x27;],
+  standalone: true,
+  imports: [
+    MatTableModule,
+    MatButtonModule,
+    MatStepperModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDividerModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+    CommonModule, 
+    ClientComponent,
+    DomainsComponent,
+    CompanyComponent,
+    UsersComponent,
+    TranslateModule
+  ],
+
+})
+export class StepperComponent {
+
+  clientForm &#x3D; this._formBuilder.group({
+    client: [&#x27;&#x27;, Validators.required],
+  });
+  companyForm &#x3D; this._formBuilder.group({
+    domain: [&#x27;&#x27;, Validators.required],
+  });
+  domainsForm &#x3D; this._formBuilder.group({
+    company: [&#x27;&#x27;, Validators.required],
+  });
+  usersForm &#x3D; this._formBuilder.group({
+    fourthCtrl: [&#x27;&#x27;, Validators.required],
+  });
+
+  isLinear &#x3D; false;
+
+  constructor(private _formBuilder: FormBuilder ) {}
+
+  // selected &#x3D; &#x27;&#x27;;
+  // documento &#x3D; &#x27;rut&#x27;;
+
+  // show &#x3D; false
+  
+  // client:string &#x3D; &#x27;&#x27;
+  // domain:string &#x3D; &#x27;&#x27;
+  // domainDescription:string &#x3D; &#x27;&#x27;
+ 
+  
+  // showTable: boolean &#x3D; false
+  // onDomainCreate(client:string, domain: string, domainDescription:string){
+  //   this.showTable &#x3D; true
+  // }
+  // saveDomain (paso: number,client:string, domain: string, domainDescription:string){
+
+  // }
+  // company &#x3D; &#x27;&#x27;
+  // document &#x3D; null
+  // country &#x3D; &#x27;&#x27;
+  // city &#x3D; &#x27;&#x27;
+
+  // showNewRol: boolean &#x3D; false
+  // showSelectRol: boolean &#x3D; false
+  // newRolChanged($event: {  value: number; }){
+  //   console.log( $event.value);
+  //   if($event.value &#x3D;&#x3D; 3){
+  //       this.showNewRol &#x3D; !this.showNewRol;
+  //       this.showSelectRol &#x3D; false ;
+  //   } else if ($event.value &#x3D;&#x3D; 4) {
+  //     this.showSelectRol &#x3D; !this.showSelectRol ;
+  //     this.showNewRol &#x3D; false;
+  //   }
+  // }
+  // saveCompany(company: string, document:number,client:string, country:string, city:string){
+  //   this.show &#x3D; true
+  // }
+
+  // emailFormControl &#x3D; new FormControl(&#x27;&#x27;, [Validators.required, Validators.email]);
+
+  // matcher &#x3D; new MyErrorStateMatcher();
+
+  // companies:any
+  
+  // onStepChange(event:any){
+  //   if (event.selectedIndex &#x3D;&#x3D; 3 ) {
+      
+  //   }
+    
+  // }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h2&gt;{{&quot;client.newclient&quot;| translate}}&lt;/h2&gt;
+&lt;div&gt;
+  &lt;mat-stepper orientation&#x3D;&quot;vertical&quot; [linear]&#x3D;&quot;isLinear&quot; #stepper&gt;
+    
+    &lt;mat-step [stepControl]&#x3D;&quot;clientForm&quot; label&#x3D;&quot;Ingrese información del cliente&quot;&gt;
+      &lt;app-client class&#x3D;&quot;p-4&quot;&gt;&lt;/app-client&gt;
+    &lt;/mat-step&gt;
+
+    &lt;mat-step [stepControl]&#x3D;&quot;domainsForm&quot; label&#x3D;&quot;Agregue dominios&quot;&gt;
+      &lt;ng-template matStepContent&gt;
+        &lt;app-domains class&#x3D;&quot;p-4&quot;&gt;&lt;/app-domains&gt;
+      &lt;/ng-template&gt;
+    &lt;/mat-step&gt;
+
+    &lt;mat-step [stepControl]&#x3D;&quot;companyForm&quot; label&#x3D;&quot;Ingrese información de las empresas&quot;&gt;
+      &lt;app-company class&#x3D;&quot;p-4&quot;&gt;&lt;/app-company&gt;
+    &lt;/mat-step&gt;
+
+    &lt;mat-step [stepControl]&#x3D;&quot;usersForm&quot; label&#x3D;&quot;Ingrese usuarios&quot; &gt;
+      &lt;ng-template matStepContent&gt;
+        &lt;app-users class&#x3D;&quot;p-4&quot;&gt;&lt;/app-users&gt;
+      &lt;/ng-template&gt;
+    &lt;/mat-step&gt;
+    
+    &lt;!-- &lt;mat-step [stepControl]&#x3D;&quot;sixthFormGroup&quot; label&#x3D;&quot;Ingrese/Seleccione Roles&quot;&gt;
+        &lt;mat-radio-group aria-label&#x3D;&quot;Select an option&quot; (change)&#x3D;&quot;newRolChanged($event)&quot;&gt;
+            &lt;mat-radio-button value&#x3D;&quot;3&quot;&gt;Crear nuevo rol&lt;/mat-radio-button&gt;
+            &lt;mat-radio-button value&#x3D;&quot;4&quot;&gt;Selecionar rol existente&lt;/mat-radio-button&gt;
+        &lt;/mat-radio-group&gt;
+        &lt;form [formGroup]&#x3D;&quot;sixthFormGroup&quot; *ngIf&#x3D;&quot;showNewRol&quot;&gt;
+            &lt;mat-form-field&gt;
+            &lt;mat-label&gt;Nombre de rol&lt;/mat-label&gt;
+            &lt;input matInput formControlName&#x3D;&quot;sixthCtrl&quot; placeholder&#x3D;&quot;Escribe un nombre&quot; required&gt;
+            &lt;/mat-form-field&gt;
+            &lt;br&gt;
+            &lt;mat-form-field&gt;
+            &lt;mat-label&gt;Nombre de empresa&lt;/mat-label&gt;
+            &lt;input matInput formControlName&#x3D;&quot;sixthCtrl&quot; placeholder&#x3D;&quot;Escribe un nombre&quot; required&gt;
+            &lt;/mat-form-field&gt;
+            &lt;br&gt;
+            &lt;mat-form-field&gt;
+            &lt;mat-label&gt;Niveles de acceso&lt;/mat-label&gt;
+            &lt;input matInput formControlName&#x3D;&quot;sixthCtrl&quot; placeholder&#x3D;&quot;Escribe un cargo&quot; required&gt;
+            &lt;/mat-form-field&gt;
+            &lt;br&gt;
+            &lt;mat-form-field&gt;
+            &lt;mat-label&gt;Email&lt;/mat-label&gt;
+            &lt;input type&#x3D;&quot;email&quot; matInput formControlName&#x3D;&quot;sixthCtrl&quot; [formControl]&#x3D;&quot;emailFormControl&quot; [errorStateMatcher]&#x3D;&quot;matcher&quot;
+                placeholder&#x3D;&quot;Ex. pat@example.com&quot;&gt;
+            &lt;/mat-form-field&gt;
+            &lt;br&gt;
+            &lt;div&gt;
+            &lt;button mat-button matStepperPrevious&gt;Atrás&lt;/button&gt;
+            &lt;button mat-raised-button color&#x3D;&quot;primary&quot;&gt;Guardar&lt;/button&gt;
+            &lt;button mat-button matStepperNext&gt;Siguiente&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+        &lt;form [formGroup]&#x3D;&quot;seventhFormGroup&quot; *ngIf&#x3D;&quot;showSelectRol&quot;&gt;
+            &lt;mat-form-field&gt;
+                &lt;mat-label&gt;Usuario&lt;/mat-label&gt;
+                &lt;mat-select [(value)]&#x3D;&quot;documento&quot; formControlName&#x3D;&quot;sevenCtrl&quot; placeholder&#x3D;&quot;Seleccione usuario&quot; required&gt;
+                  &lt;mat-option value&#x3D;&quot;1&quot;&gt;Paulina Ceballos&lt;/mat-option&gt;
+                  &lt;mat-option value&#x3D;&quot;2&quot;&gt;Armin Vera&lt;/mat-option&gt;
+                &lt;/mat-select&gt;
+            &lt;/mat-form-field&gt;
+            &lt;div&gt;
+                &lt;button mat-button matStepperPrevious&gt;Atrás&lt;/button&gt;
+                &lt;button mat-raised-button color&#x3D;&quot;primary&quot;&gt;Guardar&lt;/button&gt;
+                &lt;button mat-button matStepperNext&gt;Siguiente&lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+    &lt;/mat-step&gt; --&gt;
+
+    &lt;!-- &lt;mat-step&gt;
+      &lt;ng-template matStepLabel&gt;Terminado&lt;/ng-template&gt;
+      &lt;p&gt;Todos los pasos han sido completados&lt;/p&gt;
+      &lt;div&gt;
+        &lt;button mat-button matStepperPrevious&gt;Atrás&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/mat-step&gt; --&gt;
+  &lt;/mat-stepper&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./stepper.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+  /* .mat-mdc-form-field {
+    margin-top: 16px;
+  }
+  .mat-step-header:hover:not([aria-disabled]),.mat-step-header:hover[aria-disabled&#x3D;false]{
+    background-color: blueviolet !important;
+  }
+  .mat-mdc-form-field{
+    margin-right: 10px !important;
+  }     */
+
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  .card{
+    margin: 20px 0;
+    border: 1px solid #ab84d8;
+    padding: 2rem;
+    border-radius: .5rem;
+  }
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h2>{{"client.newclient"| translate}}</h2><div>  <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>        <mat-step [stepControl]="clientForm" label="Ingrese información del cliente">      <app-client class="p-4"></app-client>    </mat-step>    <mat-step [stepControl]="domainsForm" label="Agregue dominios">      <ng-template matStepContent>        <app-domains class="p-4"></app-domains>      </ng-template>    </mat-step>    <mat-step [stepControl]="companyForm" label="Ingrese información de las empresas">      <app-company class="p-4"></app-company>    </mat-step>    <mat-step [stepControl]="usersForm" label="Ingrese usuarios" >      <ng-template matStepContent>        <app-users class="p-4"></app-users>      </ng-template>    </mat-step>        <!-- <mat-step [stepControl]="sixthFormGroup" label="Ingrese/Seleccione Roles">        <mat-radio-group aria-label="Select an option" (change)="newRolChanged($event)">            <mat-radio-button value="3">Crear nuevo rol</mat-radio-button>            <mat-radio-button value="4">Selecionar rol existente</mat-radio-button>        </mat-radio-group>        <form [formGroup]="sixthFormGroup" *ngIf="showNewRol">            <mat-form-field>            <mat-label>Nombre de rol</mat-label>            <input matInput formControlName="sixthCtrl" placeholder="Escribe un nombre" required>            </mat-form-field>            <br>            <mat-form-field>            <mat-label>Nombre de empresa</mat-label>            <input matInput formControlName="sixthCtrl" placeholder="Escribe un nombre" required>            </mat-form-field>            <br>            <mat-form-field>            <mat-label>Niveles de acceso</mat-label>            <input matInput formControlName="sixthCtrl" placeholder="Escribe un cargo" required>            </mat-form-field>            <br>            <mat-form-field>            <mat-label>Email</mat-label>            <input type="email" matInput formControlName="sixthCtrl" [formControl]="emailFormControl" [errorStateMatcher]="matcher"                placeholder="Ex. pat@example.com">            </mat-form-field>            <br>            <div>            <button mat-button matStepperPrevious>Atrás</button>            <button mat-raised-button color="primary">Guardar</button>            <button mat-button matStepperNext>Siguiente</button>            </div>        </form>        <form [formGroup]="seventhFormGroup" *ngIf="showSelectRol">            <mat-form-field>                <mat-label>Usuario</mat-label>                <mat-select [(value)]="documento" formControlName="sevenCtrl" placeholder="Seleccione usuario" required>                  <mat-option value="1">Paulina Ceballos</mat-option>                  <mat-option value="2">Armin Vera</mat-option>                </mat-select>            </mat-form-field>            <div>                <button mat-button matStepperPrevious>Atrás</button>                <button mat-raised-button color="primary">Guardar</button>                <button mat-button matStepperNext>Siguiente</button>            </div>        </form>    </mat-step> -->    <!-- <mat-step>      <ng-template matStepLabel>Terminado</ng-template>      <p>Todos los pasos han sido completados</p>      <div>        <button mat-button matStepperPrevious>Atrás</button>      </div>    </mat-step> -->  </mat-stepper></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'ClientsComponent', 'selector': 'app-clients'},{'name': 'ClientSelectionDialogComponent', 'selector': 'app-client-selection-dialog'},{'name': 'CompanyComponent', 'selector': 'app-company'},{'name': 'CompanyComponent', 'selector': 'app-company'},{'name': 'CompanyComponent', 'selector': 'app-company'},{'name': 'CompanyConfigComponent', 'selector': 'app-company-config'},{'name': 'CompanyTableComponent', 'selector': 'app-company-table'},{'name': 'ConfigsComponent', 'selector': 'app-domains'},{'name': 'ConfirmDialogComponent', 'selector': 'app-confirm-dialog'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'ContactServiceCompanyComponent', 'selector': 'app-contact-service-company'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DomaincategoryComponent', 'selector': 'app-domaincategory'},{'name': 'DomainCategoryTableComponent', 'selector': 'app-domain-category-table'},{'name': 'DomainCfgTableComponent', 'selector': 'app-domain-cfg-table'},{'name': 'DomainComponent', 'selector': 'app-domain'},{'name': 'DomainsComponent', 'selector': 'app-domains'},{'name': 'DomainTableComponent', 'selector': 'app-domain-table'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'GroupcompanyComponent', 'selector': 'app-groupcompany'},{'name': 'GroupCompanyTableComponent', 'selector': 'app-group-company-table'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MessagesModalComponent', 'selector': 'app-messages-modal'},{'name': 'NewClientComponent', 'selector': 'app-new-client'},{'name': 'PermissionComponent', 'selector': 'app-permission'},{'name': 'ProviderComponent', 'selector': 'app-provider'},{'name': 'ResponsiveMenuComponent', 'selector': 'app-responsive-menu'},{'name': 'RoleCfgTableComponent', 'selector': 'app-role-cfg-table'},{'name': 'RoleComponent', 'selector': 'app-role'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RoleTableComponent', 'selector': 'app-role-table'},{'name': 'SeeComponent', 'selector': 'app-see'},{'name': 'ServicecategoryComponent', 'selector': 'app-servicecategory'},{'name': 'ServicecompanyComponent', 'selector': 'app-servicecompany'},{'name': 'SessionComponent', 'selector': 'app-session'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'StepperComponent', 'selector': 'app-stepper'},{'name': 'SubdomainCfgTableComponent', 'selector': 'app-subdomain-cfg-table'},{'name': 'SubdomainComponent', 'selector': 'app-subdomain'},{'name': 'UserComponent', 'selector': 'app-user'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UsersconfigsComponent', 'selector': 'app-usersconfigs'},{'name': 'UsersTableComponent', 'selector': 'app-users-table'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'StepperComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'StepperComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

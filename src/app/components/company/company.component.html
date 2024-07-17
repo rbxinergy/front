@@ -8,7 +8,7 @@
 
     <mat-form-field appearance="outline" class="col-3">
       <mat-label>Razón Social</mat-label>
-      <input matInput formControlName="business_name" required>
+      <input matInput formControlName="businessName" required>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="col-3">
@@ -43,7 +43,7 @@
 
     <mat-form-field appearance="outline" class="col-3">
       <mat-label>Tipo de Documento</mat-label>
-      <mat-select formControlName="document_type" required>
+      <mat-select formControlName="documentType" required>
         <mat-option value="RUT">RUT</mat-option>
         <mat-option value="DNI">DNI</mat-option>
       </mat-select>
@@ -54,10 +54,10 @@
       <input matInput formControlName="document" required>
     </mat-form-field>
 
-    <mat-checkbox formControlName="is_headquarters">Sede Principal</mat-checkbox>
-    <mat-checkbox formControlName="is_branch">Sucursal</mat-checkbox>
-    <mat-checkbox formControlName="is_active">Activo</mat-checkbox>
-    <mat-checkbox formControlName="is_delete">Eliminado</mat-checkbox>
+    <!-- <mat-checkbox formControlName="headquarters">Sede Principal</mat-checkbox>
+    <mat-checkbox formControlName="branch">Sucursal</mat-checkbox>
+    <mat-checkbox formControlName="active">Activo</mat-checkbox>
+    <mat-checkbox formControlName="delete">Eliminado</mat-checkbox> -->
 
     <div class="btn-box">
       <button mat-raised-button type="submit">Guardar</button>

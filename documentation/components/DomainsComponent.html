@@ -1,0 +1,924 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>xr-backoffice documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">xr-backoffice documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  DomainsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/dashboard/stepper/domains/domains.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-domains</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatButtonModule</code>
+                                <code><a href="../modules/StepperModule.html" target="_self" >MatStepperModule</a></code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatSelectModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>CommonModule</code>
+                            <code>MatTableModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./domains.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./domains.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#datasource" >datasource</a>
+                            </li>
+                            <li>
+                                <a href="#displayedColumns" >displayedColumns</a>
+                            </li>
+                            <li>
+                                <a href="#domainsForm" >domainsForm</a>
+                            </li>
+                            <li>
+                                <a href="#domainsGroup" >domainsGroup</a>
+                            </li>
+                            <li>
+                                <a href="#domainsType" >domainsType</a>
+                            </li>
+                            <li>
+                                <a href="#selectedValue" >selectedValue</a>
+                            </li>
+                            <li>
+                                <a href="#show" >show</a>
+                            </li>
+                            <li>
+                                <a href="#showTable" >showTable</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#onDomainCreate" >onDomainCreate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(_formBuilder: FormBuilder, domainsService: <a href="../injectables/DomainsService.html" target="_self">DomainsService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/dashboard/stepper/domains/domains.component.ts:44</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_formBuilder</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>domainsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DomainsService.html" target="_self" >DomainsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="71"
+                                    class="link-to-prism">src/app/components/dashboard/stepper/domains/domains.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDomainCreate"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onDomainCreate</b></span>
+                        <a href="#onDomainCreate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onDomainCreate()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="49"
+                                    class="link-to-prism">src/app/components/dashboard/stepper/domains/domains.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="datasource"></a>
+                    <span class="name">
+                        <span ><b>datasource</b></span>
+                        <a href="#datasource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/components/dashboard/stepper/domains/domains.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayedColumns"></a>
+                    <span class="name">
+                        <span ><b>displayedColumns</b></span>
+                        <a href="#displayedColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[ &#x27;domainName&#x27;, &#x27;domainDescription&#x27;, &#x27;typeName&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/components/dashboard/stepper/domains/domains.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="domainsForm"></a>
+                    <span class="name">
+                        <span ><b>domainsForm</b></span>
+                        <a href="#domainsForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new FormGroup({
+    name: new FormControl(&#x27;&#x27;, Validators.minLength(2)),
+    description: new FormControl(&#x27;&#x27;, Validators.required),
+    idDomainType: new FormControl(&#x27;&#x27;, Validators.required),
+    documentGroup: new FormControl(&#x27;&#x27;, Validators.required),
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/components/dashboard/stepper/domains/domains.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="domainsGroup"></a>
+                    <span class="name">
+                        <span ><b>domainsGroup</b></span>
+                        <a href="#domainsGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/components/dashboard/stepper/domains/domains.component.ts:69</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="domainsType"></a>
+                    <span class="name">
+                        <span ><b>domainsType</b></span>
+                        <a href="#domainsType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/components/dashboard/stepper/domains/domains.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedValue"></a>
+                    <span class="name">
+                        <span ><b>selectedValue</b></span>
+                        <a href="#selectedValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/components/dashboard/stepper/domains/domains.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="show"></a>
+                    <span class="name">
+                        <span ><b>show</b></span>
+                        <a href="#show"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/components/dashboard/stepper/domains/domains.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showTable"></a>
+                    <span class="name">
+                        <span ><b>showTable</b></span>
+                        <a href="#showTable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/components/dashboard/stepper/domains/domains.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from &#x27;@angular/forms&#x27;;
+import {MatInputModule} from &#x27;@angular/material/input&#x27;;
+import {MatFormFieldModule} from &#x27;@angular/material/form-field&#x27;;
+import {MatSelectModule} from &#x27;@angular/material/select&#x27;;
+import {MatStepperModule} from &#x27;@angular/material/stepper&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { DomainsService } from &#x27;src/app/shared/services/domains.service&#x27;;
+import { MyErrorStateMatcher } from &#x27;../stepper.component&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { map, Observable } from &#x27;rxjs&#x27;;
+import { MatTableModule } from &#x27;@angular/material/table&#x27;;
+
+@Component({
+  selector: &#x27;app-domains&#x27;,
+  templateUrl: &#x27;./domains.component.html&#x27;,
+  styleUrls: [&#x27;./domains.component.css&#x27;],
+  standalone:true,
+  imports:[
+    MatButtonModule,
+    MatStepperModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MatTableModule
+  ]
+})
+
+export class DomainsComponent implements OnInit {
+
+  showTable &#x3D; false
+  show &#x3D; false
+  selectedValue: string &#x3D; &#x27;&#x27;;
+
+  domainsForm &#x3D; new FormGroup({
+    name: new FormControl(&#x27;&#x27;, Validators.minLength(2)),
+    description: new FormControl(&#x27;&#x27;, Validators.required),
+    idDomainType: new FormControl(&#x27;&#x27;, Validators.required),
+    documentGroup: new FormControl(&#x27;&#x27;, Validators.required),
+  })
+
+
+  constructor( private _formBuilder: FormBuilder, private domainsService: DomainsService ) {}
+
+  async onDomainCreate(){
+    this.show &#x3D; true 
+    const form &#x3D; this.domainsForm.value 
+    form.documentGroup &#x3D; sessionStorage.getItem(&#x27;groupDocument&#x27;)
+
+    await this.domainsService.postDomain(form)
+
+    this.domainsService.getDomainGroup().subscribe(data &#x3D;&gt; {
+      this.showTable &#x3D; true
+      this.domainsGroup &#x3D; data.domains
+      console.log(this.domainsGroup)
+    })
+
+    this.domainsForm.reset()
+
+  }
+
+  domainsType:any 
+  displayedColumns: string[] &#x3D; [ &#x27;domainName&#x27;, &#x27;domainDescription&#x27;, &#x27;typeName&#x27;];
+  datasource:any
+  domainsGroup:any 
+
+  ngOnInit() {
+    this.domainsService.getDomainsType().subscribe(data &#x3D;&gt; {
+      this.domainsType &#x3D; data;
+      console.log(&quot;DomainsType&quot;,data)
+    })
+  }
+
+  
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &lt;div class&#x3D;&quot;mat-elevation-z8 mb-5&quot;&gt;
+    &lt;table *ngIf&#x3D;&quot;showTable&quot; mat-table class&#x3D;&quot;mat-elevation-z8&quot; [dataSource]&#x3D;&quot;domainsGroup&quot;&gt;
+      &lt;ng-container matColumnDef&#x3D;&quot;domainName&quot;&gt;
+        &lt;th mat-header-cell *matHeaderCellDef&gt; Nombre de dominio &lt;/th&gt;
+        &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;{{element.domainName}} &lt;/td&gt;
+      &lt;/ng-container&gt;
+  
+      &lt;ng-container matColumnDef&#x3D;&quot;domainDescription&quot;&gt;
+        &lt;th mat-header-cell *matHeaderCellDef&gt; Descripción &lt;/th&gt;
+        &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt; {{element.domainDescription}}&lt;/td&gt;
+      &lt;/ng-container&gt;
+      &lt;ng-container matColumnDef&#x3D;&quot;typeName&quot;&gt;
+        &lt;th mat-header-cell *matHeaderCellDef&gt; Tipo de Dominio &lt;/th&gt;
+        &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;{{element.typeName}} &lt;/td&gt;
+      &lt;/ng-container&gt;
+      &lt;tr mat-header-row *matHeaderRowDef&#x3D;&quot;displayedColumns&quot;&gt;&lt;/tr&gt;
+      &lt;tr mat-row *matRowDef&#x3D;&quot;let row; columns: displayedColumns;&quot;&gt;&lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/div&gt; --&gt;
+&lt;table *ngIf&#x3D;&quot;showTable&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Nombre de dominio&lt;/th&gt;
+      &lt;th&gt;Descripción&lt;/th&gt;
+      &lt;th&gt;Tipo de dominio&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr *ngFor&#x3D;&quot;let domain of domainsGroup&quot;&gt;
+      &lt;td&gt;{{domain.domainName}}&lt;/td&gt;
+      &lt;td&gt;{{domain.domainDescription}}&lt;/td&gt;
+      &lt;td&gt;{{domain.typeName}}&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;form [formGroup]&#x3D;&quot;domainsForm&quot;&gt;
+  &lt;h3&gt;Información del dominio&lt;/h3&gt;
+&lt;mat-form-field&gt;
+    &lt;mat-label&gt;Dominio&lt;/mat-label&gt;
+    &lt;input matInput formControlName&#x3D;&quot;name&quot; placeholder&#x3D;&quot;Ingrese el nombre del dominio&quot; required&gt;
+&lt;/mat-form-field&gt;
+&lt;mat-form-field&gt;
+    &lt;mat-label&gt;Categoría de dominio&lt;/mat-label&gt;
+    &lt;mat-select name&#x3D;&quot;idDomainType&quot; formControlName&#x3D;&quot;idDomainType&quot; placeholder&#x3D;&quot;Ingrese categoría de dominio&quot; required&gt;
+        &lt;mat-option value&#x3D;{{domain.id}} *ngFor&#x3D;&quot;let domain of domainsType &quot;&gt;{{domain.name}}&lt;/mat-option&gt;
+        &lt;!-- &lt;mat-option value&#x3D;&quot;2&quot;&gt;Cyberseguridad&lt;/mat-option&gt; --&gt;
+    &lt;/mat-select&gt;
+&lt;/mat-form-field&gt;
+&lt;br&gt;
+&lt;mat-form-field class&#x3D;&quot;example-full-width&quot;&gt;
+    &lt;mat-label&gt;Descripción&lt;/mat-label&gt;
+    &lt;textarea matInput formControlName&#x3D;&quot;description&quot; placeholder&#x3D;&quot;Ingrese una descripción de dominio&quot; required&gt;&lt;/textarea&gt;
+&lt;/mat-form-field&gt;
+&lt;div&gt;
+
+&lt;/div&gt;
+&lt;div&gt;
+    &lt;br&gt;
+    &lt;!-- &lt;button mat-button matStepperPrevious&gt;Atrás&lt;/button&gt; --&gt;
+    &lt;button mat-raised-button color&#x3D;&quot;primary&quot; (click)&#x3D;&quot;onDomainCreate()&quot;&gt;Crear dominio&lt;/button&gt;&amp;nbsp;
+    &lt;button mat-button matStepperNext *ngIf&#x3D;&quot;show&quot; mat-raised-button color&#x3D;&quot;basic&quot;&gt;Siguiente&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;/form&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./domains.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.mat-mdc-form-field{
+    margin: 5px 5px 5px 0
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- <div class="mat-elevation-z8 mb-5">    <table *ngIf="showTable" mat-table class="mat-elevation-z8" [dataSource]="domainsGroup">      <ng-container matColumnDef="domainName">        <th mat-header-cell *matHeaderCellDef> Nombre de dominio </th>        <td mat-cell *matCellDef="let element">{{element.domainName}} </td>      </ng-container>        <ng-container matColumnDef="domainDescription">        <th mat-header-cell *matHeaderCellDef> Descripción </th>        <td mat-cell *matCellDef="let element"> {{element.domainDescription}}</td>      </ng-container>      <ng-container matColumnDef="typeName">        <th mat-header-cell *matHeaderCellDef> Tipo de Dominio </th>        <td mat-cell *matCellDef="let element">{{element.typeName}} </td>      </ng-container>      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>    </table></div> --><table *ngIf="showTable">  <thead>    <tr>      <th>Nombre de dominio</th>      <th>Descripción</th>      <th>Tipo de dominio</th>    </tr>  </thead>  <tbody>    <tr *ngFor="let domain of domainsGroup">      <td>{{domain.domainName}}</td>      <td>{{domain.domainDescription}}</td>      <td>{{domain.typeName}}</td>    </tr>  </tbody></table><form [formGroup]="domainsForm">  <h3>Información del dominio</h3><mat-form-field>    <mat-label>Dominio</mat-label>    <input matInput formControlName="name" placeholder="Ingrese el nombre del dominio" required></mat-form-field><mat-form-field>    <mat-label>Categoría de dominio</mat-label>    <mat-select name="idDomainType" formControlName="idDomainType" placeholder="Ingrese categoría de dominio" required>        <mat-option value={{domain.id}} *ngFor="let domain of domainsType ">{{domain.name}}</mat-option>        <!-- <mat-option value="2">Cyberseguridad</mat-option> -->    </mat-select></mat-form-field><br><mat-form-field class="example-full-width">    <mat-label>Descripción</mat-label>    <textarea matInput formControlName="description" placeholder="Ingrese una descripción de dominio" required></textarea></mat-form-field><div></div><div>    <br>    <!-- <button mat-button matStepperPrevious>Atrás</button> -->    <button mat-raised-button color="primary" (click)="onDomainCreate()">Crear dominio</button>&nbsp;    <button mat-button matStepperNext *ngIf="show" mat-raised-button color="basic">Siguiente</button></div></form></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'ClientsComponent', 'selector': 'app-clients'},{'name': 'ClientSelectionDialogComponent', 'selector': 'app-client-selection-dialog'},{'name': 'CompanyComponent', 'selector': 'app-company'},{'name': 'CompanyComponent', 'selector': 'app-company'},{'name': 'CompanyComponent', 'selector': 'app-company'},{'name': 'CompanyConfigComponent', 'selector': 'app-company-config'},{'name': 'CompanyTableComponent', 'selector': 'app-company-table'},{'name': 'ConfigsComponent', 'selector': 'app-domains'},{'name': 'ConfirmDialogComponent', 'selector': 'app-confirm-dialog'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'ContactServiceCompanyComponent', 'selector': 'app-contact-service-company'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DomaincategoryComponent', 'selector': 'app-domaincategory'},{'name': 'DomainCategoryTableComponent', 'selector': 'app-domain-category-table'},{'name': 'DomainCfgTableComponent', 'selector': 'app-domain-cfg-table'},{'name': 'DomainComponent', 'selector': 'app-domain'},{'name': 'DomainsComponent', 'selector': 'app-domains'},{'name': 'DomainTableComponent', 'selector': 'app-domain-table'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'GroupcompanyComponent', 'selector': 'app-groupcompany'},{'name': 'GroupCompanyTableComponent', 'selector': 'app-group-company-table'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MessagesModalComponent', 'selector': 'app-messages-modal'},{'name': 'NewClientComponent', 'selector': 'app-new-client'},{'name': 'PermissionComponent', 'selector': 'app-permission'},{'name': 'ProviderComponent', 'selector': 'app-provider'},{'name': 'ResponsiveMenuComponent', 'selector': 'app-responsive-menu'},{'name': 'RoleCfgTableComponent', 'selector': 'app-role-cfg-table'},{'name': 'RoleComponent', 'selector': 'app-role'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RoleTableComponent', 'selector': 'app-role-table'},{'name': 'SeeComponent', 'selector': 'app-see'},{'name': 'ServicecategoryComponent', 'selector': 'app-servicecategory'},{'name': 'ServicecompanyComponent', 'selector': 'app-servicecompany'},{'name': 'SessionComponent', 'selector': 'app-session'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'StepperComponent', 'selector': 'app-stepper'},{'name': 'SubdomainCfgTableComponent', 'selector': 'app-subdomain-cfg-table'},{'name': 'SubdomainComponent', 'selector': 'app-subdomain'},{'name': 'UserComponent', 'selector': 'app-user'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UsersconfigsComponent', 'selector': 'app-usersconfigs'},{'name': 'UsersTableComponent', 'selector': 'app-users-table'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'DomainsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'DomainsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

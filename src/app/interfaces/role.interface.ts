@@ -1,13 +1,11 @@
 export interface Role {
-  id?: number;
-  name: string;
-  description: string;
+  id?: string;
   client: string;
   company: string;
+  description: string;
+  name: string;
   isCreate: boolean;
-  isUpdate: boolean;
-  isRead: boolean;
+  isModify: boolean;
+  isList: boolean;
   isDelete: boolean;
-  tag: string;
-  createdAt: Date;
 }

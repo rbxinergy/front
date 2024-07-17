@@ -15,6 +15,7 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { ClientDataService } from 'src/app/services/client-data.service';
 import { Client } from 'src/app/interfaces/client.interface';
+import { ClientService } from 'src/app/services/client.service';
 
 @Component({
   selector: 'app-client',
@@ -32,20 +33,20 @@ export class ClientComponent implements OnInit {
     name: new FormControl('', Validators.required),
     businessName: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
+    country: new FormControl('', Validators.required),
     city: new FormControl('', Validators.required),
     state: new FormControl('', Validators.required),
     county: new FormControl(''),
     district: new FormControl(''),
-    country: new FormControl('', Validators.required),
     documentType: new FormControl('RUT', Validators.required),
     document: new FormControl('', Validators.required),
-    isActive: new FormControl(true),
     tag: new FormControl('')
   });
   @Output() validationStatus = new EventEmitter<boolean>();
   @Input() showSaveBtn = true;
+  btnDisabled = false;
 
-  constructor(private clientDataService: ClientDataService) { }
+  constructor(private clientDataService: ClientDataService, private clientService: ClientService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.clientForm.statusChanges.subscribe(status => {
@@ -54,7 +55,30 @@ export class ClientComponent implements OnInit {
   }
 
   save() {
-    this.clientDataService.setClientData(this.clientForm.getRawValue() as unknown as Client);
+    this.clientService.saveClient(this.clientForm.getRawValue() as unknown as Client).subscribe({
+      next: (response) => {
+        this.btnDisabled = true;
+        if (response.status === 200) {
+          this.clientDataService.setClientData(response.body);
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Cliente creado exitosamente.', type: 'success' }
+          });
+        } else {
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Error al crear el cliente.', type: 'error' }
+          });
+        }
+      },
+      error: (error) => {
+        console.log(error);
+        this.dialog.open(MessagesModalComponent, {
+          width: '400px',
+          data: { message: 'Error al crear el cliente.', type: 'error' }
+        });
+      }
+    });
   }
 
 }

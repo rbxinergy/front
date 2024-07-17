@@ -22,25 +22,18 @@ export class GroupCompanyService {
   })
 
   constructor(private http: HttpClient, private clientDataService: ClientDataService) { 
-    this.groupDocument = sessionStorage?.getItem('groupDocument') || '0';
+    // this.groupDocument = sessionStorage?.getItem('groupDocument') || '0';
     this.client = this.clientDataService.getClientData();
-    console.log(this.client);
+    console.log(this.client.id);
   }
 
   async saveGroupCompany(form: any):Promise<any>{
     console.log(this.groupDocument)
     const body = { 
-      "name": form.name,
-      "documentNumber": form.documentNumber,
-      "documentType": form.documentType,
-      "phone": form.phone,
-      "email": form.email,
-      "groupDocument": this.groupDocument,
-      "address":form.address,
-      "cityId": parseInt(form.cityId),
-      "stateId": parseInt(form.stateId),  
-      "countryId": parseInt(form.countryId),
-      "isGroup": false
+        name: form.name,
+        description: form.description,
+        tag:form.tag,
+        idClient:this.client.id
     }
     console.log(body)
     const postCompany = this.http.post<GroupCompany>(`${this.serverUrl}${this.apiUrl}/create`, body, { headers: this.headers })
@@ -65,11 +58,12 @@ export class GroupCompanyService {
   }
 
   createGroupCompany(company: GroupCompany): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/create`, {company}, { observe: 'response' });
+    console.log(company)
+    return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/create`, company, { observe: 'response' });
   }
 
   updateGroupCompany(company: GroupCompany): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update`, {company}, { observe: 'response' });
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update`, company, { observe: 'response' });
   }
 
   deleteGroupCompany(id: string): Observable<HttpResponse<any>> {

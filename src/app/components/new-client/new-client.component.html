@@ -1,6 +1,6 @@
 <mat-horizontal-stepper linear (selectionChange)="onStepChange($event)">
   <mat-step label="Datos del cliente" [stepControl]="clientForm" [completed]="clientFormValid">
-    <app-client (validationStatus)="onValidationStatus($event)" [showSaveBtn]="false"></app-client>
+    <app-client (validationStatus)="onValidationStatus($event)" [showSaveBtn]="true"></app-client>
     <div>
       <button mat-button matStepperNext>Siguiente</button>
     </div>

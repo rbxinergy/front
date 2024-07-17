@@ -31,7 +31,7 @@ export class GroupcompanyComponent {
     name: new FormControl(this.data?.name || '', Validators.required),
     description: new FormControl(this.data?.description || '', Validators.required),
     tag: new FormControl(this.data?.tag || ''),
-    id_client: new FormControl(this.data?.id_client || null, Validators.required),
+    idClient: new FormControl(this.data?.idClient || null, Validators.required),
   });
 
   constructor(private dialogRef: MatDialogRef<GroupcompanyComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }

@@ -3,14 +3,14 @@ export interface Client {
   name: string;
   businessName: string;
   address: string;
+  country: string;
+  county: string;
   city: string;
   state: string;
-  county: string;
   district: string;
-  country: string;
   documentType: string;
   document: string;
-  isActive: boolean;
   tag: string;
+  active: boolean;
   idContact?: string[];
 }

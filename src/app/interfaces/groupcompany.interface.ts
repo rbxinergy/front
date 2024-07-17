@@ -7,5 +7,5 @@ export interface GroupCompany {
     created_date?: Date;
     modificated_date?: Date;
     tag: string;
-    id_client?: string;
+    idClient?: string;
   }

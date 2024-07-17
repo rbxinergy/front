@@ -50,6 +50,12 @@
                <span *ngIf="!isCollapsed">{{"companies" | translate}}</span>
             </span>
          </a>
+         <a mat-list-item [routerLink]="['company-table']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="entry">
+               <mat-icon> business </mat-icon>
+               <span *ngIf="!isCollapsed">Empresas de prueba</span>
+            </span>
+         </a>
          <a mat-list-item [routerLink]="['integrations']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon>grid_view</mat-icon>

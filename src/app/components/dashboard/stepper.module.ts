@@ -20,6 +20,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './dashboard.component';
+import { CompanyTableComponent } from '../company-table/company-table.component';
 
 export function HttpLoaderFactory(http: HttpClient){
   return new TranslateHttpLoader(http)
@@ -31,6 +32,7 @@ export function HttpLoaderFactory(http: HttpClient){
     ClientComponent,
     DomainsComponent,
     CompanyComponent,
+    CompanyTableComponent,
     UsersComponent,
     HttpClientModule,
     BrowserModule,
@@ -53,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient){
     ClientComponent,
     DomainsComponent,
     CompanyComponent,
+    CompanyTableComponent,
     UsersComponent,
     TranslateModule
   ],

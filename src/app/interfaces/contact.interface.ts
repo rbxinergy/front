@@ -1,16 +1,14 @@
 interface Contact {
   id: string;
   name: string;
-  last_name: string;
+  lastName: string;
   surname: string;
   email: string;
   phone: string;
   cellphone: string;
-  job_title: string;
-  contact_type: string;
-  is_active: boolean;
-  is_delete: boolean;
-  created_date: Date;
-  modificated_date: Date;
+  jobTitle: string;
+  contactType: string;
+  active: boolean;
+  delete: boolean;
   tag: string;
 }

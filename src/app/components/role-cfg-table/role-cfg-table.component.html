@@ -29,17 +29,17 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="isRead">
+    <ng-container matColumnDef="isList">
       <th mat-header-cell *matHeaderCellDef> Leer </th>
       <td mat-cell *matCellDef="let element">
-        <mat-checkbox [checked]="element.isRead"></mat-checkbox>
+        <mat-checkbox [checked]="element.isList"></mat-checkbox>
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="isUpdate">
+    <ng-container matColumnDef="isModify">
       <th mat-header-cell *matHeaderCellDef> Actualizar </th>
       <td mat-cell *matCellDef="let element">
-        <mat-checkbox [checked]="element.isUpdate"></mat-checkbox>
+        <mat-checkbox [checked]="element.isModify"></mat-checkbox>
       </td>
     </ng-container>
 
