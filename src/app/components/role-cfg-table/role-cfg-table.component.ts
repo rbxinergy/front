@@ -16,6 +16,7 @@ import { Role } from '../../interfaces/role.interface';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 
 @Component({
   selector: 'app-role-cfg-table',
@@ -42,7 +43,7 @@ export class RoleCfgTableComponent {
   client: string = sessionStorage.getItem('client') || '';
   searchInput: any;
 
-  constructor(private roleService: RoleService) {
+  constructor(private roleService: RoleService, public dialog: MatDialog) {
     this.roleService.getRoles(this.client).subscribe((roles: any) => {
       console.log(roles.body);
       this.dataSource.data = roles.body as Role[];
@@ -80,11 +81,35 @@ export class RoleCfgTableComponent {
 
   addRolesToCompany() {
     console.log(this.selection.selected);
-    for (const role of this.selection.selected) {
-      this.roleService.addRolesToCompany(role).subscribe((res: any) => {
-        console.log(res);
+
+    // Crear un array de promesas para todas las solicitudes
+    const requests = this.selection.selected.map(role => 
+      this.roleService.addRolesToCompany(role).toPromise()
+    );
+
+    // Esperar a que todas las solicitudes se completen
+    Promise.all(requests)
+      .then((responses) => {
+        // Verificar que todas las respuestas sean exitosas
+        if (responses.every(res => res.status === 200)) {
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Roles agregados correctamente.', type: 'success' }
+          });
+        } else {
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Hubo un problema al agregar algunos roles.', type: 'error' }
+          });
+        }
+      })
+      .catch((error) => {
+        console.error('Error al agregar roles:', error);
+        this.dialog.open(MessagesModalComponent, {
+          width: '400px',
+          data: { message: 'Hubo un problema al agregar los roles.', type: 'error' }
+        });
       });
-    }
   }
 
 }
