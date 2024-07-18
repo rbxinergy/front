@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../interfaces/user.interface';
@@ -40,5 +40,9 @@ export class UserService {
 
   deleteUser(id: string): Observable<User> {
     return this.http.delete<User>(`${this.serverUrl}${this.apiUrl}/delete/${id}`, {headers: this.headers});
+  }
+
+  addUsersToCompany(user: User): Observable<HttpResponse<any>> {
+    return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/add-to-company`, user, { headers: this.headers, observe: 'response'})
   }
 }

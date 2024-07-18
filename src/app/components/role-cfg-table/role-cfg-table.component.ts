@@ -81,7 +81,7 @@ export class RoleCfgTableComponent {
   addRolesToCompany() {
     console.log(this.selection.selected);
     for (const role of this.selection.selected) {
-      this.roleService.createRole(role).subscribe((res: any) => {
+      this.roleService.addRolesToCompany(role).subscribe((res: any) => {
         console.log(res);
       });
     }
