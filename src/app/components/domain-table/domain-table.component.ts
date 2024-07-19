@@ -53,7 +53,7 @@ export class DomainTableComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<Domain>();
   columnsToDisplay = ['select', 'name', 'description', 'code', 'tag'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay,  'expand', 'actions'];
-  expandedElement: SubDomain | null;
+  expandedElement: Domain | null;
   domainID = null;
   domains: Domain[] = [];
   subdomains: SubDomain [] = [];
@@ -70,21 +70,21 @@ export class DomainTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(private cdr: ChangeDetectorRef,  private DomainService: DomainService, private SubdomainService: SubdomainService, private dialog: MatDialog) {
+  constructor(private cdr: ChangeDetectorRef,  private DomainService: DomainService,
+    private SubdomainService: SubdomainService, private dialog: MatDialog) {
   }
   
   ngAfterViewInit(): void {
     this.DomainService.getDomains(this.client).subscribe((domains: Domain[]) => {
       this.domains = domains;
-      this.dataSource.data = domains;
-    });
-    this.SubdomainService.getSubdomainsByDomain(sessionStorage.getItem('domain')).subscribe((data: SubDomain[]) => {
-      if(data.length === 0){
-        console.log('No hay subdominios');
-        this.formDomainTable.controls['tempControl'].setValue('');
-      }
-      this.subdomains = data;
-      this.cdr.detectChanges();
+      this.SubdomainService.getSubdomains().subscribe((subdomains: SubDomain[]) => {
+        this.subdomains = subdomains;
+        this.domains.forEach(domain => {
+          domain.subdomains = this.subdomains.filter(subdomain => subdomain.idDomain === domain.id);
+        });
+        this.dataSource.data = this.domains;
+        this.cdr.detectChanges();
+      });
     });
   }
     
@@ -122,67 +122,6 @@ export class DomainTableComponent implements AfterViewInit {
     const event = { target: input } as Event & { target: HTMLInputElement };
     this.applyFilter(event);
   }
-  // openSubdomainModal(id: string) {
- 
-  //   const dialogRef = this.dialog.open(SubdomainComponent, {
-  //     width: '800px',
-  //     height: '100%',
-  //     data: {id, addSubdomains: true} 
-  //   });
-  //   dialogRef.afterClosed().subscribe({
-
-  //     next: (newSubdomain: SubDomain) => {
-  //       if (newSubdomain) {
-  //         this.SubdomainService.createSubdomain(newSubdomain).subscribe({
-  //           next: (response) => {
-  //             if (response.status === 200) {
-  //               this.dialog.open(MessagesModalComponent, {
-  //                 width: '400px',
-  //                 data: { message: 'Subdominio creado exitosamente.', type: 'success' }
-  //               });
-  //               let news = Object.values(newSubdomain);
-  //               console.log(newSubdomain)
-  //               // let i = 0
-  //               // for (let subdomain of newSubdomain) {
-  //               //   i++
-  //               //   const maxId =  Math.max(...this.subdomains.map(subdomain => parseInt(subdomain.id)));
-  //               //   subdomain.id = (maxId + 1).toString();
-  //               //   subdomain.idDomain = id
-  //               //   this.subdomains.push(subdomain);
-  //               // }
-  //               for(let i=0; i< news.length; i++){
-  //                 const maxId =  Math.max(...this.subdomains.map(subdomain => parseInt(subdomain.id)));
-  //                 newSubdomain[i].id = (maxId + 1).toString();
-  //                 newSubdomain[i].idDomain = id
-  //                 this.subdomains.push(news[i]);
-  //               } 
-  //               console.log('SUBDOMAINS TABLA' ,this.subdomains)
-  //               // this.formDomainTable.controls['tempControl'].setValue(newSubdomain.name);
-  //             } else {
-  //               this.dialog.open(MessagesModalComponent, {
-  //                 width: '400px',
-  //                 data: { message: 'Error al crear el subdominio.', type: 'error' }
-  //               });
-  //             }
-  //           },
-  //           error: (error) => {
-  //             this.dialog.open(MessagesModalComponent, {
-  //               width: '400px',
-  //               data: { message: 'Todos los subdominios se han creado exitosamente.', type: 'success' }
-  //             })
-  //           } 
-  //         } )
-  //       }
-  //     },
-  //     error: (error) => {
-  //       console.error('Error al abrir el modal de nuevo subdominio:', error);
-  //       this.dialog.open(MessagesModalComponent, {
-  //         width: '400px',
-  //         data: { message: 'Error al cerrar el diálogo.', type: 'error' }
-  //       });
-  //     }
-  //   });
-  // }
 
   openSubdomainModal(idDomain: string) {
     const dialogRef = this.dialog.open(SubdomainComponent, {
@@ -458,7 +397,8 @@ export class DomainTableComponent implements AfterViewInit {
                 if(this.subdomains.length === 0){
                   this.formDomainTable.controls['tempControl'].setValue(null);
                 }
-                // this.dataSource.data = this.subdomains;
+                // Actualizar la dataSource después de eliminar el subdominio
+                this.dataSource.data = this.domains;
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
