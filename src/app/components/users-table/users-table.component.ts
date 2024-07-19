@@ -13,6 +13,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-users-table',
@@ -27,7 +29,9 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
     MatToolbarModule,
     MatPaginatorModule,
     MatSortModule,
-    CommonModule
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class UsersTableComponent {
@@ -36,17 +40,28 @@ export class UsersTableComponent {
   selection = new SelectionModel<User>(true, []);
   client: string = sessionStorage.getItem('client') || '';
   @Input() companyId: string = '';
+  searchInput: any;
 
   constructor(private userService: UserService, public dialog: MatDialog) {
     this.userService.getUsers(this.client).subscribe((users: User[]) => {
       this.dataSource.data = users;
     });
   }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
  
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
+  }
+
+  clearSearch(input: HTMLInputElement) {
+    input.value = '';
+    this.dataSource.filter = '';
   }
 
   masterToggle() {
@@ -93,6 +108,10 @@ export class UsersTableComponent {
           data: { message: 'Hubo un problema al agregar los usuarios.', type: 'error' }
         });
       });
+  }
+
+  hasValue() {
+    return this.selection.selected.length > 0;
   }
    
 }

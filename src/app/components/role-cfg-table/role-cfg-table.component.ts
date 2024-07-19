@@ -111,5 +111,8 @@ export class RoleCfgTableComponent {
         });
       });
   }
-
+  
+  hasValue() {
+    return this.selection.selected.length > 0;
+  }
 }

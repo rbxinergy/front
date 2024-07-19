@@ -143,6 +143,6 @@
     </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     <div align="right">
-        <button mat-raised-button color="primary" (click)="addDomainsToCompany()">Agregar dominios</button>
+        <button mat-raised-button color="primary" [disabled]="!hasValue()" (click)="addDomainsToCompany()">Agregar dominios</button>
     </div>
 </div>

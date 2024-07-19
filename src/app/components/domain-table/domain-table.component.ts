@@ -126,7 +126,7 @@ export class DomainTableComponent implements AfterViewInit {
   openSubdomainModal(idDomain: string) {
     const dialogRef = this.dialog.open(SubdomainComponent, {
       width: '800px',
-      height: '100%',
+      height: '600px',
       data: { idDomain,  addSubdomains: true }
     });
     dialogRef.afterClosed().subscribe({
@@ -174,7 +174,7 @@ export class DomainTableComponent implements AfterViewInit {
     const maxId = this.domains.length > 0 ? Math.max(...this.domains.map(domain => parseInt(domain.id))) : 0;
   
     const dialogRef = this.dialog.open(DomainComponent, {
-      width: '600px',
+      width: '400px',
       data:  {}
     });
 
