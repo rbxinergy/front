@@ -77,14 +77,19 @@ export class DomainTableComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.DomainService.getDomains(this.client).subscribe((domains: Domain[]) => {
       this.domains = domains;
-      this.SubdomainService.getSubdomains().subscribe((subdomains: SubDomain[]) => {
-        this.subdomains = subdomains;
-        this.domains.forEach(domain => {
-          domain.subdomains = this.subdomains.filter(subdomain => subdomain.idDomain === domain.id);
+      this.domains.forEach((domain: Domain) => {
+        if(!domain.subdomains){
+          domain.subdomains = [];
+        }
+        this.SubdomainService.getSubdomains(domain.id).subscribe((subdomains: SubDomain[]) => {
+          subdomains.forEach((subdomain: SubDomain) => {
+            domain.subdomains.push(subdomain);
+          });
         });
-        this.dataSource.data = this.domains;
-        this.cdr.detectChanges();
       });
+      this.dataSource.data = this.domains;
+      console.log('domains', this.dataSource.data);
+      this.cdr.detectChanges();
     });
   }
     
@@ -139,7 +144,7 @@ export class DomainTableComponent implements AfterViewInit {
             ));
             const allSuccess = results.every(response => response && response.status === 200);
             if (allSuccess) {
-              this.SubdomainService.getSubdomains().subscribe((subdomains: SubDomain[]) => {
+              this.SubdomainService.getSubdomains(idDomain).subscribe((subdomains: SubDomain[]) => {
                 this.subdomains = subdomains;
               });
               this.dialog.open(MessagesModalComponent, {

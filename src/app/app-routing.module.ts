@@ -68,3 +68,37 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+
+// const routes: Routes = [
+//   { path: '', redirectTo: 'login', pathMatch: 'full' },
+//   { path: 'login', component: LoginComponent },
+//   { path: 'sign-up', component: SignUpComponent },
+//   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
+//     children:[
+//       { path: 'new-client', component: NewClientComponent, canActivateChild: [AuthGuard] },
+//       { path: 'stepper', component: StepperComponent, canActivateChild: [AuthGuard] },
+//       { title: 'Clientes', path: 'clients', component: ClientsComponent, canActivateChild: [AuthGuard] },
+//       { path: 'configs', component: ConfigsComponent, canActivateChild: [AuthGuard] },
+//       { path: 'company', component: CompanyComponent, canActivateChild: [AuthGuard] },
+//       { path: 'integrations', component: IntegrationsComponent, canActivateChild: [AuthGuard] },
+//       { path: 'roles', component: RolesComponent, canActivateChild: [AuthGuard] },
+//       { path: 'nav', component: ResponsiveMenuComponent, canActivateChild: [AuthGuard] },
+//       { path: 'contact-service-company', component: ContactServiceCompanyComponent, canActivateChild: [AuthGuard] },
+//       { path: 'contact', component: ContactComponent, canActivateChild: [AuthGuard] },
+//       { path: 'servicecategory', component: ServicecategoryComponent, canActivateChild: [AuthGuard] },
+//       { path: 'servicecompany', component: ServicecompanyComponent, canActivateChild: [AuthGuard] },
+//       { path: 'provider', component: ProviderComponent, canActivateChild: [AuthGuard] },
+//       { path: 'company2', component: CompanyCmp, canActivateChild: [AuthGuard] },
+//       { path: 'domain', component: DomainComponent, canActivateChild: [AuthGuard] },
+//       { path: 'subdomain', component: SubdomainComponent, canActivateChild: [AuthGuard] },
+//       { path: 'domaincategory', component: DomaincategoryComponent, canActivateChild: [AuthGuard] },
+//       { path: 'groupcompany', component: GroupcompanyComponent, canActivateChild: [AuthGuard] },
+//       { path: 'client', component: ClientComponent, canActivateChild: [AuthGuard] },
+//       { path: 'user', component: UserComponent, canActivateChild: [AuthGuard] },
+//       { path: 'roles2', component: RoleComponent, canActivateChild: [AuthGuard] },
+//       { path: 'permission', component: PermissionComponent, canActivateChild: [AuthGuard] },  
+//       { path: 'company-config/:client/:company', component: CompanyConfigComponent, canActivateChild: [AuthGuard] }
+//     ]
+//   },
+// ];

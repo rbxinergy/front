@@ -45,6 +45,15 @@ export class UsersTableComponent {
   constructor(private userService: UserService, public dialog: MatDialog) {
     this.userService.getUsers(this.client).subscribe((users: User[]) => {
       this.dataSource.data = users;
+      this.selectUsersByCompany();
+    });
+  }
+
+  selectUsersByCompany(): void {
+    this.dataSource.data.forEach(user => {
+      if (user.company === this.companyId) {
+        this.selection.select(user);
+      }
     });
   }
 

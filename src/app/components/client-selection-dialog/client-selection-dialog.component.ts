@@ -18,7 +18,7 @@ export class ClientSelectionDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<ClientSelectionDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { clients: string[] }
+    @Inject(MAT_DIALOG_DATA) public data: { clients: any[] }
   ) {
     console.log("DATA CLIENT SELECTION", data);
   }
@@ -28,7 +28,6 @@ export class ClientSelectionDialogComponent {
   }
 
   onSelect(): void {
-    sessionStorage.setItem('client', this.selectedClient);
-    this.dialogRef.close();
+    this.dialogRef.close(this.selectedClient);
   }
 }

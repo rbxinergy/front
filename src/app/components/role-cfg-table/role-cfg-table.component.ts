@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UserService } from '../../services/user.service';
@@ -42,11 +42,20 @@ export class RoleCfgTableComponent {
   selection = new SelectionModel<Role>(true, []);
   client: string = sessionStorage.getItem('client') || '';
   searchInput: any;
-
+  @Input() company: string;
   constructor(private roleService: RoleService, public dialog: MatDialog) {
     this.roleService.getRoles(this.client).subscribe((roles: any) => {
       console.log(roles.body);
       this.dataSource.data = roles.body as Role[];
+      this.selectRolesByCompany();
+    });
+  }
+
+  selectRolesByCompany(): void {
+    this.dataSource.data.forEach(role => {
+      if (role.company === this.company) {
+        this.selection.select(role);
+      }
     });
   }
 
@@ -83,9 +92,10 @@ export class RoleCfgTableComponent {
     console.log(this.selection.selected);
 
     // Crear un array de promesas para todas las solicitudes
-    const requests = this.selection.selected.map(role => 
-      this.roleService.addRolesToCompany(role).toPromise()
-    );
+    const requests = this.selection.selected.map(role => {
+      role.company = this.company;
+      return this.roleService.addRolesToCompany(role).toPromise()
+    });
 
     // Esperar a que todas las solicitudes se completen
     Promise.all(requests)
@@ -111,7 +121,7 @@ export class RoleCfgTableComponent {
         });
       });
   }
-  
+
   hasValue() {
     return this.selection.selected.length > 0;
   }

@@ -15,4 +15,5 @@ export interface User {
     createdDate: Date;
     modificatedDate: Date;
     tag: string;
+    company: string;
   }

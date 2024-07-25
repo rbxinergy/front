@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +27,7 @@ export class AuthService {
       sessionStorage.setItem('token', response.token);
       sessionStorage.setItem('client', response.client);
       sessionStorage.setItem('company', response.company);
+      sessionStorage.setItem('session', response.session);
       return response;
     } catch (error) {
       console.error('Error during login:', error);
@@ -35,6 +38,12 @@ export class AuthService {
   get isLoggedIn(): boolean {
     const user = sessionStorage.getItem('user');
     return user !== null;
+  }
+
+  get isActive(): boolean {
+
+    const sessionId = sessionStorage.getItem('session');
+    return sessionId !== null;
   }
 
   async logOut(): Promise<void> {

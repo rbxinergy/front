@@ -43,6 +43,6 @@ export class UserService {
   }
 
   addUsersToCompany(user: User): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/add-to-company`, user, { headers: this.headers, observe: 'response'})
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update`, user, { headers: this.headers, observe: 'response'})
   }
 }
