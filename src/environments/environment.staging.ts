@@ -41,6 +41,6 @@ export const environment = {
     user: `user-drzcbalp5q-uk.a.run.app/v1/user`,
     report: `/v1/report`,  
     serviceCompany: `/v1/service-company`,
-    session: `/v1/get/session`
+    session: `/v1/session/get`
   }
 };

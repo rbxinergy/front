@@ -14,6 +14,7 @@ export class AuthService {
   userData: any;
   apiUrls: any = environment.apiUrls;
   serverUrl: any = environment.serverUrl;
+  isAuth: boolean = false;
 
   constructor(private router: Router, private http: HttpClient) { }
   
@@ -28,6 +29,7 @@ export class AuthService {
       sessionStorage.setItem('client', response.client);
       sessionStorage.setItem('company', response.company);
       sessionStorage.setItem('session', response.session);
+      this.isAuth = true;
       return response;
     } catch (error) {
       console.error('Error during login:', error);
@@ -35,27 +37,28 @@ export class AuthService {
     }
   }
 
-  get isLoggedIn(): boolean {
+  isLoggedIn(): boolean {
     const user = sessionStorage.getItem('user');
-    return user !== null;
+    this.isAuth = !user ? false : true;
+    console.log("isLoggedIn", this.isAuth);
+    return this.isAuth;
   }
 
-  get isActive(): boolean {
-
+  isActive(): Observable<boolean> {
     const sessionId = sessionStorage.getItem('session');
-    return sessionId !== null;
+    if (!sessionId) {
+      return of(false);
+    }
+    return this.http.get<{active: boolean}>(`${this.serverUrl}${this.apiUrls.session}/${sessionId}`, { observe: 'response' }).pipe(
+      map(response => response.body?.active === true), // Convertir la respuesta en boolean
+      catchError(() => of(false)) // En caso de error, devolver false
+    );
   }
 
   async logOut(): Promise<void> {
     try {
       await this.http.delete(`${this.serverUrl}${this.apiUrls.logout}`, {}).toPromise();
-      localStorage.removeItem('user');
-      sessionStorage.removeItem('groupDocument');
-      sessionStorage.removeItem('userCreator');
-      sessionStorage.removeItem('userId');
-      sessionStorage.removeItem('profile');
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('client');
+      sessionStorage.clear();
       this.router.navigate(['login']);
     } catch (error) {
       console.error('Error during logout:', error);
