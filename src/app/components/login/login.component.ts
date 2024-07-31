@@ -35,12 +35,11 @@ export class LoginComponent {
     try {
       const data = await this.authService.logInWithEmailAndPassword(email, password);
       console.log("DATA", data);
-      sessionStorage.setItem('client', Array.isArray(data.client) ? JSON.stringify(data.client) : data.client);
-      sessionStorage.setItem('company', Array.isArray(data.company) ? JSON.stringify(data.company) : data.company);
+      sessionStorage.setItem('client', Array.isArray(data.permissions?.client) ? JSON.stringify(data.permissions?.client) : data.permissions?.client);
       this.getProfile();
-      if (Array.isArray(data.client)) {
+      if (Array.isArray(data.permissions)) {
         const dialogRef = this.dialog.open(ClientSelectionDialogComponent, {
-          data: { clients: data.client }
+          data: { clients: data.permissions }
         });
         dialogRef.afterClosed().subscribe({
           next: (selectedClient) => {
@@ -55,10 +54,11 @@ export class LoginComponent {
           }
         });
       } else {
-        sessionStorage.setItem('client', data.client.id);
+        sessionStorage.setItem('client', data.permissions?.client?.client);
         this.router.navigate(['/dashboard']);
       }
     } catch (error) {
+      console.log("ERROR", error);
       this.dialog.open(MessagesModalComponent, {
         data: {
           message: 'Error en inicio de sesión. Intente nuevamente.',
