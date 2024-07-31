@@ -42,4 +42,11 @@ export class RoleService {
   deleteRole(id: string): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.serverUrl}${this.apiUrls.role}/delete/${id}`, { headers: this.headers, observe: 'response'})
   }
+
+  addRolesToCompany(role: Role): Observable<HttpResponse<any>> { // ${client}/${company}
+    // return this.http.put<any>(`${this.serverUrl}${this.apiUrls.role}/add-to-company`, role, { headers: this.headers, observe: 'response'})
+    
+    // return of({ status: 200, message: 'Roles agregados correctamente' } as unknown as HttpResponse<any>)
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.role}/update`, role, { headers: this.headers, observe: 'response'})
+  }
 }

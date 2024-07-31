@@ -1,3 +1,4 @@
+<br>
 <div>
 
   <div class="search-container table-header">
@@ -9,7 +10,7 @@
     </button>
     </mat-form-field>
 
-</div>
+  </div>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
@@ -74,6 +75,6 @@
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
   <div align="right">
-    <button mat-raised-button color="primary" (click)="addRolesToCompany()">Agregar roles</button>
+    <button mat-raised-button color="primary" [disabled]="!hasValue()" (click)="addRolesToCompany()">Agregar roles</button>
   </div>
 </div>

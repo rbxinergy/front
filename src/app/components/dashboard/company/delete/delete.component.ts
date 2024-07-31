@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 @Component({
   selector: 'app-delete',
   templateUrl: './delete.component.html',
+  styleUrls: ['./delete.component.css'],
   standalone:true,
   imports:[
     MatButtonModule,

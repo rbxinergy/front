@@ -40,7 +40,7 @@ export class SubdomainComponent {
   domainsMap: { [key: string]: SubDomain[] } = {};
   subdomainForm: FormGroup;
   subdomainsForm: FormGroup;
-
+  subdomains: SubDomain[] = [];
   dataSourcePacks!: MatTableDataSource<any>;
   displayedColumns = ["Nombre", "Descripción", "Tags", "Eliminar"]
 
@@ -51,15 +51,11 @@ export class SubdomainComponent {
     private _fb: FormBuilder) {
       if(data.data) {
         this.subdomainForm = this._fb.group({
-          id: new FormControl(data?.data.id , Validators.required),
-          name: new FormControl(data?.data.name || '', Validators.required),
-          description: new FormControl(data.data.description || '', Validators.required),
-          is_active: new FormControl(true),
-          is_delete: new FormControl(false),
-          created_date: new FormControl(new Date(), Validators.required),
-          modificated_date: new FormControl(new Date(), Validators.required),
-          tag: new FormControl(data?.data.tag || ''),
-          idDomain: new FormControl(data?.data.idDomain || '', Validators.required)
+          id: new FormControl(data?.data?.id || '', Validators.required),
+          name: new FormControl(data?.data?.name || '', Validators.required),
+          description: new FormControl(data?.data?.description || '', Validators.required),
+          tag: new FormControl(data?.data?.tag || ''),
+          idDomain: new FormControl(data?.data?.idDomain || '', Validators.required)
         })
       }
 
@@ -67,32 +63,30 @@ export class SubdomainComponent {
         id: new FormControl([''], Validators.required),
         name: new FormControl([''], Validators.required),
         description: new FormControl([''], Validators.required),
-        tag: new FormControl(['']),
-        subdominios: this._fb.array([])
+        tag: new FormControl([''])
       })
       
     }
   
-    get subdomains() {
-      return this.subdomainsForm.controls["subdominios"] as FormArray;
-    };
+    // get subdomains() {
+    //   return this.subdomainsForm.controls["subdominios"] as FormArray;
+    // };
   
     addSubdomains(selectedDomainId: string): void {
       const subdomainsForm = this._fb.group({
-        name:[''],
+        name: [''],
         description: [''],
         tag: [''],
-        idDomain:[''],
-        subdominios: this._fb.array([])
-      });
+        idDomain: ['']
+      }) as unknown as any;
   
-      this.subdomains.push(subdomainsForm);
-      this.dataSourcePacks = new MatTableDataSource(this.subdomains.controls);
+      this.subdomains.push(subdomainsForm.value);
+      this.dataSourcePacks = new MatTableDataSource(this.subdomains);
       this.cd.detectChanges();
     };
   
     onSubmit(selectedDomainId: string):void {
-      this.dialogRef.close(this.subdomains.value) 
+      this.dialogRef.close(this.subdomains)
       
     }
     onUpdate(){
@@ -108,14 +102,8 @@ export class SubdomainComponent {
     deleteSubdomain(i: number): void {
       console.log(i)
       console.log(this.subdomains)
-      this.subdomains.removeAt(i);
-      this.dataSourcePacks = new MatTableDataSource(this.subdomains.controls);
+      this.subdomains.splice(i, 1);
+      this.dataSourcePacks = new MatTableDataSource(this.subdomains);
     };
 
 }
-
-
-
-
-
-

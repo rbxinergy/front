@@ -54,8 +54,7 @@ export class LoginComponent {
   async logIn(email: string, password: string) {
     try {
       const data = await this.authService.logInWithEmailAndPassword(email, password);
-      sessionStorage.setItem('user', data.email);
-      sessionStorage.setItem('token', data.token);
+      console.log("DATA", data);
       sessionStorage.setItem('client', Array.isArray(data.client) ? JSON.stringify(data.client) : data.client);
       sessionStorage.setItem('company', Array.isArray(data.company) ? JSON.stringify(data.company) : data.company);
       this.getProfile();
@@ -77,7 +76,7 @@ export class LoginComponent {
           }
         });
       } else {
-        console.log("to dashboard");
+        sessionStorage.setItem('client', data.client.id);
         this.router.navigate(['/dashboard']);
       }
     } catch (error) {

@@ -36,12 +36,13 @@ export class SubdomainCfgTableComponent {
   displayedColumns: string[] = ['select', 'id', 'name', 'idDomain'];
   dataSource = new MatTableDataSource<SubDomain>();
   selection = new SelectionModel<SubDomain>(true, []);
-isLoading: boolean = false;
+  isLoading: boolean = false;
 
   constructor(private subdomainService: SubdomainService) {
-    this.subdomainService.getSubdomains().subscribe((subdomains: SubDomain[]) => {
-      this.dataSource.data = subdomains;
-    });
+    console.log('subdomainService');
+    // this.subdomainService.getSubdomains().subscribe((subdomains: SubDomain[]) => {
+    //   this.dataSource.data = subdomains;
+    // });
   }
   // ngOnInit(): void {
   //   this.userService.getUsers('client', 'company').subscribe((users: User[]) => {

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { HttpResponse } from '@angular/common/http';
 
 /**
  * Servicio de autenticación.
@@ -17,6 +19,7 @@ export class AuthService {
   userData: any;
   apiUrls: any = environment.apiUrls;
   serverUrl: any = environment.serverUrl;
+  isAuth: boolean = false;
 
   /**
    * Constructor del servicio de autenticación.
@@ -37,6 +40,12 @@ export class AuthService {
         `${this.serverUrl}${this.apiUrls.login}`,
         { email, password }
       ).toPromise();
+      sessionStorage.setItem('user', response.email);
+      sessionStorage.setItem('token', response.token);
+      sessionStorage.setItem('client', response.client);
+      sessionStorage.setItem('company', response.company);
+      sessionStorage.setItem('session', response.session);
+      this.isAuth = true;
       return response;
     } catch (error) {
       console.error('Error during login:', error);
@@ -47,32 +56,33 @@ export class AuthService {
   /**
    * Cierra la sesión del usuario.
    */
+  isLoggedIn(): boolean {
+    const user = sessionStorage.getItem('user');
+    this.isAuth = !user ? false : true;
+    console.log("isLoggedIn", this.isAuth);
+    return this.isAuth;
+  }
+
+  isActive(): Observable<boolean> {
+    const sessionId = sessionStorage.getItem('session');
+    if (!sessionId) {
+      return of(false);
+    }
+    return this.http.get<{active: boolean}>(`${this.serverUrl}${this.apiUrls.session}/${sessionId}`, { observe: 'response' }).pipe(
+      map(response => response.body?.active === true), // Convertir la respuesta en boolean
+      catchError(() => of(false)) // En caso de error, devolver false
+    );
+  }
+
   async logOut(): Promise<void> {
     try {
       await this.http.delete(`${this.serverUrl}${this.apiUrls.logout}`, {}).toPromise();
-      localStorage.removeItem('user');
-      sessionStorage.removeItem('groupDocument');
-      sessionStorage.removeItem('userCreator');
-      sessionStorage.removeItem('userId');
-      sessionStorage.removeItem('profile');
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('client');
+      sessionStorage.clear();
       this.router.navigate(['login']);
     } catch (error) {
       console.error('Error during logout:', error);
       return Promise.reject(error);
     }
-  }
-
-  /**
-   * Verifica si el usuario está autenticado.
-   * @returns `true` si el usuario está autenticado, `false` en caso contrario.
-   * Este método es invocado por AuthGuard para verificar si el usuario está autenticado.
-   * Si no está autenticado, redirige al usuario a la página de inicio de sesión.
-   */
-  get isLoggedIn(): boolean {
-    const user = sessionStorage.getItem('user');
-    return user !== null;
   }
 
   async getProfile() {

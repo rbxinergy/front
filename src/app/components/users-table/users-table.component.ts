@@ -11,13 +11,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
-import { UserDataService } from 'src/app/services/user-data.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { UserComponent } from '../user/user.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-users-table',
@@ -33,8 +31,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatPaginatorModule,
     MatSortModule,
     CommonModule,
-    MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class UsersTableComponent {
@@ -50,17 +48,37 @@ export class UsersTableComponent {
   });
 
   @Input() companyId: string = '';
+  searchInput: any;
 
   constructor(private userService: UserService, public dialog: MatDialog) {
     this.userService.getUsers(this.client).subscribe((users: User[]) => {
       this.dataSource.data = users;
+      this.selectUsersByCompany();
     });
   }
 
+  selectUsersByCompany(): void {
+    this.dataSource.data.forEach(user => {
+      if (user.company === this.companyId) {
+        this.selection.select(user);
+      }
+    });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+ 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
+  }
+
+  clearSearch(input: HTMLInputElement) {
+    input.value = '';
+    this.dataSource.filter = '';
   }
 
   masterToggle() {
@@ -76,65 +94,41 @@ export class UsersTableComponent {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  addUsersToCompany() {
+    console.log(this.selection.selected);
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
+    // Crear un array de promesas para todas las solicitudes
+    const requests = this.selection.selected.map(user => 
+      this.userService.addUsersToCompany(user).toPromise()
+    );
 
-  clearSearch(input: HTMLInputElement) {
-    input.value = '';
-    const event = { target: input } as Event & { target: HTMLInputElement };
-    this.applyFilter(event);
-  }
-
-  addUsersToRol() {
-    const maxId = this.users.length > 0 ? Math.max(...this.users.map(user => parseInt(user.id))) : 0;
-      const dialogRef = this.dialog.open(UserComponent, {
-        width: '600px',
-        data: {}
-      });
-    
-      dialogRef.afterClosed().subscribe({
-        next: (newUser: User) => {
-          if (newUser) {
-            this.userService.createUser(newUser).subscribe({
-              next: (response) => {
-                if (response.status === 200) {
-                  this.dialog.open(MessagesModalComponent, {
-                    width: '400px',
-                    data: { message: 'Compañía creada exitosamente.', type: 'success' }
-                  });
-                  newUser.id = (maxId + 1).toString();
-                  this.users.push(response.body);
-                  this.dataSource.data = this.users;
-                  this.formUserTable.controls['tempControl'].setValue(response.body.name);
-                } else {
-                  this.dialog.open(MessagesModalComponent, {
-                    width: '400px',
-                    data: { message: 'Error al crear la compañía.', type: 'error' }
-                  });
-                }
-              },
-              error: (error) => {
-                this.dialog.open(MessagesModalComponent, {
-                  width: '400px',
-                  data: { message: 'Error al crear la compañía.', type: 'error' }
-                });
-              }
-            });
-          }
-        },
-        error: (error) => {
-          console.error('Error al abrir el modal de nueva empresa:', error);
+    // Esperar a que todas las solicitudes se completen
+    Promise.all(requests)
+      .then((responses) => {
+        // Verificar que todas las respuestas sean exitosas
+        if (responses.every(res => res.status === 200)) {
           this.dialog.open(MessagesModalComponent, {
             width: '400px',
-            data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+            data: { message: 'Usuarios agregados correctamente.', type: 'success' }
+          });
+        } else {
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Hubo un problema al agregar algunos usuarios.', type: 'error' }
           });
         }
+      })
+      .catch((error) => {
+        console.error('Error al agregar usuarios:', error);
+        this.dialog.open(MessagesModalComponent, {
+          width: '400px',
+          data: { message: 'Hubo un problema al agregar los usuarios.', type: 'error' }
+        });
       });
   }
+
+  hasValue() {
+    return this.selection.selected.length > 0;
+  }
+   
 }

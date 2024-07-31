@@ -75,12 +75,13 @@ export class CompanyComponent implements AfterViewInit {
   }
 
   openConfig(client: string, company?: string) {
-    company === null ? company = '2f32cc26-a28f-486b-91e1-4906832aa885' : company = '';
+    console.log('openConfig', client, company);
+    const idclient = client != null ? client : sessionStorage.getItem('client');
     if (company) {
       console.log('openConfig', client, company);
-      this.router.navigate(['/dashboard/company-config', client, company]);
+      this.router.navigate(['/dashboard/company-config', idclient, company]);
     } else {
-      this.router.navigate(['/dashboard/company-config', client]);
+      this.router.navigate(['/dashboard/company-config', idclient]);
     }
   }
 }

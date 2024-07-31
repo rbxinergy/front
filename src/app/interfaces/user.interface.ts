@@ -17,5 +17,6 @@ export interface User {
     active: boolean;
     delete: boolean;
     tag: string;
-    idRole: []
+    idRole?: string;
+    company?: string;
   }

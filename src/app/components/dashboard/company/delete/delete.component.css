@@ -1,0 +1,14 @@
+:host {
+    display: block;
+    background: #FFF;
+    max-width: 500px;
+}
+
+.head-error {
+    background-color: #f44336;
+    color: #FFF;
+    padding: 16px;
+    margin: 0px;
+    font-weight: 500;
+    font-size: 24px;
+}
