@@ -27,7 +27,6 @@ export class AuthService {
       sessionStorage.setItem('user', response.email);
       sessionStorage.setItem('token', response.token);
       sessionStorage.setItem('client', response.client);
-      sessionStorage.setItem('company', response.company);
       sessionStorage.setItem('session', response.session);
       this.isAuth = true;
       return response;
@@ -62,23 +61,6 @@ export class AuthService {
       this.router.navigate(['login']);
     } catch (error) {
       console.error('Error during logout:', error);
-      return Promise.reject(error);
-    }
-  }
-
-  async getProfile() {
-    try {
-      // const user = sessionStorage.getItem('user');
-      const client = sessionStorage.getItem('client');
-      const company = sessionStorage.getItem('company');
-      //return await this.http.get(`${this.serverUrl}${this.apiUrls.user}/get/${client}/${company}`).toPromise();
-      return {
-        firstName: "Armin",
-        lastName: "Vera",
-        email: "armin.vera@gmail.com",
-      }
-    } catch (error) {
-      console.error('Error during getProfile:', error);
       return Promise.reject(error);
     }
   }

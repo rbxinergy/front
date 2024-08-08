@@ -37,7 +37,7 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
   ]
 })
 export class RoleCfgTableComponent {
-  displayedColumns: string[] = ['select', 'id', 'name', 'isCreate', 'isRead', 'isUpdate', 'isDelete'];
+  displayedColumns: string[] = ['select', 'name', 'isCreate', 'isRead', 'isUpdate', 'isDelete'];
   dataSource = new MatTableDataSource<Role>();
   selection = new SelectionModel<Role>(true, []);
   client: string = sessionStorage.getItem('client') || '';

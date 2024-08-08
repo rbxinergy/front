@@ -36,7 +36,12 @@ export class LoginComponent {
       const data = await this.authService.logInWithEmailAndPassword(email, password);
       console.log("DATA", data);
       sessionStorage.setItem('client', Array.isArray(data.permissions?.client) ? JSON.stringify(data.permissions?.client) : data.permissions?.client);
-      this.getProfile();
+      const profile = {
+        firstName: data.name,
+        lastName: data.lastName,
+        email: data.email
+      }
+      sessionStorage.setItem('profile', JSON.stringify(profile));
       if (Array.isArray(data.permissions)) {
         const dialogRef = this.dialog.open(ClientSelectionDialogComponent, {
           data: { clients: data.permissions }
@@ -66,14 +71,5 @@ export class LoginComponent {
         }
       });
     }
-  }
-
-  getProfile() {
-    this.authService.getProfile().then((data) => {
-      console.log("DATA PROFILE", data);
-      sessionStorage.setItem('profile', JSON.stringify(data));
-    }).catch((error) => {
-      console.error('Error during getProfile:', error);
-    });
   }
 }
