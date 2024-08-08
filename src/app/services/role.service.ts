@@ -31,6 +31,10 @@ export class RoleService {
     return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/${client}`, { headers: this.headers, observe: 'response'})
   }
 
+  getUserRole(idUser: string): Observable<HttpResponse<any>>{
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/user/${idUser}`, { headers: this.headers, observe: 'response'})
+  }
+
   createRole(role: Role): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${this.serverUrl}${this.apiUrls.role}/create`, role, { headers: this.headers, observe: 'response'})
   }
@@ -47,6 +51,6 @@ export class RoleService {
     // return this.http.put<any>(`${this.serverUrl}${this.apiUrls.role}/add-to-company`, role, { headers: this.headers, observe: 'response'})
     
     // return of({ status: 200, message: 'Roles agregados correctamente' } as unknown as HttpResponse<any>)
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.role}/update`, role, { headers: this.headers, observe: 'response'})
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.role}/update/${role.id}`, role, { headers: this.headers, observe: 'response'})
   }
 }

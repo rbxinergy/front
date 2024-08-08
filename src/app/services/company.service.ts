@@ -83,4 +83,8 @@ export class CompanyService {
   deleteCompany(id: string): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.serverUrl}${this.apiUrls.company}/delete/${id}`, { observe: 'response' });
   }
+
+  uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
+    return this.http.post(`${this.serverUrl}${this.apiUrls.company}/create/upload/file`, formData, { headers: this.headers, observe: 'response'});
+  }
 }

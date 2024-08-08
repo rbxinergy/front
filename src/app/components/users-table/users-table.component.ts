@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UserService } from '../../services/user.service';
@@ -15,12 +15,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { RoleService } from '../../services/role.service';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import { Role } from 'src/app/interfaces/role.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-users-table',
   templateUrl: './users-table.component.html',
-  styleUrls: ['./users-table.component.css'],
+  styleUrls: ['./users-table.component.scss'],
   standalone: true,
   imports: [
     MatTableModule,
@@ -32,11 +35,21 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
     MatSortModule,
     CommonModule,
     MatFormFieldModule,
-    MatInputModule
-  ]
+    MatInputModule,
+    ReactiveFormsModule
+  ],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
-export class UsersTableComponent {
-  displayedColumns: string[] = ['select', 'id', 'name', 'email', 'jobTitle'];
+export class UsersTableComponent implements OnInit {
+  displayedColumns = ['select', 'name', 'email', 'job_title'];
+  columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
+  expandedElement: User | null;
   dataSource = new MatTableDataSource<User>();
   users: User[]= [];
   selectedUser: User | null = null;
@@ -49,11 +62,30 @@ export class UsersTableComponent {
 
   @Input() companyId: string = '';
   searchInput: any;
+  userRoles: { [key: string]: any[] } = {};
 
-  constructor(private userService: UserService, public dialog: MatDialog) {
+  constructor(private userService: UserService, public dialog: MatDialog, private roleService: RoleService) {
     this.userService.getUsers(this.client).subscribe((users: User[]) => {
       this.dataSource.data = users;
+      console.log("users: ", users)
       this.selectUsersByCompany();
+      this.loadRolesForUsers();
+    });
+  }
+
+  ngOnInit(): void {
+  }
+
+  loadRolesForUsers(): void {
+    this.dataSource.data.forEach(user => {
+      this.loadRolesForUser(user.id);
+    });
+  }
+
+  loadRolesForUser(userId: string): void {
+    this.roleService.getUserRole(userId).subscribe(response => {
+      this.userRoles[userId] = response.body;
+      console.log("userRoles: ", this.userRoles)
     });
   }
 
@@ -131,4 +163,9 @@ export class UsersTableComponent {
     return this.selection.selected.length > 0;
   }
    
+  isExpansionDetailRow = (index: number, row: any) => row.hasOwnProperty('detailRow');
+
+  addRolesToUser(roles: any[]) {
+    console.log("roles: ", roles)
+  }
 }

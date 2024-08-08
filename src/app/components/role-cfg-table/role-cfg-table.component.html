@@ -13,10 +13,6 @@
   </div>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
 
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Nombre </th>
@@ -26,28 +22,28 @@
     <ng-container matColumnDef="isCreate">
       <th mat-header-cell *matHeaderCellDef> Crear </th>
       <td mat-cell *matCellDef="let element">
-        <mat-checkbox [checked]="element.isCreate"></mat-checkbox>
+        <mat-checkbox [checked]="element.create"></mat-checkbox>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="isList">
       <th mat-header-cell *matHeaderCellDef> Leer </th>
       <td mat-cell *matCellDef="let element">
-        <mat-checkbox [checked]="element.isList"></mat-checkbox>
+        <mat-checkbox [checked]="element.read"></mat-checkbox>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="isModify">
       <th mat-header-cell *matHeaderCellDef> Actualizar </th>
       <td mat-cell *matCellDef="let element">
-        <mat-checkbox [checked]="element.isModify"></mat-checkbox>
+        <mat-checkbox [checked]="element.update"></mat-checkbox>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="isDelete">
       <th mat-header-cell *matHeaderCellDef> Eliminar </th>
       <td mat-cell *matCellDef="let element">
-        <mat-checkbox [checked]="element.isDelete"></mat-checkbox>
+        <mat-checkbox [checked]="element.delete"></mat-checkbox>
       </td>
     </ng-container>
 

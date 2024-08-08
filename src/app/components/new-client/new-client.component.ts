@@ -175,6 +175,6 @@ export class NewClientComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions.forEach(sub => sub?.unsubscribe());
   }
 }

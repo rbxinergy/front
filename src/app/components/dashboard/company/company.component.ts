@@ -39,7 +39,11 @@ export class CompanyComponent implements AfterViewInit {
   ];
   client: string = sessionStorage.getItem('client') || '';
   dataSource = new MatTableDataSource<Company>();
-
+  selectedFile: File | null = null;
+  fileUploaded = false;
+  fileUploadedMessage = '';
+  fileUploadedMessageType = '';
+  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   constructor(private companyService: CompanyService, public dialog: MatDialog,
@@ -82,6 +86,26 @@ export class CompanyComponent implements AfterViewInit {
       this.router.navigate(['/dashboard/company-config', idclient, company]);
     } else {
       this.router.navigate(['/dashboard/company-config', idclient]);
+    }
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  uploadFile() {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile, this.selectedFile.name);
+
+      this.companyService.uploadCSV(formData).subscribe(response => {
+        console.log('Archivo subido exitosamente', response);
+        // Aquí puedes agregar lógica adicional, como actualizar la lista de compañías
+      }, error => {
+        console.error('Error al subir el archivo', error);
+      });
+    } else {
+      console.error('No se ha seleccionado ningún archivo');
     }
   }
 }
