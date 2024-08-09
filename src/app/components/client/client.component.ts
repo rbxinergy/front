@@ -40,7 +40,8 @@ export class ClientComponent implements OnInit {
     district: new FormControl(''),
     documentType: new FormControl('RUT', Validators.required),
     document: new FormControl('', Validators.required),
-    tag: new FormControl('')
+    tag: new FormControl(''),
+    idContact: new FormControl([''])
   });
   @Output() validationStatus = new EventEmitter<boolean>();
   @Input() showSaveBtn = true;
@@ -53,7 +54,8 @@ export class ClientComponent implements OnInit {
       this.validationStatus.emit(status === 'VALID'? true : false);
     });
   }
-
+ 
+ 
   save() {
     this.clientService.saveClient(this.clientForm.getRawValue() as unknown as Client).subscribe({
       next: (response) => {

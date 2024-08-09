@@ -11,6 +11,8 @@ export interface Client {
   documentType: string;
   document: string;
   tag: string;
-  active: boolean;
+  active?: boolean;
   idContact?: string[];
+  modificatedDate?: string,
+  createdDate?: string
 }

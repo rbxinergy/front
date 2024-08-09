@@ -64,7 +64,7 @@ import { Client } from 'src/app/interfaces/client.interface';
         MessagesModalComponent
     ]
 })
-export class NewClientComponent implements AfterViewInit, OnDestroy {
+export class NewClientComponent implements AfterViewInit {
 
   @ViewChild(ClientComponent) clientComponent: ClientComponent;
   @ViewChild(CompanyTableComponent) companyTableComponent: CompanyTableComponent;
@@ -74,13 +74,15 @@ export class NewClientComponent implements AfterViewInit, OnDestroy {
 
   showAppCompany: boolean = false;
   showAppRole: boolean = false;
-  showAppDomain: boolean = false;
+  showAppDomainCategory: boolean = false;
   showAppGroupCompany: boolean = false;
 
   clientFormValid: boolean = false;
   companyFormValid: boolean = false;
   roleFormValid: boolean = false;
+  domainCategoryFormValid: boolean = false;
   groupCompanyFormValid: boolean = false;
+
 
   subscriptions: Subscription[] = [];
 
@@ -98,12 +100,12 @@ export class NewClientComponent implements AfterViewInit, OnDestroy {
     return this.companyTableComponent?.formCompanyTable;
   }
 
-  get roleTableForm() {
-    return this.roleTableComponent?.formRoleTable;
-  }
+  // get roleTableForm() {
+  //   return this.roleTableComponent?.formRoleTable;
+  // }
 
   get domainCategoryTableForm() {
-    return this.domainCategoryTableComponent
+    return this.domainCategoryTableComponent?.formDomainCategoryTable
   }
 
   get groupCompanyForm() {
@@ -128,16 +130,23 @@ export class NewClientComponent implements AfterViewInit, OnDestroy {
       })
     );
 
-    this.subscriptions.push(
-      this.roleTableForm?.statusChanges.subscribe(status => {
-        this.roleFormValid = status === 'VALID'? true : false;
-        this.cdr.detectChanges();
-      })
-    );
+    // this.subscriptions.push(
+    //   this.roleTableForm?.statusChanges.subscribe(status => {
+    //     this.roleFormValid = status === 'VALID'? true : false;
+    //     this.cdr.detectChanges();
+    //   })
+    // );
 
     this.subscriptions.push(
       this.groupCompanyForm?.statusChanges.subscribe(status => {
         this.groupCompanyFormValid = status === 'VALID'? true : false;
+        this.cdr.detectChanges();
+      })
+    );  
+
+    this.subscriptions.push(
+      this.domainCategoryTableForm?.statusChanges.subscribe(status => {
+        this.domainCategoryFormValid = status === 'VALID'? true : false;
         this.cdr.detectChanges();
       })
     );  
@@ -165,10 +174,7 @@ export class NewClientComponent implements AfterViewInit, OnDestroy {
         this.showAppCompany = true;
         break;
       case 3:
-        this.showAppRole = true;
-        break;
-      case 4:
-        this.showAppDomain = true;
+        this.showAppDomainCategory = true;
         break;
     }
     this.cdr.detectChanges();

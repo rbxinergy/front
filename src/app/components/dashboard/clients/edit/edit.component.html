@@ -1,49 +1,64 @@
-<div [formGroup]="clientForm" class="p-4">
-    <mat-form-field>
-        <mat-label>Nombre de la empresa</mat-label>
-        <input matInput placeholder="Ingrese el nombre de la empresa" [value]="data.companyname" formControlName="name" readonly>
-    </mat-form-field>
-    
-    <br>
-    <h3>Datos de contacto</h3>
-    <mat-form-field>
-        <mat-label>Teléfono</mat-label>
-        <input matInput placeholder="Ingrese un número telefónico" [value]="data.phone" formControlName="phone" required>
-    </mat-form-field>
-    
-    <mat-form-field>
-        <mat-label>E-mail</mat-label>
-        <input matInput placeholder="Ingrese el e-mail" formControlName="email" [value]="data.email" required>
+<div [formGroup]="clientForm" class="p-4" >
+    <h2>Cliente</h2>
+    <mat-form-field appearance="outline" class="col-3">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name" required>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field appearance="outline" class="col-3">
+        <mat-label>Razón Social</mat-label>
+        <input matInput formControlName="businessName" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-3">
         <mat-label>Dirección</mat-label>
-        <input matInput placeholder="Ingrese dirección" formControlName="address" [value]="data.address" required>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-        <mat-label>País</mat-label>
-        <mat-select formControlName="countryId" placeholder="Ingrese el país"  required>
-            <mat-option [value]='data.countryId'>{{data.countryname}}</mat-option>
-        </mat-select>
+        <input matInput formControlName="address" required>
     </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Región</mat-label>
-        <mat-select formControlName="state" placeholder="Ingrese la región" [compareWith]="compareWith" [(ngModel)]="states" >
-            <mat-option *ngFor="let state of states" [value]="state">{{state.name}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    
-    <mat-form-field>
+    <mat-form-field appearance="outline" class="col-3">
         <mat-label>Ciudad</mat-label>
-        <mat-select formControlName="cityId" placeholder="Ingrese la ciudad" [compareWith]="compareWith" [ngModel]="cities" required >
-            <mat-option *ngFor="let city of cities"[value]="city.id">{{city.name}}</mat-option>
+        <input matInput formControlName="city" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-3">
+        <mat-label>Estado</mat-label>
+        <input matInput formControlName="state" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-3">
+        <mat-label>Condado</mat-label>
+        <input matInput formControlName="county">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-3">
+        <mat-label>Distrito</mat-label>
+        <input matInput formControlName="district">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-3">
+        <mat-label>País</mat-label>
+        <input matInput formControlName="country" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-3">
+        <mat-label>Tipo de Documento</mat-label>
+        <mat-select formControlName="documentType" required>
+            <mat-option value="RUT">RUT</mat-option>
+            <mat-option value="DNI">DNI</mat-option>
         </mat-select>
     </mat-form-field>
 
+    <mat-form-field appearance="outline" class="col-3">
+        <mat-label>Documento</mat-label>
+        <input matInput formControlName="document" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-3">
+        <mat-label>Etiqueta</mat-label>
+        <input matInput formControlName="tag">
+    </mat-form-field>
     <div>
-        <button mat-raised-button color="primary">Editar empresa</button>&nbsp;
+        <button mat-raised-button color="primary" type="submit" (click)="closeModal()">Editar cliente</button>
     </div>
 
 </div>

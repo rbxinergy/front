@@ -32,15 +32,15 @@ export const environment = {
     contact: `contact-drzcbalp5q-uk.a.run.app/v1/contact`,
     domain: `domain-drzcbalp5q-uk.a.run.app/v1/domain`,
     domainCategory: `domain-category-drzcbalp5q-uk.a.run.app/v1/domain-category`,
-    groupCompany: `group-company-drzcbalp5q-uk.a.run.app/v1/groupcompany`,
+    groupCompany: `group-company-drzcbalp5q-uk.a.run.app/v1/group-company`,
     login: `login-drzcbalp5q-uk.a.run.app/v1/login/auth/login`,
     logout: `login-drzcbalp5q-uk.a.run.app/v1/login/auth/logout`,
     provider: `provider-drzcbalp5q-uk.a.run.app/v1/provider`,
     role: `role-drzcbalp5q-uk.a.run.app/v1/role`,
     subdomain: `subdomain-drzcbalp5q-uk.a.run.app/v1/subdomain`,
     user: `user-drzcbalp5q-uk.a.run.app/v1/user`,
-    report: `/v1/report`,  
-    serviceCompany: `/v1/service-company`,
+    report: `report-drzcbalp5q-uk.a.run.app/v1/report`,  
+    serviceCompany: `service-company-drzcbalp5q-uk.a.run.app/v1`,
     session: `login-drzcbalp5q-uk.a.run.app/v1/login/get`
   }
 };

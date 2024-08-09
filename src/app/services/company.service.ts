@@ -7,6 +7,7 @@ import { Company } from '../interfaces/company.interface';
 import { ClientDataService } from './client-data.service';
 import { ServiceCompany } from '../interfaces/servicecompany.interface';
 import { GroupcompanyDataService } from './groupcompany-data.service';
+import { Client } from '../interfaces/client.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -53,31 +54,28 @@ export class CompanyService {
   }
 
   getCompaniesByClient(client: any){
-    console.log('getCompaniesByGroup', client);
-    const params = new HttpParams({
-      fromString: 'group=' + this.groupDocument + '&option=2'
-    });
     return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/client/${client}`, { headers: this.headers})
+
+  }
+  getCompaniesByGroup(groupCompany: any){
+    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/group-company/${groupCompany}`, { headers: this.headers})
   }
 
   getCompany(client: string, company: string) {
-    console.log('getCompany', client, company);
     return this.http.get<Company>(`${this.serverUrl}${this.apiUrls.company}/get/${client}/${company}`, { headers: this.headers})
   }
 
   getClients() {
-    return of(clients);
-    // this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/cliente1/company`, { headers: this.headers})
+   return this.http.get<Client[]>(`${this.serverUrl}${this.apiUrls.client}/get/all`, { headers: this.headers})
   }
 
   createCompany(company: Company): Observable<HttpResponse<any>> {
-    console.log(company)
     return this.http.post<any>(`${this.serverUrl}${this.apiUrls.company}/create`, company, { observe: 'response' });
   }
 
 
   updateCompany(company: Company): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.company}/update`, {company}, { observe: 'response' });
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.company}/update/${company.id}`, company, { headers: this.headers, observe: 'response' });
   }
 
   deleteCompany(id: string): Observable<HttpResponse<any>> {

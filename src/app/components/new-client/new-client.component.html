@@ -1,42 +1,43 @@
 <mat-horizontal-stepper linear (selectionChange)="onStepChange($event)">
+ 
   <mat-step label="Datos del cliente" [stepControl]="clientForm" [completed]="clientFormValid">
+    <br>
     <app-client (validationStatus)="onValidationStatus($event)" [showSaveBtn]="true"></app-client>
     <div>
-      <button mat-button matStepperNext>Siguiente</button>
+      <button mat-raised-button matStepperNext>Siguiente</button>
     </div>
   </mat-step>
   <mat-step label="Grupos" [stepControl]="groupCompanyForm" [completed]="groupCompanyFormValid">
+    <br>
     <div *ngIf="showAppGroupCompany">
       <app-group-company-table></app-group-company-table>
     </div>
     <div>
-      <button mat-button matStepperPrevious>Anterior</button>
-      <button mat-button matStepperNext>Siguiente</button>
+      <button mat-raised-button matStepperPrevious>Anterior</button>
+      &nbsp;
+      <button mat-raised-button matStepperNext>Siguiente</button>
     </div>
   </mat-step>
   <mat-step label="Añadir empresas del cliente" [stepControl]="companyTableForm" [completed]="companyFormValid">
+    <br>
     <div *ngIf="showAppCompany">
       <app-company-table [clientName]="'Client'"></app-company-table>
     </div>
     <div>
-      <button mat-button matStepperPrevious>Anterior</button>
-      <button mat-button matStepperNext>Siguiente</button>
+      <button mat-raised-button matStepperPrevious>Anterior</button> 
+      &nbsp;
+      <button mat-raised-button matStepperNext>Siguiente</button>
     </div>
   </mat-step>
-  <mat-step label="Roles" [stepControl]="roleTableForm" [completed]="roleFormValid">
-    <div *ngIf="showAppRole">
-      <app-role-table></app-role-table>
+  <mat-step label="Categorías de dominio" [stepControl]="domainCategoryTableForm" [completed]="domainCategoryFormValid">
+    <br>
+    <div *ngIf="showAppDomainCategory">
+      <app-domain-category-table></app-domain-category-table>
     </div>
     <div>
-      <button mat-button matStepperPrevious>Anterior</button>
-      <button mat-button matStepperNext>Siguiente</button>
-    </div>
-  </mat-step>
-  <mat-step label="Categorías de dominio">
-    <app-domain-category-table></app-domain-category-table>
-    <div>
-      <button mat-button matStepperPrevious>Anterior</button>
-      <button mat-button>Finalizar</button>
+      <button mat-raised-button matStepperPrevious>Anterior</button>
+      &nbsp;
+      <button mat-raised-button>Finalizar</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>

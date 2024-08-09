@@ -25,6 +25,8 @@ import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-
 import { TranslateModule } from '@ngx-translate/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
+import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.service';
+import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
 
 @Component({
   selector: 'app-domain-category-table',
@@ -63,8 +65,13 @@ export class DomainCategoryTableComponent {
   formDomainCategoryTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
   });
+
+  groupCompany: GroupCompany | null = null;
   
-  constructor(private domainCategoryService: DomainCategoryService, private dialog: MatDialog, private cdr: ChangeDetectorRef) {
+  constructor(private domainCategoryService: DomainCategoryService, private dialog: MatDialog, private cdr: ChangeDetectorRef, 
+    private groupCompanyDataService: GroupcompanyDataService) {
+    this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
+    console.log("GROUPCOMPANY: ", this.groupCompany)
     // this.domainCategoryService.getDomainCategories().subscribe((domainCategories: DomainCategory[]) => {
     //   this.dataSource.data = domainCategories;
     //   console.log(domainCategories)
@@ -114,6 +121,7 @@ export class DomainCategoryTableComponent {
       dialogRef.afterClosed().subscribe({
       next: (newDomainCategory: DomainCategory) => {
         if (newDomainCategory) {
+          newDomainCategory.idGroupCompany = this.groupCompany?.id
           console.log(newDomainCategory)
           this.domainCategoryService.createDomainCategory(newDomainCategory).subscribe({
             next: (response) => {
@@ -181,6 +189,7 @@ export class DomainCategoryTableComponent {
     dialogRef.afterClosed().subscribe({
       next: (updatedDomainCategory: DomainCategory) => {
         if (updatedDomainCategory) {
+          updatedDomainCategory.idGroupCompany = this.groupCompany?.id
           this.domainCategoryService.updateDomainCategory(updatedDomainCategory).subscribe({
             next: (response) => {
               if (response.status === 200) {

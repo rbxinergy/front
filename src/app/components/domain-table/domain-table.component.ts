@@ -78,12 +78,12 @@ export class DomainTableComponent implements AfterViewInit {
     this.DomainService.getDomains(this.client).subscribe((domains: Domain[]) => {
       this.domains = domains;
       this.domains.forEach((domain: Domain) => {
-        if(!domain.subdomains){
-          domain.subdomains = [];
+        if(!domain.subDomains){
+          domain.subDomains= [];
         }
         this.SubdomainService.getSubdomains(domain.id).subscribe((subdomains: SubDomain[]) => {
           subdomains.forEach((subdomain: SubDomain) => {
-            domain.subdomains.push(subdomain);
+            domain.subDomains.push(subdomain);
           });
         });
       });
@@ -225,7 +225,7 @@ export class DomainTableComponent implements AfterViewInit {
 
   // Implementación para abrir el diálogo de edición
   openUpdate(domain: Domain) {
-    domain.isActive = true
+    domain.active = true
     this.selectedDomain = { ...domain }
     
     const dialogRef = this.dialog.open(DomainComponent, {

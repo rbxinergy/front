@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { HttpResponse } from '@angular/common/http';
+
 
 /**
  * Servicio de autenticación.
@@ -68,8 +68,8 @@ export class AuthService {
       return of(false);
     }
     return this.http.get<{active: boolean}>(`${this.serverUrl}${this.apiUrls.session}/${sessionId}`, { observe: 'response' }).pipe(
-      map(response => response.body?.active === true), // Convertir la respuesta en boolean
-      catchError(() => of(false)) // En caso de error, devolver false
+      map(response => response.body?.active === true), 
+      catchError(() => of(false)) 
     );
   }
 

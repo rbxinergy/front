@@ -1,11 +1,30 @@
 <h2>{{"client.client" | translate }}</h2>
+
+
+
 <div class="header">
   <button mat-raised-button color="primary" class="new-client-button" (click)="navigateToNewClient()">
     <mat-icon>add</mat-icon>
     Nuevo cliente
   </button>
 </div>
+<div class="file-upload">
+  <input type="file" (change)="onFileSelected($event)" #fileUpload>
+  {{fileName || "No file uploaded yet."}}
 
+  <button mat-mini-fab color="primary" class="upload-btn"
+    (click)="fileUpload.click()">
+      <mat-icon>attach_file</mat-icon>
+  </button>
+</div>
+
+
+<div class="progress">
+  <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress">
+  </mat-progress-bar>
+
+  <mat-icon class="cancel-upload" (click)="cancelUpload()" *ngIf="uploadProgress">delete_forever</mat-icon>
+</div>
 <div>
   <div class="spinner" *ngIf="isLoading">
     <mat-progress-spinner color="accent" mode="indeterminate" diameter="50">
@@ -57,15 +76,15 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>visibility</mat-icon>
-            <span>Ver</span>
+          <button mat-menu-item (click)="openNewGroupCompanyModal(element)">
+            <mat-icon>create_new_folder</mat-icon>
+            <span>Grupo de empresas</span>
           </button>
-          <button mat-menu-item (click)="openDialog(element.id)">
+          <button mat-menu-item (click)="openEditClientModal(element)">
             <mat-icon>edit</mat-icon>
             <span>Editar</span>
           </button>
-          <button mat-menu-item (click)="openDelete(element.id)">
+          <button mat-menu-item (click)="openDeleteCompanyModal(element)">
             <mat-icon>delete</mat-icon>
             <span>Borrar</span>
           </button>

@@ -32,7 +32,7 @@ export class LoginComponent {
   hide = true;
 
   /** Perfil del usuario. */
-  userProfile = new Array<any>();
+  userProfile :any;
 
   /**
    * Constructor del componente.
@@ -51,7 +51,9 @@ export class LoginComponent {
    * @param email Correo electrónico del usuario.
    * @param password Contraseña del usuario.
    */
+
   async logIn(email: string, password: string) {
+   
     try {
       const data = await this.authService.logInWithEmailAndPassword(email, password);
       console.log("DATA", data);

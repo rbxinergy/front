@@ -20,6 +20,7 @@ export class DomainService {
   domain:any;
   private apiUrls = environment.apiUrls.domain;
   private serverUrl = environment.serverUrl;
+  private apiLocalUrls=environment.getDomainsUrl
   token: string = sessionStorage.getItem('token') || '';
   private headers = new HttpHeaders({
     'Authorization': 'Bearer ' +  this.token,
@@ -32,10 +33,16 @@ export class DomainService {
      console.log(this.domain);
    }
 
+  
+  getDomainTest(client: string): Observable<Domain[]> {
+    console.log(`${this.serverUrl}${this.apiUrls}/get/${client}`);
+    return this.http.get<Domain[]>(`${this.apiLocalUrls}/get/${client}`, {headers: this.headers});
+    // return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/${client}`, {headers: this.headers});
+
+  }
   getDomains(client: string): Observable<Domain[]> {
     console.log(`${this.serverUrl}${this.apiUrls}/domain/get/${client}/company`);
     return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/${client}`, {headers: this.headers});
-
   }
 
 

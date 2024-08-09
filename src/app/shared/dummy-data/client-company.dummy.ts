@@ -1,38 +1,71 @@
 export const clients = [
-    {
-      id: '550e8400-e29b-41d4-a716-446655440001',
-      name: 'Empresa Chilena A',
-      businessName: 'Empresa A S.A.',
-      address: 'Av. Libertador Bernardo O\'Higgins 1234, Santiago, Chile',
-      country: 'Chile',
-      documentType: 'RUT',
-      document: '76012345-6',
-      tag: 'legal-related',
-      idContact: ['550e8400-e29b-41d4-a716-446655440001']
-    },
-    {
-      id: '550e8400-e29b-41d4-a716-446655440002',
-      name: 'Empresa Chilena B',
-      businessName: 'Empresa B Ltda.',
-      address: 'Calle Falsa 123, Valparaíso, Chile',
-      country: 'Chile',
-      documentType: 'RUT',
-      document: '96543210-9',
-      tag: 'legal-related',
-      idContact: ['550e8400-e29b-41d4-a716-446655440002']
-    },
-    {
-      id: '550e8400-e29b-41d4-a716-446655440003',
-      name: 'Empresa Chilena C',
-      businessName: 'Empresa C SpA',
-      address: 'Calle Real 456, Concepción, Chile',
-      country: 'Chile',
-      documentType: 'RUT',
-      document: '81234567-0',
-      tag: 'legal-related',
-      idContact: ['550e8400-e29b-41d4-a716-446655440003']
-    }
-  ];
+  {
+		"id" : "613d123b-a0ab-42f6-9b5c-6ec8238cf087",
+		"name" : "Cencosud",
+		"businessName" : "Cencosud S.A.",
+		"address" : "Avenida Presidente Kennedy 9001",
+		"city" : "Santiago",
+		"state" : "R. Metropolitana",
+		"county" : "",
+		"district" : "Las condes",
+		"country" : "Chile",
+		"documentType" : "RUT",
+		"document" : "93834000 - 5",
+		"active" : true,
+		"delete" : false,
+		"tag" : ""
+	},
+	{
+		"id" : "08a1af61-eee9-4747-bd7b-febb86332f20",
+		"name" : "CAP",
+		"businessName" : "CAP S.A",
+		"address" : "GERTRUDIS ECHEÑIQUE 220",
+		"city" : "Santiago",
+		"state" : "R. Metropolitana",
+		"county" : "",
+		"district" : "Las condes",
+		"country" : "Chile",
+		"documentType" : "RUT",
+		"document" : "58790262-1",
+		"active" : true,
+		"delete" : false,
+		"tag" : ""
+	},
+  {
+    "id" : "ebf2060f-d605-4257-8ea6-28d604c78330",
+    "name" : "Cliente de prueba borrar",
+    "businessName" : "Test Client S.A",
+    "address" : "Calle falsa 1234",
+    "city" : "Santiago",
+    "state" : "R. Metropolitana",
+    "county" : "",
+    "district" : "",
+    "country" : "Chile",
+    "documentType" : "RUT",
+    "document" : "62871818-0",
+    "active" : true,
+    "delete" : false,
+    "tag" : "legal-related"
+  },
+  {
+    "id" : "6628481b-262e-4f7d-b468-0354ff6e8575",
+    "name" : "Cliente de prueba 2 para Editar",
+    "businessName" : "Test Client S.A ",
+    "address" : "Calle falsa 1234",
+    "city" : "Santiago",
+    "state" : "R. Metropolitana",
+    "county" : "",
+    "district" : "",
+    "country" : "Chile",
+    "documentType" : "RUT",
+    "document" : "70599933-3",
+    "active" : true,
+    "delete" : false,
+    "tag" : ""
+  }
+    
+    
+]
   
   export const companies = clients.flatMap(client => {
     return Array.from({ length: 10 }, (_, index) => ({
