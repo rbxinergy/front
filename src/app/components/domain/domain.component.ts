@@ -45,8 +45,8 @@ export class DomainComponent {
           tag: new FormControl(data?.tag || ''),
           idDomainCategory: new FormControl(data?.idDomainCategory || '', Validators.required),
           idCompany: new FormControl(data?.idCompany || '', Validators.required),
-          isActive: new FormControl(data?.isActive || '', Validators.required),
-          isDelete: new FormControl(data?.isDelete || '', Validators.required),
+          active: new FormControl(data?.active || '', Validators.required),
+          delete: new FormControl(data?.delete || '', Validators.required),
         });
       }
     }

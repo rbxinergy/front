@@ -29,7 +29,7 @@ export class DashboardComponent {
   }
   
   ngOnInit():void{
-    const profile = {firstName: 'Juan', lastName: 'Perez'} // JSON.parse(sessionStorage.getItem('profile') || ''); 
+    const profile = {firstName: 'Paulina', lastName: 'Ceballos'} // JSON.parse(sessionStorage.getItem('profile') || ''); 
     const firstName = profile.firstName
     const lastName = profile.lastName
     this.name =  `${firstName} ${lastName}`

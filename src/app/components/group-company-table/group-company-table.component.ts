@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, Input, Inject } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sort';
@@ -9,7 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -23,6 +23,9 @@ import { Client } from 'src/app/interfaces/client.interface';
 import { GroupCompanyService } from 'src/app/services/groupcompany.service';
 import { GroupcompanyComponent } from '../groupcompany/groupcompany.component';
 import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.service';
+import { Company } from 'src/app/interfaces/company.interface';
+import { CompanyComponent } from '../company/company.component';
+import { CompanyTableComponent } from '../company-table/company-table.component';
 
 @Component({
   selector: 'app-group-company-table',
@@ -55,46 +58,54 @@ export class GroupCompanyTableComponent implements AfterViewInit {
   client: Client | null = null;
 
   constructor(private groupCompanyService: GroupCompanyService, private cdr: ChangeDetectorRef,
-      private dialog: MatDialog, private clientDataService: ClientDataService, private groupCompanyDataService: GroupcompanyDataService) {
-        this.client = this.clientDataService.getClientData();
-        console.log('client', this.client);
+      private dialog: MatDialog, private clientDataService: ClientDataService, private groupCompanyDataService: GroupcompanyDataService,
+      private dialogRef: MatDialogRef<GroupCompanyTableComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Client
+    ) {
+      if(data){
+          this.client = data
+          this.clientDataService.setClientData(data);
+        } else {
+          this.client = this.clientDataService.getClientData();
+        }
       }
 
-  // ngOnInit(): void {
-  //   console.log('ngOnInit');
-  // }
 
   ngAfterViewInit(): void {
-    
+    this.groupCompanyService.getGroupCompanies(this.client.id).subscribe(data => {
+      this.dataSource.data = data
+      this.groupCompanies = data
+    })
+    //  this.groupCompanyDataService.setGroupCompanyData(data);
   }
 
-  loadClientData() {
-    this.client = this.clientDataService.getClientData();
-    console.log('client de loadClient', this.client.id);
-  }
+  // loadClientData() {
+  //   this.client = this.clientDataService.getClientData();
+  //   console.log('client de loadClient', this.client.id);
+  // }
 
-  loadGroups(clientName: string) {
-    console.log('clientName', clientName);
-    this.groupCompanyService.getGroupCompanies(clientName).subscribe(companies => {
-      this.groupCompanies = companies;
-      this.dataSource.data = this.groupCompanies;
-      if(companies.length === 0){
-        console.log('No hay empresas');
-        this.formGroupCompanyTable.controls['tempControl'].setValue('');
-      }
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
-      const sortState: Sort = {active: 'id', direction: 'desc'};
-      this.sort.active = sortState.active;
-      this.sort.direction = sortState.direction;
-      this.sort.sortChange.emit(sortState);
-      this.dataSource.sort = this.sort;
-      this.sort.direction = 'desc';
-      this.sort.active = 'id';
-      this.cdr.detectChanges();
-    });
-  }
+  // loadGroups(clientName: string) {
+  //   console.log('clientName', clientName);
+  //   this.groupCompanyService.getGroupCompanies(clientName).subscribe(companies => {
+  //     this.groupCompanies = companies;
+  //     this.dataSource.data = this.groupCompanies;
+  //     if(companies.length === 0){
+  //       console.log('No hay empresas');
+  //       this.formGroupCompanyTable.controls['tempControl'].setValue('');
+  //     }
+  //     this.dataSource.paginator = this.paginator;
+  //     this.dataSource.sort = this.sort;
+  //     this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
+  //     const sortState: Sort = {active: 'id', direction: 'desc'};
+  //     this.sort.active = sortState.active;
+  //     this.sort.direction = sortState.direction;
+  //     this.sort.sortChange.emit(sortState);
+  //     this.dataSource.sort = this.sort;
+  //     this.sort.direction = 'desc';
+  //     this.sort.active = 'id';
+  //     this.cdr.detectChanges();
+  //   });
+  // }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -158,6 +169,12 @@ export class GroupCompanyTableComponent implements AfterViewInit {
           data: { message: 'Error al cerrar el diálogo.', type: 'error' }
         });
       }
+    });
+  }
+  openNewCompanyModal(company: Company) {
+    const dialogRef = this.dialog.open(CompanyTableComponent, {
+      width: '600px',
+      data: company
     });
   }
   

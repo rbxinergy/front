@@ -31,6 +31,7 @@ export class GroupcompanyComponent {
     name: new FormControl(this.data?.name || '', Validators.required),
     description: new FormControl(this.data?.description || '', Validators.required),
     tag: new FormControl(this.data?.tag || ''),
+    active: new FormControl(this.data?.active || true),
     idClient: new FormControl(this.data?.idClient || null, Validators.required),
   });
 

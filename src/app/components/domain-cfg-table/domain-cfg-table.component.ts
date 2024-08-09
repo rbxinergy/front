@@ -39,8 +39,9 @@ export class DomainCfgTableComponent implements AfterViewInit {
   constructor(private domainService: DomainService) { }
 
   ngAfterViewInit(): void {
-    this.domainService.getDomains(this.client).subscribe((domains: Domain[]) => {
+    this.domainService.getDomainTest("7092d2be-e434-43f5-b419-b75adc234fed").subscribe((domains: Domain[]) => {
       this.dataSource.data = domains;
+      console.log(this.dataSource.data)
     });
   }
 

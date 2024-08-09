@@ -207,6 +207,9 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe({
       next: (updatedCompany: Company) => {
         if (updatedCompany) {
+          updatedCompany.idGroupCompany = this.groupCompany?.id;
+          updatedCompany.idClient = this.client?.id
+          console.log('updatedCompany', updatedCompany);
           this.companyService.updateCompany(updatedCompany).subscribe({
             next: (response) => {
               if (response.status === 200) {
@@ -214,6 +217,7 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
                   width: '500px',
                   data: { message: 'Empresa actualizada exitosamente.', type: 'success' }
                 });
+                
                 const index = this.companies.findIndex(c => c.id === updatedCompany.id);
                 if (index !== -1) {
                   this.companies[index] = response.body;

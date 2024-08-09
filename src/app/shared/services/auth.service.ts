@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../interfaces/user';
 
 /**
  * Servicio de autenticación.
@@ -36,7 +37,7 @@ export class AuthService {
       const response: any = await this.http.post(
         `${this.serverUrl}${this.apiUrls.login}`,
         { email, password }
-      ).toPromise();
+      );
       return response;
     } catch (error) {
       console.error('Error during login:', error);
@@ -49,11 +50,12 @@ export class AuthService {
    */
   async logOut(): Promise<void> {
     try {
-      await this.http.delete(`${this.serverUrl}${this.apiUrls.logout}`, {}).toPromise();
+      await this.http.delete(`${this.serverUrl}${this.apiUrls.logout}`, {});
       localStorage.removeItem('user');
       sessionStorage.removeItem('groupDocument');
+      sessionStorage.removeItem('company');
       sessionStorage.removeItem('userCreator');
-      sessionStorage.removeItem('userId');
+      sessionStorage.removeItem('user');
       sessionStorage.removeItem('profile');
       sessionStorage.removeItem('token');
       sessionStorage.removeItem('client');
@@ -80,11 +82,12 @@ export class AuthService {
       // const user = sessionStorage.getItem('user');
       const client = sessionStorage.getItem('client');
       const company = sessionStorage.getItem('company');
-      //return await this.http.get(`${this.serverUrl}${this.apiUrls.user}/get/${client}/${company}`).toPromise();
+      
+      // return await this.http.get(`${this.serverUrl}${this.apiUrls.user}/get/${client}/${company}`).toPromise();
       return {
-        firstName: "Armin",
-        lastName: "Vera",
-        email: "armin.vera@gmail.com",
+        firstName: "Paulina",
+        lastName: "Ceballos",
+        email: "paulina.ceballos@gmail.com",
       }
     } catch (error) {
       console.error('Error during getProfile:', error);

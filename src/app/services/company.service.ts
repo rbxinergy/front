@@ -7,6 +7,7 @@ import { Company } from '../interfaces/company.interface';
 import { ClientDataService } from './client-data.service';
 import { ServiceCompany } from '../interfaces/servicecompany.interface';
 import { GroupcompanyDataService } from './groupcompany-data.service';
+import { Client } from '../interfaces/client.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -52,12 +53,9 @@ export class CompanyService {
     return await lastValueFrom(postCompany)  
   }
 
-  getCompaniesByGroup(client: any){
-    console.log('getCompaniesByGroup', client);
-    const params = new HttpParams({
-      fromString: 'group=' + this.groupDocument + '&option=2'
-    });
-    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/${client}`, { headers: this.headers})
+  getCompaniesByGroup(groupCompany: any){
+    console.log('getCompaniesByGroup', groupCompany);
+    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/group-company/${groupCompany}`, { headers: this.headers})
   }
 
   getCompany(client: string, company: string) {
@@ -66,8 +64,8 @@ export class CompanyService {
   }
 
   getClients() {
-    return of(clients);
-    // this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/cliente1/company`, { headers: this.headers})
+    // return of(clients);
+   return this.http.get<Client[]>(`${this.serverUrl}${this.apiUrls.client}/get/all`, { headers: this.headers})
   }
 
   createCompany(company: Company): Observable<HttpResponse<any>> {
@@ -77,7 +75,8 @@ export class CompanyService {
 
 
   updateCompany(company: Company): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.company}/update`, {company}, { observe: 'response' });
+    console.log(company)
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.company}/update/${company.id}`, company, { headers: this.headers, observe: 'response' });
   }
 
   deleteCompany(id: string): Observable<HttpResponse<any>> {

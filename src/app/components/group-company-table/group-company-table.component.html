@@ -15,7 +15,6 @@
   <div *ngIf="groupCompanies.length === 0">
     <h3>No hay grupos de empresas asociadas a este cliente</h3>
   </div>
-
   <table *ngIf="groupCompanies.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <!-- Id Column -->
     <ng-container matColumnDef="id">
@@ -48,9 +47,9 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>visibility</mat-icon>
-            <span>Ver</span>
+          <button mat-menu-item (click)="openNewCompanyModal(element)">
+            <mat-icon>domain_add</mat-icon>
+            <span>Empresas</span>
           </button>
           <button mat-menu-item (click)="openEditGroupCompanyModal(element)">
             <mat-icon>edit</mat-icon>

@@ -281,7 +281,7 @@ export class DomainTableComponent implements AfterViewInit {
 
   // Implementación para abrir el diálogo de edición
   openUpdate(domain: Domain) {
-    domain.isActive = true
+    domain.active = true
     this.selectedDomain = { ...domain }
     
     const dialogRef = this.dialog.open(DomainComponent, {

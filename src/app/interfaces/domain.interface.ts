@@ -7,9 +7,8 @@ export interface Domain {
   tag: string,
   idDomainCategory: string,
   idCompany: string,
-  isActive?: boolean,
-  isDelete?: boolean,
-  subdomains?: SubDomain[]
+  active?: boolean,
+  delete?: boolean
 }
 
 export interface SubDomain {

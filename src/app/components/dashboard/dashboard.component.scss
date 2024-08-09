@@ -3,7 +3,10 @@ h1 {
     font-size:1.75rem !important;
     color: #5f4ede;
 }
-
+h1 a {
+    text-decoration: none;
+    color: #5f4ede;
+}
 // h2 {padding: 1rem;}
 
 mat-toolbar{

@@ -1,4 +1,7 @@
-  <div>
+  <div class="p-4">
+    <div class="p-4">
+      <button mat-raised-button color="primary" (click)="addDomainsToCompany()">Agregar dominios</button>
+    </div>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- ID Column -->
       <ng-container matColumnDef="id">
@@ -47,7 +50,5 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
-  <div align="right">
-    <button mat-raised-button color="primary" (click)="addDomainsToCompany()">Agregar dominios</button>
-  </div>
+
 </div>

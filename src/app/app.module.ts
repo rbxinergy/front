@@ -24,6 +24,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { ConfigsComponent } from './components/configs/configs.component';
+import { AddDomaincategoryComponent } from './components/add-domaincategory/add-domaincategory.component';
 
 
 export function HttpLoaderFactory(http: HttpClient){
@@ -34,7 +36,7 @@ export function HttpLoaderFactory(http: HttpClient){
   declarations: [
     AppComponent,
     SignUpComponent,
-    ObjectToArrayPipe,
+    ObjectToArrayPipe
   ],
   imports: [
     BrowserModule,

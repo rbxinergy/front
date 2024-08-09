@@ -3,7 +3,7 @@
       <mat-icon>menu</mat-icon>
    </button>
    <div class="title">
-      <h1>X-RISK</h1><span>Backoffice</span>
+      <h1><a [routerLink]="['configs']">X-RISK</a></h1><span>Backoffice</span>
    </div>
    
    <div class="welcoming" id="welcoming">
@@ -20,7 +20,7 @@
 <mat-sidenav-container autosize="true">
    <mat-sidenav [ngClass]="!isCollapsed ? 'expanded' : ''" [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'">
       <mat-nav-list>
-         <a mat-list-item [routerLink]="['dashboard']">
+         <a mat-list-item [routerLink]="['configs']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon>house</mat-icon>
                <span *ngIf="!isCollapsed">Dashboard</span>
@@ -38,22 +38,34 @@
                <span *ngIf="!isCollapsed">{{"clients" | translate}}</span>
             </span>
          </a>
-         <!-- <a mat-list-item [routerLink]="['configs']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>post_add</mat-icon>
-               <span *ngIf="!isCollapsed">{{"domains" | translate}}</span>
-            </span>
-         </a> -->
          <a mat-list-item [routerLink]="['company']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon> business </mat-icon>
                <span *ngIf="!isCollapsed">{{"companies" | translate}}</span>
             </span>
          </a>
-         <a mat-list-item [routerLink]="['company-table']" routerLinkActive="active" ariaCurrentWhenActive="page">
+         <a mat-list-item [routerLink]="['domain-config']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
-               <mat-icon> business </mat-icon>
-               <span *ngIf="!isCollapsed">Empresas de prueba</span>
+               <mat-icon>post_add</mat-icon>
+               <span *ngIf="!isCollapsed">{{"domains" | translate}}</span>
+            </span>
+         </a>
+         <a mat-list-item [routerLink]="['groupcompanytable']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="entry">
+               <mat-icon>people_outline</mat-icon>
+               <span *ngIf="!isCollapsed">{{"groupcompanytable" | translate}}</span>
+            </span>
+         </a>
+         <a mat-list-item [routerLink]="['domaincategorytable']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="entry">
+               <mat-icon>people_outline</mat-icon>
+               <span *ngIf="!isCollapsed">{{"domaincategory" | translate}}</span>
+            </span>
+         </a>
+         <!-- <a mat-list-item [routerLink]="['domains']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="entry">
+               <mat-icon>post_add</mat-icon>
+               <span *ngIf="!isCollapsed">{{"domains" | translate}}</span>
             </span>
          </a>
          <a mat-list-item [routerLink]="['integrations']" routerLinkActive="active" ariaCurrentWhenActive="page">
@@ -61,7 +73,7 @@
                <mat-icon>grid_view</mat-icon>
                <span *ngIf="!isCollapsed">{{"apis" | translate}}</span>
             </span>
-         </a>
+         </a> -->
          <!-- <a mat-list-item [routerLink]="['roles']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon>people_outline</mat-icon>
