@@ -60,7 +60,7 @@ export class CompanyComponent {
     await this.companyService.saveCompany(form)
 
     return new Promise((resolve) => {
-      this.companyService.getCompaniesByGroup(sessionStorage.getItem('client')).subscribe(data => {
+      this.companyService.getCompaniesByClient(sessionStorage.getItem('client')).subscribe(data => {
         this.showTable = true
         this.companyGroup = data
         console.log(this.companyGroup)

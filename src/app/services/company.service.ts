@@ -52,12 +52,12 @@ export class CompanyService {
     return await lastValueFrom(postCompany)  
   }
 
-  getCompaniesByGroup(client: any){
+  getCompaniesByClient(client: any){
     console.log('getCompaniesByGroup', client);
     const params = new HttpParams({
       fromString: 'group=' + this.groupDocument + '&option=2'
     });
-    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/${client}`, { headers: this.headers})
+    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/client/${client}`, { headers: this.headers})
   }
 
   getCompany(client: string, company: string) {

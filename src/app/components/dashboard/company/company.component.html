@@ -6,6 +6,9 @@
         </mat-progress-spinner>
     </div>
 
+    <input type="file" (change)="onFileSelected($event)" accept=".csv" />
+    <button mat-raised-button color="primary" (click)="uploadFile()">Subir Archivo</button>
+
     <table mat-table [dataSource]="dataSource" [hidden]="isLoading">
 
         

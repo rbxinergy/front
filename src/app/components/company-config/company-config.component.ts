@@ -62,7 +62,7 @@ export class CompanyConfigComponent implements OnInit{
         this.company = data;
       });
     } else {
-      this.companyService.getCompaniesByGroup(this.companyId).subscribe(data => {
+      this.companyService.getCompaniesByClient(this.companyId).subscribe(data => {
         this.company = data[0];
       });
     }

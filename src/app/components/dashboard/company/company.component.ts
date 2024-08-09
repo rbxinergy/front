@@ -13,6 +13,8 @@ import { DeleteComponent } from './delete/delete.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-company',
@@ -28,6 +30,8 @@ import { Router } from '@angular/router';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatButtonModule, 
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class CompanyComponent implements AfterViewInit {
@@ -43,7 +47,7 @@ export class CompanyComponent implements AfterViewInit {
   fileUploaded = false;
   fileUploadedMessage = '';
   fileUploadedMessageType = '';
-  
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   constructor(private companyService: CompanyService, public dialog: MatDialog,
@@ -52,7 +56,7 @@ export class CompanyComponent implements AfterViewInit {
   }
 
   getCompanies(){
-    this.companyService.getCompaniesByGroup(this.client).subscribe((data: any) => {
+    this.companyService.getCompaniesByClient(this.client).subscribe((data: any) => {
       this.companies = data;
       this.isLoading = false;
       this.dataSource.data = data

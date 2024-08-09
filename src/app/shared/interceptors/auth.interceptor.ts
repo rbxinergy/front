@@ -20,7 +20,10 @@ export class AuthInterceptor implements HttpInterceptor {
    * @param next El siguiente manejador en la cadena de interceptores.
    * @returns Un observable de eventos HTTP.
    */
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> { 
+    if(request.url.includes('/auth/login')){
+      return next.handle(request);
+    }
     const token = sessionStorage.getItem('token');
 
     const authReq = token ? request.clone({

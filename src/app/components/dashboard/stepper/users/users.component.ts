@@ -74,7 +74,7 @@ export class UsersComponent implements OnInit {
   }
 
   getCompaniesByGrp(){
-    this.companyService.getCompaniesByGroup(sessionStorage.getItem('client')).subscribe(async data => {
+    this.companyService.getCompaniesByClient(sessionStorage.getItem('client')).subscribe(async data => {
       await data
       this.companies = data
       console.log('companies',data)
