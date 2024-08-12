@@ -72,9 +72,8 @@ const routes: Routes = [
       { path: 'permission', component: PermissionComponent },
       { path: 'session', component: SessionComponent },
       { path: 'company-config/:client/:company', component: CompanyConfigComponent }
-
-
-    ]
+    ],
+    canActivateChild: [AuthGuard]
   },
 ];
 

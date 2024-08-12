@@ -180,7 +180,7 @@ export class NewClientComponent implements AfterViewInit {
     this.cdr.detectChanges();
   }
 
-  // ngOnDestroy(): void {
-  //   this.subscriptions.forEach(sub => sub.unsubscribe());
-  // }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub?.unsubscribe());
+  }
 }

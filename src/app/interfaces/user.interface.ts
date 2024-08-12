@@ -9,4 +9,5 @@ export interface User {
     createdDate?: Date;
     modificatedDate?: Date;
     idRole: string[];
+    company?: string;
   }

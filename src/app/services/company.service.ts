@@ -53,33 +53,36 @@ export class CompanyService {
     return await lastValueFrom(postCompany)  
   }
 
+  getCompaniesByClient(client: any){
+    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/client/${client}`, { headers: this.headers})
+
+  }
   getCompaniesByGroup(groupCompany: any){
-    console.log('getCompaniesByGroup', groupCompany);
     return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/group-company/${groupCompany}`, { headers: this.headers})
   }
 
   getCompany(client: string, company: string) {
-    console.log('getCompany', client, company);
     return this.http.get<Company>(`${this.serverUrl}${this.apiUrls.company}/get/${client}/${company}`, { headers: this.headers})
   }
 
   getClients() {
-    // return of(clients);
    return this.http.get<Client[]>(`${this.serverUrl}${this.apiUrls.client}/get/all`, { headers: this.headers})
   }
 
   createCompany(company: Company): Observable<HttpResponse<any>> {
-    console.log(company)
     return this.http.post<any>(`${this.serverUrl}${this.apiUrls.company}/create`, company, { observe: 'response' });
   }
 
 
   updateCompany(company: Company): Observable<HttpResponse<any>> {
-    console.log(company)
     return this.http.put<any>(`${this.serverUrl}${this.apiUrls.company}/update/${company.id}`, company, { headers: this.headers, observe: 'response' });
   }
 
   deleteCompany(id: string): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.serverUrl}${this.apiUrls.company}/delete/${id}`, { observe: 'response' });
+  }
+
+  uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
+    return this.http.post(`${this.serverUrl}${this.apiUrls.company}/create/upload/file`, formData, { headers: this.headers, observe: 'response'});
   }
 }

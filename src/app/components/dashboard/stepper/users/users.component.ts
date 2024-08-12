@@ -73,13 +73,13 @@ export class UsersComponent implements OnInit {
 
   }
 
-  // getCompaniesByGrp(){
-  //   this.companyService.getCompaniesByGroup(sessionStorage.getItem('client')).subscribe(async data => {
-  //     await data
-  //     this.companies = data
-  //     console.log('companies',data)
-  //   })
-  // }
+  getCompaniesByGrp(){
+    this.companyService.getCompaniesByClient(sessionStorage.getItem('client')).subscribe(async data => {
+      await data
+      this.companies = data
+      console.log('companies',data)
+    })
+  }
 
   ngOnInit() {
     this.userService.getRoles().subscribe(data => {

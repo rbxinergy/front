@@ -13,6 +13,8 @@ import { DeleteComponent } from './delete/delete.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-company',
@@ -28,6 +30,8 @@ import { Router } from '@angular/router';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatButtonModule, 
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class CompanyComponent implements AfterViewInit {
@@ -39,6 +43,10 @@ export class CompanyComponent implements AfterViewInit {
   ];
   client: string = sessionStorage.getItem('client') || '';
   dataSource = new MatTableDataSource<Company>();
+  selectedFile: File | null = null;
+  fileUploaded = false;
+  fileUploadedMessage = '';
+  fileUploadedMessageType = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
@@ -48,7 +56,7 @@ export class CompanyComponent implements AfterViewInit {
   }
 
   getCompanies(){
-    this.companyService.getCompaniesByGroup(this.client).subscribe((data: any) => {
+    this.companyService.getCompaniesByClient(this.client).subscribe((data: any) => {
       this.companies = data;
       this.isLoading = false;
       this.dataSource.data = data
@@ -75,12 +83,33 @@ export class CompanyComponent implements AfterViewInit {
   }
 
   openConfig(client: string, company?: string) {
-    company === null ? company = '2f32cc26-a28f-486b-91e1-4906832aa885' : company = '';
+    console.log('openConfig', client, company);
+    const idclient = client != null ? client : sessionStorage.getItem('client');
     if (company) {
       console.log('openConfig', client, company);
-      this.router.navigate(['/dashboard/company-config', client, company]);
+      this.router.navigate(['/dashboard/company-config', idclient, company]);
     } else {
-      this.router.navigate(['/dashboard/company-config', client]);
+      this.router.navigate(['/dashboard/company-config', idclient]);
+    }
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  uploadFile() {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile, this.selectedFile.name);
+
+      this.companyService.uploadCSV(formData).subscribe(response => {
+        console.log('Archivo subido exitosamente', response);
+        // Aquí puedes agregar lógica adicional, como actualizar la lista de compañías
+      }, error => {
+        console.error('Error al subir el archivo', error);
+      });
+    } else {
+      console.error('No se ha seleccionado ningún archivo');
     }
   }
 }

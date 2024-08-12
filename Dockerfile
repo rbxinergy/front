@@ -1,11 +1,17 @@
-FROM node:alpine
+FROM node:18 AS build
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY . /usr/src/app
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
-RUN npm install -g @angular/cli
-
+COPY package.json .
 RUN npm install
 
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+COPY . .
+RUN npm run build:stg
+
+FROM nginx
+
+COPY --from=build /app/dist/xr-backoffice /usr/share/nginx/html
+
+EXPOSE 80

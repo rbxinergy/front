@@ -50,12 +50,10 @@ export class CompanyConfigComponent implements OnInit{
   constructor(private route: ActivatedRoute, private companyService: CompanyService) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.clientId = params['client'];
-      this.companyId = params['company'] || null;
-      console.log('companyConfig', this.clientId, this.companyId);
-      this.loadCompanyData(this.clientId, this.companyId);
-    });
+    this.clientId = this.route.snapshot.paramMap.get('client') || '';
+    this.companyId = this.route.snapshot.paramMap.get('company') || '';
+    console.log('companyConfig', this.clientId, this.companyId);
+    this.loadCompanyData(this.clientId, this.companyId);
   }
 
   loadCompanyData(id: string, company: string | null) {
@@ -64,7 +62,7 @@ export class CompanyConfigComponent implements OnInit{
         this.company = data;
       });
     } else {
-      this.companyService.getCompaniesByGroup(this.companyId).subscribe(data => {
+      this.companyService.getCompaniesByClient(this.companyId).subscribe(data => {
         this.company = data[0];
       });
     }

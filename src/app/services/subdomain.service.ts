@@ -28,8 +28,8 @@ export class SubdomainService {
     console.log(this.subdomain);
   }
 
-  getSubdomains(): Observable<Subdomain[]> {
-    return this.http.get<Subdomain[]>(`${this.serverUrl}${this.apiUrls.subdomain}/get/cliente1`, {headers: this.headers});
+  getSubdomains(idDomain: string): Observable<Subdomain[]> {
+    return this.http.get<Subdomain[]>(`${this.serverUrl}${this.apiUrls.subdomain}/get/${idDomain}`, {headers: this.headers});
   }
 
   async saveSubdomain(form: any):Promise<any>{

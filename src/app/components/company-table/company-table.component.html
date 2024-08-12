@@ -15,7 +15,6 @@
   <div *ngIf="companies.length === 0">
     <h3>No hay empresas para este cliente</h3>
   </div>
-
   <table *ngIf="companies.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <!-- Id Column -->
     <ng-container matColumnDef="id">

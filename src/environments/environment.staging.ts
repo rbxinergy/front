@@ -39,8 +39,8 @@ export const environment = {
     role: `role-drzcbalp5q-uk.a.run.app/v1/role`,
     subdomain: `subdomain-drzcbalp5q-uk.a.run.app/v1/subdomain`,
     user: `user-drzcbalp5q-uk.a.run.app/v1/user`,
-    report: `/v1/report`,  
-    serviceCompany: `/v1/service-company`,
-
+    report: `report-drzcbalp5q-uk.a.run.app/v1/report`,  
+    serviceCompany: `service-company-drzcbalp5q-uk.a.run.app/v1`,
+    session: `login-drzcbalp5q-uk.a.run.app/v1/login/get`
   }
 };

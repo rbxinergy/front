@@ -43,4 +43,8 @@ export class UserService {
   deleteUser(id: string): Observable<User> {
     return this.http.delete<User>(`${this.serverUrl}${this.apiUrl}/delete/${id}`, {headers: this.headers});
   }
+
+  addUsersToCompany(user: User): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update`, user, { headers: this.headers, observe: 'response'})
+  }
 }
