@@ -26,12 +26,6 @@
                <span *ngIf="!isCollapsed">Dashboard</span>
             </span>
          </a>
-         <!-- <a mat-list-item [routerLink]="['stepper']">
-            <span class="entry">
-               <mat-icon class="material-icons">person_add_alt</mat-icon>
-               <span *ngIf="!isCollapsed">{{"createNewClient" | translate}}</span>
-            </span>
-         </a> -->
          <a mat-list-item  [routerLink]="['clients']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon class="material-icons">work_outline</mat-icon>
@@ -62,114 +56,7 @@
                <span *ngIf="!isCollapsed">{{"domaincategory" | translate}}</span>
             </span>
          </a>
-         <!-- <a mat-list-item [routerLink]="['domains']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>post_add</mat-icon>
-               <span *ngIf="!isCollapsed">{{"domains" | translate}}</span>
-            </span>
-         </a>
-         <a mat-list-item [routerLink]="['integrations']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>grid_view</mat-icon>
-               <span *ngIf="!isCollapsed">{{"apis" | translate}}</span>
-            </span>
-         </a> -->
-         <!-- <a mat-list-item [routerLink]="['roles']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>people_outline</mat-icon>
-               <span *ngIf="!isCollapsed">{{"users&roles" | translate}}</span>
-               </span>
-         </a> -->
-         <!--  <mat-divider></mat-divider>
-         <a mat-list-item [routerLink]="['contact']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>people_outline</mat-icon>
-               <span *ngIf="!isCollapsed">{{"contact" | translate}}</span>
-            </span>
-         </a>
-         <a mat-list-item [routerLink]="['servicecategory']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>people_outline</mat-icon>
-               <span *ngIf="!isCollapsed">{{"servicecategory" | translate}}</span>
-            </span>
-         </a>
-         <a mat-list-item [routerLink]="['servicecompany']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>people_outline</mat-icon>
-               <span *ngIf="!isCollapsed">{{"servicecompany" | translate}}</span>
-            </span>
-         </a>
-         <a mat-list-item [routerLink]="['provider']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>people_outline</mat-icon>
-               <span *ngIf="!isCollapsed">{{"provider" | translate}}</span>
-            </span>
-         </a>
-         <a mat-list-item [routerLink]="['company2']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon> business </mat-icon>
-               <span *ngIf="!isCollapsed">{{"company" | translate}}</span>
-            </span>
-         </a>
-         <a mat-list-item [routerLink]="['domain']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>post_add</mat-icon>
-               <span *ngIf="!isCollapsed">{{"domain" | translate}}</span>
-            </span>
-         </a>
-         <a mat-list-item [routerLink]="['subdomain']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>people_outline</mat-icon>
-               <span *ngIf="!isCollapsed">{{"subdomain" | translate}}</span>
-            </span>
-         </a>
-         <a mat-list-item [routerLink]="['domaincategory']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>people_outline</mat-icon>
-               <span *ngIf="!isCollapsed">{{"domaincategory" | translate}}</span>
-            </span>
-         </a>
-         <a mat-list-item [routerLink]="['groupcompany']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>people_outline</mat-icon>
-               <span *ngIf="!isCollapsed">{{"groupcompany" | translate}}</span>
-            </span>
-         </a>
-         <a mat-list-item [routerLink]="['client']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>people_outline</mat-icon>
-               <span *ngIf="!isCollapsed">{{"client.client" | translate}}</span>
-            </span>
-         </a>
-         <a mat-list-item [routerLink]="['user']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>people_outline</mat-icon>
-               <span *ngIf="!isCollapsed">{{"user" | translate}}</span>
-            </span>
-         </a>
-         <a mat-list-item [routerLink]="['roles2']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>people_outline</mat-icon>
-               <span *ngIf="!isCollapsed">{{"role" | translate}}</span>
-            </span>
-         </a>
-         <a mat-list-item [routerLink]="['permission']" routerLinkActive="active" ariaCurrentWhenActive="page">
-            <span class="entry">
-               <mat-icon>people_outline</mat-icon>
-               <span *ngIf="!isCollapsed">{{"permission" | translate}}</span>
-            </span>
-         </a> 
-         <mat-divider></mat-divider> -->
-         <!-- <a mat-list-item routerLinkActive="active" ariaCurrentWhenActive="page" (click)="logOut()">
-            <span class="entry">
-               <mat-icon>logout</mat-icon>
-               <span *ngIf="!isCollapsed">{{"logout"| translate}}</span>
-            </span>
-         </a> -->
       </mat-nav-list>
-      <!-- <div class="appversion">
-         <p>XRisk - Versión: {{version}}</p>
-      </div> -->
    </mat-sidenav>
    <mat-sidenav-content>
       <main>
