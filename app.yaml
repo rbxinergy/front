@@ -1,5 +1,5 @@
 service: xr-backoffice
-runtime: nodejs18
+runtime: python312
 instance_class: F2
 
 handlers:
@@ -83,5 +83,5 @@ automatic_scaling:
   max_instances: 10
 
 # Configuración de logs
-logging:
-  level: info
+# logging:
+#   level: info
