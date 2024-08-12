@@ -1,0 +1,90 @@
+ <h2>{{"subdomain"|translate}}</h2>
+<div class="p-4">
+  <form [formGroup]="subdomainForm" (ngSubmit)="onUpdate()" *ngIf="data.updateSubdomain">
+    <mat-form-field appearance="outline" class="col-1">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" formControlName="name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-1">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="description" required></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-2">
+      <mat-label>Etiqueta</mat-label>
+      <input matInput type="text" formControlName="tag">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="col-2">
+      <mat-label>ID Dominio</mat-label>
+      <input matInput type="text" formControlName="idDomain" readonly required>
+    </mat-form-field>
+  
+    <div class="btn-box">
+      <button mat-raised-button type="submit">Volver</button>
+      <button mat-raised-button color="primary" type="submit" class="d-right" >Guardar</button>
+    </div>
+  </form>
+  <form [formGroup]="subdomainsForm" (ngSubmit)="onSubmit(selectedDomainId)" *ngIf="data.addSubdomains">
+    <button type="button" class="d-right mr-3" mat-raised-button color="primary" (click)="addSubdomains(selectedDomainId)">Agregar Subdominio</button>
+  <br>
+
+
+ 
+
+  <mat-table [dataSource]="dataSourcePacks" class="mt-3">
+    <ng-container formArrayName="subdominios">
+      <!-- Subdomain name Column -->
+      <ng-container matColumnDef="Nombre">
+        <mat-header-cell *matHeaderCellDef>Subdominio</mat-header-cell>
+        <mat-cell *matCellDef="let element;" [formGroup]="element">
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Nombre de subdominio" formControlName="name" required>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Description Column -->
+      <ng-container matColumnDef="Descripción">
+        <mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>
+        <mat-cell *matCellDef="let element;" [formGroup]="element">
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Descripción" formControlName="description" required>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Tags Column -->
+      <ng-container matColumnDef="Tags">
+        <mat-header-cell *matHeaderCellDef>Tags</mat-header-cell>
+        <mat-cell *matCellDef="let element;" [formGroup]="element">
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Tags" formControlName="tag" required>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Delete Column -->
+      <ng-container matColumnDef="Eliminar">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element; index as i" [formGroup]="element">
+
+          <button type="button" (click)="deleteSubdomain(i)">
+            <mat-icon matSuffix>delete</mat-icon>
+          </button>
+
+        </mat-cell>
+      </ng-container>
+
+      <!-- header titles -->
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </ng-container>
+  </mat-table>
+
+  <button type="submit" class="d-right mr-3" mat-raised-button color="primary">Guardar</button>
+
+</form>
+</div>

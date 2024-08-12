@@ -1,0 +1,82 @@
+<h2>{{"client.newclient"| translate}}</h2>
+<div>
+  <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+    
+    <mat-step [stepControl]="clientForm" label="Ingrese información del cliente">
+      <app-client class="p-4"></app-client>
+    </mat-step>
+
+    <mat-step [stepControl]="domainsForm" label="Agregue dominios">
+      <ng-template matStepContent>
+        <app-domains class="p-4"></app-domains>
+      </ng-template>
+    </mat-step>
+
+    <mat-step [stepControl]="companyForm" label="Ingrese información de las empresas">
+      <app-company class="p-4"></app-company>
+    </mat-step>
+
+    <mat-step [stepControl]="usersForm" label="Ingrese usuarios" >
+      <ng-template matStepContent>
+        <app-users class="p-4"></app-users>
+      </ng-template>
+    </mat-step>
+    
+    <!-- <mat-step [stepControl]="sixthFormGroup" label="Ingrese/Seleccione Roles">
+        <mat-radio-group aria-label="Select an option" (change)="newRolChanged($event)">
+            <mat-radio-button value="3">Crear nuevo rol</mat-radio-button>
+            <mat-radio-button value="4">Selecionar rol existente</mat-radio-button>
+        </mat-radio-group>
+        <form [formGroup]="sixthFormGroup" *ngIf="showNewRol">
+            <mat-form-field>
+            <mat-label>Nombre de rol</mat-label>
+            <input matInput formControlName="sixthCtrl" placeholder="Escribe un nombre" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+            <mat-label>Nombre de empresa</mat-label>
+            <input matInput formControlName="sixthCtrl" placeholder="Escribe un nombre" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+            <mat-label>Niveles de acceso</mat-label>
+            <input matInput formControlName="sixthCtrl" placeholder="Escribe un cargo" required>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="sixthCtrl" [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                placeholder="Ex. pat@example.com">
+            </mat-form-field>
+            <br>
+            <div>
+            <button mat-button matStepperPrevious>Atrás</button>
+            <button mat-raised-button color="primary">Guardar</button>
+            <button mat-button matStepperNext>Siguiente</button>
+            </div>
+        </form>
+        <form [formGroup]="seventhFormGroup" *ngIf="showSelectRol">
+            <mat-form-field>
+                <mat-label>Usuario</mat-label>
+                <mat-select [(value)]="documento" formControlName="sevenCtrl" placeholder="Seleccione usuario" required>
+                  <mat-option value="1">Paulina Ceballos</mat-option>
+                  <mat-option value="2">Armin Vera</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Atrás</button>
+                <button mat-raised-button color="primary">Guardar</button>
+                <button mat-button matStepperNext>Siguiente</button>
+            </div>
+        </form>
+    </mat-step> -->
+
+    <!-- <mat-step>
+      <ng-template matStepLabel>Terminado</ng-template>
+      <p>Todos los pasos han sido completados</p>
+      <div>
+        <button mat-button matStepperPrevious>Atrás</button>
+      </div>
+    </mat-step> -->
+  </mat-stepper>
+</div>

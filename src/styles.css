@@ -1,0 +1,298 @@
+/* You can add global styles to this file, and also import other style files */
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+html, body { height: 100%; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    -webkit-font-smoothing: antialiased;
+}
+main{
+   border-top:1px solid #d6d5dd;
+   padding: 0 0 40px 0;
+}
+main> * {
+    display: grid;
+    row-gap: 10px;
+}
+main > * > div {
+    padding: 0 40px;
+}
+
+.icon{
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    font-size: 1rem;
+    color: #5f4ede;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 7px;
+    bottom: 5px;
+    z-index: 2;
+}
+h2{
+    color:#241783;
+    font-size: 1.5rem;
+    border-bottom: 0.1rem solid #d0cbf5;
+    padding: 1.5rem;
+    margin: 0 0 30px 0;
+    font-weight: 500 !important;
+}
+h3{
+    color:#241783;
+    font-size: 1.2rem;
+    padding: 1rem 1rem 1rem 0;
+    font-weight: 500 !important;
+}
+h3.head-error {
+    padding: 1rem;
+    margin: 0;
+    text-align: center;
+    background-color: #5f4ede;
+    color: #ffffff;
+}
+header{
+    color:#241883;
+    font-size:20px;
+    font-weight: bold;
+    text-align: center;
+}
+/* BUTTON */
+.btn{
+    background-color: #5f4ede;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 2rem;
+    display: block;
+    /* float: right; */
+}
+
+.mat-mdc-form-field{
+    margin-right: 10px !important;
+}   
+.mat-column-acciones{
+    text-align: center !important;
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 110px !important;
+    width: 110px !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+span.material-symbols-outlined {
+    color: #5f4ede;
+}
+
+ /* TABLES */
+table{
+    border: 1px solid #d0cbf5 !important;
+    border-spacing: 0;
+    border-collapse: separate;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    color:#737373;
+    text-align: left;
+    width: 100%;
+}
+th, td{
+    padding: 1rem;
+}
+th{
+    background-color: #f4f3fc !important;
+    text-transform: uppercase;
+    font-size:14px;
+    font-weight: 500;
+    color: #303030;
+    /* border-bottom: 1px solid #5f4ede;; */
+}
+/* .mat-mdc-table .mat-mdc-header-cell{
+    background-color: #f4f3fc !important;
+} */
+/* table th:not(:last-child),
+table td:not(:last-child) {
+    padding-right:5px
+border-right: 1px solid #5f4ede; 
+}*/
+table>thead>tr:not(:last-child)>th,
+table>thead>tr:not(:last-child)>td,
+table>tbody>tr:not(:last-child)>th,
+table>tbody>tr:not(:last-child)>td,
+table>tfoot>tr:not(:last-child)>th,
+table>tfoot>tr:not(:last-child)>td,
+table>tr:not(:last-child)>td,
+table>tr:not(:last-child)>th,
+table>thead:not(:last-child),
+table>tbody:not(:last-child),
+table>tfoot:not(:last-child) {
+ border-bottom: 1px solid #d0cbf5 !important;
+}
+
+/* SPINNER */
+.spinner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.6);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+/* FORMS */
+/* form {
+    border: 1px solid #d0cbf5;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+} */
+.mat-mdc-form-field-infix {
+    min-height: 50px;
+}
+.mdc-text-field--outlined {
+    --mdc-outlined-text-field-container-shape: 36px !important;
+}
+/* GRIDS */
+.col-1{
+    width: calc(100% - 10px);
+}
+.col-2{
+    width: calc((100% / 2) - 10px);
+}
+.col-3{
+    width: calc((100% / 3) - 10px);
+}
+.col-4{
+    width: calc((100% /4) - 10px);
+}
+section[class*="col-"] {
+    display: inline-block;
+    padding: 0 0 1rem 0;
+}
+.pb-3{
+    padding-bottom: 20px;
+}
+.d-right{
+    float: right;
+}
+.mdc-text-field--outlined{
+    --mdc-outlined-text-field-container-shape: 5px !important;
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+.mat-step-icon-selected {
+    color: #f1eded !important;
+}
+.btn-box {
+    margin: 16px 0px 0px 0px;
+}
+.p-4 {
+    padding: 0 2rem;
+}
+
+/* .mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+    height: 9px;
+} 
+.mdc-text-field--outlined{
+    height: 56px;
+    overflow:visible
+}
+
+.mdc-text-field .mdc-floating-label {
+    top: 32%; 
+    transform: translateY(-78%);
+    pointer-events: none;
+}
+.mdc-floating-label {
+    position: absolute;
+    left: 0;
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+    line-height: 1rem;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: text;
+    overflow: hidden;
+    will-change: transform;
+}
+*/
+@media (max-width: 992px){ 
+    .col-1{
+        width:100%;
+    }
+    .col-2{
+        width: 100%;
+    }
+    .col-3{
+        width: 100%;
+    }
+    .col-4{
+        width:100%;
+    }
+   
+    .d-right{
+        float: right;
+        margin-right: 0;
+    }
+}
+@media (max-width: 500px){ 
+    .grid{
+        grid-template-columns: 100%;
+    }
+}
+
+
+
+/* .container-rounded {
+    border-radius: 1rem;
+    border: 2px solid #d0cbf5;
+    padding: 0rem 0 1rem 0;
+}
+.container-rounded > .title {
+    background-color: #f4f3fc;
+    padding: 1rem 2rem;
+    border-radius: 1rem 1rem 0 0;
+} */
+
+/* .mat-step-icon-state-edit {
+    color: white !important;
+    font-weight: bold !important;
+}
+
+html {
+    --mat-stepper-header-icon-foreground-color: #FFFFFF;
+    --mat-stepper-header-selected-state-icon-background-color: #5f4ede;
+    --mat-stepper-header-selected-state-icon-foreground-color: #FFFFFF;
+    --mat-stepper-header-done-state-icon-background-color: #5f4ede;
+    --mat-stepper-header-done-state-icon-foreground-color: black;
+    --mat-stepper-header-edit-state-icon-background-color: #5f4ede;
+    --mat-stepper-header-edit-state-icon-foreground-color: black;
+    --mat-stepper-container-color: white;
+    --mat-stepper-line-color: rgba(0, 0, 0, 0.12);
+    --mat-stepper-header-hover-state-layer-color: rgba(0, 0, 0, 0.04);
+    --mat-stepper-header-focus-state-layer-color: rgba(0, 0, 0, 0.04);
+    --mat-stepper-header-label-text-color: rgba(0, 0, 0, 0.54);
+    --mat-stepper-header-optional-label-text-color: rgba(0, 0, 0, 0.54);
+    --mat-stepper-header-selected-state-label-text-color: rgba(0, 0, 0, 0.87);
+    --mat-stepper-header-error-state-label-text-color: #f44336;
+    --mat-stepper-header-icon-background-color: rgba(0, 0, 0, 0.54);
+    --mat-stepper-header-error-state-icon-foreground-color: #f44336;
+    --mat-stepper-header-error-state-icon-background-color: transparent;
+} */

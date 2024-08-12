@@ -1,0 +1,3 @@
+interface DialogData {
+    showOnUpdate: boolean;
+}

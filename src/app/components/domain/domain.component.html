@@ -1,0 +1,50 @@
+<!-- <h2>{{"domain"|translate}}</h2> -->
+<h2>Dominio</h2>
+<div class="p-4">
+  <form [formGroup]="domainForm" (ngSubmit)="closeModal()">
+    <mat-form-field appearance="outline" class="col-1">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" formControlName="name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-1">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="description" required></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-2">
+      <mat-label>Código</mat-label>
+      <input matInput type="text" formControlName="code" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-2">
+      <mat-label>Etiqueta</mat-label>
+      <input matInput type="text" formControlName="tag">
+    </mat-form-field>
+
+    <div>
+    <mat-form-field appearance="outline" class="col-2" *ngIf="!data.active">
+      <mat-label>ID Categoría Dominio</mat-label>
+      <input matInput type="text" formControlName="idDomainCategory" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="col-2" *ngIf="!data.active">
+      <mat-label>ID Empresa</mat-label>
+      <input matInput type="text" formControlName="idCompany" required >
+    </mat-form-field>
+    </div>
+
+    <div *ngIf="data.active">
+      <mat-checkbox class="example-margin">Activo</mat-checkbox>
+    </div>
+    <div *ngIf="data.delete">
+      <mat-checkbox class="example-margin">Eliminar</mat-checkbox>
+    </div>
+
+    <div class="btn-box">
+      <button mat-raised-button type="submit">Volver</button>
+      <button mat-raised-button color="primary" type="submit" class="d-right" >Guardar</button>
+    </div>
+  </form>
+  <br>
+</div>

@@ -1,0 +1,17 @@
+<p>contact-service-company works!</p>
+<div class="contact-service-company-form">
+    <h2>Formulario de contacto - Empresa de servicio</h2>
+    <form >[formGroup]="contactForm"
+      <mat-form-field>
+        <mat-label>ID de contacto</mat-label>
+        <input matInput type="number" formControlName="idContact">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>ID de empresa de servicio</mat-label>
+        <input matInput type="number" formControlName="idServiceCompany">
+      </mat-form-field>
+  
+      <button mat-raised-button type="submit">Guardar</button>
+    </form>
+  </div>

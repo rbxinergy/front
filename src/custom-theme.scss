@@ -1,0 +1,75 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+@import "@angular/material/theming";
+
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+$deep-purple:(
+  50:#f4f3fc,
+  100:#d0cbf5,
+  200:#5f4ede,
+  300:#5f4ede,
+  400:#5f4ede,
+  500:#5f4ede,
+  600:#241883,
+  700:#241883,
+  800:#241883,
+  contrast:(
+    50: #241883,
+    100:#241883,
+    200:#241883,
+    300:#FFFFFF,
+    400:#FFFFFF,
+    500:#FFFFFF,
+    600:#f2f2f2,
+    700:#ffffff,
+    800:#ffffff,
+  ),
+);
+
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+
+$x-risk-primary: mat-palette($deep-purple);
+$x-risk-accent: mat-palette($deep-purple);
+// The warn palette is optional (defaults to red).
+$x-risk-warn:mat.define-palette(mat.$red-palette);
+
+// $x-risk-client-primary: mat.define-palette(mat.$deep-purple);
+// $x-risk-client-accent: mat.define-palette(mat.$deep-purple-palette);
+$my-typography: mat.define-typography-config();
+
+
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$my-custom-typography: mat.define-typography-config(
+  $headline-1: mat.define-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
+  $headline-2: mat.define-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
+  $headline-3: mat.define-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
+  $headline-4: mat.define-typography-level(34px, 40px, 400),
+  $headline-5: mat.define-typography-level(24px, 32px, 400),
+  $headline-6: mat.define-typography-level(90px, 40px, 900),
+);
+$x-risk-client-theme: mat.define-light-theme((
+  color: (
+    primary: $x-risk-primary,
+    accent: $x-risk-accent,
+    warn: $x-risk-warn,
+  ),
+  typography:$my-custom-typography,
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($x-risk-client-theme);
+

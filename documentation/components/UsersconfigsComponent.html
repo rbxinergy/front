@@ -1,0 +1,512 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>xr-backoffice documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">xr-backoffice documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  UsersconfigsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/dashboard/usersconfigs/usersconfigs.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-usersconfigs</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./usersconfigs.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./usersconfigs.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+
+@Component({
+  selector: &#x27;app-usersconfigs&#x27;,
+  templateUrl: &#x27;./usersconfigs.component.html&#x27;,
+  styleUrls: [&#x27;./usersconfigs.component.css&#x27;]
+})
+export class UsersconfigsComponent {
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;p&gt;usersconfigs works!&lt;/p&gt;
+&lt;table class&#x3D;&quot;chakra-table css-5605sr&quot;&gt;
+    &lt;thead class&#x3D;&quot;css-1a47thg&quot;&gt;
+        &lt;tr class&#x3D;&quot;css-0&quot;&gt;
+            &lt;td class&#x3D;&quot;css-1bicmwu&quot;&gt;
+                &lt;div class&#x3D;&quot;css-gelo2z&quot;&gt;NOMBRE&lt;/div&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1bicmwu&quot;&gt;
+                &lt;div class&#x3D;&quot;css-gelo2z&quot;&gt;EMPRESA&lt;/div&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1bicmwu&quot;&gt;
+                &lt;div class&#x3D;&quot;css-gelo2z&quot;&gt;CARGO DEL USUARIO&lt;/div&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1bicmwu&quot;&gt;
+                &lt;div class&#x3D;&quot;css-gelo2z&quot;&gt;CORREO&lt;/div&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1bicmwu&quot;&gt;
+                &lt;div class&#x3D;&quot;css-gelo2z&quot;&gt;ESTADO&lt;/div&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1bicmwu&quot;&gt;
+                &lt;div class&#x3D;&quot;css-gelo2z&quot;&gt;&lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody class&#x3D;&quot;css-v3jwuk&quot;&gt;
+        &lt;tr class&#x3D;&quot;css-11h1gd2&quot;&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;Felipe Caroca&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;
+                &lt;div class&#x3D;&quot;css-4g6ai3&quot;&gt;
+                    &lt;div class&#x3D;&quot;css-i5q2k0&quot;&gt;
+                        &lt;div class&#x3D;&quot;css-70qvj9&quot;&gt;Drimo&lt;/div&gt;
+                        &lt;div class&#x3D;&quot;css-1bob0yn&quot;&gt;
+                            &lt;div class&#x3D;&quot;css-1nq8zr4&quot;&gt;+1&lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;CEO&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;felipe.caroca@drimo.com&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;&lt;span tabindex&#x3D;&quot;0&quot; class&#x3D;&quot;css-1baulvz&quot;&gt;&lt;label data-checked&#x3D;&quot;&quot;
+                        class&#x3D;&quot;chakra-switch css-ghot30&quot;&gt;&lt;input class&#x3D;&quot;chakra-switch__input&quot; type&#x3D;&quot;checkbox&quot; checked&#x3D;&quot;&quot;
+                            style&#x3D;&quot;border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;&quot;&gt;&lt;span
+                            data-checked&#x3D;&quot;&quot; aria-hidden&#x3D;&quot;true&quot; class&#x3D;&quot;chakra-switch__track css-sp5yj&quot;&gt;&lt;span
+                                class&#x3D;&quot;chakra-switch__thumb css-7roig&quot; data-checked&#x3D;&quot;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/label&gt;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;
+                &lt;div class&#x3D;&quot;css-0&quot;&gt;
+                    &lt;div class&#x3D;&quot;css-1gdm77d&quot;&gt;&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;chakra-button css-h653or&quot;&gt;X Eliminar&lt;/button&gt;
+                    &lt;/div&gt;&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;chakra-button css-1ko42cm&quot;&gt;&lt;svg width&#x3D;&quot;12px&quot; height&#x3D;&quot;12px&quot;
+                            viewBox&#x3D;&quot;0 0 16 16&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&gt;
+                            &lt;path
+                                d&#x3D;&quot;M15 7.5V12.5C15 13.8785 13.8785 15 12.5 15H3.5C2.1215 15 1 13.8785 1 12.5V3.5C1 2.1215 2.1215 1 3.5 1H8.5C8.77617 1 9 1.22383 9 1.5C9 1.77617 8.77617 2 8.5 2H3.5C2.67283 2 2 2.67283 2 3.5V12.5C2 13.3272 2.67283 14 3.5 14H12.5C13.3272 14 14 13.3272 14 12.5V7.5C14 7.22383 14.2238 7 14.5 7C14.7762 7 15 7.22383 15 7.5ZM4.6465 8.1465L11.6465 1.1465C11.8418 0.951167 12.1582 0.951167 12.3535 1.1465L14.8535 3.6465C15.0488 3.84183 15.0488 4.15817 14.8535 4.3535L7.8535 11.3535C7.75983 11.4473 7.6325 11.5 7.5 11.5H5C4.72383 11.5 4.5 11.2762 4.5 11V8.5C4.5 8.3675 4.55267 8.24017 4.6465 8.1465ZM11.207 3L13 4.793L13.793 4L12 2.207L11.207 3ZM5.5 10.5H7.293L12.293 5.5L10.5 3.707L5.5 8.707V10.5Z&quot;
+                                fill&#x3D;&quot;#3A26D5&quot; stroke&#x3D;&quot;#3A26D5&quot; stroke-width&#x3D;&quot;0.3&quot;&gt;&lt;/path&gt;
+                        &lt;/svg&gt; Editar&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr class&#x3D;&quot;css-11h1gd2&quot;&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;German Labra&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;
+                &lt;div class&#x3D;&quot;css-4g6ai3&quot;&gt;
+                    &lt;div class&#x3D;&quot;css-i5q2k0&quot;&gt;
+                        &lt;div class&#x3D;&quot;css-70qvj9&quot;&gt;XRISK&lt;/div&gt;
+                        &lt;div class&#x3D;&quot;css-1bob0yn&quot;&gt;
+                            &lt;div class&#x3D;&quot;css-1nq8zr4&quot;&gt;+2&lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;CEO&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;german.labra@drimo.com&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;&lt;span tabindex&#x3D;&quot;0&quot; class&#x3D;&quot;css-1baulvz&quot;&gt;&lt;label data-checked&#x3D;&quot;&quot;
+                        class&#x3D;&quot;chakra-switch css-ghot30&quot;&gt;&lt;input class&#x3D;&quot;chakra-switch__input&quot; type&#x3D;&quot;checkbox&quot; checked&#x3D;&quot;&quot;
+                            style&#x3D;&quot;border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;&quot;&gt;&lt;span
+                            data-checked&#x3D;&quot;&quot; aria-hidden&#x3D;&quot;true&quot; class&#x3D;&quot;chakra-switch__track css-sp5yj&quot;&gt;&lt;span
+                                class&#x3D;&quot;chakra-switch__thumb css-7roig&quot; data-checked&#x3D;&quot;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/label&gt;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;
+                &lt;div class&#x3D;&quot;css-0&quot;&gt;
+                    &lt;div class&#x3D;&quot;css-1gdm77d&quot;&gt;&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;chakra-button css-h653or&quot;&gt;X Eliminar&lt;/button&gt;
+                    &lt;/div&gt;&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;chakra-button css-1ko42cm&quot;&gt;&lt;svg width&#x3D;&quot;12px&quot; height&#x3D;&quot;12px&quot;
+                            viewBox&#x3D;&quot;0 0 16 16&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&gt;
+                            &lt;path
+                                d&#x3D;&quot;M15 7.5V12.5C15 13.8785 13.8785 15 12.5 15H3.5C2.1215 15 1 13.8785 1 12.5V3.5C1 2.1215 2.1215 1 3.5 1H8.5C8.77617 1 9 1.22383 9 1.5C9 1.77617 8.77617 2 8.5 2H3.5C2.67283 2 2 2.67283 2 3.5V12.5C2 13.3272 2.67283 14 3.5 14H12.5C13.3272 14 14 13.3272 14 12.5V7.5C14 7.22383 14.2238 7 14.5 7C14.7762 7 15 7.22383 15 7.5ZM4.6465 8.1465L11.6465 1.1465C11.8418 0.951167 12.1582 0.951167 12.3535 1.1465L14.8535 3.6465C15.0488 3.84183 15.0488 4.15817 14.8535 4.3535L7.8535 11.3535C7.75983 11.4473 7.6325 11.5 7.5 11.5H5C4.72383 11.5 4.5 11.2762 4.5 11V8.5C4.5 8.3675 4.55267 8.24017 4.6465 8.1465ZM11.207 3L13 4.793L13.793 4L12 2.207L11.207 3ZM5.5 10.5H7.293L12.293 5.5L10.5 3.707L5.5 8.707V10.5Z&quot;
+                                fill&#x3D;&quot;#3A26D5&quot; stroke&#x3D;&quot;#3A26D5&quot; stroke-width&#x3D;&quot;0.3&quot;&gt;&lt;/path&gt;
+                        &lt;/svg&gt; Editar&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr class&#x3D;&quot;css-11h1gd2&quot;&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;Cristopher Rodriguez&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;
+                &lt;div class&#x3D;&quot;css-4g6ai3&quot;&gt;
+                    &lt;div class&#x3D;&quot;css-i5q2k0&quot;&gt;
+                        &lt;div class&#x3D;&quot;css-70qvj9&quot;&gt;XRISK&lt;/div&gt;
+                        &lt;div class&#x3D;&quot;css-1bob0yn&quot;&gt;
+                            &lt;div class&#x3D;&quot;css-1nq8zr4&quot;&gt;+2&lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;CEO&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;cristopher.rodriguez@drimo.com&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;&lt;span tabindex&#x3D;&quot;0&quot; class&#x3D;&quot;css-1baulvz&quot;&gt;&lt;label data-checked&#x3D;&quot;&quot;
+                        class&#x3D;&quot;chakra-switch css-ghot30&quot;&gt;&lt;input class&#x3D;&quot;chakra-switch__input&quot; type&#x3D;&quot;checkbox&quot; checked&#x3D;&quot;&quot;
+                            style&#x3D;&quot;border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;&quot;&gt;&lt;span
+                            data-checked&#x3D;&quot;&quot; aria-hidden&#x3D;&quot;true&quot; class&#x3D;&quot;chakra-switch__track css-sp5yj&quot;&gt;&lt;span
+                                class&#x3D;&quot;chakra-switch__thumb css-7roig&quot; data-checked&#x3D;&quot;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/label&gt;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;
+                &lt;div class&#x3D;&quot;css-0&quot;&gt;
+                    &lt;div class&#x3D;&quot;css-1gdm77d&quot;&gt;&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;chakra-button css-h653or&quot;&gt;X Eliminar&lt;/button&gt;
+                    &lt;/div&gt;&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;chakra-button css-1ko42cm&quot;&gt;&lt;svg width&#x3D;&quot;12px&quot; height&#x3D;&quot;12px&quot;
+                            viewBox&#x3D;&quot;0 0 16 16&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&gt;
+                            &lt;path
+                                d&#x3D;&quot;M15 7.5V12.5C15 13.8785 13.8785 15 12.5 15H3.5C2.1215 15 1 13.8785 1 12.5V3.5C1 2.1215 2.1215 1 3.5 1H8.5C8.77617 1 9 1.22383 9 1.5C9 1.77617 8.77617 2 8.5 2H3.5C2.67283 2 2 2.67283 2 3.5V12.5C2 13.3272 2.67283 14 3.5 14H12.5C13.3272 14 14 13.3272 14 12.5V7.5C14 7.22383 14.2238 7 14.5 7C14.7762 7 15 7.22383 15 7.5ZM4.6465 8.1465L11.6465 1.1465C11.8418 0.951167 12.1582 0.951167 12.3535 1.1465L14.8535 3.6465C15.0488 3.84183 15.0488 4.15817 14.8535 4.3535L7.8535 11.3535C7.75983 11.4473 7.6325 11.5 7.5 11.5H5C4.72383 11.5 4.5 11.2762 4.5 11V8.5C4.5 8.3675 4.55267 8.24017 4.6465 8.1465ZM11.207 3L13 4.793L13.793 4L12 2.207L11.207 3ZM5.5 10.5H7.293L12.293 5.5L10.5 3.707L5.5 8.707V10.5Z&quot;
+                                fill&#x3D;&quot;#3A26D5&quot; stroke&#x3D;&quot;#3A26D5&quot; stroke-width&#x3D;&quot;0.3&quot;&gt;&lt;/path&gt;
+                        &lt;/svg&gt; Editar&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr class&#x3D;&quot;css-11h1gd2&quot;&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;Belen Cortesi&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;
+                &lt;div class&#x3D;&quot;css-4g6ai3&quot;&gt;
+                    &lt;div class&#x3D;&quot;css-i5q2k0&quot;&gt;
+                        &lt;div class&#x3D;&quot;css-70qvj9&quot;&gt;Drimo&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;CEO&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;belen.cortesi@drimo.com&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;&lt;span tabindex&#x3D;&quot;0&quot; class&#x3D;&quot;css-1baulvz&quot;&gt;&lt;label data-checked&#x3D;&quot;&quot;
+                        class&#x3D;&quot;chakra-switch css-ghot30&quot;&gt;&lt;input class&#x3D;&quot;chakra-switch__input&quot; type&#x3D;&quot;checkbox&quot; checked&#x3D;&quot;&quot;
+                            style&#x3D;&quot;border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;&quot;&gt;&lt;span
+                            data-checked&#x3D;&quot;&quot; aria-hidden&#x3D;&quot;true&quot; class&#x3D;&quot;chakra-switch__track css-sp5yj&quot;&gt;&lt;span
+                                class&#x3D;&quot;chakra-switch__thumb css-7roig&quot; data-checked&#x3D;&quot;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/label&gt;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;
+                &lt;div class&#x3D;&quot;css-0&quot;&gt;
+                    &lt;div class&#x3D;&quot;css-1gdm77d&quot;&gt;&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;chakra-button css-h653or&quot;&gt;X Eliminar&lt;/button&gt;
+                    &lt;/div&gt;&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;chakra-button css-1ko42cm&quot;&gt;&lt;svg width&#x3D;&quot;12px&quot; height&#x3D;&quot;12px&quot;
+                            viewBox&#x3D;&quot;0 0 16 16&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&gt;
+                            &lt;path
+                                d&#x3D;&quot;M15 7.5V12.5C15 13.8785 13.8785 15 12.5 15H3.5C2.1215 15 1 13.8785 1 12.5V3.5C1 2.1215 2.1215 1 3.5 1H8.5C8.77617 1 9 1.22383 9 1.5C9 1.77617 8.77617 2 8.5 2H3.5C2.67283 2 2 2.67283 2 3.5V12.5C2 13.3272 2.67283 14 3.5 14H12.5C13.3272 14 14 13.3272 14 12.5V7.5C14 7.22383 14.2238 7 14.5 7C14.7762 7 15 7.22383 15 7.5ZM4.6465 8.1465L11.6465 1.1465C11.8418 0.951167 12.1582 0.951167 12.3535 1.1465L14.8535 3.6465C15.0488 3.84183 15.0488 4.15817 14.8535 4.3535L7.8535 11.3535C7.75983 11.4473 7.6325 11.5 7.5 11.5H5C4.72383 11.5 4.5 11.2762 4.5 11V8.5C4.5 8.3675 4.55267 8.24017 4.6465 8.1465ZM11.207 3L13 4.793L13.793 4L12 2.207L11.207 3ZM5.5 10.5H7.293L12.293 5.5L10.5 3.707L5.5 8.707V10.5Z&quot;
+                                fill&#x3D;&quot;#3A26D5&quot; stroke&#x3D;&quot;#3A26D5&quot; stroke-width&#x3D;&quot;0.3&quot;&gt;&lt;/path&gt;
+                        &lt;/svg&gt; Editar&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr class&#x3D;&quot;css-11h1gd2&quot;&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;Gonzalo Aguirrebena&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;
+                &lt;div class&#x3D;&quot;css-4g6ai3&quot;&gt;
+                    &lt;div class&#x3D;&quot;css-i5q2k0&quot;&gt;
+                        &lt;div class&#x3D;&quot;css-70qvj9&quot;&gt;Drimo&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;CEO&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;gonzalo.aguirrebena@xinergy.cl&lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;&lt;span tabindex&#x3D;&quot;0&quot; class&#x3D;&quot;css-1baulvz&quot;&gt;&lt;label data-checked&#x3D;&quot;&quot;
+                        class&#x3D;&quot;chakra-switch css-ghot30&quot;&gt;&lt;input class&#x3D;&quot;chakra-switch__input&quot; type&#x3D;&quot;checkbox&quot; checked&#x3D;&quot;&quot;
+                            style&#x3D;&quot;border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;&quot;&gt;&lt;span
+                            data-checked&#x3D;&quot;&quot; aria-hidden&#x3D;&quot;true&quot; class&#x3D;&quot;chakra-switch__track css-sp5yj&quot;&gt;&lt;span
+                                class&#x3D;&quot;chakra-switch__thumb css-7roig&quot; data-checked&#x3D;&quot;&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/label&gt;&lt;/span&gt;
+            &lt;/td&gt;
+            &lt;td class&#x3D;&quot;css-1p8nh8j&quot;&gt;
+                &lt;div class&#x3D;&quot;css-0&quot;&gt;
+                    &lt;div class&#x3D;&quot;css-1gdm77d&quot;&gt;&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;chakra-button css-h653or&quot;&gt;X Eliminar&lt;/button&gt;
+                    &lt;/div&gt;&lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;chakra-button css-1ko42cm&quot;&gt;&lt;svg width&#x3D;&quot;12px&quot; height&#x3D;&quot;12px&quot;
+                            viewBox&#x3D;&quot;0 0 16 16&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&gt;
+                            &lt;path
+                                d&#x3D;&quot;M15 7.5V12.5C15 13.8785 13.8785 15 12.5 15H3.5C2.1215 15 1 13.8785 1 12.5V3.5C1 2.1215 2.1215 1 3.5 1H8.5C8.77617 1 9 1.22383 9 1.5C9 1.77617 8.77617 2 8.5 2H3.5C2.67283 2 2 2.67283 2 3.5V12.5C2 13.3272 2.67283 14 3.5 14H12.5C13.3272 14 14 13.3272 14 12.5V7.5C14 7.22383 14.2238 7 14.5 7C14.7762 7 15 7.22383 15 7.5ZM4.6465 8.1465L11.6465 1.1465C11.8418 0.951167 12.1582 0.951167 12.3535 1.1465L14.8535 3.6465C15.0488 3.84183 15.0488 4.15817 14.8535 4.3535L7.8535 11.3535C7.75983 11.4473 7.6325 11.5 7.5 11.5H5C4.72383 11.5 4.5 11.2762 4.5 11V8.5C4.5 8.3675 4.55267 8.24017 4.6465 8.1465ZM11.207 3L13 4.793L13.793 4L12 2.207L11.207 3ZM5.5 10.5H7.293L12.293 5.5L10.5 3.707L5.5 8.707V10.5Z&quot;
+                                fill&#x3D;&quot;#3A26D5&quot; stroke&#x3D;&quot;#3A26D5&quot; stroke-width&#x3D;&quot;0.3&quot;&gt;&lt;/path&gt;
+                        &lt;/svg&gt; Editar&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./usersconfigs.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><p>usersconfigs works!</p><table class="chakra-table css-5605sr">    <thead class="css-1a47thg">        <tr class="css-0">            <td class="css-1bicmwu">                <div class="css-gelo2z">NOMBRE</div>            </td>            <td class="css-1bicmwu">                <div class="css-gelo2z">EMPRESA</div>            </td>            <td class="css-1bicmwu">                <div class="css-gelo2z">CARGO DEL USUARIO</div>            </td>            <td class="css-1bicmwu">                <div class="css-gelo2z">CORREO</div>            </td>            <td class="css-1bicmwu">                <div class="css-gelo2z">ESTADO</div>            </td>            <td class="css-1bicmwu">                <div class="css-gelo2z"></div>            </td>        </tr>    </thead>    <tbody class="css-v3jwuk">        <tr class="css-11h1gd2">            <td class="css-1p8nh8j">Felipe Caroca</td>            <td class="css-1p8nh8j">                <div class="css-4g6ai3">                    <div class="css-i5q2k0">                        <div class="css-70qvj9">Drimo</div>                        <div class="css-1bob0yn">                            <div class="css-1nq8zr4">+1</div>                        </div>                    </div>                </div>            </td>            <td class="css-1p8nh8j">CEO</td>            <td class="css-1p8nh8j">felipe.caroca@drimo.com</td>            <td class="css-1p8nh8j"><span tabindex="0" class="css-1baulvz"><label data-checked=""                        class="chakra-switch css-ghot30"><input class="chakra-switch__input" type="checkbox" checked=""                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"><span                            data-checked="" aria-hidden="true" class="chakra-switch__track css-sp5yj"><span                                class="chakra-switch__thumb css-7roig" data-checked=""></span></span></label></span>            </td>            <td class="css-1p8nh8j">                <div class="css-0">                    <div class="css-1gdm77d"><button type="button" class="chakra-button css-h653or">X Eliminar</button>                    </div><button type="button" class="chakra-button css-1ko42cm"><svg width="12px" height="12px"                            viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">                            <path                                d="M15 7.5V12.5C15 13.8785 13.8785 15 12.5 15H3.5C2.1215 15 1 13.8785 1 12.5V3.5C1 2.1215 2.1215 1 3.5 1H8.5C8.77617 1 9 1.22383 9 1.5C9 1.77617 8.77617 2 8.5 2H3.5C2.67283 2 2 2.67283 2 3.5V12.5C2 13.3272 2.67283 14 3.5 14H12.5C13.3272 14 14 13.3272 14 12.5V7.5C14 7.22383 14.2238 7 14.5 7C14.7762 7 15 7.22383 15 7.5ZM4.6465 8.1465L11.6465 1.1465C11.8418 0.951167 12.1582 0.951167 12.3535 1.1465L14.8535 3.6465C15.0488 3.84183 15.0488 4.15817 14.8535 4.3535L7.8535 11.3535C7.75983 11.4473 7.6325 11.5 7.5 11.5H5C4.72383 11.5 4.5 11.2762 4.5 11V8.5C4.5 8.3675 4.55267 8.24017 4.6465 8.1465ZM11.207 3L13 4.793L13.793 4L12 2.207L11.207 3ZM5.5 10.5H7.293L12.293 5.5L10.5 3.707L5.5 8.707V10.5Z"                                fill="#3A26D5" stroke="#3A26D5" stroke-width="0.3"></path>                        </svg> Editar</button>                </div>            </td>        </tr>        <tr class="css-11h1gd2">            <td class="css-1p8nh8j">German Labra</td>            <td class="css-1p8nh8j">                <div class="css-4g6ai3">                    <div class="css-i5q2k0">                        <div class="css-70qvj9">XRISK</div>                        <div class="css-1bob0yn">                            <div class="css-1nq8zr4">+2</div>                        </div>                    </div>                </div>            </td>            <td class="css-1p8nh8j">CEO</td>            <td class="css-1p8nh8j">german.labra@drimo.com</td>            <td class="css-1p8nh8j"><span tabindex="0" class="css-1baulvz"><label data-checked=""                        class="chakra-switch css-ghot30"><input class="chakra-switch__input" type="checkbox" checked=""                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"><span                            data-checked="" aria-hidden="true" class="chakra-switch__track css-sp5yj"><span                                class="chakra-switch__thumb css-7roig" data-checked=""></span></span></label></span>            </td>            <td class="css-1p8nh8j">                <div class="css-0">                    <div class="css-1gdm77d"><button type="button" class="chakra-button css-h653or">X Eliminar</button>                    </div><button type="button" class="chakra-button css-1ko42cm"><svg width="12px" height="12px"                            viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">                            <path                                d="M15 7.5V12.5C15 13.8785 13.8785 15 12.5 15H3.5C2.1215 15 1 13.8785 1 12.5V3.5C1 2.1215 2.1215 1 3.5 1H8.5C8.77617 1 9 1.22383 9 1.5C9 1.77617 8.77617 2 8.5 2H3.5C2.67283 2 2 2.67283 2 3.5V12.5C2 13.3272 2.67283 14 3.5 14H12.5C13.3272 14 14 13.3272 14 12.5V7.5C14 7.22383 14.2238 7 14.5 7C14.7762 7 15 7.22383 15 7.5ZM4.6465 8.1465L11.6465 1.1465C11.8418 0.951167 12.1582 0.951167 12.3535 1.1465L14.8535 3.6465C15.0488 3.84183 15.0488 4.15817 14.8535 4.3535L7.8535 11.3535C7.75983 11.4473 7.6325 11.5 7.5 11.5H5C4.72383 11.5 4.5 11.2762 4.5 11V8.5C4.5 8.3675 4.55267 8.24017 4.6465 8.1465ZM11.207 3L13 4.793L13.793 4L12 2.207L11.207 3ZM5.5 10.5H7.293L12.293 5.5L10.5 3.707L5.5 8.707V10.5Z"                                fill="#3A26D5" stroke="#3A26D5" stroke-width="0.3"></path>                        </svg> Editar</button>                </div>            </td>        </tr>        <tr class="css-11h1gd2">            <td class="css-1p8nh8j">Cristopher Rodriguez</td>            <td class="css-1p8nh8j">                <div class="css-4g6ai3">                    <div class="css-i5q2k0">                        <div class="css-70qvj9">XRISK</div>                        <div class="css-1bob0yn">                            <div class="css-1nq8zr4">+2</div>                        </div>                    </div>                </div>            </td>            <td class="css-1p8nh8j">CEO</td>            <td class="css-1p8nh8j">cristopher.rodriguez@drimo.com</td>            <td class="css-1p8nh8j"><span tabindex="0" class="css-1baulvz"><label data-checked=""                        class="chakra-switch css-ghot30"><input class="chakra-switch__input" type="checkbox" checked=""                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"><span                            data-checked="" aria-hidden="true" class="chakra-switch__track css-sp5yj"><span                                class="chakra-switch__thumb css-7roig" data-checked=""></span></span></label></span>            </td>            <td class="css-1p8nh8j">                <div class="css-0">                    <div class="css-1gdm77d"><button type="button" class="chakra-button css-h653or">X Eliminar</button>                    </div><button type="button" class="chakra-button css-1ko42cm"><svg width="12px" height="12px"                            viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">                            <path                                d="M15 7.5V12.5C15 13.8785 13.8785 15 12.5 15H3.5C2.1215 15 1 13.8785 1 12.5V3.5C1 2.1215 2.1215 1 3.5 1H8.5C8.77617 1 9 1.22383 9 1.5C9 1.77617 8.77617 2 8.5 2H3.5C2.67283 2 2 2.67283 2 3.5V12.5C2 13.3272 2.67283 14 3.5 14H12.5C13.3272 14 14 13.3272 14 12.5V7.5C14 7.22383 14.2238 7 14.5 7C14.7762 7 15 7.22383 15 7.5ZM4.6465 8.1465L11.6465 1.1465C11.8418 0.951167 12.1582 0.951167 12.3535 1.1465L14.8535 3.6465C15.0488 3.84183 15.0488 4.15817 14.8535 4.3535L7.8535 11.3535C7.75983 11.4473 7.6325 11.5 7.5 11.5H5C4.72383 11.5 4.5 11.2762 4.5 11V8.5C4.5 8.3675 4.55267 8.24017 4.6465 8.1465ZM11.207 3L13 4.793L13.793 4L12 2.207L11.207 3ZM5.5 10.5H7.293L12.293 5.5L10.5 3.707L5.5 8.707V10.5Z"                                fill="#3A26D5" stroke="#3A26D5" stroke-width="0.3"></path>                        </svg> Editar</button>                </div>            </td>        </tr>        <tr class="css-11h1gd2">            <td class="css-1p8nh8j">Belen Cortesi</td>            <td class="css-1p8nh8j">                <div class="css-4g6ai3">                    <div class="css-i5q2k0">                        <div class="css-70qvj9">Drimo</div>                    </div>                </div>            </td>            <td class="css-1p8nh8j">CEO</td>            <td class="css-1p8nh8j">belen.cortesi@drimo.com</td>            <td class="css-1p8nh8j"><span tabindex="0" class="css-1baulvz"><label data-checked=""                        class="chakra-switch css-ghot30"><input class="chakra-switch__input" type="checkbox" checked=""                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"><span                            data-checked="" aria-hidden="true" class="chakra-switch__track css-sp5yj"><span                                class="chakra-switch__thumb css-7roig" data-checked=""></span></span></label></span>            </td>            <td class="css-1p8nh8j">                <div class="css-0">                    <div class="css-1gdm77d"><button type="button" class="chakra-button css-h653or">X Eliminar</button>                    </div><button type="button" class="chakra-button css-1ko42cm"><svg width="12px" height="12px"                            viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">                            <path                                d="M15 7.5V12.5C15 13.8785 13.8785 15 12.5 15H3.5C2.1215 15 1 13.8785 1 12.5V3.5C1 2.1215 2.1215 1 3.5 1H8.5C8.77617 1 9 1.22383 9 1.5C9 1.77617 8.77617 2 8.5 2H3.5C2.67283 2 2 2.67283 2 3.5V12.5C2 13.3272 2.67283 14 3.5 14H12.5C13.3272 14 14 13.3272 14 12.5V7.5C14 7.22383 14.2238 7 14.5 7C14.7762 7 15 7.22383 15 7.5ZM4.6465 8.1465L11.6465 1.1465C11.8418 0.951167 12.1582 0.951167 12.3535 1.1465L14.8535 3.6465C15.0488 3.84183 15.0488 4.15817 14.8535 4.3535L7.8535 11.3535C7.75983 11.4473 7.6325 11.5 7.5 11.5H5C4.72383 11.5 4.5 11.2762 4.5 11V8.5C4.5 8.3675 4.55267 8.24017 4.6465 8.1465ZM11.207 3L13 4.793L13.793 4L12 2.207L11.207 3ZM5.5 10.5H7.293L12.293 5.5L10.5 3.707L5.5 8.707V10.5Z"                                fill="#3A26D5" stroke="#3A26D5" stroke-width="0.3"></path>                        </svg> Editar</button>                </div>            </td>        </tr>        <tr class="css-11h1gd2">            <td class="css-1p8nh8j">Gonzalo Aguirrebena</td>            <td class="css-1p8nh8j">                <div class="css-4g6ai3">                    <div class="css-i5q2k0">                        <div class="css-70qvj9">Drimo</div>                    </div>                </div>            </td>            <td class="css-1p8nh8j">CEO</td>            <td class="css-1p8nh8j">gonzalo.aguirrebena@xinergy.cl</td>            <td class="css-1p8nh8j"><span tabindex="0" class="css-1baulvz"><label data-checked=""                        class="chakra-switch css-ghot30"><input class="chakra-switch__input" type="checkbox" checked=""                            style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; width: 1px; margin: -1px; padding: 0px; overflow: hidden; white-space: nowrap; position: absolute;"><span                            data-checked="" aria-hidden="true" class="chakra-switch__track css-sp5yj"><span                                class="chakra-switch__thumb css-7roig" data-checked=""></span></span></label></span>            </td>            <td class="css-1p8nh8j">                <div class="css-0">                    <div class="css-1gdm77d"><button type="button" class="chakra-button css-h653or">X Eliminar</button>                    </div><button type="button" class="chakra-button css-1ko42cm"><svg width="12px" height="12px"                            viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">                            <path                                d="M15 7.5V12.5C15 13.8785 13.8785 15 12.5 15H3.5C2.1215 15 1 13.8785 1 12.5V3.5C1 2.1215 2.1215 1 3.5 1H8.5C8.77617 1 9 1.22383 9 1.5C9 1.77617 8.77617 2 8.5 2H3.5C2.67283 2 2 2.67283 2 3.5V12.5C2 13.3272 2.67283 14 3.5 14H12.5C13.3272 14 14 13.3272 14 12.5V7.5C14 7.22383 14.2238 7 14.5 7C14.7762 7 15 7.22383 15 7.5ZM4.6465 8.1465L11.6465 1.1465C11.8418 0.951167 12.1582 0.951167 12.3535 1.1465L14.8535 3.6465C15.0488 3.84183 15.0488 4.15817 14.8535 4.3535L7.8535 11.3535C7.75983 11.4473 7.6325 11.5 7.5 11.5H5C4.72383 11.5 4.5 11.2762 4.5 11V8.5C4.5 8.3675 4.55267 8.24017 4.6465 8.1465ZM11.207 3L13 4.793L13.793 4L12 2.207L11.207 3ZM5.5 10.5H7.293L12.293 5.5L10.5 3.707L5.5 8.707V10.5Z"                                fill="#3A26D5" stroke="#3A26D5" stroke-width="0.3"></path>                        </svg> Editar</button>                </div>            </td>        </tr>    </tbody></table></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'ClientComponent', 'selector': 'app-client'},{'name': 'ClientsComponent', 'selector': 'app-clients'},{'name': 'ClientSelectionDialogComponent', 'selector': 'app-client-selection-dialog'},{'name': 'CompanyComponent', 'selector': 'app-company'},{'name': 'CompanyComponent', 'selector': 'app-company'},{'name': 'CompanyComponent', 'selector': 'app-company'},{'name': 'CompanyConfigComponent', 'selector': 'app-company-config'},{'name': 'CompanyTableComponent', 'selector': 'app-company-table'},{'name': 'ConfigsComponent', 'selector': 'app-domains'},{'name': 'ConfirmDialogComponent', 'selector': 'app-confirm-dialog'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'ContactServiceCompanyComponent', 'selector': 'app-contact-service-company'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DeleteComponent', 'selector': 'app-delete'},{'name': 'DomaincategoryComponent', 'selector': 'app-domaincategory'},{'name': 'DomainCategoryTableComponent', 'selector': 'app-domain-category-table'},{'name': 'DomainCfgTableComponent', 'selector': 'app-domain-cfg-table'},{'name': 'DomainComponent', 'selector': 'app-domain'},{'name': 'DomainsComponent', 'selector': 'app-domains'},{'name': 'DomainTableComponent', 'selector': 'app-domain-table'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'EditComponent', 'selector': 'app-edit'},{'name': 'GroupcompanyComponent', 'selector': 'app-groupcompany'},{'name': 'GroupCompanyTableComponent', 'selector': 'app-group-company-table'},{'name': 'IntegrationsComponent', 'selector': 'app-integrations'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MessagesModalComponent', 'selector': 'app-messages-modal'},{'name': 'NewClientComponent', 'selector': 'app-new-client'},{'name': 'PermissionComponent', 'selector': 'app-permission'},{'name': 'ProviderComponent', 'selector': 'app-provider'},{'name': 'ResponsiveMenuComponent', 'selector': 'app-responsive-menu'},{'name': 'RoleCfgTableComponent', 'selector': 'app-role-cfg-table'},{'name': 'RoleComponent', 'selector': 'app-role'},{'name': 'RolesComponent', 'selector': 'app-roles'},{'name': 'RoleTableComponent', 'selector': 'app-role-table'},{'name': 'SeeComponent', 'selector': 'app-see'},{'name': 'ServicecategoryComponent', 'selector': 'app-servicecategory'},{'name': 'ServicecompanyComponent', 'selector': 'app-servicecompany'},{'name': 'SessionComponent', 'selector': 'app-session'},{'name': 'SignUpComponent', 'selector': 'app-sign-up'},{'name': 'StepperComponent', 'selector': 'app-stepper'},{'name': 'SubdomainCfgTableComponent', 'selector': 'app-subdomain-cfg-table'},{'name': 'SubdomainComponent', 'selector': 'app-subdomain'},{'name': 'UserComponent', 'selector': 'app-user'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'UsersconfigsComponent', 'selector': 'app-usersconfigs'},{'name': 'UsersTableComponent', 'selector': 'app-users-table'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'UsersconfigsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'UsersconfigsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

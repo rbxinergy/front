@@ -1,0 +1,32 @@
+{
+    "greeting": "Hola",
+    "createNewClient": "Crear nuevo cliente",
+    "clients": "Clientes",
+    "domains": "Dominios",
+    "companies": "Empresas",
+    "apis": "Integraciones",
+    "users&roles": "Usuarios y roles",
+    "contact": "Contactos",
+    "servicecategory": "Servicios y Categorías",
+    "servicecompany": "Servicios y Empresas",
+    "provider": "Proveedor",
+    "company": "Empresa",
+    "domain": "Dominio",
+    "subdomain": "Subdominio",
+    "domaincategory": "Categoría de dominio",
+    "groupcompany": "Grupos de empresas",
+    "user": "Usuario",
+    "roles": "Roles",
+    "permission": "Permisos",
+    "session": "sesión",
+    "logout": "Cerrar sesión", 
+    "client":{
+        "client": "Cliente",
+        "newclient": "Nuevo cliente"
+    },
+    "close": "Cerrar",
+    "error": "Error",
+    "info": "Información",
+    "success": "Correcto",
+    "cancel": "Cancelar"
+}
