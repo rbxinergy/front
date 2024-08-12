@@ -1,0 +1,6 @@
+.DS_Store
+.angular/
+.vscode/
+dist/
+documentation/
+node_modules/
