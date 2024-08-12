@@ -1,23 +1,26 @@
 
 export interface Domain {
-  id: string,
-  name: string,
-  description: string,
-  code: string,
-  tag: string,
-  idDomainCategory: string,
-  idCompany: string,
-  active?: boolean,
-  delete?: boolean
+  id: string;
+  name: string;
+  description: string;
+  code: string;
+  tag: string;
+  active?: boolean;
+  createdDate?:string;
+  modificatedDate?:string;
+  idDomainCategory?: string;
+  idCompany?: string;
+  idServiceCompany?: string;
+  subdomains: SubDomain[]
 }
 
 export interface SubDomain {
-  id:string,
-  name: string,
-  description: string,
-  tag: string,
-  idDomain: string,
-  is_active?: boolean,
-  is_delete?: boolean,
-  status: string
+  id:string;
+  name: string;
+  description: string;
+  tag: string;
+  active?: boolean;
+  idDomain: string;
+  createdDate?:string;
+  modificatedDate?:string;
 }

@@ -47,7 +47,6 @@ export class CompanyComponent {
           headquarters: new FormControl(data?.headquarters || false),
           branch: new FormControl(data?.branch || false),
           active: new FormControl(data?.active || true),
-          delete: new FormControl(data?.delete || false),
           tag: new FormControl(data?.tag || ''),
           idContact: new FormControl(data?.idContact || [''])
         });

@@ -13,8 +13,9 @@ export interface Company {
   headquarters: boolean;
   branch?: boolean;
   active?: boolean;
-  delete?: boolean;
   tag: string;
+  createdDate?: string;
+  modificatedDate?: string;
   idGroupCompany: string;
   idClient: string;
   idContact?:string[]

@@ -41,10 +41,10 @@ export class RoleComponent {
           description: new FormControl(data?.description || ''),
           client: new FormControl(data?.client || clientData.name),
           company: new FormControl(data?.company || ''),
-          isCreate: new FormControl(data?.isCreate || false),
-          isModify: new FormControl(data?.isModify || false),
-          isList: new FormControl(data?.isList || false),
-          isDelete: new FormControl(data?.isDelete || false)
+          create: new FormControl(data?.create || false),
+          update: new FormControl(data?.update || false),
+          read: new FormControl(data?.read || false),
+          delete: new FormControl(data?.delete || false)
         });
       }
     }

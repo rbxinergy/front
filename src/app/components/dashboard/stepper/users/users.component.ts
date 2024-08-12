@@ -12,7 +12,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { CompanyService } from 'src/app/services/company.service';
-import { Companies } from 'src/app/interfaces/companies';
+// import { Companies } from 'src/app/interfaces/companies';
 
 @Component({
   selector: 'app-users',
@@ -73,13 +73,13 @@ export class UsersComponent implements OnInit {
 
   }
 
-  getCompaniesByGrp(){
-    this.companyService.getCompaniesByGroup(sessionStorage.getItem('client')).subscribe(async data => {
-      await data
-      this.companies = data
-      console.log('companies',data)
-    })
-  }
+  // getCompaniesByGrp(){
+  //   this.companyService.getCompaniesByGroup(sessionStorage.getItem('client')).subscribe(async data => {
+  //     await data
+  //     this.companies = data
+  //     console.log('companies',data)
+  //   })
+  // }
 
   ngOnInit() {
     this.userService.getRoles().subscribe(data => {
@@ -87,7 +87,7 @@ export class UsersComponent implements OnInit {
       console.log('roles', this.roles)
       console.log("ngOnInit", this.roles)
     })
-    this.getCompaniesByGrp();
+    // this.getCompaniesByGrp();
     
   }
 }
