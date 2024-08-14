@@ -15,10 +15,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { FileUploadComponent } from '../../file-upload/file-upload.component';
+import { HttpResponse } from '@angular/common/http';
+import { FilePreviewDialogComponent } from '../../file-preview-dialog/file-preview-dialog.component';
 
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
+  styleUrls: ['./company.component.scss'],
   standalone: true,
   imports:[
     MatSlideToggleModule,
@@ -31,7 +35,8 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogModule,
     MatButtonModule, 
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    FileUploadComponent
   ]
 })
 export class CompanyComponent implements AfterViewInit {
@@ -44,9 +49,6 @@ export class CompanyComponent implements AfterViewInit {
   client: string = sessionStorage.getItem('client') || '';
   dataSource = new MatTableDataSource<Company>();
   selectedFile: File | null = null;
-  fileUploaded = false;
-  fileUploadedMessage = '';
-  fileUploadedMessageType = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
@@ -93,23 +95,30 @@ export class CompanyComponent implements AfterViewInit {
     }
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+  onFileSelected(file: File) {
+    this.selectedFile = file;
   }
 
-  uploadFile() {
+  onUpload() {
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('file', this.selectedFile, this.selectedFile.name);
 
-      this.companyService.uploadCSV(formData).subscribe(response => {
-        console.log('Archivo subido exitosamente', response);
-        // Aquí puedes agregar lógica adicional, como actualizar la lista de compañías
-      }, error => {
-        console.error('Error al subir el archivo', error);
-      });
-    } else {
-      console.error('No se ha seleccionado ningún archivo');
+      this.companyService.uploadCSV(formData).subscribe(
+        (response: HttpResponse<any>) => {
+          console.log('File uploaded successfully', response);
+        },
+        (error) => {
+          console.error('Error uploading file', error);
+        }
+      );
     }
+  }
+
+  onShowPreview(){
+    this.dialog.open(FilePreviewDialogComponent, {
+      width: '100%',
+      data: { file: this.selectedFile }
+    });
   }
 }

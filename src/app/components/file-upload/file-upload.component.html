@@ -1,0 +1,8 @@
+<mat-form-field appearance="fill">
+    <mat-label>Upload File</mat-label>
+    <input matInput [value]="fileName" placeholder="Choose a file" readonly>
+    <button mat-icon-button matSuffix (click)="fileInput.click()">
+      <mat-icon>attach_file</mat-icon>
+    </button>
+    <input type="file" #fileInput (change)="onFileSelected($event)" [accept]="acceptTypes" hidden>
+  </mat-form-field>

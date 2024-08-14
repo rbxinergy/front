@@ -83,6 +83,11 @@ export class CompanyService {
   }
 
   uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
-    return this.http.post(`${this.serverUrl}${this.apiUrls.company}/create/upload/file`, formData, { headers: this.headers, observe: 'response'});
+    const headers = new HttpHeaders({
+      'enctype': 'multipart/form-data',
+      'Authorization': 'Bearer ' +  this.token,
+      'cache-control': 'no-cache'
+    });
+    return this.http.post(`${this.serverUrl}${this.apiUrls.company}/create/upload/file`, formData, { headers, observe: 'response'});
   }
 }
