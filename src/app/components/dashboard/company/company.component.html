@@ -7,8 +7,8 @@
     </div>
     <h3>Cargar masiva de empresas</h3>
     <app-file-upload (fileSelected)="onFileSelected($event)"></app-file-upload>
-    <button mat-raised-button (click)="onShowPreview()">Vista previa</button>
-    <button mat-raised-button class="upload-button" color="primary" (click)="onUpload()">Subir Archivo</button>
+    <button mat-raised-button (click)="onShowPreview()" [disabled]="!selectedFile">Vista previa</button>
+    <button mat-raised-button class="upload-button" color="primary" (click)="onUpload()" [disabled]="!selectedFile">Subir Archivo</button>
     <p>
         Para asegurar la correcta carga de los datos, descargar el archivo de ejemplo <a href="assets/csv/company.csv">company.csv</a>.
     </p>

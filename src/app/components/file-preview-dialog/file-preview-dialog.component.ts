@@ -50,12 +50,8 @@ export class FilePreviewDialogComponent implements OnInit {
     reader.readAsText(file);
   }
 
-  onNoClick(): void {
+  close(): void {
     this.dialogRef.close();
-  }
-
-  onUploadClick(): void {
-    this.dialogRef.close(this.data.file);
   }
 
   getColumnIndices() {

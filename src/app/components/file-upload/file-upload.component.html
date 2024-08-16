@@ -4,5 +4,8 @@
     <button mat-icon-button matSuffix (click)="fileInput.click()">
       <mat-icon>attach_file</mat-icon>
     </button>
+    <button mat-icon-button matSuffix *ngIf="selectedFile" (click)="clearFileSelection()">
+      <mat-icon>clear</mat-icon>
+    </button>
     <input type="file" #fileInput (change)="onFileSelected($event)" [accept]="acceptTypes" hidden>
   </mat-form-field>

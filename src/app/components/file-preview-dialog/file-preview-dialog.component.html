@@ -1,9 +1,20 @@
 <h1 mat-dialog-title>Vista preliminar:</h1>
 <div mat-dialog-content>
-  <p>Nombre del archivo: {{ data.file.name }}</p>
-  <p>Tamaño del archivo: {{ data.file.size }} bytes</p>
-  <p>Tipo de archivo: {{ data.file.type }}</p>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table>
+    <tr>
+      <td><strong>File Name:</strong></td>
+      <td>{{ data.file.name }}</td>
+    </tr>
+    <tr>
+      <td><strong>File Size:</strong></td>
+      <td>{{ data.file.size }} bytes</td>
+    </tr>
+    <tr>
+      <td><strong>File Type:</strong></td>
+      <td>{{ data.file.type }}</td>
+    </tr>
+  </table>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z2">
     <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
       <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
       <td mat-cell *matCellDef="let row"> {{ row[column] }} </td>
@@ -13,6 +24,5 @@
   </table>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancelar</button>
-  <button mat-button color="primary" (click)="onUploadClick()">Subir</button>
+  <button mat-raised-button color="primary" (click)="close()">Aceptar</button>
 </div>
