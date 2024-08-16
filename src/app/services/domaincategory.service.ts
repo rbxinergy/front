@@ -31,7 +31,8 @@ export class DomainCategoryService {
     return this.http.get<DomainCategory[]>(`${this.serverUrl}${this.apiUrls}/get/cliente1`, {headers: this.headers});
   }
   getallDomainCategories(groupCompany: GroupCompany): Observable<DomainCategory[]> {
-    return this.http.get<DomainCategory[]>(`${this.serverUrl}${this.apiUrls}/get/group-company/${groupCompany}`,  {headers: this.headers});
+    console.log('getgroupcompany', groupCompany)
+    return this.http.get<DomainCategory[]>(`${this.serverUrl}${this.apiUrls}/get/group-company/${groupCompany.id}`,  {headers: this.headers});
   }
 
   createDomainCategory(domainCategory: DomainCategory): Observable<HttpResponse<any>> {
@@ -39,7 +40,7 @@ export class DomainCategoryService {
   }
 
   updateDomainCategory(domainCategory: DomainCategory): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls}/update`, domainCategory, { observe: 'response' });
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls}/update/${domainCategory.id}`, domainCategory, { observe: 'response' });
   }
 
   deleteCompany(id: string): Observable<HttpResponse<any>> {

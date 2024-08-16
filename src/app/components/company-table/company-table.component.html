@@ -1,16 +1,16 @@
-<div>
-    <div class="search-container table-header">
-        <mat-form-field *ngIf="companies.length > 0" appearance="outline">
-          <mat-label>Buscar</mat-label>
-          <input matInput (input)="applyFilter($event)" placeholder="Buscar" #searchInput>
-          <button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch(searchInput)">
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="openNewCompanyModal()">
-            <mat-icon>add</mat-icon>Agregar empresa
+<div class="p-4">
+  <div class="search-container table-header">
+      <mat-form-field *ngIf="companies.length > 0" appearance="outline">
+        <mat-label>Buscar</mat-label>
+        <input matInput (input)="applyFilter($event)" placeholder="Buscar" #searchInput>
+        <button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch(searchInput)">
+          <mat-icon>close</mat-icon>
         </button>
-    </div>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="openNewCompanyModal()">
+          <mat-icon>add</mat-icon>Agregar empresa
+      </button>
+  </div>
 
   <div *ngIf="companies.length === 0">
     <h3>No hay empresas para este cliente</h3>

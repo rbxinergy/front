@@ -1,14 +1,12 @@
 <h2>{{"client.client" | translate }}</h2>
 
-
-
 <div class="header">
   <button mat-raised-button color="primary" class="new-client-button" (click)="navigateToNewClient()">
     <mat-icon>add</mat-icon>
     Nuevo cliente
   </button>
 </div>
-<div class="file-upload">
+<!-- <div class="file-upload">
   <input type="file" (change)="onFileSelected($event)" #fileUpload>
   {{fileName || "No file uploaded yet."}}
 
@@ -16,8 +14,7 @@
     (click)="fileUpload.click()">
       <mat-icon>attach_file</mat-icon>
   </button>
-</div>
-
+</div> -->
 
 <div class="progress">
   <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress">
@@ -98,4 +95,5 @@
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
   </mat-paginator>
+
 </div>

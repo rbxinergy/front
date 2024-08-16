@@ -54,8 +54,7 @@ export class ClientComponent implements OnInit {
       this.validationStatus.emit(status === 'VALID'? true : false);
     });
   }
- 
- 
+
   save() {
     this.clientService.saveClient(this.clientForm.getRawValue() as unknown as Client).subscribe({
       next: (response) => {

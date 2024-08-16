@@ -34,7 +34,6 @@ import { GroupCompanyTableComponent } from './components/group-company-table/gro
 import { DomainCategoryTableComponent } from './components/domain-category-table/domain-category-table.component';
 import { ConfigsComponent } from './components/configs/configs.component';
 import { RoleCfgTableComponent } from './components/role-cfg-table/role-cfg-table.component';
-import { AddDomaincategoryComponent } from './components/add-domaincategory/add-domaincategory.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -62,10 +61,10 @@ const routes: Routes = [
       { path: 'domain-config', component: DomainCfgTableComponent },
       { path: 'subdomain', component: SubdomainComponent },
       { path: 'domaincategory', component: DomaincategoryComponent },
-      { path: 'adddomaincategory', component: AddDomaincategoryComponent },
       { path: 'domaincategorytable', component: DomainCategoryTableComponent },
       { path: 'groupcompany', component: GroupcompanyComponent },
       { path: 'groupcompanytable', component: GroupCompanyTableComponent },
+      { path: 'groupcompanytable/:client', component: GroupCompanyTableComponent },
       { path: 'client', component: ClientComponent },
       { path: 'user', component: UserComponent },
       { path: 'rolestable', component: RoleCfgTableComponent},

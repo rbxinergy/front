@@ -25,7 +25,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { ConfigsComponent } from './components/configs/configs.component';
-import { AddDomaincategoryComponent } from './components/add-domaincategory/add-domaincategory.component';
+import { ServiceCategoryTableComponent } from './components/service-category-table/service-category-table.component';
 
 
 export function HttpLoaderFactory(http: HttpClient){

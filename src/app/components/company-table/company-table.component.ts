@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, Input, Inject } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sort';
@@ -10,7 +10,7 @@ import { CompanyService } from 'src/app/services/company.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -58,18 +58,34 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
   groupCompany: GroupCompany | null = null;
 
   constructor(private companyService: CompanyService, private cdr: ChangeDetectorRef,
-      private dialog: MatDialog, private clientDataService: ClientDataService, private groupCompanyDataService: GroupcompanyDataService) {
+    private dialog: MatDialog, private dialogRef: MatDialogRef<CompanyTableComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: GroupCompany,
+    private clientDataService: ClientDataService, 
+    private groupCompanyDataService: GroupcompanyDataService ) {
+      if(data){
+        this.groupCompany = data
+        this.groupCompanyDataService.setGroupCompanyData(data);
+      } else {
         this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
-        this.client= this.clientDataService.getClientData();
-        console.log("datos: ", this.groupCompany, this.client)
       }
 
+      this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
+      this.client= this.clientDataService.getClientData();
+      console.log("datos: ", this.groupCompany, this.client)
+    }
+
+
+
+
   ngOnInit(): void {
-    console.log('ngOnInit');
+    // console.log(this.groupCompany);
   }
 
   ngAfterViewInit(): void {
-    // this.loadClientData();
+    this.companyService.getCompaniesByGroup(this.groupCompany).subscribe(data => {
+      this.dataSource.data = data
+      this.companies = data
+    })
   }
 
   // loadClientData() {
@@ -127,7 +143,7 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
       next: (newCompany: Company) => {
         if (newCompany) {
           newCompany.idGroupCompany = this.groupCompany?.id;
-          newCompany.idClient = this.client?.id
+          newCompany.idClient = this.groupCompany?.idClient
           console.log('newCompany', newCompany);
           this.companyService.createCompany(newCompany).subscribe({
             next: (response) => {

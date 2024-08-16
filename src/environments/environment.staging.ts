@@ -40,6 +40,7 @@ export const environment = {
     subdomain: `subdomain-drzcbalp5q-uk.a.run.app/v1/subdomain`,
     user: `user-drzcbalp5q-uk.a.run.app/v1/user`,
     report: `report-drzcbalp5q-uk.a.run.app/v1/report`,  
+    serviceCategory: `service-category-drzcbalp5q-uk.a.run.app/v1/service-category`,
     serviceCompany: `service-company-drzcbalp5q-uk.a.run.app/v1`,
     session: `login-drzcbalp5q-uk.a.run.app/v1/login/get`
   }

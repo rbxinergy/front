@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, Inject, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { DomainCategoryService } from '../../services/domaincategory.service';
-import { DomainCategory } from '../../interfaces/domaincategory.interface';
+import { ServiceCategoryService } from '../../services/service-category.service';
+import { ServiceCategory } from '../../interfaces/servicecategory.interface';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
@@ -27,12 +27,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
 import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.service';
 import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
-import { DomainComponent } from '../domain/domain.component';
+import { ServicecategoryComponent } from '../servicecategory/servicecategory.component';
 
 @Component({
-  selector: 'app-domain-category-table',
-  templateUrl: './domain-category-table.component.html',
-  styleUrls: ['./domain-category-table.component.css'],
+  selector: 'app-service-category-table',
+  templateUrl: './service-category-table.component.html',
+  styleUrls: ['./service-category-table.component.css'],
   standalone: true,
   imports: [
     MatTableModule,
@@ -48,29 +48,24 @@ import { DomainComponent } from '../domain/domain.component';
     MatToolbarModule,
     MatPaginatorModule,
     MatSortModule,
-    
-    // MatSelectModule, MatSnackBarModule, MatTooltipModule, 
   ]
 })
-
-// Para crear cat de dominio necesito el idGroupCompany que viene del paso 2 del stepper
-export class DomainCategoryTableComponent {
-  // displayedColumns: string[] = ['select', 'id', 'name'];
+export class ServiceCategoryTableComponent {
   displayedColumns: string[] = ['select', 'id', 'name', 'description', 'tag', 'acciones'];
-  dataSource = new MatTableDataSource<DomainCategory>();
-  selection = new SelectionModel<DomainCategory>(true, []);
+  dataSource = new MatTableDataSource<ServiceCategory>();
+  selection = new SelectionModel<ServiceCategory>(true, []);
 
-  domainCategories: DomainCategory[]| null  = [];
-  selectedDomainCategory: DomainCategory | null = null;
+  serviceCategories: ServiceCategory[]| null  = [];
+  selectedServiceCategory: ServiceCategory | null = null;
   
-  formDomainCategoryTable: FormGroup = new FormGroup({
+  formServiceCategoryTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
   });
 
   groupCompany: GroupCompany | null = null;
   
-  constructor(private domainCategoryService: DomainCategoryService, private dialog: MatDialog, private cdr: ChangeDetectorRef, 
-    private groupCompanyDataService: GroupcompanyDataService, private dialogRef: MatDialogRef<DomainCategoryTableComponent>,
+  constructor(private serviceCategoryService: ServiceCategoryService, private dialog: MatDialog, private cdr: ChangeDetectorRef, 
+    private groupCompanyDataService: GroupcompanyDataService, private dialogRef: MatDialogRef<ServiceCategoryTableComponent>,
     @Inject(MAT_DIALOG_DATA) public data: GroupCompany) {
       if(data){
         console.log(data)
@@ -81,9 +76,9 @@ export class DomainCategoryTableComponent {
       }
     this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
     console.log("GROUPCOMPANY: ", this.groupCompany)
-    this.domainCategoryService.getallDomainCategories(this.groupCompany).subscribe((domainCategories: DomainCategory[]) => {
+    this.serviceCategoryService.getallServiceCategories(this.groupCompany).subscribe((domainCategories: ServiceCategory[]) => {
       this.dataSource.data = domainCategories;
-      this.domainCategories = domainCategories
+      this.serviceCategories = domainCategories
       console.log(domainCategories)
     });
   }
@@ -115,7 +110,7 @@ export class DomainCategoryTableComponent {
   }
 
   /** La etiqueta de la casilla de verificación en la fila pasada. */
-  checkboxLabel(row?: DomainCategory): string {
+  checkboxLabel(row?: ServiceCategory): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -139,37 +134,31 @@ export class DomainCategoryTableComponent {
     this.applyFilter(event);
   }
 
-  addDomainModal(domainCategory: DomainCategory){
-    const dialogRef = this.dialog.open(DomainComponent , {
-      width: '600px',
-      data:  domainCategory
-    });
-  }
   // Add domain categories to Group Company
-  addDomainCategories() {
+  addServiceCategories() {
     console.log(this.selection.selected);
-    const maxId = this.domainCategories.length > 0 ? Math.max(...this.domainCategories.map(company => parseInt(company.id))) : 0;
-    const dialogRef = this.dialog.open(DomaincategoryComponent, {
+    const maxId = this.serviceCategories.length > 0 ? Math.max(...this.serviceCategories.map(company => parseInt(company.id))) : 0;
+    const dialogRef = this.dialog.open(ServiceCategoryService, {
       width: '600px',
       data:  {}
     });
 
       dialogRef.afterClosed().subscribe({
-      next: (newDomainCategory: DomainCategory) => {
-        if (newDomainCategory) {
-          newDomainCategory.idGroupCompany = this.groupCompany.id
-          console.log(newDomainCategory)
-          this.domainCategoryService.createDomainCategory(newDomainCategory).subscribe({
+      next: (newServiceCategory: ServiceCategory) => {
+        if (newServiceCategory) {
+          newServiceCategory.idGroupCompany = this.groupCompany.id
+          console.log(newServiceCategory)
+          this.serviceCategoryService.createServiceCategory(newServiceCategory).subscribe({
             next: (response) => {
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
                   data: { message: 'Categoría de dominio creada exitosamente.', type: 'success' }
                 });
-                newDomainCategory.id = (maxId + 1).toString();
-                this.domainCategories.push(response.body);
-                this.dataSource.data = this.domainCategories;
-                this.formDomainCategoryTable.controls['tempControl'].setValue(newDomainCategory.name);
+                newServiceCategory.id = (maxId + 1).toString();
+                this.serviceCategories.push(response.body);
+                this.dataSource.data = this.serviceCategories;
+                this.formServiceCategoryTable.controls['tempControl'].setValue(newServiceCategory.name);
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
@@ -196,41 +185,41 @@ export class DomainCategoryTableComponent {
     });
   }
   
-  editDomainCategoryModal(domainCategory: DomainCategory) {
-    console.log(domainCategory)
-    this.selectedDomainCategory = { ...domainCategory };
-    const dialogRef = this.dialog.open(DomaincategoryComponent, {
+  editServiceCategoryModal(serviceCategory: ServiceCategory) {
+    this.selectedServiceCategory = { ...serviceCategory };
+    const dialogRef = this.dialog.open(ServicecategoryComponent, {
       width: '600px',
-      data: this.selectedDomainCategory
+      data: this.selectedServiceCategory
     });
   
     dialogRef.afterClosed().subscribe({
-      next: (updatedDomainCategory: DomainCategory) => {
-        if (updatedDomainCategory) {
-          updatedDomainCategory.idGroupCompany = this.groupCompany?.id
-          this.domainCategoryService.updateDomainCategory(updatedDomainCategory).subscribe({
+      next: (updatedServiceCategory: ServiceCategory) => {
+        if (updatedServiceCategory) {
+          updatedServiceCategory.idGroupCompany = this.groupCompany?.id
+
+          this.serviceCategoryService.updateServiceCategory(updatedServiceCategory).subscribe({
             next: (response) => {
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Categoría de dominio actualizado exitosamente.', type: 'success' }
+                  data: { message: 'Categoría de servicio actualizado exitosamente.', type: 'success' }
                 });
-                const index = this.domainCategories.findIndex(c => c.id === updatedDomainCategory.id);
+                const index = this.serviceCategories.findIndex(c => c.id === updatedServiceCategory.id);
                 if (index !== -1) {
-                  this.domainCategories[index] = updatedDomainCategory;
-                  this.dataSource.data = this.domainCategories;
+                  this.serviceCategories[index] = updatedServiceCategory;
+                  this.dataSource.data = this.serviceCategories;
                 }
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Error al actualizar la categoría de dominio.', type: 'error' }
+                  data: { message: 'Error al actualizar la categoría de servicio.', type: 'error' }
                 });
               }
             },
             error: (error) => {
               this.dialog.open(MessagesModalComponent, {
                 width: '500px',
-                data: { message: 'Error al actualizar la categoría de dominio.', type: 'error' }
+                data: { message: 'Error al actualizar la categoría de servicio.', type: 'error' }
               });
             }
           });
@@ -245,12 +234,12 @@ export class DomainCategoryTableComponent {
     });
   }
   
-  deleteDomainCategoryModal(domainCategory: DomainCategory) {
+  deleteServiceCategoryModal(serviceCategory: ServiceCategory) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
       data: {
         title: 'Confirmar eliminación',
-        message: `¿Está seguro de que deseas eliminar la categoría de dominio ${domainCategory.name}?`,
+        message: `¿Está seguro de que deseas eliminar la categoría de dominio ${serviceCategory.name}?`,
         type: 'error'
       }
     });
@@ -258,7 +247,7 @@ export class DomainCategoryTableComponent {
     dialogRef.afterClosed().subscribe({
       next: (result) => {
         if (result) {
-          this.domainCategoryService.deleteCompany(domainCategory.id).subscribe({
+          this.serviceCategoryService.deleteServiceCategory(serviceCategory.id).subscribe({
             next: (response) => {
               console.log('response', response.body);
               if (response.status === 200) {
@@ -266,12 +255,12 @@ export class DomainCategoryTableComponent {
                   width: '500px',
                   data: { message: 'Categoría de dominio eliminada exitosamente.', type: 'success' }
                 });
-                console.log('Categoría de dominio', domainCategory);
-                this.domainCategories = this.domainCategories.filter(c => c.id !== domainCategory.id);
-                if(this.domainCategories.length === 0){
-                  this.formDomainCategoryTable.controls['tempControl'].setValue(null);
+                console.log('Categoría de dominio', serviceCategory);
+                this.serviceCategories = this.serviceCategories.filter(c => c.id !== serviceCategory.id);
+                if(this.serviceCategories.length === 0){
+                  this.formServiceCategoryTable.controls['tempControl'].setValue(null);
                 }
-                this.dataSource.data = this.domainCategories;
+                this.dataSource.data = this.serviceCategories;
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
@@ -297,6 +286,12 @@ export class DomainCategoryTableComponent {
     });
   }
 }
+
+
+
+
+
+
 
 
 

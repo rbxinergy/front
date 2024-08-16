@@ -93,12 +93,13 @@ export class ClientsComponent implements AfterViewInit {
 
   // trae arreglo con clientes 
   getClients(){
-    this.companyService.getClients().subscribe((data: any) => {
+    this.clientService.getClients().subscribe((data: any) => {
       this.isLoading = true;
       this.clients = data;
       this.dataSource.data = data
       this.isLoading = false;
     })
+    // this.companyService.getClients
   }
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -166,12 +167,14 @@ export class ClientsComponent implements AfterViewInit {
     this.uploadProgress = null;
     this.uploadSub = null;
   }
+  
   openNewGroupCompanyModal(client: Client){
-    console.log("cliente", client)
-    const dialogRef = this.dialog.open(GroupCompanyTableComponent, {
-      width: '80%',
-      data: client
-    }); 
+    console.log(client)
+    this.router.navigate(['dashboard/groupcompanytable', client.id]);
+    // const dialogRef = this.dialog.open(GroupCompanyTableComponent, {
+    //   width: '80%',
+    //   data: client
+    // }); 
     // dialogRef.afterClosed().subscribe({
     //   next: (updatedClient: Client) => {
     //     if (updatedClient) {
@@ -271,8 +274,6 @@ export class ClientsComponent implements AfterViewInit {
       }
     });
   }
-
-  
 
   openDeleteCompanyModal(client: Client) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
