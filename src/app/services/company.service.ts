@@ -17,13 +17,13 @@ export class CompanyService {
   serverUrl = environment.serverUrl;
   apiUrls = environment.apiUrls;
 
-  token = sessionStorage.getItem('token')
+  token = sessionStorage.getItem('token');
   client: any;
-  groupCompany: any
+  groupCompany: any;
   headers = new HttpHeaders({
     'Authorization': 'Bearer ' +  this.token,
     'cache-control': 'no-cache'
-  })
+  });
 
   constructor(private http: HttpClient, private clientDataService: ClientDataService, private groupCompanyDataService: GroupcompanyDataService) { 
     this.groupDocument = sessionStorage?.getItem('groupDocument') || '0';
@@ -46,27 +46,25 @@ export class CompanyService {
       "stateId": parseInt(form.stateId),
       "countryId": parseInt(form.countryId),
       "isGroup": false
-    }
-    console.log(body)
-    const postCompany = this.http.post<Company>(`${this.serverUrl}${this.apiUrls.company}/create`, body, { headers: this.headers })
-
-    return await lastValueFrom(postCompany)  
+    };
+    console.log(body);
+    const postCompany = this.http.post<Company>(`${this.serverUrl}${this.apiUrls.company}/create`, body, { headers: this.headers });
+    return await lastValueFrom(postCompany);
   }
 
   getCompaniesByClient(client: any){
-    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/client/${client}`, { headers: this.headers})
-
+    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/client/${client}`, { headers: this.headers});
   }
   getCompaniesByGroup(groupCompany: any){
-    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/group-company/${groupCompany}`, { headers: this.headers})
+    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/group-company/${groupCompany}`, { headers: this.headers});
   }
 
   getCompany(client: string, company: string) {
-    return this.http.get<Company>(`${this.serverUrl}${this.apiUrls.company}/get/${client}/${company}`, { headers: this.headers})
+    return this.http.get<Company>(`${this.serverUrl}${this.apiUrls.company}/get/${client}/${company}`, { headers: this.headers});
   }
 
   getClients() {
-   return this.http.get<Client[]>(`${this.serverUrl}${this.apiUrls.client}/get/all`, { headers: this.headers})
+   return this.http.get<Client[]>(`${this.serverUrl}${this.apiUrls.client}/get/all`, { headers: this.headers});
   }
 
   createCompany(company: Company): Observable<HttpResponse<any>> {

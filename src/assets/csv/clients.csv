@@ -1,4 +1,2 @@
-name,business_name,address,city,state,county,district,country,document_type,document,is_headquarters,is_branch,tag,id_group_company,id_client
-Empresas del Sur,Empresas del Sur SA,Calle 123,Santiago,Santiago,Santiago,Santiago,Chile,RUT,90291334-3,true,false,tag,08b4c2c7-de0d-432c-80b0-80536f27ccd2,2bb1b180-1c6f-4c94-8526-0d1bec54acd6
-Empresas Austral,Empresas Austral SA,Calle 234,Santiago,Santiago,Santiago,Santiago,Chile,RUT,94755043-8,true,false,tag,08b4c2c7-de0d-432c-80b0-80536f27ccd2,2bb1b180-1c6f-4c94-8526-0d1bec54acd6
-Empresas Metropolitana,Empresas Metropolitana SA,Calle 456,Santiago,Santiago,Santiago,Santiago,Chile,RUT,87001607-7,true,false,tag,08b4c2c7-de0d-432c-80b0-80536f27ccd2,2bb1b180-1c6f-4c94-8526-0d1bec54acd6
+name;business_name;address;city;state;county;district;country;document_type;document;is_headquarters;is_branch;tag;id_group_company;id_client
+Example name;Example business name;Example address;Example city;Example state;Example county;Example district;Example country;Example document_type;Example document;Example is_headquarters;Example is_branch;Example tag;Example id_group_company;Example id_client;

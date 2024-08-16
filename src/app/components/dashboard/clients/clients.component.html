@@ -9,13 +9,13 @@
   </button>
 </div>
 <div class="file-upload">
-  <input type="file" (change)="onFileSelected($event)" #fileUpload>
-  {{fileName || "No file uploaded yet."}}
-
-  <button mat-mini-fab color="primary" class="upload-btn"
-    (click)="fileUpload.click()">
-      <mat-icon>attach_file</mat-icon>
-  </button>
+  <h3>Cargar masiva de clientes</h3>
+  <app-file-upload (fileSelected)="onFileSelected($event)"></app-file-upload>
+  <button mat-raised-button (click)="onShowPreview()" [disabled]="!selectedFile">Vista previa</button>
+  <button mat-raised-button class="upload-button" color="primary" (click)="onUpload()" [disabled]="!selectedFile">Subir Archivo</button>
+  <p>
+      Para asegurar la correcta carga de los datos, descargar el archivo de ejemplo <a href="assets/csv/clients.csv">clients.csv</a>.
+  </p>
 </div>
 
 

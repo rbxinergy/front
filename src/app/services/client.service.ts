@@ -16,9 +16,9 @@ export class ClientService {
   headers = new HttpHeaders({
     'Authorization': 'Bearer ' +  this.token,
     'cache-control': 'no-cache'
-  })
-  apiUrl = environment.apiUrls.client
-  serverUrl = environment.serverUrl
+  });
+  apiUrl = environment.apiUrls.client;
+  serverUrl = environment.serverUrl;
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
@@ -52,5 +52,14 @@ export class ClientService {
 
   deleteClient(id: string): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.serverUrl}${this.apiUrl}/delete/${id}`, { observe: 'response' });
+  }
+
+  uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
+    const headers = new HttpHeaders({
+      'enctype': 'multipart/form-data',
+      'Authorization': 'Bearer ' +  this.token,
+      'cache-control': 'no-cache'
+    });
+    return this.http.post(`${this.serverUrl}${this.apiUrl}/create/upload/file`, formData, { headers, observe: 'response'});
   }
 }
