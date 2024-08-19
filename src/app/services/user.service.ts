@@ -34,8 +34,6 @@ export class UserService {
     return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/create`, {user}, { observe: 'response' });
   }
 
-
-
   updateUser(id: string, user: User): Observable<User> {
     return this.http.put<User>(`${this.serverUrl}${this.apiUrl}/update/${id}`, user, {headers: this.headers});
   }
@@ -46,5 +44,14 @@ export class UserService {
 
   addUsersToCompany(user: User): Observable<HttpResponse<any>> {
     return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update`, user, { headers: this.headers, observe: 'response'})
+  }
+
+  uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
+    const headers = new HttpHeaders({
+      'enctype': 'multipart/form-data',
+      'Authorization': 'Bearer ' +  this.token,
+      'cache-control': 'no-cache'
+    });
+    return this.http.post(`${this.serverUrl}${this.apiUrl}/create/upload/file`, formData, { headers, observe: 'response'});
   }
 }

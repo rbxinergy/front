@@ -28,5 +28,6 @@
     "error": "Error",
     "info": "Información",
     "success": "Correcto",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "bulk-upload": "Cargas masivas"
 }

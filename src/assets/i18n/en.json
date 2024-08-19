@@ -28,5 +28,6 @@
     "error": "Error",
     "info": "Information",
     "success": "Success",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "bulk-upload": "Bulk Upload"
 }

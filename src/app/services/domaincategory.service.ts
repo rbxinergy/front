@@ -46,6 +46,14 @@ export class DomainCategoryService {
     return this.http.delete<any>(`${this.serverUrl}${this.apiUrls}/delete/${id}`, { observe: 'response' });
   }
 
+  uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
+    const headers = new HttpHeaders({
+      'enctype': 'multipart/form-data',
+      'Authorization': 'Bearer ' +  this.token,
+      'cache-control': 'no-cache'
+    });
+    return this.http.post(`${this.serverUrl}${this.apiUrls}/create/upload/file`, formData, { headers, observe: 'response'});
+  }
 }
 
 

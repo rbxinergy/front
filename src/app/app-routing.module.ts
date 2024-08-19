@@ -35,6 +35,7 @@ import { DomainCategoryTableComponent } from './components/domain-category-table
 import { ConfigsComponent } from './components/configs/configs.component';
 import { RoleCfgTableComponent } from './components/role-cfg-table/role-cfg-table.component';
 import { AddDomaincategoryComponent } from './components/add-domaincategory/add-domaincategory.component';
+import { BulkUploadComponent } from './components/bulk-upload/bulk-upload.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -71,7 +72,8 @@ const routes: Routes = [
       { path: 'rolestable', component: RoleCfgTableComponent},
       { path: 'permission', component: PermissionComponent },
       { path: 'session', component: SessionComponent },
-      { path: 'company-config/:client/:company', component: CompanyConfigComponent }
+      { path: 'company-config/:client/:company', component: CompanyConfigComponent },
+      { path: 'bulk-upload', component: BulkUploadComponent }
     ],
     canActivateChild: [AuthGuard]
   },
