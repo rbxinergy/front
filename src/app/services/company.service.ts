@@ -57,6 +57,10 @@ export class CompanyService {
     return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrls.company}/get/group-company/${groupCompany}`, { headers: this.headers});
   }
 
+  getCompanyByGroupCompany(company: string, groupCompany: string) {
+    return this.http.get<Company>(`${this.serverUrl}${this.apiUrls.company}/get/${company}/group-company/${groupCompany}`, { headers: this.headers});
+  }
+
   getCompany(client: string, company: string) {
     return this.http.get<Company>(`${this.serverUrl}${this.apiUrls.company}/get/${client}/${company}`, { headers: this.headers});
   }

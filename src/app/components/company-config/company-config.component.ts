@@ -43,29 +43,23 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 })
 export class CompanyConfigComponent implements OnInit{
 
-  clientId: string;
-  companyId: string;
+  idGroupCompany: string;
+  idCompany: string;
   company: Company | null = null; // Inicializa company como null
 
   constructor(private route: ActivatedRoute, private companyService: CompanyService) {}
 
   ngOnInit(): void {
-    this.clientId = this.route.snapshot.paramMap.get('client') || '';
-    this.companyId = this.route.snapshot.paramMap.get('company') || '';
-    console.log('companyConfig', this.clientId, this.companyId);
-    this.loadCompanyData(this.clientId, this.companyId);
+    this.idGroupCompany = this.route.snapshot.paramMap.get('idGroupCompany') || '';
+    this.idCompany = this.route.snapshot.paramMap.get('idCompany') || '';
+    console.log('companyConfig', this.idGroupCompany, this.idCompany);
+    this.loadCompanyData(this.idCompany, this.idGroupCompany);
   }
 
-  loadCompanyData(id: string, company: string | null) {
-    if (company) {
-      this.companyService.getCompany(this.companyId, company).subscribe(data => {
-        this.company = data;
-      });
-    } else {
-      this.companyService.getCompaniesByClient(this.companyId).subscribe(data => {
-        this.company = data[0];
-      });
-    }
+  loadCompanyData(company: string, groupCompany: string) {
+    this.companyService.getCompanyByGroupCompany(company, groupCompany).subscribe(data => {
+      this.company = data;
+    });
   }
 
 
