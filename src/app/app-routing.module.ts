@@ -70,7 +70,8 @@ const routes: Routes = [
       { path: 'rolestable', component: RoleCfgTableComponent},
       { path: 'permission', component: PermissionComponent },
       { path: 'session', component: SessionComponent },
-      { path: 'company-config/:client/:company', component: CompanyConfigComponent },
+      // { path: 'company-config/:client/:company', component: CompanyConfigComponent },
+      { path: 'company-config/:company/group-company/:groupCompany', component: CompanyConfigComponent },
 
     ],
     canActivateChild: [AuthGuard]

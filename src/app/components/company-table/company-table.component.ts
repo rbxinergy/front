@@ -25,9 +25,9 @@ import { Client } from 'src/app/interfaces/client.interface';
 import { CompanyDataService } from 'src/app/services/company-data.service';
 import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
 import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RoleCfgTableComponent } from '../role-cfg-table/role-cfg-table.component';
-import { RoleTableComponent } from '../role-table/role-table.component';
+import { CompanyConfigComponent } from '../company-config/company-config.component';
 
 @Component({
   selector: 'app-company-table',
@@ -65,6 +65,7 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
   constructor(private companyService: CompanyService, private cdr: ChangeDetectorRef,
     private dialog: MatDialog, 
     private route: ActivatedRoute,
+    private router: Router,
     // private dialogRef: MatDialogRef<CompanyTableComponent>,
     // @Inject(MAT_DIALOG_DATA) public data: GroupCompany,
     private clientDataService: ClientDataService, 
@@ -220,12 +221,13 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
   }
   
   openAddRolesModal(company: Company){
-    console.log(company)
-    this.selectedCompany = { ...company };
-    const dialogRef = this.dialog.open(RoleCfgTableComponent, {
-      width: '600px',
-      data: this.selectedCompany
-    });
+    const idclient = client != null ? client : sessionStorage.getItem('client');
+    if (company) {
+      console.log('openConfig',  company, client);
+      this.router.navigate(['/dashboard/company-config', idclient, company]);
+    } else {
+      this.router.navigate(['/dashboard/company-config', idclient]);
+    }
 
   }
   openEditCompanyModal(company: Company) {
