@@ -1,6 +1,6 @@
 
 export interface Domain {
-  id: string;
+  id?: string;
   name: string;
   description: string;
   code: string;

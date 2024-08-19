@@ -15,12 +15,12 @@ import { Company } from '../interfaces/company.interface';
 })
 export class DomainService {
 
-  groupDocument = '';
+  // groupDocument = '';
   domains: any;
   domain:any;
   private apiUrls = environment.apiUrls.domain;
   private serverUrl = environment.serverUrl;
-  private apiLocalUrls=environment.getDomainsUrl
+  // private apiLocalUrls=environment.getDomainsUrl
   token: string = sessionStorage.getItem('token') || '';
   private headers = new HttpHeaders({
     'Authorization': 'Bearer ' +  this.token,
@@ -28,33 +28,20 @@ export class DomainService {
   })
 
   constructor(private http: HttpClient, private domainDataService: DomainDataService) { 
-     this.groupDocument = sessionStorage?.getItem('groupDocument') || '0';
-     this.domain = this.domainDataService.getDomainData();
-     console.log(this.domain);
-   }
-
-  
-  getDomainTest(client: string): Observable<Domain[]> {
-    console.log(`${this.serverUrl}${this.apiUrls}/get/${client}`);
-    return this.http.get<Domain[]>(`${this.apiLocalUrls}/get/${client}`, {headers: this.headers});
-    // return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/${client}`, {headers: this.headers});
-
+    //  this.groupDocument = sessionStorage?.getItem('groupDocument') || '0';
+    this.domain = this.domainDataService.getDomainData();
+    console.log(this.domain);
   }
-  getDomains(client: string): Observable<Domain[]> {
-    console.log(`${this.serverUrl}${this.apiUrls}/domain/get/${client}/company`);
-    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/${client}`, {headers: this.headers});
-  }
-
 
   async saveDomain(form: any):Promise<any>{
-    console.log(this.groupDocument)
+    // console.log(this.groupDocument)
     const body = { 
       "name": form.name,
       "description": form.description,
       "code": form.code,
       "tag": form.tag,
       "idDomainCategory": form.idDomainCategory,
-      "groupDocument": this.groupDocument,
+      // "groupDocument": this.groupDocument,
       "idCompany":form.idCompany,
     }
     console.log(body)
@@ -63,22 +50,21 @@ export class DomainService {
     return await lastValueFrom(postDomain)  
   }
 
-  getDomainsByCompany(domain: any){
-    const params = new HttpParams({
-      fromString: 'group=' + this.groupDocument + '&option=2'
-    });
-    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/cliente1/company`, { headers: this.headers})
-  }
-
-
   createDomain(domain: Domain): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.serverUrl}${this.apiUrls}/create`, {domain}, { observe: 'response' });
+    return this.http.post<any>(`${this.serverUrl}${this.apiUrls}/create`, domain, { observe: 'response' });
   }
 
   updateDomain(domain: Domain): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls}/update`, {domain}, { observe: 'response' });
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls}/update/${domain.id}`, domain, { observe: 'response' });
   }
 
+  getAllDomainsCompany(domain: Domain){
+    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/company/${domain}`, { headers: this.headers})
+  }
+
+  getAllDomainsByCategory(domain: Domain){
+    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/domain-category/${domain}`, { headers: this.headers})
+  }
 
   deleteDomain(id: string): Observable<HttpResponse<any>> {
     return this.http.put<any>(`${this.serverUrl}${this.apiUrls}/delete/${id}`, { observe: 'response' });

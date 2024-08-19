@@ -28,6 +28,7 @@ import { MatInputModule } from '@angular/material/input';
 import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.service';
 import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
 import { DomainComponent } from '../domain/domain.component';
+import { DomainTableComponent } from '../domain-table/domain-table.component';
 
 @Component({
   selector: 'app-domain-category-table',
@@ -140,8 +141,8 @@ export class DomainCategoryTableComponent {
   }
 
   addDomainModal(domainCategory: DomainCategory){
-    const dialogRef = this.dialog.open(DomainComponent , {
-      width: '600px',
+    const dialogRef = this.dialog.open(DomainTableComponent, {
+      width: '90%',
       data:  domainCategory
     });
   }

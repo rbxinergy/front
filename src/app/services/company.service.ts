@@ -56,7 +56,7 @@ export class CompanyService {
   }
 
   getCompaniesByGroup(groupCompany: any){
-    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrl}/get/group-company/${groupCompany.id}`, { headers: this.headers})
+    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrl}/get/group-company/${groupCompany}`, { headers: this.headers})
   }
 
   getCompany(company: string, groupCompany: string) {

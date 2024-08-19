@@ -82,7 +82,7 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.companyService.getCompaniesByGroup(this.groupCompany).subscribe(data => {
+    this.companyService.getCompaniesByGroup(this.groupCompany.id).subscribe(data => {
       this.dataSource.data = data
       this.companies = data
     })
