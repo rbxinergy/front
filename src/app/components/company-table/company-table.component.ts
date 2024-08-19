@@ -25,6 +25,9 @@ import { Client } from 'src/app/interfaces/client.interface';
 import { CompanyDataService } from 'src/app/services/company-data.service';
 import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
 import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.service';
+import { ActivatedRoute } from '@angular/router';
+import { RoleCfgTableComponent } from '../role-cfg-table/role-cfg-table.component';
+import { RoleTableComponent } from '../role-table/role-table.component';
 
 @Component({
   selector: 'app-company-table',
@@ -40,7 +43,7 @@ import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.serv
 })
 export class CompanyTableComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
-    'id', 'name', 'businessName', 'address', 'country', 'city', 'state', 'documentType', 'document', 'acciones'
+    'id', 'name', 'businessName', 'address', 'country', 'city', 'documentType', 'document', 'acciones'
   ];
   dataSource = new MatTableDataSource<Company>();
   companies: Company[] = [];
@@ -56,18 +59,22 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
   @Input() clientName: string;
   client: Client | null = null;
   groupCompany: GroupCompany | null = null;
+  groupCompanyID: any
+
 
   constructor(private companyService: CompanyService, private cdr: ChangeDetectorRef,
-    private dialog: MatDialog, private dialogRef: MatDialogRef<CompanyTableComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: GroupCompany,
+    private dialog: MatDialog, 
+    private route: ActivatedRoute,
+    // private dialogRef: MatDialogRef<CompanyTableComponent>,
+    // @Inject(MAT_DIALOG_DATA) public data: GroupCompany,
     private clientDataService: ClientDataService, 
     private groupCompanyDataService: GroupcompanyDataService ) {
-      if(data){
-        this.groupCompany = data
-        this.groupCompanyDataService.setGroupCompanyData(data);
-      } else {
-        this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
-      }
+      // if(data){
+      //   this.groupCompany = data
+      //   this.groupCompanyDataService.setGroupCompanyData(data);
+      // } else {
+      //   this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
+      // }
 
       this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
       this.client= this.clientDataService.getClientData();
@@ -76,13 +83,13 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
 
 
 
-
-  ngOnInit(): void {
-    // console.log(this.groupCompany);
+  ngOnInit() {
+    this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || ''
   }
 
+
   ngAfterViewInit(): void {
-    this.companyService.getCompaniesByGroup(this.groupCompany.id).subscribe(data => {
+    this.companyService.getCompaniesByGroup(this.groupCompanyID).subscribe(data => {
       this.dataSource.data = data
       this.companies = data
     })
@@ -212,6 +219,15 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
     });
   }
   
+  openAddRolesModal(company: Company){
+    console.log(company)
+    this.selectedCompany = { ...company };
+    const dialogRef = this.dialog.open(RoleCfgTableComponent, {
+      width: '600px',
+      data: this.selectedCompany
+    });
+
+  }
   openEditCompanyModal(company: Company) {
     console.log(company)
     this.selectedCompany = { ...company };

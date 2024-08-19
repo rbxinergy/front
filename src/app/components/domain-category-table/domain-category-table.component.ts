@@ -29,6 +29,7 @@ import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.serv
 import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
 import { DomainComponent } from '../domain/domain.component';
 import { DomainTableComponent } from '../domain-table/domain-table.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-domain-category-table',
@@ -69,24 +70,28 @@ export class DomainCategoryTableComponent {
   });
 
   groupCompany: GroupCompany | null = null;
+  groupCompanyID: any
+
   
   constructor(private domainCategoryService: DomainCategoryService, private dialog: MatDialog, private cdr: ChangeDetectorRef, 
-    private groupCompanyDataService: GroupcompanyDataService, private dialogRef: MatDialogRef<DomainCategoryTableComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: GroupCompany) {
-      if(data){
-        console.log(data)
-        this.groupCompany = data
-        this.groupCompanyDataService.setGroupCompanyData(data);
-      } else {
-        this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
-      }
-    this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
-    console.log("GROUPCOMPANY: ", this.groupCompany)
-    this.domainCategoryService.getallDomainCategories(this.groupCompany).subscribe((domainCategories: DomainCategory[]) => {
-      this.dataSource.data = domainCategories;
-      this.domainCategories = domainCategories
-      console.log(domainCategories)
-    });
+    private groupCompanyDataService: GroupcompanyDataService, private route: ActivatedRoute
+    // @Inject(MAT_DIALOG_DATA) public data: GroupCompany
+  ) {
+      // if(data){
+      //   console.log(data)
+      //   this.groupCompany = data
+      //   this.groupCompanyDataService.setGroupCompanyData(data);
+      // } else {
+      //   this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
+      // }
+
+    // this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
+    // console.log("GROUPCOMPANY: ", this.groupCompany)
+    // this.domainCategoryService.getallDomainCategories(this.groupCompanyID).subscribe((domainCategories: DomainCategory[]) => {
+    //   this.dataSource.data = domainCategories;
+    //   this.domainCategories = domainCategories
+    //   console.log(domainCategories)
+    // });
   }
 
 
@@ -94,6 +99,18 @@ export class DomainCategoryTableComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  ngOnInit() {
+    console.log('domain',  this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || '')
+    this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || ''
+  }
+
+  ngAfterViewInit(): void {
+    this.domainCategoryService.getallDomainCategories(this.groupCompanyID).subscribe((domainCategories: DomainCategory[]) => {
+      this.dataSource.data = domainCategories;
+      this.domainCategories = domainCategories
+      console.log(domainCategories)
+    });
+  }
 //   @Input() clientName: string;
 // client: Client | null = null;
   // ngOnInit(): void {

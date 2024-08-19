@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, Input, Inject } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -26,7 +26,7 @@ import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.serv
 import { Company } from 'src/app/interfaces/company.interface';
 import { CompanyComponent } from '../company/company.component';
 import { CompanyTableComponent } from '../company-table/company-table.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DomainCategoryTableComponent } from '../domain-category-table/domain-category-table.component';
 import { ServiceCategoryTableComponent } from '../service-category-table/service-category-table.component';
 
@@ -62,9 +62,7 @@ export class GroupCompanyTableComponent implements AfterViewInit {
   clientID: string = '';
   constructor(private groupCompanyService: GroupCompanyService, private cdr: ChangeDetectorRef,
       private dialog: MatDialog, private clientDataService: ClientDataService,
-      private groupCompanyDataService: GroupcompanyDataService,private route: ActivatedRoute,
-
-    ) {
+      private groupCompanyDataService: GroupcompanyDataService,private route: ActivatedRoute,private router: Router, private _location: Location ) {
       
       }
   // constructor(private groupCompanyService: GroupCompanyService, private cdr: ChangeDetectorRef,
@@ -185,19 +183,13 @@ export class GroupCompanyTableComponent implements AfterViewInit {
     });
   }
 
-  openNewCompanyModal(company: Company) {
-    console.log(company)
-    const dialogRef = this.dialog.open(CompanyTableComponent, {
-      width: '90%',
-      data: company
-    });
+  addNewCompany(groupCompany: GroupCompany) {
+    this.router.navigate(['dashboard/company', groupCompany.id]);
   }
   
-  openNewDomainCategoryModal(groupCompany: GroupCompany){
-    const dialogRef = this.dialog.open(DomainCategoryTableComponent, {
-      width: '90%',
-      data: groupCompany
-    });
+  addNewDomainCategory(groupCompany: GroupCompany){
+    console.log(groupCompany.id)
+    this.router.navigate(['dashboard/domaincategory', groupCompany.id]);
   }
 
   openNewserviceCategoryModal(groupCompany: GroupCompany){
@@ -301,5 +293,9 @@ export class GroupCompanyTableComponent implements AfterViewInit {
         });
       }
     });
+  }
+
+  goBack() {
+    this._location.back();
   }
 }

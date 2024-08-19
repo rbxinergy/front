@@ -170,7 +170,7 @@ export class ClientsComponent implements AfterViewInit {
   
   openNewGroupCompanyModal(client: Client){
     console.log(client)
-    this.router.navigate(['dashboard/groupcompanytable', client.id]);
+    this.router.navigate(['dashboard/groupcompany', client.id]);
     // const dialogRef = this.dialog.open(GroupCompanyTableComponent, {
     //   width: '80%',
     //   data: client

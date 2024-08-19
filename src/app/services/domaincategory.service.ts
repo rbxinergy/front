@@ -32,7 +32,7 @@ export class DomainCategoryService {
   }
   getallDomainCategories(groupCompany: GroupCompany): Observable<DomainCategory[]> {
     console.log('getgroupcompany', groupCompany)
-    return this.http.get<DomainCategory[]>(`${this.serverUrl}${this.apiUrls}/get/group-company/${groupCompany.id}`,  {headers: this.headers});
+    return this.http.get<DomainCategory[]>(`${this.serverUrl}${this.apiUrls}/get/group-company/${groupCompany}`,  {headers: this.headers});
   }
 
   createDomainCategory(domainCategory: DomainCategory): Observable<HttpResponse<any>> {

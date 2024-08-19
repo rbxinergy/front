@@ -1,7 +1,9 @@
-
+<h2>{{"groupcompany"|translate}}</h2>
+<!-- <button mat-menu-item (click)="goBack()">
+  <mat-icon>arrow_back_ios</mat-icon>
+  <span>Atrás</span>
+</button> -->
 <div class="p-4">
-  <h3>{{"groupcompany"|translate}}</h3>
-
   <div class="search-container table-header">
       <mat-form-field *ngIf="groupCompanies.length > 0" appearance="outline">
         <mat-label>Buscar</mat-label>
@@ -50,11 +52,11 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openNewCompanyModal(element)">
+          <button mat-menu-item (click)="addNewCompany(element)">
             <mat-icon>domain_add</mat-icon>
             <span>Empresas</span>
           </button>
-          <button mat-menu-item (click)="openNewDomainCategoryModal(element)">
+          <button mat-menu-item (click)="addNewDomainCategory(element)">
             <mat-icon>post_add</mat-icon>
             <span>Categoría de dominio</span>
           </button>

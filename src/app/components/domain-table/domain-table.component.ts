@@ -28,6 +28,7 @@ import { subdomains } from 'src/app/shared/dummy-data/subdomains-domain.dummy';
 import { Subdomain } from 'src/app/interfaces/subdomain.interface';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { DomainCategory } from 'src/app/interfaces/domaincategory.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-domain-table',
@@ -63,7 +64,7 @@ export class DomainTableComponent implements AfterViewInit {
   client = sessionStorage.getItem('client');
   selection = new SelectionModel<Domain>(true, []);
   selectedSubdomain: SubDomain | null = null;
-  
+  // groupCompanyID: any
 
   formDomainTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
@@ -73,12 +74,18 @@ export class DomainTableComponent implements AfterViewInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(private cdr: ChangeDetectorRef,  private DomainService: DomainService,
-    private SubdomainService: SubdomainService, private dialog: MatDialog, private dialogRef: MatDialogRef<DomainTableComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DomainCategory) {
+    private SubdomainService: SubdomainService, private dialog: MatDialog, 
+    // private route: ActivatedRoute,
+    private dialogRef: MatDialogRef<DomainTableComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DomainCategory) 
+    {
       if(data){
         this.domainCategory = data
       }
   }
+  // ngOnInit() {
+  //   this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || ''
+  // }
   
   ngAfterViewInit(): void {
     this.DomainService.getAllDomainsByCategory(this.domainCategory.id).subscribe((domains: Domain[]) => {
