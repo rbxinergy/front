@@ -55,8 +55,7 @@ export class SubdomainComponent {
           name: new FormControl(data?.data?.name || '', Validators.required),
           description: new FormControl(data?.data?.description || '', Validators.required),
           tag: new FormControl(data?.data?.tag || ''),
-          idDomain: new FormControl(data?.data?.idDomain || '', Validators.required),
-          subdominios: new FormControl('')
+          idDomain: new FormControl(data?.data?.idDomain || '', Validators.required)
         })
       }
 
@@ -64,8 +63,7 @@ export class SubdomainComponent {
         id: new FormControl([''], Validators.required),
         name: new FormControl([''], Validators.required),
         description: new FormControl([''], Validators.required),
-        tag: new FormControl(['']),
-        subdominios: new FormControl('')
+        tag: new FormControl([''])
       })
       
     }
