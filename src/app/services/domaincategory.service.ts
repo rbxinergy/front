@@ -11,39 +11,52 @@ import { GroupCompany } from '../interfaces/groupcompany.interface';
   providedIn: 'root'
 })
 export class DomainCategoryService {
-  groupDocument = '';
   private apiUrls = environment.apiUrls.domainCategory;
   private serverUrl = environment.serverUrl;
+
   token: string = sessionStorage.getItem('token') || '';
   private headers = new HttpHeaders({
     'Authorization': 'Bearer ' +  this.token,
     'cache-control': 'no-cache'
   })
+
   groupCompany: any;
 
   constructor(private http: HttpClient, private groupCompanyService: GroupcompanyDataService) {
-    this.groupDocument = sessionStorage?.getItem('groupDocument') || '0';
     this.groupCompany = this.groupCompanyService.getGroupCompanyData();
-    console.log(this.groupCompany);
-  }
-
-  getDomainCategories(): Observable<DomainCategory[]> {
-    return this.http.get<DomainCategory[]>(`${this.serverUrl}${this.apiUrls}/get/cliente1`, {headers: this.headers});
-  }
-  getallDomainCategories(groupCompany: GroupCompany): Observable<DomainCategory[]> {
-    return this.http.get<DomainCategory[]>(`${this.serverUrl}${this.apiUrls}/get/group-company/${groupCompany}`,  {headers: this.headers});
   }
 
   createDomainCategory(domainCategory: DomainCategory): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${this.serverUrl}${this.apiUrls}/create`, domainCategory, { observe: 'response' });
   }
 
-  updateDomainCategory(domainCategory: DomainCategory): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls}/update`, domainCategory, { observe: 'response' });
+  uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
+    const headers = new HttpHeaders({
+      'enctype': 'multipart/form-data',
+      'Authorization': 'Bearer ' +  this.token,
+      'cache-control': 'no-cache'
+    });
+    return this.http.post(`${this.serverUrl}${this.apiUrls}/create/upload/file`, formData, { headers, observe: 'response'});
   }
 
-  deleteCompany(id: string): Observable<HttpResponse<any>> {
+  updateDomainCategory(domainCategory: DomainCategory): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls}/update/${domainCategory.id}`, domainCategory, { observe: 'response' });
+  }
+  
+  getallDomainCategories(groupCompany: GroupCompany): Observable<DomainCategory[]> {
+    return this.http.get<DomainCategory[]>(`${this.serverUrl}${this.apiUrls}/get/group-company/${groupCompany}`,  {headers: this.headers});
+  }
+
+  getDomainCategory(domainCategory: DomainCategory, groupCompany: GroupCompany): Observable<DomainCategory[]> {
+    return this.http.get<DomainCategory[]>(`${this.serverUrl}${this.apiUrls}/get/${domainCategory}/group-company/${groupCompany}`, {headers: this.headers});
+  }
+
+  deleteDomainCategory(id: string): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.serverUrl}${this.apiUrls}/delete/${id}`, { observe: 'response' });
+  }
+
+  deleteCascadeDomainCategory(id: string): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.serverUrl}${this.apiUrls}/delete/cascade/${id}`, { observe: 'response' });
   }
 
 }

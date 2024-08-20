@@ -2,7 +2,9 @@ export interface DomainCategory {
   id: string;
   name: string;
   description: string;
-  active?: boolean;
   tag: string;
+  active?: boolean;
+  createdDate?:string;
+  modificatedDate?:string;
   idGroupCompany: string;
 }

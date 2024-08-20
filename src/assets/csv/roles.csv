@@ -1,0 +1,2 @@
+name;description;client;company;create;update;delete;tag;accessType
+example name;example description;example client;example company;true o false;true o false;true o false;example tag;example accessType

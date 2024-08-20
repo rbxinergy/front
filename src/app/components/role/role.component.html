@@ -1,24 +1,32 @@
 <h2>{{"roles"|translate}}</h2>
 <form [formGroup]="roleForm" (ngSubmit)="closeModal()">
   <mat-form-field appearance="outline">
-    <mat-label>Nombre:</mat-label>
+    <mat-label>Nombre</mat-label>
     <input matInput formControlName="name">
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Descripción:</mat-label>
+    <mat-label>Descripción</mat-label>
     <input matInput formControlName="description">
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Cliente:</mat-label>
-    <input matInput formControlName="client">
+    <mat-label>Etiqueta</mat-label>
+    <input matInput formControlName="tag">
   </mat-form-field>
 
-  <!-- <mat-form-field appearance="outline">
-    <mat-label>Etiqueta:</mat-label>
-    <input matInput formControlName="tag">
-  </mat-form-field> -->
+  <mat-form-field appearance="outline">
+    <mat-label>Tipo de Acceso</mat-label>
+    <input matInput formControlName="accessType">
+  </mat-form-field>
+
+  <section >
+    <h3>permisos</h3>
+    <mat-checkbox [checked]="false" formControlName="create">Crear</mat-checkbox>
+    <mat-checkbox [checked]="false" formControlName="read">Leer</mat-checkbox>
+    <mat-checkbox [checked]="false" formControlName="update">Editar</mat-checkbox>
+    <mat-checkbox [checked]="false" formControlName="delete">Borrar</mat-checkbox>
+  </section>
 
   <div class="btn-box">
     <button mat-raised-button type="submit">Guardar</button>

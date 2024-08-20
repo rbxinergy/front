@@ -34,7 +34,9 @@ import { GroupCompanyTableComponent } from './components/group-company-table/gro
 import { DomainCategoryTableComponent } from './components/domain-category-table/domain-category-table.component';
 import { ConfigsComponent } from './components/configs/configs.component';
 import { RoleCfgTableComponent } from './components/role-cfg-table/role-cfg-table.component';
-import { AddDomaincategoryComponent } from './components/add-domaincategory/add-domaincategory.component';
+// import { AddDomaincategoryComponent } from './components/add-domaincategory/add-domaincategory.component';
+
+import { BulkUploadComponent } from './components/bulk-upload/bulk-upload.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -47,7 +49,7 @@ const routes: Routes = [
       { path: 'stepper', component: StepperComponent},
       { title: 'Clientes', path: 'clients', component: ClientsComponent},
       { path: 'company', component: CompanyComponent},
-      { path: 'company-table', component: CompanyTableComponent},
+      { path: 'company/:groupCompany', component: CompanyTableComponent},
       { path: 'integrations', component: IntegrationsComponent},
       { path: 'roles', component: RolesComponent },
       { path: 'nav', component: ResponsiveMenuComponent },
@@ -62,16 +64,19 @@ const routes: Routes = [
       { path: 'domain-config', component: DomainCfgTableComponent },
       { path: 'subdomain', component: SubdomainComponent },
       { path: 'domaincategory', component: DomaincategoryComponent },
-      { path: 'adddomaincategory', component: AddDomaincategoryComponent },
-      { path: 'domaincategorytable', component: DomainCategoryTableComponent },
+      { path: 'domaincategory/:groupCompany', component: DomainCategoryTableComponent },
       { path: 'groupcompany', component: GroupcompanyComponent },
-      { path: 'groupcompanytable', component: GroupCompanyTableComponent },
+      { path: 'groupcompanytable', component: GroupCompanyTableComponent},
+      { path: 'groupcompany/:client', component: GroupCompanyTableComponent},
       { path: 'client', component: ClientComponent },
       { path: 'user', component: UserComponent },
       { path: 'rolestable', component: RoleCfgTableComponent},
       { path: 'permission', component: PermissionComponent },
       { path: 'session', component: SessionComponent },
-      { path: 'company-config/:client/:company', component: CompanyConfigComponent }
+      // { path: 'company-config/:client/:company', component: CompanyConfigComponent },
+      { path: 'company-config/:company', component: CompanyConfigComponent },
+      { path: 'company-config/:idCompany/:idGroupCompany', component: CompanyConfigComponent },
+      { path: 'bulk-upload', component: BulkUploadComponent }
     ],
     canActivateChild: [AuthGuard]
   },

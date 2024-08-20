@@ -6,13 +6,11 @@ import { Injectable } from '@angular/core';
 export class SubdomainDataService {
   private subdomainData: any;
   
-  setDomainData(data: any) {
-    console.log("DOMAIN:", data);
+  setSubdomainData(data: any) {
     this.subdomainData = data;
   }
 
-  getDomainData() {
-    console.log(this.subdomainData);
+  getSubdomainData() {
     return this.subdomainData;
   }
 }

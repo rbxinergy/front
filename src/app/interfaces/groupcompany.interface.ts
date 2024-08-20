@@ -2,10 +2,9 @@ export interface GroupCompany {
     id: string;
     name: string;
     description: string;
+    tag: string;
     active?: boolean;
-    delete?: boolean;
     createdDate?: Date;
     modificatedDate?: Date;
-    tag: string;
     idClient?: string;
   }

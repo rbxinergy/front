@@ -5,9 +5,13 @@
         <mat-progress-spinner color="accent" mode="indeterminate" diameter="50">
         </mat-progress-spinner>
     </div>
-
-    <input type="file" (change)="onFileSelected($event)" accept=".csv" />
-    <button mat-raised-button color="primary" (click)="uploadFile()">Subir Archivo</button>
+    <h3>Cargar masiva de empresas</h3>
+    <app-file-upload (fileSelected)="onFileSelected($event)"></app-file-upload>
+    <button mat-raised-button (click)="onShowPreview()" [disabled]="!selectedFile">Vista previa</button>
+    <button mat-raised-button class="upload-button" color="primary" (click)="onUpload()" [disabled]="!selectedFile">Subir Archivo</button>
+    <p>
+        Para asegurar la correcta carga de los datos, descargar el archivo de ejemplo <a href="assets/csv/company.csv">company.csv</a>.
+    </p>
 
     <table mat-table [dataSource]="dataSource" [hidden]="isLoading">
 
@@ -23,7 +27,7 @@
         </ng-container>
 
         <ng-container matColumnDef="documentNumber">
-            <th mat-header-cell *matHeaderCellDef> Nmero de Documento </th>
+            <th mat-header-cell *matHeaderCellDef> Número de Documento </th>
             <td mat-cell *matCellDef="let element"> {{ element.document }} </td>
         </ng-container>
 
@@ -41,7 +45,7 @@
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="openConfig(element.idClient, element.id)">
+                    <button mat-menu-item (click)="openConfig(element.id, element.idGroupCompany)">
                         <mat-icon> settings</mat-icon>
                         <span>Configurar</span>
                     </button>

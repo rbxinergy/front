@@ -44,21 +44,11 @@ export class UserComponent {
         id: new FormControl(data?.id || null, Validators.required),
         name: new FormControl( data?.name || '', Validators.required),
         lastName: new FormControl( data?.lastName|| '', Validators.required),
-        passwd: new FormControl( data?.passwd || '', Validators.required),
-        documentType: new FormControl( data?.documentType || '', Validators.required),
-        document: new FormControl( data?.document || '', Validators.required),
         email: new FormControl( data?.email || '', [Validators.required, Validators.email]),
-        phone:new FormControl( data?.phone || '', Validators.required),
-        cellphone:new FormControl( data?.cellphone || '', Validators.required),
         jobTitle: new FormControl( data?.jobTitle || ''),
-        contactType: new FormControl( data?.contactType || ''),
         tag: new FormControl( data?.tag || ''),
-        isClient: new FormControl(data?.isClient || false),
-        isProvider: new FormControl(data?.isProvider || false),
-        isUserCompany: new FormControl(data?.isUserCompany || false),
-        idRole: new FormControl( data?.idRole || false),
+        idRole: new FormControl( data?.idRole || ''),
         active: new FormControl( data?.idRole || false),
-        delete: new FormControl( data?.idRole || false),
       });
     }
   }

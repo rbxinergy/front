@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, Input, Inject } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -26,6 +26,10 @@ import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.serv
 import { Company } from 'src/app/interfaces/company.interface';
 import { CompanyComponent } from '../company/company.component';
 import { CompanyTableComponent } from '../company-table/company-table.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DomainCategoryTableComponent } from '../domain-category-table/domain-category-table.component';
+import { ServiceCategoryTableComponent } from '../service-category-table/service-category-table.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-group-company-table',
@@ -36,7 +40,7 @@ import { CompanyTableComponent } from '../company-table/company-table.component'
     MatTableModule, CommonModule, TranslateModule, MatMenuModule,
     MatIconModule, MatButtonModule, MatDialogModule, MatInputModule,
     MatSelectModule, MatSnackBarModule, MatTooltipModule, MatPaginatorModule,
-    MatFormFieldModule, MatSortModule
+    MatFormFieldModule, MatSortModule,  MatProgressSpinnerModule
   ]
 })
 export class GroupCompanyTableComponent implements AfterViewInit {
@@ -46,6 +50,7 @@ export class GroupCompanyTableComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<GroupCompany>();
   groupCompanies: GroupCompany[] = [];
   selectedGroupCompany: GroupCompany | null = null;
+  isLoading = true
 
   formGroupCompanyTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
@@ -56,24 +61,33 @@ export class GroupCompanyTableComponent implements AfterViewInit {
 
   @Input() clientName: string;
   client: Client | null = null;
-
+  clientID: string = '';
   constructor(private groupCompanyService: GroupCompanyService, private cdr: ChangeDetectorRef,
-      private dialog: MatDialog, private clientDataService: ClientDataService, private groupCompanyDataService: GroupcompanyDataService,
-      private dialogRef: MatDialogRef<GroupCompanyTableComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Client
-    ) {
-      if(data){
-          this.client = data
-          this.clientDataService.setClientData(data);
-        } else {
-          this.client = this.clientDataService.getClientData();
-        }
+      private dialog: MatDialog, private clientDataService: ClientDataService,
+      private groupCompanyDataService: GroupcompanyDataService,private route: ActivatedRoute,private router: Router, private _location: Location ) {
+      
       }
+  // constructor(private groupCompanyService: GroupCompanyService, private cdr: ChangeDetectorRef,
+  //      private clientDataService: ClientDataService, private groupCompanyDataService: GroupcompanyDataService,private route: ActivatedRoute,
+  //     private dialog: MatDialog, private dialogRef: MatDialogRef<GroupCompanyTableComponent>,
+  //   @Inject(MAT_DIALOG_DATA) public data: Client
+  //   ) {
+  //     if(data){
+  //         this.client = data
+  //         this.clientDataService.setClientData(data);
+  //       } else {
+  //         this.client = this.clientDataService.getClientData();
+  //       }
+  //     }
 
+  ngOnInit() {
+    this.clientID = this.route.snapshot.paramMap.get('client') || ''
+  }
 
   ngAfterViewInit(): void {
-    this.groupCompanyService.getGroupCompanies(this.client.id).subscribe(data => {
+    this.groupCompanyService.getGroupCompanies(this.clientID).subscribe(data => {
       this.dataSource.data = data
+      this.isLoading = false
       this.groupCompanies = data
     })
     //  this.groupCompanyDataService.setGroupCompanyData(data);
@@ -124,7 +138,7 @@ export class GroupCompanyTableComponent implements AfterViewInit {
 
   openNewGroupCompanyModal() {
     const dialogRef = this.dialog.open(GroupcompanyComponent, {
-      width: '600px',
+      width: '80%',
       data: {}
     });
   
@@ -132,7 +146,7 @@ export class GroupCompanyTableComponent implements AfterViewInit {
       next: (newGroupCompany: GroupCompany) => {
         console.log("NEW GROUP COMPANY:", newGroupCompany);
         if (newGroupCompany) {
-          newGroupCompany.idClient = this.client?.id;
+          newGroupCompany.idClient = this.clientID;
           console.log('newGroupCompany', newGroupCompany);
           this.groupCompanyService.createGroupCompany(newGroupCompany).subscribe({
             next: (response) => {
@@ -171,13 +185,22 @@ export class GroupCompanyTableComponent implements AfterViewInit {
       }
     });
   }
-  openNewCompanyModal(company: Company) {
-    const dialogRef = this.dialog.open(CompanyTableComponent, {
-      width: '600px',
-      data: company
-    });
+
+  addNewCompany(groupCompany: GroupCompany) {
+    this.router.navigate(['dashboard/company', groupCompany.id]);
   }
   
+  addNewDomainCategory(groupCompany: GroupCompany){
+    console.log(groupCompany.id)
+    this.router.navigate(['dashboard/domaincategory', groupCompany.id]);
+  }
+
+  openNewserviceCategoryModal(groupCompany: GroupCompany){
+    const dialogRef = this.dialog.open(ServiceCategoryTableComponent, {
+      width: '90%',
+      data: groupCompany
+    });
+  }
   openEditGroupCompanyModal(company: GroupCompany) {
     this.selectedGroupCompany = { ...company };
     const dialogRef = this.dialog.open(GroupcompanyComponent, {
@@ -193,7 +216,7 @@ export class GroupCompanyTableComponent implements AfterViewInit {
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Empresa actualizada exitosamente.', type: 'success' }
+                  data: { message: 'Grupo de empresas actualizado exitosamente.', type: 'success' }
                 });
                 const index = this.groupCompanies.findIndex(c => c.id === updatedCompany.id);
                 if (index !== -1) {
@@ -203,14 +226,14 @@ export class GroupCompanyTableComponent implements AfterViewInit {
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Error al actualizar la empresa.', type: 'error' }
+                  data: { message: 'Error al actualizar el grupo de empresas.', type: 'error' }
                 });
               }
             },
             error: (error) => {
               this.dialog.open(MessagesModalComponent, {
                 width: '500px',
-                data: { message: 'Error al actualizar la empresa.', type: 'error' }
+                data: { message: 'Error al actualizar el grupo de empresas.', type: 'error' }
               });
             }
           });
@@ -243,7 +266,7 @@ export class GroupCompanyTableComponent implements AfterViewInit {
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Compañía eliminada exitosamente.', type: 'success' }
+                  data: { message: 'Grupo de empresas eliminado exitosamente.', type: 'success' }
                 });
                 this.groupCompanies = this.groupCompanies.filter(c => c.id !== groupCompany.id);
                 if(this.groupCompanies.length === 0){
@@ -253,14 +276,14 @@ export class GroupCompanyTableComponent implements AfterViewInit {
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Error al eliminar la compañía.', type: 'error' }
+                  data: { message: 'Error al eliminar el grupo de empresas.', type: 'error' }
                 });
               }
             },
             error: (error) => {
               this.dialog.open(MessagesModalComponent, {
                 width: '500px',
-                data: { message: 'Error al eliminar la compañía.', type: 'error' }
+                data: { message: 'Error al eliminar el grupo de empresas.', type: 'error' }
               });
             }
           });
@@ -273,5 +296,9 @@ export class GroupCompanyTableComponent implements AfterViewInit {
         });
       }
     });
+  }
+
+  goBack() {
+    this._location.back();
   }
 }

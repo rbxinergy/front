@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DomainCategoryService } from '../../services/domaincategory.service';
@@ -12,7 +12,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { DomaincategoryComponent } from '../domaincategory/domaincategory.component';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Domain } from 'src/app/interfaces/domain.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Company } from 'src/app/interfaces/company.interface';
@@ -27,6 +27,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
 import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.service';
 import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
+import { DomainComponent } from '../domain/domain.component';
+import { DomainTableComponent } from '../domain-table/domain-table.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-domain-category-table',
@@ -67,19 +70,47 @@ export class DomainCategoryTableComponent {
   });
 
   groupCompany: GroupCompany | null = null;
+  groupCompanyID: any
+
   
   constructor(private domainCategoryService: DomainCategoryService, private dialog: MatDialog, private cdr: ChangeDetectorRef, 
-    private groupCompanyDataService: GroupcompanyDataService) {
-    this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
-    console.log("GROUPCOMPANY: ", this.groupCompany)
-    // this.domainCategoryService.getDomainCategories().subscribe((domainCategories: DomainCategory[]) => {
+    private groupCompanyDataService: GroupcompanyDataService, private route: ActivatedRoute
+    // @Inject(MAT_DIALOG_DATA) public data: GroupCompany
+  ) {
+      // if(data){
+      //   console.log(data)
+      //   this.groupCompany = data
+      //   this.groupCompanyDataService.setGroupCompanyData(data);
+      // } else {
+      //   this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
+      // }
+
+    // this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
+    // console.log("GROUPCOMPANY: ", this.groupCompany)
+    // this.domainCategoryService.getallDomainCategories(this.groupCompanyID).subscribe((domainCategories: DomainCategory[]) => {
     //   this.dataSource.data = domainCategories;
+    //   this.domainCategories = domainCategories
     //   console.log(domainCategories)
     // });
   }
+
+
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
+  ngOnInit() {
+    console.log('domain',  this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || '')
+    this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || ''
+  }
+
+  ngAfterViewInit(): void {
+    this.domainCategoryService.getallDomainCategories(this.groupCompanyID).subscribe((domainCategories: DomainCategory[]) => {
+      this.dataSource.data = domainCategories;
+      this.domainCategories = domainCategories
+      console.log(domainCategories)
+    });
+  }
 //   @Input() clientName: string;
 // client: Client | null = null;
   // ngOnInit(): void {
@@ -109,6 +140,29 @@ export class DomainCategoryTableComponent {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
+
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  
+  clearSearch(input: HTMLInputElement) {
+    input.value = '';
+    const event = { target: input } as Event & { target: HTMLInputElement };
+    this.applyFilter(event);
+  }
+
+  addDomainModal(domainCategory: DomainCategory){
+    const dialogRef = this.dialog.open(DomainTableComponent, {
+      width: '90%',
+      data:  domainCategory
+    });
+  }
   // Add domain categories to Group Company
   addDomainCategories() {
     console.log(this.selection.selected);
@@ -121,7 +175,7 @@ export class DomainCategoryTableComponent {
       dialogRef.afterClosed().subscribe({
       next: (newDomainCategory: DomainCategory) => {
         if (newDomainCategory) {
-          newDomainCategory.idGroupCompany = this.groupCompany?.id
+          newDomainCategory.idGroupCompany = this.groupCompanyID
           console.log(newDomainCategory)
           this.domainCategoryService.createDomainCategory(newDomainCategory).subscribe({
             next: (response) => {
@@ -159,24 +213,6 @@ export class DomainCategoryTableComponent {
       }
     });
   }
-  // REVISAR DESDE ACA
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-  
-  clearSearch(input: HTMLInputElement) {
-    input.value = '';
-    const event = { target: input } as Event & { target: HTMLInputElement };
-    this.applyFilter(event);
-  }
-  
-
   
   editDomainCategoryModal(domainCategory: DomainCategory) {
     console.log(domainCategory)
@@ -240,7 +276,7 @@ export class DomainCategoryTableComponent {
     dialogRef.afterClosed().subscribe({
       next: (result) => {
         if (result) {
-          this.domainCategoryService.deleteCompany(domainCategory.id).subscribe({
+          this.domainCategoryService.deleteDomainCategory(domainCategory.id).subscribe({
             next: (response) => {
               console.log('response', response.body);
               if (response.status === 200) {

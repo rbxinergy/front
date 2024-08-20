@@ -1,6 +1,6 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, Inject } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sort';
@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -27,6 +27,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { subdomains } from 'src/app/shared/dummy-data/subdomains-domain.dummy';
 import { Subdomain } from 'src/app/interfaces/subdomain.interface';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { DomainCategory } from 'src/app/interfaces/domaincategory.interface';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-domain-table',
@@ -51,17 +53,18 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 export class DomainTableComponent implements AfterViewInit {
 
   dataSource = new MatTableDataSource<Domain>();
-  columnsToDisplay = ['select', 'name', 'description', 'code', 'tag'];
+  columnsToDisplay = ['select', 'id', 'name', 'description', 'code', 'tag'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay,  'expand', 'actions'];
   expandedElement: Domain | null;
   domainID = null;
   domains: Domain[] = [];
+  domainCategory: any
   subdomains: SubDomain [] = [];
   selectedDomain: Domain | null = null;
   client = sessionStorage.getItem('client');
   selection = new SelectionModel<Domain>(true, []);
   selectedSubdomain: SubDomain | null = null;
-  
+  // groupCompanyID: any
 
   formDomainTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
@@ -71,17 +74,28 @@ export class DomainTableComponent implements AfterViewInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(private cdr: ChangeDetectorRef,  private DomainService: DomainService,
-    private SubdomainService: SubdomainService, private dialog: MatDialog) {
+    private SubdomainService: SubdomainService, private dialog: MatDialog, 
+    // private route: ActivatedRoute,
+    private dialogRef: MatDialogRef<DomainTableComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DomainCategory) 
+    {
+      if(data){
+        this.domainCategory = data
+      }
   }
+  // ngOnInit() {
+  //   this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || ''
+  // }
   
   ngAfterViewInit(): void {
-    this.DomainService.getDomains(this.client).subscribe((domains: Domain[]) => {
+    this.DomainService.getAllDomainsByCategory(this.domainCategory.id).subscribe((domains: Domain[]) => {
       this.domains = domains;
       this.domains.forEach((domain: Domain) => {
         if(!domain.subDomains){
           domain.subDomains= [];
         }
-        this.SubdomainService.getSubdomains(domain.id).subscribe((subdomains: SubDomain[]) => {
+        this.domainID = domain.id
+        this.SubdomainService.getAllSubdomainsByDomain(this.domainID).subscribe((subdomains: SubDomain[]) => {
           subdomains.forEach((subdomain: SubDomain) => {
             domain.subDomains.push(subdomain);
           });
@@ -129,6 +143,7 @@ export class DomainTableComponent implements AfterViewInit {
   }
 
   openSubdomainModal(idDomain: string) {
+    console.log("hello world!", idDomain)
     const dialogRef = this.dialog.open(SubdomainComponent, {
       width: '800px',
       height: '600px',
@@ -176,11 +191,13 @@ export class DomainTableComponent implements AfterViewInit {
   }
 
   openNewDomainModal(){
+
+    let domainCategory = this.domainCategory 
     const maxId = this.domains.length > 0 ? Math.max(...this.domains.map(domain => parseInt(domain.id))) : 0;
   
     const dialogRef = this.dialog.open(DomainComponent, {
-      width: '400px',
-      data:  {}
+      width: '90%',
+      data:  domainCategory
     });
 
     dialogRef.afterClosed().subscribe({
@@ -227,6 +244,8 @@ export class DomainTableComponent implements AfterViewInit {
   openUpdate(domain: Domain) {
     domain.active = true
     this.selectedDomain = { ...domain }
+    delete domain.subDomains
+    console.log(  this.selectedDomain = { ...domain })
     
     const dialogRef = this.dialog.open(DomainComponent, {
       width: '600px',
@@ -272,7 +291,6 @@ export class DomainTableComponent implements AfterViewInit {
       }
     });
   }
-
 
   openDelete(domain: Domain) {
     // Implementación para abrir el diálogo de eliminación
@@ -375,7 +393,6 @@ export class DomainTableComponent implements AfterViewInit {
       }
     });
   }
-
 
   deleteSubdomain(subdomain: SubDomain) {
   

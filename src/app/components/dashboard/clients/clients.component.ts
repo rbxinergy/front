@@ -10,7 +10,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { EditComponent } from './edit/edit.component';
-import {ProgressBarMode, MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule} from '@angular/material/progress-bar';
 import {
   MatDialogRef,
   MatDialog,
@@ -27,13 +27,12 @@ import { ClientService } from 'src/app/services/client.service';
 import { MessagesModalComponent } from '../../messages-modal/messages-modal.component';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {  MatFormFieldModule } from '@angular/material/form-field';
-import { HttpClient, HttpEventType } from '@angular/common/http';
-import { Subscription, finalize } from 'rxjs';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 import { GroupCompanyTableComponent } from '../../group-company-table/group-company-table.component';
-import { GroupcompanyComponent } from '../../groupcompany/groupcompany.component';
-import { ClientComponent } from '../stepper/client/client.component';
 import { ClientDataService } from 'src/app/services/client-data.service';
+import { FilePreviewDialogComponent } from '../../file-preview-dialog/file-preview-dialog.component';
+import { FileUploadComponent } from '../../file-upload/file-upload.component';
 
 @Component({
   selector: 'app-clients',
@@ -54,18 +53,18 @@ import { ClientDataService } from 'src/app/services/client-data.service';
     EditComponent,
     MatDialogModule,
     MatDividerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    FileUploadComponent
   ],
 })
 export class ClientsComponent implements AfterViewInit {
   @Input()
-    requiredFileType:string;
+  requiredFileType:string;
 
-    fileName = '';
-    uploadProgress:number;
-    uploadSub: Subscription;
-
-
+  fileName = '';
+  uploadProgress:number;
+  uploadSub: Subscription;
+  selectedFile: File;
   isLoading = true
   clients: Client[] = []
   selectedClient: Client | null = null;
@@ -73,7 +72,7 @@ export class ClientsComponent implements AfterViewInit {
   clientsTableColumns: string[] = [
     'name', 'businessName', 'address', 'country', 'documentType', 'document', 'acciones'
   ];
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource = new MatTableDataSource<Client>();
   formClientTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
@@ -82,7 +81,6 @@ export class ClientsComponent implements AfterViewInit {
   constructor(private companyService: CompanyService, private clientService: ClientService, private clientDataService: ClientDataService, public dialog: MatDialog, private router: Router, private http: HttpClient){
     this.getClients()
   }
-
 
   openDelete(id: string){
     const result: any[] = this.clients.filter((client:any) => client.id === id);
@@ -93,15 +91,15 @@ export class ClientsComponent implements AfterViewInit {
 
   // trae arreglo con clientes 
   getClients(){
-    this.companyService.getClients().subscribe((data: any) => {
+    this.clientService.getClients().subscribe((data: any) => {
       this.isLoading = true;
       this.clients = data;
       this.dataSource.data = data
       this.isLoading = false;
     })
+    // this.companyService.getClients
   }
   
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
@@ -110,53 +108,6 @@ export class ClientsComponent implements AfterViewInit {
     this.router.navigate(['/dashboard/new-client']);
   }
 
-  onFileSelected(event: any){
-    const file:File = event.target.files[0];
-
-    if (file) {
-      this.fileName = file.name;
-      const formData = new FormData();
-      formData.append("clientes", file);
-
-      this.clientService.uploadClients(formData as unknown as Client).subscribe( {
-        next: (response) => {
-          if (response.status === 200) {
-            // this.clientDataService.setClientData(response.body);
-            this.dialog.open(MessagesModalComponent, {
-              width: '400px',
-              data: { message: 'Cliente creado exitosamente.', type: 'success' }
-            });
-          } else {
-            this.dialog.open(MessagesModalComponent, {
-              width: '400px',
-              data: { message: 'Error al crear el cliente.', type: 'error' }
-            });
-          }
-        },
-        error: (error) => {
-          console.log(error);
-          this.dialog.open(MessagesModalComponent, {
-            width: '400px',
-            data: { message: 'Error al crear el cliente.', type: 'error' }
-          });
-        }
-      });
-
-      // const upload$ = this.http.post("https://xrisk-client-drzcbalp5q-uk.a.run.app/v1/client/create/upload/file", formData, {
-      //     reportProgress: true,
-      //     observe: 'events'
-      // })
-      // .pipe(
-      //     finalize(() => this.reset())
-      // );
-    
-      // this.uploadSub = upload$.subscribe(event => {
-      //   if (event.type == HttpEventType.UploadProgress) {
-      //     this.uploadProgress = Math.round(100 * (event.loaded / event.total));
-      //   }
-      // })
-  }
-  }
   cancelUpload() {
     this.uploadSub.unsubscribe();
     this.reset();
@@ -166,12 +117,14 @@ export class ClientsComponent implements AfterViewInit {
     this.uploadProgress = null;
     this.uploadSub = null;
   }
+  
   openNewGroupCompanyModal(client: Client){
-    console.log("cliente", client)
-    const dialogRef = this.dialog.open(GroupCompanyTableComponent, {
-      width: '80%',
-      data: client
-    }); 
+    console.log(client)
+    this.router.navigate(['dashboard/groupcompany', client.id]);
+    // const dialogRef = this.dialog.open(GroupCompanyTableComponent, {
+    //   width: '80%',
+    //   data: client
+    // }); 
     // dialogRef.afterClosed().subscribe({
     //   next: (updatedClient: Client) => {
     //     if (updatedClient) {
@@ -272,8 +225,6 @@ export class ClientsComponent implements AfterViewInit {
     });
   }
 
-  
-
   openDeleteCompanyModal(client: Client) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
@@ -323,6 +274,33 @@ export class ClientsComponent implements AfterViewInit {
           data: { message: 'Error al cerrar el diálogo.', type: 'error' }
         });
       }
+    });
+  }
+
+  onFileSelected(file: File) {
+    this.selectedFile = file;
+  }
+
+  onUpload() {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile, this.selectedFile.name);
+
+      this.clientService.uploadCSV(formData).subscribe(
+        (response: HttpResponse<any>) => {
+          console.log('File uploaded successfully', response);
+        },
+        (error) => {
+          console.error('Error uploading file', error);
+        }
+      );
+    }
+  }
+
+  onShowPreview(){
+    this.dialog.open(FilePreviewDialogComponent, {
+      width: '100%',
+      data: { file: this.selectedFile }
     });
   }
 

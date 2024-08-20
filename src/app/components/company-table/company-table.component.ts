@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, Input } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, Input, Inject } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sort';
@@ -10,7 +10,7 @@ import { CompanyService } from 'src/app/services/company.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -25,6 +25,13 @@ import { Client } from 'src/app/interfaces/client.interface';
 import { CompanyDataService } from 'src/app/services/company-data.service';
 import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
 import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RoleCfgTableComponent } from '../role-cfg-table/role-cfg-table.component';
+import { CompanyConfigComponent } from '../company-config/company-config.component';
+import { HttpResponse } from '@angular/common/http';
+import { FilePreviewDialogComponent } from '../file-preview-dialog/file-preview-dialog.component';
+import { FileUploadComponent } from '../file-upload/file-upload.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-company-table',
@@ -35,12 +42,12 @@ import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.serv
     MatTableModule, CommonModule, TranslateModule, MatMenuModule,
     MatIconModule, MatButtonModule, MatDialogModule, MatInputModule,
     MatSelectModule, MatSnackBarModule, MatTooltipModule, MatPaginatorModule,
-    MatFormFieldModule, MatSortModule
+    MatFormFieldModule, MatSortModule, FileUploadComponent, MatProgressSpinnerModule
   ]
 })
 export class CompanyTableComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
-    'id', 'name', 'businessName', 'address', 'country', 'city', 'state', 'documentType', 'document', 'acciones'
+    'id', 'name', 'businessName', 'address', 'country', 'city', 'documentType', 'document', 'acciones'
   ];
   dataSource = new MatTableDataSource<Company>();
   companies: Company[] = [];
@@ -56,50 +63,70 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
   @Input() clientName: string;
   client: Client | null = null;
   groupCompany: GroupCompany | null = null;
-
+  groupCompanyID: any
+  isLoading = true
+  selectedFile: File | null = null;
   constructor(private companyService: CompanyService, private cdr: ChangeDetectorRef,
-      private dialog: MatDialog, private clientDataService: ClientDataService, private groupCompanyDataService: GroupcompanyDataService) {
-        this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
-        this.client= this.clientDataService.getClientData();
-        console.log("datos: ", this.groupCompany, this.client)
-      }
+    private dialog: MatDialog, 
+    private route: ActivatedRoute,
+    private router: Router,
+    // private dialogRef: MatDialogRef<CompanyTableComponent>,
+    // @Inject(MAT_DIALOG_DATA) public data: GroupCompany,
+    private clientDataService: ClientDataService, 
+    private groupCompanyDataService: GroupcompanyDataService ) {
+      // if(data){
+      //   this.groupCompany = data
+      //   this.groupCompanyDataService.setGroupCompanyData(data);
+      // } else {
+      //   this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
+      // }
 
-  ngOnInit(): void {
-    console.log('ngOnInit');
+      this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
+      this.client= this.clientDataService.getClientData();
+      console.log("datos: ", this.groupCompany, this.client)
+    }
+
+
+
+  ngOnInit() {
+    this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || ''
   }
+
 
   ngAfterViewInit(): void {
-    // this.loadClientData();
+    this.companyService.getCompaniesByGroup(this.groupCompanyID).subscribe(data => {
+      this.isLoading = false
+      this.dataSource.data = data
+      this.companies = data
+    })
   }
 
-  // loadClientData() {
-  //   this.client = this.clientDataService.getClientData();
-  //   console.log('client', this.client);
-  //   this.loadCompanies(this.client.name);
-  // }
+  onFileSelected(file: File) {
+    this.selectedFile = file;
+  }
 
-  // loadCompanies(clientName: string) {
-  //   console.log('clientName', clientName);
-  //   this.companyService.getCompaniesByGroup(clientName).subscribe(companies => {
-  //     this.companies = companies;
-  //     this.dataSource.data = this.companies;
-  //     if(companies.length === 0){
-  //       console.log('No hay empresas');
-  //       this.formCompanyTable.controls['tempControl'].setValue('');
-  //     }
-  //     this.dataSource.paginator = this.paginator;
-  //     this.dataSource.sort = this.sort;
-  //     this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
-  //     const sortState: Sort = {active: 'id', direction: 'desc'};
-  //     this.sort.active = sortState.active;
-  //     this.sort.direction = sortState.direction;
-  //     this.sort.sortChange.emit(sortState);
-  //     this.dataSource.sort = this.sort;
-  //     this.sort.direction = 'desc';
-  //     this.sort.active = 'id';
-  //     this.cdr.detectChanges();
-  //   });
-  // }
+  onUpload() {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile, this.selectedFile.name);
+
+      this.companyService.uploadCSV(formData).subscribe(
+        (response: HttpResponse<any>) => {
+          console.log('File uploaded successfully', response);
+        },
+        (error) => {
+          console.error('Error uploading file', error);
+        }
+      );
+    }
+  }
+
+  onShowPreview(){
+    this.dialog.open(FilePreviewDialogComponent, {
+      width: '100%',
+      data: { file: this.selectedFile }
+    });
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -127,7 +154,7 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
       next: (newCompany: Company) => {
         if (newCompany) {
           newCompany.idGroupCompany = this.groupCompany?.id;
-          newCompany.idClient = this.client?.id
+          newCompany.idClient = this.groupCompany?.idClient
           console.log('newCompany', newCompany);
           this.companyService.createCompany(newCompany).subscribe({
             next: (response) => {
@@ -196,6 +223,19 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
     });
   }
   
+  openAddRolesModal(company?: Company) {
+    this.router.navigate(['/dashboard/company-config', company.id]);
+  }
+
+  openSeeCompanyModal(company: Company) {
+    console.log(company)
+    this.selectedCompany = { ...company };
+    const dialogRef = this.dialog.open(CompanyComponent, {
+      width: '600px',
+      data: this.selectedCompany
+    });
+  }
+
   openEditCompanyModal(company: Company) {
     console.log(company)
     this.selectedCompany = { ...company };

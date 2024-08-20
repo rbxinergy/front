@@ -16,6 +16,9 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 import { Domain } from 'src/app/interfaces/domain.interface';
+import { Company } from 'src/app/interfaces/company.interface';
+import { CompanyService } from 'src/app/services/company.service';
+import { DomainCategory } from 'src/app/interfaces/domaincategory.interface';
 
 
 
@@ -33,10 +36,15 @@ import { Domain } from 'src/app/interfaces/domain.interface';
 })
 export class DomainComponent {
   domainForm: FormGroup;
+  idGroupCompany: string = ''
+  datos: any 
+  companies: Company[] = []
   
-  constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<DomainComponent>,
+  constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<DomainComponent>, private companyService: CompanyService,
     @Inject(MAT_DIALOG_DATA) public data:Domain ) {
       if(data) {
+        console.log(data)
+          this.datos = data
         this.domainForm = new FormGroup({
           id: new FormControl(data?.id || '', Validators.required),
           name: new FormControl(data?.name || '', Validators.required),
@@ -45,14 +53,22 @@ export class DomainComponent {
           tag: new FormControl(data?.tag || ''),
           idDomainCategory: new FormControl(data?.idDomainCategory || '', Validators.required),
           idCompany: new FormControl(data?.idCompany || '', Validators.required),
-          active: new FormControl(data?.active || '', Validators.required),
-          delete: new FormControl(data?.delete || '', Validators.required),
+          idServiceCompany: new FormControl(data?.idServiceCompany || '3d447b9d-76d3-4d02-a045-67ca44d66664', Validators.required),
+          active: new FormControl(data?.active || true, Validators.required),
         });
+      
       }
+      this.idGroupCompany = this.datos.idGroupCompany
+
+      this.companyService.getCompaniesByGroup(this.idGroupCompany).subscribe((companies: Company[]) => {
+        console.log('Empresas', companies)
+        this.companies = companies
+      });
+      
     }
 
   
-   
+  
   closeModal(){
     this.dialogRef.close(this.domainForm.getRawValue());
   }

@@ -52,22 +52,22 @@ export class CompanyComponent {
   })
 
   companyGroup:any
-  async onCompanyCreate(){
-    this.show = true
-    const form = this.companyForm.value
-    form.groupDocument = sessionStorage.getItem('groupDocument')
-    console.log(this.companyForm.value)
-    await this.companyService.saveCompany(form)
+  // async onCompanyCreate(){
+  //   this.show = true
+  //   const form = this.companyForm.value
+  //   form.groupDocument = sessionStorage.getItem('groupDocument')
+  //   console.log(this.companyForm.value)
+  //   // await this.companyService.saveCompany(form)
 
-    return new Promise((resolve) => {
-      this.companyService.getCompaniesByClient(sessionStorage.getItem('client')).subscribe(data => {
-        this.showTable = true
-        this.companyGroup = data
-        console.log(this.companyGroup)
-        console.log(data)
-      })
-    })
-  }
+  //   return new Promise((resolve) => {
+  //     this.companyService.getCompaniesByClient(sessionStorage.getItem('client')).subscribe(data => {
+  //       this.showTable = true
+  //       this.companyGroup = data
+  //       console.log(this.companyGroup)
+  //       console.log(data)
+  //     })
+  //   })
+  // }
 
   constructor(private companyService: CompanyService) {}
 }

@@ -24,15 +24,15 @@ import { Company } from 'src/app/interfaces/company.interface';
 
 @Component({
   selector: 'app-subdomain',
+  templateUrl: './subdomain.component.html',
+  styleUrls: ['./subdomain.component.css'],
   standalone: true,
   imports: [
     FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
     TranslateModule, MatNativeDateModule, MatDatepickerModule, MatCardModule, MatIconModule,
     MatTableModule, NgFor
-  ],
-  templateUrl: './subdomain.component.html',
-  styleUrls: ['./subdomain.component.css']
+  ]
 })
 export class SubdomainComponent {
   selectedDomainId = this.data?.idDomain
@@ -55,7 +55,8 @@ export class SubdomainComponent {
           name: new FormControl(data?.data?.name || '', Validators.required),
           description: new FormControl(data?.data?.description || '', Validators.required),
           tag: new FormControl(data?.data?.tag || ''),
-          idDomain: new FormControl(data?.data?.idDomain || '', Validators.required)
+          idDomain: new FormControl(data?.data?.idDomain || '', Validators.required),
+          subdominios: new FormControl('')
         })
       }
 
@@ -63,47 +64,49 @@ export class SubdomainComponent {
         id: new FormControl([''], Validators.required),
         name: new FormControl([''], Validators.required),
         description: new FormControl([''], Validators.required),
-        tag: new FormControl([''])
+        tag: new FormControl(['']),
+        subdominios: new FormControl('')
       })
       
     }
   
-    // get subdomains() {
-    //   return this.subdomainsForm.controls["subdominios"] as FormArray;
-    // };
-  
-    addSubdomains(selectedDomainId: string): void {
-      const subdomainsForm = this._fb.group({
-        name: [''],
-        description: [''],
-        tag: [''],
-        idDomain: ['']
-      }) as unknown as any;
-  
-      this.subdomains.push(subdomainsForm.value);
-      this.dataSourcePacks = new MatTableDataSource(this.subdomains);
-      this.cd.detectChanges();
+    get subdomainss() {
+      return this.subdomainsForm.controls["subdominios"] as FormArray;
     };
   
-    onSubmit(selectedDomainId: string):void {
-      this.dialogRef.close(this.subdomains)
-      
-    }
-    onUpdate(){
-      this.dialogRef.close(this.subdomainForm.getRawValue());
-    }
+  addSubdomains(selectedDomainId: string): void {
+    const subdomainsForm = this._fb.group({
+      name: [''],
+      description: [''],
+      tag: [''],
+      idDomain: ['']
+    }) as unknown as any;
+
+    this.subdomains.push(subdomainsForm.value);
+    this.dataSourcePacks = new MatTableDataSource(this.subdomains);
+    this.cd.detectChanges();
+  };
   
-  // closeModal(selectedDomainId:string){
-  //   const subdominios = []
-  //   subdominios.push(this.subdomainForm.getRawValue())
-  //   console.log('GUARDAR',subdominios)
-  //   this.dialogRef.close(this.subdomainForm.getRawValue());
-  // }
-    deleteSubdomain(i: number): void {
-      console.log(i)
-      console.log(this.subdomains)
-      this.subdomains.splice(i, 1);
-      this.dataSourcePacks = new MatTableDataSource(this.subdomains);
-    };
+  onSubmit(selectedDomainId: string):void {
+    this.dialogRef.close(this.subdomains)
+    
+  }
+  onUpdate(){
+    this.dialogRef.close(this.subdomainForm.getRawValue());
+  }
+  
+  closeModal(selectedDomainId:string){
+    const subdominios = []
+    subdominios.push(this.subdomainForm.getRawValue())
+    console.log('GUARDAR',subdominios)
+    this.dialogRef.close(this.subdomainForm.getRawValue());
+  }
+
+  deleteSubdomain(i: number): void {
+    console.log(i)
+    console.log(this.subdomains)
+    this.subdomains.splice(i, 1);
+    this.dataSourcePacks = new MatTableDataSource(this.subdomains);
+  };
 
 }

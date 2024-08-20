@@ -8,7 +8,12 @@ interface Contact {
   cellphone: string;
   jobTitle: string;
   contactType: string;
-  active: boolean;
-  delete: boolean;
   tag: string;
+  active?: boolean;
+  createdDate?:string;
+  modificatedDate?:string;
+  idServiceCompany: string [];
+  idCompany?: string[];
+  idClient?: string[];
+  idProvider?: string[];
 }

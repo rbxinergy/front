@@ -1,3 +1,4 @@
+<h2>Categoría de Dominio</h2>
 <div>
   <div class="search-container table-header"> 
     <mat-form-field *ngIf="domainCategories.length > 0" appearance="outline">
@@ -16,10 +17,7 @@
     <h3>No hay categoría de dominios asociadas a este grupo de empresas</h3>
   </div>
 
-  
-
   <table *ngIf="domainCategories.length > 0"  mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
     <!-- ID Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -55,6 +53,10 @@
           <button mat-menu-item>
             <mat-icon>visibility</mat-icon>
             <span>Ver</span>
+          </button>
+          <button mat-menu-item (click)="addDomainModal(element)">
+            <mat-icon>add</mat-icon>
+            <span>Dominio</span>
           </button>
           <button mat-menu-item (click)="editDomainCategoryModal(element)">
             <mat-icon>edit</mat-icon>

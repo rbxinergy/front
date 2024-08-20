@@ -17,6 +17,7 @@ import { DomainCategoryTableComponent } from "../domain-category-table/domain-ca
 import { RoleCfgTableComponent } from "../role-cfg-table/role-cfg-table.component";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { RoleTableComponent } from '../role-table/role-table.component';
 
 @Component({
     selector: 'app-company-config',
@@ -30,6 +31,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
         SubdomainComponent,
         DomaincategoryComponent,
         RoleComponent,
+        RoleTableComponent,
         UserComponent,
         UsersTableComponent,
         DomainTableComponent,
@@ -45,28 +47,45 @@ export class CompanyConfigComponent implements OnInit{
 
   clientId: string;
   companyId: string;
-  company: Company | null = null; // Inicializa company como null
+  company: Company ; // Inicializa company como null
+  idGroupCompany: string;
+  idCompany: string;
 
   constructor(private route: ActivatedRoute, private companyService: CompanyService) {}
 
   ngOnInit(): void {
-    this.clientId = this.route.snapshot.paramMap.get('client') || '';
     this.companyId = this.route.snapshot.paramMap.get('company') || '';
-    console.log('companyConfig', this.clientId, this.companyId);
-    this.loadCompanyData(this.clientId, this.companyId);
+    // this.clientId = this.route.snapshot.paramMap.get('client') || '';
+    // console.log('companyConfig', this.clientId, this.companyId);
+    // this.loadCompanyData(this.clientId, this.companyId);
+    this.companyService.getCompany(this.companyId, 'a6be19ce-1f93-4dbf-aaa8-d42341bc8d22').subscribe(data => {
+      this.company = data;
+      console.log(this.company)
+    });
   }
 
-  loadCompanyData(id: string, company: string | null) {
-    if (company) {
-      this.companyService.getCompany(this.companyId, company).subscribe(data => {
-        this.company = data;
-      });
-    } else {
-      this.companyService.getCompaniesByClient(this.companyId).subscribe(data => {
-        this.company = data[0];
-      });
-    }
-  }
+  // loadCompanyData(id: string, company: string | null) {
+  //   if (company) {
+  //     this.companyService.getCompany(this.companyId, 'a6be19ce-1f93-4dbf-aaa8-d42341bc8d22').subscribe(data => {
+  //       this.company = data;
+  //       console.log(this.company)
+  //     });
+  //   } else {
+  //     this.companyService.getCompaniesByClient(this.companyId).subscribe(data => {
+  //       this.company = data[0];
+  //     });
+  //   }
+  //   this.idGroupCompany = this.route.snapshot.paramMap.get('idGroupCompany') || '';
+  //   this.idCompany = this.route.snapshot.paramMap.get('idCompany') || '';
+  //   console.log('companyConfig', this.idGroupCompany, this.idCompany);
+  //   this.loadCompanyData(this.idCompany, this.idGroupCompany);
+  // }
+
+  // loadCompanyData(company: string, groupCompany: string) {
+  //   this.companyService.getCompanyByGroupCompany(company, groupCompany).subscribe(data => {
+  //     this.company = data;
+  //   });
+  // }
 
 
 }

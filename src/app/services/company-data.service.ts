@@ -8,12 +8,10 @@ export class CompanyDataService {
   private companyData: Company;
 
   setGroupCompanyData(data: Company) {
-    console.log("COMPANY:", data);
     this.companyData = data;
   }
 
   getGroupCompanyData(): Company {
-    console.log(this.companyData);
     return this.companyData;
   }
 }

@@ -1,0 +1,31 @@
+<h2>Cargas Masivas</h2>
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Seleccione una opción</mat-label>
+    <mat-select [(value)]="selectedOption" (selectionChange)="onOptionChange($event.value)">
+      <mat-option value="clients">Clientes</mat-option>
+      <mat-option value="companies">Empresas</mat-option>
+      <mat-option value="groupcompanies">Grupos de Empresas</mat-option>
+      <mat-option value="users">Usuarios</mat-option>
+      <mat-option value="roles">Roles</mat-option>
+      <mat-option value="domaincategories">Categorías de Dominios</mat-option>
+      <mat-option value="servicecategories">Categorías de Servicios</mat-option>
+      <mat-option value="domains">Dominios</mat-option>
+      <mat-option value="subdomains">Subdominios</mat-option>
+      <mat-option value="servicecompanies">Servicios de Empresas</mat-option>
+      <mat-option value="providers">Proveedores</mat-option>
+      <mat-option value="contacts">Contactos</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div *ngIf="selectedOption">
+    <h3>Cargar masiva de {{ selectedOption }}</h3>
+    <app-file-upload (fileSelected)="onFileSelected($event)"></app-file-upload>
+    <button mat-raised-button (click)="onShowPreview()" [disabled]="!selectedFile">Vista previa</button>
+    <button mat-raised-button class="upload-button" color="primary" (click)="onUpload()" [disabled]="!selectedFile">Subir Archivo</button>
+    <p>
+      Para asegurar la correcta carga de los datos, descargar el archivo de ejemplo 
+      <a [href]="exampleFileUrl">{{ selectedOption.toLowerCase() }}.csv</a>.
+    </p>
+  </div>
+</div>

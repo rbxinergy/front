@@ -8,12 +8,10 @@ export class UserDataService {
   private userData: User;
 
   setuserData(data: User) {
-    console.log("USER DATA:", data);
     this.userData = data;
   }
 
   getuserData(): User {
-    console.log(this.userData);
     return this.userData;
   }
 }
