@@ -4,8 +4,12 @@
   <span>Atrás</span>
 </button> -->
 <div class="p-4">
+  <div class="spinner" *ngIf="isLoading">
+    <mat-progress-spinner color="accent" mode="indeterminate" diameter="50">
+    </mat-progress-spinner>
+  </div>
   <div class="search-container table-header">
-      <mat-form-field *ngIf="groupCompanies.length > 0" appearance="outline">
+      <mat-form-field *ngIf="groupCompanies.length > 0" appearance="outline" >
         <mat-label>Buscar</mat-label>
         <input matInput (input)="applyFilter($event)" placeholder="Buscar" #searchInput>
         <button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch(searchInput)">
@@ -20,7 +24,7 @@
   <div *ngIf="groupCompanies.length === 0">
     <h3>No hay grupos de empresas asociadas a este cliente</h3>
   </div>
-  <table *ngIf="groupCompanies.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <table *ngIf="groupCompanies.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort [hidden]="isLoading">
     <!-- Id Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> Id </th>

@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, Input, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ServiceCategoryService } from '../../services/service-category.service';
+import { ServiceCategoryService } from '../../services/servicecategory.service';
 import { ServiceCategory } from '../../interfaces/servicecategory.interface';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';

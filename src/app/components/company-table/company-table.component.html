@@ -1,5 +1,19 @@
 <h2>Empresas</h2>
 <div class="p-4">
+  <div class="spinner" *ngIf="isLoading">
+    <mat-progress-spinner color="accent" mode="indeterminate" diameter="50">
+    </mat-progress-spinner>
+</div>
+<h3>Cargar masiva de empresas</h3>
+<app-file-upload (fileSelected)="onFileSelected($event)"></app-file-upload>
+<button mat-raised-button (click)="onShowPreview()" [disabled]="!selectedFile">Vista previa</button>
+<button mat-raised-button class="upload-button" color="primary" (click)="onUpload()" [disabled]="!selectedFile">Subir Archivo</button>
+<p>
+    Para asegurar la correcta carga de los datos, descargar el archivo de ejemplo <a href="assets/csv/company.csv">company.csv</a>.
+</p>
+
+
+
   <div class="search-container table-header">
       <mat-form-field *ngIf="companies.length > 0" appearance="outline">
         <mat-label>Buscar</mat-label>
@@ -16,7 +30,8 @@
   <div *ngIf="companies.length === 0">
     <h3>No hay empresas para este cliente</h3>
   </div>
-  <table *ngIf="companies.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+  <table *ngIf="companies.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort [hidden]="isLoading">
     <!-- Id Column -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> Id </th>
@@ -76,10 +91,10 @@
             <mat-icon>add</mat-icon>
             <span>Roles</span>
           </button>
-          <button mat-menu-item>
+          <!-- <button mat-menu-item (click)="openSeeCompanyModal(element)">
             <mat-icon>visibility</mat-icon>
             <span>Ver</span>
-          </button>
+          </button> -->
           <button mat-menu-item (click)="openEditCompanyModal(element)">
             <mat-icon>edit</mat-icon>
             <span>Editar</span>

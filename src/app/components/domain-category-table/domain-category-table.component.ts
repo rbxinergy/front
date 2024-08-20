@@ -175,7 +175,7 @@ export class DomainCategoryTableComponent {
       dialogRef.afterClosed().subscribe({
       next: (newDomainCategory: DomainCategory) => {
         if (newDomainCategory) {
-          newDomainCategory.idGroupCompany = this.groupCompany.id
+          newDomainCategory.idGroupCompany = this.groupCompanyID
           console.log(newDomainCategory)
           this.domainCategoryService.createDomainCategory(newDomainCategory).subscribe({
             next: (response) => {
@@ -276,7 +276,7 @@ export class DomainCategoryTableComponent {
     dialogRef.afterClosed().subscribe({
       next: (result) => {
         if (result) {
-          this.domainCategoryService.deleteCompany(domainCategory.id).subscribe({
+          this.domainCategoryService.deleteDomainCategory(domainCategory.id).subscribe({
             next: (response) => {
               console.log('response', response.body);
               if (response.status === 200) {

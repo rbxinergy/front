@@ -95,7 +95,7 @@ export class DomainTableComponent implements AfterViewInit {
           domain.subDomains= [];
         }
         this.domainID = domain.id
-        this.SubdomainService.getSubdomainsByDomain(this.domainID).subscribe((subdomains: SubDomain[]) => {
+        this.SubdomainService.getAllSubdomainsByDomain(this.domainID).subscribe((subdomains: SubDomain[]) => {
           subdomains.forEach((subdomain: SubDomain) => {
             domain.subDomains.push(subdomain);
           });
@@ -244,6 +244,8 @@ export class DomainTableComponent implements AfterViewInit {
   openUpdate(domain: Domain) {
     domain.active = true
     this.selectedDomain = { ...domain }
+    delete domain.subDomains
+    console.log(  this.selectedDomain = { ...domain })
     
     const dialogRef = this.dialog.open(DomainComponent, {
       width: '600px',

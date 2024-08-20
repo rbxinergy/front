@@ -29,6 +29,7 @@ import { CompanyTableComponent } from '../company-table/company-table.component'
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomainCategoryTableComponent } from '../domain-category-table/domain-category-table.component';
 import { ServiceCategoryTableComponent } from '../service-category-table/service-category-table.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-group-company-table',
@@ -39,7 +40,7 @@ import { ServiceCategoryTableComponent } from '../service-category-table/service
     MatTableModule, CommonModule, TranslateModule, MatMenuModule,
     MatIconModule, MatButtonModule, MatDialogModule, MatInputModule,
     MatSelectModule, MatSnackBarModule, MatTooltipModule, MatPaginatorModule,
-    MatFormFieldModule, MatSortModule
+    MatFormFieldModule, MatSortModule,  MatProgressSpinnerModule
   ]
 })
 export class GroupCompanyTableComponent implements AfterViewInit {
@@ -49,6 +50,7 @@ export class GroupCompanyTableComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<GroupCompany>();
   groupCompanies: GroupCompany[] = [];
   selectedGroupCompany: GroupCompany | null = null;
+  isLoading = true
 
   formGroupCompanyTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
@@ -85,6 +87,7 @@ export class GroupCompanyTableComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.groupCompanyService.getGroupCompanies(this.clientID).subscribe(data => {
       this.dataSource.data = data
+      this.isLoading = false
       this.groupCompanies = data
     })
     //  this.groupCompanyDataService.setGroupCompanyData(data);
@@ -213,7 +216,7 @@ export class GroupCompanyTableComponent implements AfterViewInit {
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Empresa actualizada exitosamente.', type: 'success' }
+                  data: { message: 'Grupo de empresas actualizado exitosamente.', type: 'success' }
                 });
                 const index = this.groupCompanies.findIndex(c => c.id === updatedCompany.id);
                 if (index !== -1) {
@@ -223,14 +226,14 @@ export class GroupCompanyTableComponent implements AfterViewInit {
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Error al actualizar la empresa.', type: 'error' }
+                  data: { message: 'Error al actualizar el grupo de empresas.', type: 'error' }
                 });
               }
             },
             error: (error) => {
               this.dialog.open(MessagesModalComponent, {
                 width: '500px',
-                data: { message: 'Error al actualizar la empresa.', type: 'error' }
+                data: { message: 'Error al actualizar el grupo de empresas.', type: 'error' }
               });
             }
           });
@@ -263,7 +266,7 @@ export class GroupCompanyTableComponent implements AfterViewInit {
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Compañía eliminada exitosamente.', type: 'success' }
+                  data: { message: 'Grupo de empresas eliminado exitosamente.', type: 'success' }
                 });
                 this.groupCompanies = this.groupCompanies.filter(c => c.id !== groupCompany.id);
                 if(this.groupCompanies.length === 0){
@@ -273,14 +276,14 @@ export class GroupCompanyTableComponent implements AfterViewInit {
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Error al eliminar la compañía.', type: 'error' }
+                  data: { message: 'Error al eliminar el grupo de empresas.', type: 'error' }
                 });
               }
             },
             error: (error) => {
               this.dialog.open(MessagesModalComponent, {
                 width: '500px',
-                data: { message: 'Error al eliminar la compañía.', type: 'error' }
+                data: { message: 'Error al eliminar el grupo de empresas.', type: 'error' }
               });
             }
           });

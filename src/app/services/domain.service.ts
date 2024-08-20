@@ -3,11 +3,8 @@ import { Domain } from '../interfaces/domain.interface';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable, Subscription, catchError, lastValueFrom, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Domains } from '../shared/dummy-data/domain-client-company.dummy';
 import { DomainDataService } from './domain-data.service';
-import { domains } from '../shared/dummy-data/domains-client-company.dummy';
 import { Company } from '../interfaces/company.interface';
-
 
 
 @Injectable({
@@ -15,22 +12,20 @@ import { Company } from '../interfaces/company.interface';
 })
 export class DomainService {
 
-  // groupDocument = '';
   domains: any;
   domain:any;
   private apiUrls = environment.apiUrls.domain;
   private serverUrl = environment.serverUrl;
-  // private apiLocalUrls=environment.getDomainsUrl
+
   token: string = sessionStorage.getItem('token') || '';
+
   private headers = new HttpHeaders({
     'Authorization': 'Bearer ' +  this.token,
     'cache-control': 'no-cache'
   })
 
   constructor(private http: HttpClient, private domainDataService: DomainDataService) { 
-    //  this.groupDocument = sessionStorage?.getItem('groupDocument') || '0';
     this.domain = this.domainDataService.getDomainData();
-    console.log(this.domain);
   }
 
   async saveDomain(form: any):Promise<any>{
@@ -54,22 +49,6 @@ export class DomainService {
     return this.http.post<any>(`${this.serverUrl}${this.apiUrls}/create`, domain, { observe: 'response' });
   }
 
-  updateDomain(domain: Domain): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls}/update/${domain.id}`, domain, { observe: 'response' });
-  }
-
-  getAllDomainsCompany(domain: Domain){
-    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/company/${domain}`, { headers: this.headers})
-  }
-
-  getAllDomainsByCategory(domain: Domain){
-    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/domain-category/${domain}`, { headers: this.headers})
-  }
-
-  deleteDomain(id: string): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls}/delete/${id}`, { observe: 'response' });
-  }
-
   uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
     const headers = new HttpHeaders({
       'enctype': 'multipart/form-data',
@@ -78,4 +57,33 @@ export class DomainService {
     });
     return this.http.post(`${this.serverUrl}${this.apiUrls}/create/upload/file`, formData, { headers, observe: 'response'});
   }
+
+  updateDomain(domain: Domain): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls}/update/${domain.id}`, domain, { headers: this.headers, observe: 'response' });
+  }
+
+  getDomainByCompany(domain: Domain, company: Company){
+    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/company/${domain}/company/${company}`, { headers: this.headers})
+  }
+
+  getAllDomainsCompany(domain: Domain){
+    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/company/${domain}`, { headers: this.headers})
+  }
+
+  getDomainByCategory(domain: Domain, domainCategory: string){
+    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/${domain}/domain-category/${domainCategory}`, { headers: this.headers})
+  }
+
+  getAllDomainsByCategory(domain: Domain){
+    return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/domain-category/${domain}`, { headers: this.headers})
+  }
+
+  deleteDomain(id: string){
+    return this.http.delete<any>(`${this.serverUrl}${this.apiUrls}/delete/${id}`, { headers: this.headers });
+  }
+
+  deleteCascadeDomain(id: string) {
+    return this.http.delete<any>(`${this.serverUrl}${this.apiUrls}/delete/cascade/${id}`, { headers: this.headers });
+  }
+
 }

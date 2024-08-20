@@ -37,23 +37,7 @@ export class ClientService {
   createClient(form: any): Observable<HttpResponse<Client>>{
     return  this.http.post<Client>(`${this.serverUrl}${this.apiUrl}/create`, form, { headers: this.headers, observe: 'response' });
   }
-
-  uploadClients(client: Client): Observable<HttpResponse<any>> {
-    console.log(client)
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/create/upload/file`, client, { observe: 'response' });
-  }
-  getClients() {
-   return this.http.get<Client[]>(`${this.serverUrl}${this.apiUrl}/get/all`, { headers: this.headers})
-  }
-  updateClient(client: Client): Observable<HttpResponse<any>> {
-    console.log(client)
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update`, client, { observe: 'response' });
-  }
-
-  deleteClient(id: string): Observable<HttpResponse<any>> {
-    return this.http.delete<any>(`${this.serverUrl}${this.apiUrl}/delete/${id}`, { observe: 'response' });
-  }
-
+  
   uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
     const headers = new HttpHeaders({
       'enctype': 'multipart/form-data',
@@ -62,4 +46,26 @@ export class ClientService {
     });
     return this.http.post(`${this.serverUrl}${this.apiUrl}/create/upload/file`, formData, { headers, observe: 'response'});
   }
+
+  updateClient(client: Client): Observable<HttpResponse<any>> {
+    console.log(client)
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update`, client, { observe: 'response' });
+  }
+
+  getClients() {
+    return this.http.get<Client[]>(`${this.serverUrl}${this.apiUrl}/get/all`, { headers: this.headers})
+  }
+
+  getClient(client: string) {
+    return this.http.get<Client[]>(`${this.serverUrl}${this.apiUrl}/get/${client}`, { headers: this.headers})
+  }
+
+  deleteClient(id: string): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.serverUrl}${this.apiUrl}/delete/${id}`, { observe: 'response' });
+  }
+
+  deleteClientCascade(id: string){
+    return this.http.delete<any>(`${this.serverUrl}${this.apiUrl}/delete/cascade/${id}`, { observe: 'response' });
+  }
+
 }

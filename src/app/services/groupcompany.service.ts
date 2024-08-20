@@ -22,7 +22,6 @@ export class GroupCompanyService {
 
   constructor(private http: HttpClient, private clientDataService: ClientDataService) { 
     this.client = this.clientDataService.getClientData();
-    console.log(this.client);
   }
 
   // async saveGroupCompany(form: any):Promise<any>{
@@ -38,25 +37,8 @@ export class GroupCompanyService {
 
   //   return await lastValueFrom(postCompany)  
   // }
-
-  getGroupCompany(idGroupCompany: string, client: string) {
-    return this.http.get<GroupCompany[]>(`${this.serverUrl}${this.apiUrl}/get/${idGroupCompany}/client/${client}`, { headers: this.headers})
-  }
-
-  getGroupCompanies(client: any){
-    return this.http.get<GroupCompany[]>(`${this.serverUrl}${this.apiUrl}/get/client/${client}`, { headers: this.headers})
-  }
-
   createGroupCompany(company: GroupCompany): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/create`, company, { observe: 'response' });
-  }
-
-  updateGroupCompany(company: GroupCompany): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update/${company.id}`, company ,{headers: this.headers, observe: 'response' });
-  }
-
-  deleteGroupCompany(id: string): Observable<HttpResponse<any>> {
-    return this.http.delete<any>(`${this.serverUrl}${this.apiUrl}/delete/${id}`, { observe: 'response' });
   }
 
   uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
@@ -67,4 +49,25 @@ export class GroupCompanyService {
     });
     return this.http.post(`${this.serverUrl}${this.apiUrl}/create/upload/file`, formData, { headers, observe: 'response'});
   }
+
+  updateGroupCompany(company: GroupCompany): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update/${company.id}`, company ,{headers: this.headers, observe: 'response' });
+  }
+
+  getGroupCompanies(client: any){
+    return this.http.get<GroupCompany[]>(`${this.serverUrl}${this.apiUrl}/get/client/${client}`, { headers: this.headers})
+  }
+
+  getGroupCompany(idGroupCompany: string, client: string) {
+    return this.http.get<GroupCompany[]>(`${this.serverUrl}${this.apiUrl}/get/${idGroupCompany}/client/${client}`, { headers: this.headers})
+  }
+
+  deleteGroupCompany(id: string): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.serverUrl}${this.apiUrl}/delete/${id}`, { observe: 'response' });
+  }
+
+  deleteCascadeGroupCompany(id: string): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.serverUrl}${this.apiUrl}/delete/cascade/${id}`, { observe: 'response' });
+  }
+
 }

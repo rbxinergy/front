@@ -51,7 +51,7 @@ export class DomainComponent {
           description: new FormControl(data?.description || '', Validators.required),
           code: new FormControl(data?.code || '', Validators.required),
           tag: new FormControl(data?.tag || ''),
-          idDomainCategory: new FormControl(data?.id || '', Validators.required),
+          idDomainCategory: new FormControl(data?.idDomainCategory || '', Validators.required),
           idCompany: new FormControl(data?.idCompany || '', Validators.required),
           idServiceCompany: new FormControl(data?.idServiceCompany || '3d447b9d-76d3-4d02-a045-67ca44d66664', Validators.required),
           active: new FormControl(data?.active || true, Validators.required),

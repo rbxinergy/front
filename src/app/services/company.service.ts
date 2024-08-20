@@ -51,10 +51,18 @@ export class CompanyService {
     return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/create`, company, { observe: 'response' });
   }
 
+  uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
+    const headers = new HttpHeaders({
+      'enctype': 'multipart/form-data',
+      'Authorization': 'Bearer ' +  this.token,
+      'cache-control': 'no-cache'
+    });
+    return this.http.post(`${this.serverUrl}${this.apiUrl}/create/upload/file`, formData, { headers, observe: 'response'});
+  }
+
   updateCompany(company: Company): Observable<HttpResponse<any>> {
     return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update/${company.id}`, company, { headers: this.headers, observe: 'response' });
   }
-
 
   getCompaniesByGroup(groupCompany: any){
     return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrl}/get/group-company/${groupCompany}`, { headers: this.headers})
@@ -72,12 +80,8 @@ export class CompanyService {
     return this.http.delete<any>(`${this.serverUrl}${this.apiUrl}/delete/${id}`, { observe: 'response' });
   }
 
-  uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
-    const headers = new HttpHeaders({
-      'enctype': 'multipart/form-data',
-      'Authorization': 'Bearer ' +  this.token,
-      'cache-control': 'no-cache'
-    });
-    return this.http.post(`${this.serverUrl}${this.apiUrl}/create/upload/file`, formData, { headers, observe: 'response'});
+  deleteCascadeCompany(id: string): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.serverUrl}${this.apiUrl}/delete/cascade/${id}`, { observe: 'response' });
   }
+
 }

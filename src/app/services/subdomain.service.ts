@@ -12,7 +12,6 @@ import { subdomains } from '../shared/dummy-data/subdomains-domain.dummy';
 })
 
 export class SubdomainService {
-  // groupDocument = '';
   subdomains: any;
   subdomain:any;
   private apiUrls = environment.apiUrls;
@@ -23,47 +22,24 @@ export class SubdomainService {
     'cache-control': 'no-cache'
   })
   constructor(private http: HttpClient, private subdomainDataService: SubdomainDataService) { 
-    // this.groupDocument = sessionStorage?.getItem('groupDocument') || '0';
-    this.subdomain = this.subdomainDataService.getDomainData();
-    console.log(this.subdomain);
+    this.subdomain = this.subdomainDataService.getSubdomainData();
   }
 
+  // async saveSubdomain(form: any):Promise<any>{
+  //   const body = { 
+  //     "name": form.name,
+  //     "description": form.description,
+  //     "tag": form.tag,
+  //     "idDomain": form.idDomain,
+  //   }
+  //   console.log(body)
+  //   const postSubdomain = this.http.post<SubDomain>(`${this.serverUrl}${this.apiUrls.subdomain}/create`, body, { headers: this.headers })
 
-
-  async saveSubdomain(form: any):Promise<any>{
-    // console.log(this.groupDocument)
-    const body = { 
-      "name": form.name,
-      "description": form.description,
-      "tag": form.tag,
-      "idDomain": form.idDomain,
-      // "groupDocument": this.groupDocument
-    }
-    console.log(body)
-    const postSubdomain = this.http.post<SubDomain>(`${this.serverUrl}${this.apiUrls.subdomain}/create`, body, { headers: this.headers })
-
-    return await lastValueFrom(postSubdomain)  
-  }
+  //   return await lastValueFrom(postSubdomain)  
+  // }
 
   createSubdomain(subdomain: SubDomain): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${this.serverUrl}${this.apiUrls.subdomain}/create`, subdomain, { observe: 'response' });
-  }
-
-  updateSubdomain(subdomain: SubDomain): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.subdomain}/update/${subdomain}`, subdomain, { observe: 'response' });
-  }
-
-  getSubdomainsByDomain(domain: Domain){
-    return this.http.get<SubDomain[]>(`${this.serverUrl}${this.apiUrls.subdomain}/get/domain/${domain}`, { headers: this.headers})
-  }
-
-  getSubdomains(idDomain: string): Observable<Subdomain[]> {
-    return this.http.get<Subdomain[]>(`${this.serverUrl}${this.apiUrls.subdomain}/get/${idDomain}`, {headers: this.headers});
-  }
-
-
-  deleteSubdomain(id: string): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.subdomain}/delete/${id}`, { observe: 'response' });
   }
 
   uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
@@ -74,4 +50,26 @@ export class SubdomainService {
     });
     return this.http.post(`${this.serverUrl}${this.apiUrls.subdomain}/create/upload/file`, formData, { headers, observe: 'response'});
   }
+
+  updateSubdomain(subdomain: SubDomain): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.subdomain}/update/${subdomain}`, subdomain, { observe: 'response' });
+  }
+
+  getAllSubdomainsByDomain(domain: Domain){
+    return this.http.get<SubDomain[]>(`${this.serverUrl}${this.apiUrls.subdomain}/get/domain/${domain}`, { headers: this.headers})
+  }
+
+  getSubdomain(subdomain:string, idDomain: string): Observable<Subdomain[]> {
+    return this.http.get<Subdomain[]>(`${this.serverUrl}${this.apiUrls.subdomain}/get/${subdomain}/domain/${idDomain}`, {headers: this.headers});
+  }
+  //revisar este
+  getSubdomains(idDomain: string): Observable<Subdomain[]> {
+    return this.http.get<Subdomain[]>(`${this.serverUrl}${this.apiUrls.subdomain}/get/${idDomain}`, {headers: this.headers});
+  }
+
+  deleteSubdomain(id: string): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.subdomain}/delete/${id}`, { observe: 'response' });
+  }
+
+
 }
