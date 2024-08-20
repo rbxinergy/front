@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule, F
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
@@ -22,13 +22,14 @@ import { ClientDataService } from 'src/app/services/client-data.service';
   imports: [
     FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
-    TranslateModule, MatNativeDateModule, MatDatepickerModule
+    TranslateModule, MatNativeDateModule, MatDatepickerModule, MatCheckboxModule
   ],
   templateUrl: './role.component.html',
   styleUrls: ['./role.component.css']
 })
 export class RoleComponent {
   roleForm: FormGroup;
+  checked: false
 
   constructor(@Optional()private dialogRef: MatDialogRef<RoleComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: Role,
@@ -39,12 +40,14 @@ export class RoleComponent {
           id: new FormControl(data?.id || null),
           name: new FormControl(data?.name || ''),
           description: new FormControl(data?.description || ''),
-          client: new FormControl(data?.client || clientData.name),
+          client: new FormControl(data?.client || ''),
           company: new FormControl(data?.company || ''),
           create: new FormControl(data?.create || false),
           update: new FormControl(data?.update || false),
           read: new FormControl(data?.read || false),
-          delete: new FormControl(data?.delete || false)
+          delete: new FormControl(data?.delete || false),
+          tag: new FormControl(data?.tag || ''),
+          accessType: new FormControl(data?.accessType || '')
         });
       }
     }

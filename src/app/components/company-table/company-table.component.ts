@@ -220,16 +220,10 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
     });
   }
   
-  openAddRolesModal(company: Company){
-    const idclient = client != null ? client : sessionStorage.getItem('client');
-    if (company) {
-      console.log('openConfig',  company, client);
-      this.router.navigate(['/dashboard/company-config', idclient, company]);
-    } else {
-      this.router.navigate(['/dashboard/company-config', idclient]);
-    }
-
+  openAddRolesModal(company?: Company) {
+    this.router.navigate(['/dashboard/company-config', company.id]);
   }
+
   openEditCompanyModal(company: Company) {
     console.log(company)
     this.selectedCompany = { ...company };

@@ -22,6 +22,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Client } from 'src/app/interfaces/client.interface';
 import { ClientDataService } from 'src/app/services/client-data.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-role-table',
@@ -37,7 +38,7 @@ import { ClientDataService } from 'src/app/services/client-data.service';
 })
 export class RoleTableComponent {
   displayedColumns: string[] = [
-    'name', 'client', 'actions'
+    'name', 'description','accessType','create','read','update','delete', 'actions'
   ];
   dataSource = new MatTableDataSource<Role>();
   roles: Role[] = [];
@@ -45,16 +46,25 @@ export class RoleTableComponent {
   formRoleTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
   });
-
+ companyID:any
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   client: Client;
 
   constructor(private roleService: RoleService, private cdr: ChangeDetectorRef,
-      private dialog: MatDialog, private clientDataService: ClientDataService) {}
+    private dialog: MatDialog, private clientDataService: ClientDataService, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    console.log(this.companyID = this.route.snapshot.paramMap.get('company') || '')
+    this.companyID = this.route.snapshot.paramMap.get('company') || ''
+  }
 
   ngAfterViewInit(): void {
-    //this.loadClientData();
+    this.roleService.getAllRolesByCompany(this.companyID).subscribe((roles: any) => {
+      console.log(roles)
+      this.dataSource.data = roles;
+      this.roles = roles
+    })
   }
 
   // loadClientData() {s

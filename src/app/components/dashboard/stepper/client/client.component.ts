@@ -69,6 +69,6 @@ export class ClientComponent {
 
   onClientCreate() {
     const form = this.clientForm.value;
-    this.clientService.saveClient(form);
+    this.clientService.createClient(form);
   }
 }

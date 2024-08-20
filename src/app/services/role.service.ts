@@ -4,6 +4,9 @@ import { roles } from '../shared/dummy-data/role.dummy';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Role } from '../interfaces/role.interface';
+import { Client } from '../interfaces/client.interface';
+import { User } from '../interfaces/user.interface';
+import { Company } from '../interfaces/company.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +27,27 @@ export class RoleService {
     'cache-control': 'no-cache'
   })
 
+  createRole(role: Role): Observable<HttpResponse<any>> {
+    return this.http.post<any>(`${this.serverUrl}${this.apiUrls.role}/create`, role, { headers: this.headers, observe: 'response'})
+  }
+
+  updateRole(role: Role): Observable<HttpResponse<any>> {
+    console.log('role', role);
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.role}/update`, role, { headers: this.headers, observe: 'response'})
+  }
+
+  getAllRolesByClient(client: string){
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/client/${client}`, { headers: this.headers })
+  }
+
+  getAllRolesByCompany(company: Company){
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/company/${company}`, { headers: this.headers })
+  }
+
+  getAllRolesByUser(user: User){
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/user/${user}`, { headers: this.headers })
+  }
+
   getRoles(client: string, company?: string): Observable<HttpResponse<any>>{
     if(company){
       return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/${client}/${company}`, { headers: this.headers, observe: 'response'})
@@ -35,13 +59,8 @@ export class RoleService {
     return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/user/${idUser}`, { headers: this.headers, observe: 'response'})
   }
 
-  createRole(role: Role): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.serverUrl}${this.apiUrls.role}/create`, role, { headers: this.headers, observe: 'response'})
-  }
-  updateRole(role: Role): Observable<HttpResponse<any>> {
-    console.log('role', role);
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.role}/update`, role, { headers: this.headers, observe: 'response'})
-  }
+
+ 
 
   deleteRole(id: string): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.serverUrl}${this.apiUrls.role}/delete/${id}`, { headers: this.headers, observe: 'response'})

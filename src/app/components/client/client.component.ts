@@ -56,7 +56,7 @@ export class ClientComponent implements OnInit {
   }
 
   save() {
-    this.clientService.saveClient(this.clientForm.getRawValue() as unknown as Client).subscribe({
+    this.clientService.createClient(this.clientForm.getRawValue() as unknown as Client).subscribe({
       next: (response) => {
         this.btnDisabled = true;
         if (response.status === 200) {

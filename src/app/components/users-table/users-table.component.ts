@@ -47,7 +47,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
 })
 export class UsersTableComponent implements OnInit {
-  displayedColumns = ['select', 'name', 'email', 'job_title'];
+  displayedColumns = ['select', 'name', 'email', 'jobTitle'];
   columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
   expandedElement: User | null;
   dataSource = new MatTableDataSource<User>();
@@ -65,29 +65,30 @@ export class UsersTableComponent implements OnInit {
   userRoles: { [key: string]: any[] } = {};
 
   constructor(private userService: UserService, public dialog: MatDialog, private roleService: RoleService) {
-    this.userService.getUsers(this.client).subscribe((users: User[]) => {
+
+    this.userService.getAllUsersByClient(this.client).subscribe((users:any )=> {
       this.dataSource.data = users;
       console.log("users: ", users)
       this.selectUsersByCompany();
-      this.loadRolesForUsers();
+      // this.loadRolesForUsers();
     });
   }
 
   ngOnInit(): void {
   }
 
-  loadRolesForUsers(): void {
-    this.dataSource.data.forEach(user => {
-      this.loadRolesForUser(user.id);
-    });
-  }
+  // loadRolesForUsers(): void {
+  //   this.dataSource.data.forEach(user => {
+  //     this.loadRolesForUser(user.id);
+  //   });
+  // }
 
-  loadRolesForUser(userId: string): void {
-    this.roleService.getUserRole(userId).subscribe(response => {
-      this.userRoles[userId] = response.body;
-      console.log("userRoles: ", this.userRoles)
-    });
-  }
+  // loadRolesForUser(userId: string): void {
+  //   this.roleService.getUserRole(userId).subscribe(response => {
+  //     this.userRoles[userId] = response.body;
+  //     console.log("userRoles: ", this.userRoles)
+  //   });
+  // }
 
   selectUsersByCompany(): void {
     this.dataSource.data.forEach(user => {
@@ -162,7 +163,7 @@ export class UsersTableComponent implements OnInit {
   hasValue() {
     return this.selection.selected.length > 0;
   }
-   
+
   isExpansionDetailRow = (index: number, row: any) => row.hasOwnProperty('detailRow');
 
   addRolesToUser(roles: any[]) {

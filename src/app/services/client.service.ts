@@ -34,7 +34,7 @@ export class ClientService {
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
-  saveClient(form: any): Observable<HttpResponse<Client>>{
+  createClient(form: any): Observable<HttpResponse<Client>>{
     return  this.http.post<Client>(`${this.serverUrl}${this.apiUrl}/create`, form, { headers: this.headers, observe: 'response' });
   }
 

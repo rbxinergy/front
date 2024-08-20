@@ -18,6 +18,31 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  createUser(user: User): Observable<HttpResponse<any> >{
+    return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/create`, {user}, { observe: 'response' });
+  }
+
+  updateUser(id: string, user: User): Observable<User> {
+    return this.http.put<User>(`${this.serverUrl}${this.apiUrl}/update/${id}`, user, {headers: this.headers});
+  }
+
+  getAllUsersByClientAndCompany(client: string, company: string): Observable<User> {
+    return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/get/client/${client}/company/${company}`, {headers: this.headers});
+  }
+
+  getAllUsersbyRole(role: string): Observable<User> {
+    return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/get/role/${role}`, {headers: this.headers});
+  }
+
+  getAllUsersByClient(client: string){
+    return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/get/client/${client}`, {headers: this.headers});
+  }
+
+
+  getAllUsersByRoleOfClient(client: string, role: string): Observable<User> {
+    return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/get/client/${client}/role/${role}`, {headers: this.headers});
+  }
+
   getUsers(client: any, company?: any): Observable<User[]> {
     if (company) {
       return this.http.get<User[]>(`${this.serverUrl}${this.apiUrl}/get/${client}/${company}`, {headers: this.headers});
@@ -28,16 +53,6 @@ export class UserService {
 
   getUserById(id: string): Observable<User> {
     return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/${id}`, {headers: this.headers});
-  }
-
-  createUser(user: User): Observable<HttpResponse<any> >{
-    return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/create`, {user}, { observe: 'response' });
-  }
-
-
-
-  updateUser(id: string, user: User): Observable<User> {
-    return this.http.put<User>(`${this.serverUrl}${this.apiUrl}/update/${id}`, user, {headers: this.headers});
   }
 
   deleteUser(id: string): Observable<User> {
