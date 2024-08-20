@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UserService } from '../../services/user.service';
@@ -18,6 +18,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { RoleComponent } from '../role/role.component';
 
 @Component({
   selector: 'app-role-cfg-table',
@@ -34,42 +36,50 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatSortModule,
     CommonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ]
 })
-export class RoleCfgTableComponent {
+export class RoleCfgTableComponent implements AfterViewInit {
   displayedColumns: string[] = ['select', 'name', 'create', 'read', 'update', 'delete'];
   dataSource = new MatTableDataSource<Role>();
   selection = new SelectionModel<Role>(true, []);
   client: string = sessionStorage.getItem('client') || '';
   searchInput: any;
   companyID: any;
-  @Input() company: string;
-  constructor(private roleService: RoleService, public dialog: MatDialog, private route: ActivatedRoute) {
-    // this.roleService.getAllRolesByClient(this.client).subscribe((roles: any) => {
-    //   console.log(roles.body);
-    //   this.dataSource.data = roles.body as Role[];
-    //   this.selectRolesByCompany();
-    // });
-    
-  }
+  isLoading: boolean = false;
+  noRoles: boolean = false; // Nueva variable para controlar la visibilidad del mensaje
+  @Input() company: string = ''; // Inicializar con un valor predeterminado
+
+  constructor(private roleService: RoleService, public dialog: MatDialog, private route: ActivatedRoute, private cdr: ChangeDetectorRef) { }
+
   ngOnInit() {
-    this.companyID = this.route.snapshot.paramMap.get('company') || '' 
+    this.companyID = this.route.snapshot.paramMap.get('company') || '';
+    if (!this.company) {
+      this.company = 'defaultCompany'; // Asignar un valor predeterminado si company es indefinido
+    }
   }
 
   ngAfterViewInit(): void {
-    this.roleService.getAllRolesByCompany(this.companyID).subscribe((roles: any) => {
-      console.log('roles',roles.body);
-      this.dataSource.data = roles.body as Role[];
-      this.selectRolesByCompany();
-    });
-  }
-  selectRolesByCompany(): void {
-    this.dataSource.data.forEach(role => {
-      if (role.company === this.company) {
-        this.selection.select(role);
+    this.isLoading = true;
+    this.noRoles = false; // Resetear el flag
+    console.log('cliente', this.client)
+    console.log('company', this.company)
+    this.roleService.getAllRolesByCompany(this.company).subscribe(
+      (roles: any) => {
+        console.log('roles', roles);
+        this.dataSource.data = roles;
+        this.isLoading = false;
+        this.noRoles = roles.length === 0; // Mostrar mensaje si no hay roles
+        this.cdr.detectChanges(); // Marcar para detección de cambios
+      },
+      (error) => {
+        console.error('Error al cargar roles:', error);
+        this.isLoading = false;
+        this.noRoles = true; // Mostrar mensaje en caso de error
+        this.cdr.detectChanges(); // Marcar para detección de cambios
       }
-    });
+    );
   }
 
   applyFilter(event: Event) {
@@ -101,42 +111,49 @@ export class RoleCfgTableComponent {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  addRolesToCompany() {
-    console.log('Agregar rol a empresa',this.selection.selected);
-
-    // Crear un array de promesas para todas las solicitudes
-    // const requests = this.selection.selected.map(role => {
-    //   role.company = this.company;
-    //   return this.roleService.addRolesToCompany(role).toPromise()
-    // });
-
-    // Esperar a que todas las solicitudes se completen
-    // Promise.all(requests)
-    //   .then((responses) => {
-    //     // Verificar que todas las respuestas sean exitosas
-    //     if (responses.every(res => res.status === 200)) {
-    //       this.dialog.open(MessagesModalComponent, {
-    //         width: '400px',
-    //         data: { message: 'Roles agregados correctamente.', type: 'success' }
-    //       });
-    //     } else {
-    //       this.dialog.open(MessagesModalComponent, {
-    //         width: '400px',
-    //         data: { message: 'Hubo un problema al agregar algunos roles.', type: 'error' }
-    //       });
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error al agregar roles:', error);
-    //     this.dialog.open(MessagesModalComponent, {
-    //       width: '400px',
-    //       data: { message: 'Hubo un problema al agregar los roles.', type: 'error' }
-    //     });
-    //   });
-  }
   openNewRoleModal(){
-    console.log('add new rol')
+    const dialogRef = this.dialog.open(RoleComponent, {
+      width: '100%',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (newRole: Role) => {
+        if (newRole) {
+          newRole.client = this.client;
+          newRole.company = this.company;
+          console.log('newRole', newRole);
+          this.roleService.createRole(newRole).subscribe({
+            next: (response) => {
+              if (response.status === 200) {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '400px',
+                  data: { message: 'Rol creado exitosamente.', type: 'success' }
+                });
+                this.dataSource.data = this.dataSource.data.filter(role => role.id !== newRole.id);
+                this.dataSource.data.push(newRole);
+                this.dataSource.data = this.dataSource.data;
+              }
+            },
+            error: (error) => {
+              this.dialog.open(MessagesModalComponent, {
+                width: '400px',
+                data: { message: 'Error al crear el rol.', type: 'error' }
+              });
+            }
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Error al abrir el modal de nuevo grupo:', error);
+        this.dialog.open(MessagesModalComponent, {
+          width: '400px',
+          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+        });
+      }
+    });
   }
+
   hasValue() {
     return this.selection.selected.length > 0;
   }

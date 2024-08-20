@@ -37,17 +37,15 @@ export class RoleComponent {
       if(data) {
         const clientData = this.clientDataService.getClientData();
         this.roleForm = new FormGroup({
-          id: new FormControl(data?.id || null),
-          name: new FormControl(data?.name || ''),
-          description: new FormControl(data?.description || ''),
-          client: new FormControl(data?.client || ''),
+          accessType: new FormControl(data?.accessType || ''),
           company: new FormControl(data?.company || ''),
           create: new FormControl(data?.create || false),
-          update: new FormControl(data?.update || false),
-          read: new FormControl(data?.read || false),
           delete: new FormControl(data?.delete || false),
+          description: new FormControl(data?.description || ''),
+          name: new FormControl(data?.name || ''),
+          read: new FormControl(data?.read || false),
           tag: new FormControl(data?.tag || ''),
-          accessType: new FormControl(data?.accessType || '')
+          update: new FormControl(data?.update || false)
         });
       }
     }

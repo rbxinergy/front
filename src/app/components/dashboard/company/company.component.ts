@@ -84,15 +84,9 @@ export class CompanyComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  openConfig(client: string, company?: string) {
-    console.log('openConfig', client, company);
-    const idclient = client != null ? client : sessionStorage.getItem('client');
-    if (company) {
-      console.log('openConfig', client, company);
-      this.router.navigate(['/dashboard/company-config', idclient, company]);
-    } else {
-      this.router.navigate(['/dashboard/company-config', idclient]);
-    }
+  openConfig(idCompany: string, idGroupCompany: string) {
+    console.log('openConfig', idCompany, idGroupCompany);
+    this.router.navigate(['/dashboard/company-config', idCompany, idGroupCompany]);
   }
 
   onFileSelected(file: File) {

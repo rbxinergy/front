@@ -49,7 +49,7 @@ export class RoleService {
     return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/${role}/client/${client}`, { headers: this.headers })
   }
 
-  getAllRolesByCompany(company: Company){
+  getAllRolesByCompany(company: string){
     return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/company/${company}`, { headers: this.headers })
   }
 
