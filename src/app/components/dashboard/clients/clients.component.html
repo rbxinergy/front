@@ -15,6 +15,16 @@
       <mat-icon>attach_file</mat-icon>
   </button>
 </div> -->
+<div class="file-upload">
+  <h3>Cargar masiva de clientes</h3>
+  <app-file-upload (fileSelected)="onFileSelected($event)"></app-file-upload>
+  <button mat-raised-button (click)="onShowPreview()" [disabled]="!selectedFile">Vista previa</button>
+  <button mat-raised-button class="upload-button" color="primary" (click)="onUpload()" [disabled]="!selectedFile">Subir Archivo</button>
+  <p>
+      Para asegurar la correcta carga de los datos, descargar el archivo de ejemplo <a href="assets/csv/clients.csv">clients.csv</a>.
+  </p>
+</div>
+
 
 <div class="progress">
   <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress">

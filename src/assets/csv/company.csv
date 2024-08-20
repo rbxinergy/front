@@ -1,0 +1,2 @@
+name;businessName;address;country;city;state;county;district;documentType;document;headQuarters;branch;tag;idClient;idGroupCompany;idContact
+example name;example businessName;example address;example country;example city;example state;example county;example district;RUT OR DNI;example rut or dni;true o false;true o false;example tag;example idClient;example idGroupCompany;example idContact

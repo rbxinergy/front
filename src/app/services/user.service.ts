@@ -55,11 +55,22 @@ export class UserService {
     return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/${id}`, {headers: this.headers});
   }
 
+
+
   deleteUser(id: string): Observable<User> {
     return this.http.delete<User>(`${this.serverUrl}${this.apiUrl}/delete/${id}`, {headers: this.headers});
   }
 
   addUsersToCompany(user: User): Observable<HttpResponse<any>> {
     return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update`, user, { headers: this.headers, observe: 'response'})
+  }
+
+  uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
+    const headers = new HttpHeaders({
+      'enctype': 'multipart/form-data',
+      'Authorization': 'Bearer ' +  this.token,
+      'cache-control': 'no-cache'
+    });
+    return this.http.post(`${this.serverUrl}${this.apiUrl}/create/upload/file`, formData, { headers, observe: 'response'});
   }
 }

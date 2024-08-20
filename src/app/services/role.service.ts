@@ -72,4 +72,13 @@ export class RoleService {
     // return of({ status: 200, message: 'Roles agregados correctamente' } as unknown as HttpResponse<any>)
     return this.http.put<any>(`${this.serverUrl}${this.apiUrls.role}/update/${role.id}`, role, { headers: this.headers, observe: 'response'})
   }
+
+  uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
+    const headers = new HttpHeaders({
+      'enctype': 'multipart/form-data',
+      'Authorization': 'Bearer ' +  this.token,
+      'cache-control': 'no-cache'
+    });
+    return this.http.post(`${this.serverUrl}${this.apiUrls.role}/create/upload/file`, formData, { headers, observe: 'response'});
+  }
 }

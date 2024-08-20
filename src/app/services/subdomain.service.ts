@@ -65,4 +65,13 @@ export class SubdomainService {
   deleteSubdomain(id: string): Observable<HttpResponse<any>> {
     return this.http.put<any>(`${this.serverUrl}${this.apiUrls.subdomain}/delete/${id}`, { observe: 'response' });
   }
+
+  uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
+    const headers = new HttpHeaders({
+      'enctype': 'multipart/form-data',
+      'Authorization': 'Bearer ' +  this.token,
+      'cache-control': 'no-cache'
+    });
+    return this.http.post(`${this.serverUrl}${this.apiUrls.subdomain}/create/upload/file`, formData, { headers, observe: 'response'});
+  }
 }

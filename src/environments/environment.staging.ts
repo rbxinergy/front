@@ -33,6 +33,7 @@ export const environment = {
     domain: `domain-drzcbalp5q-uk.a.run.app/v1/domain`,
     domainCategory: `domain-category-drzcbalp5q-uk.a.run.app/v1/domain-category`,
     groupCompany: `group-company-drzcbalp5q-uk.a.run.app/v1/group-company`,
+    serviceCategory: `service-category-drzcbalp5q-uk.a.run.app/v1/service-category`,
     login: `login-drzcbalp5q-uk.a.run.app/v1/login/auth/login`,
     logout: `login-drzcbalp5q-uk.a.run.app/v1/login/auth/logout`,
     provider: `provider-drzcbalp5q-uk.a.run.app/v1/provider`,
@@ -40,7 +41,6 @@ export const environment = {
     subdomain: `subdomain-drzcbalp5q-uk.a.run.app/v1/subdomain`,
     user: `user-drzcbalp5q-uk.a.run.app/v1/user`,
     report: `report-drzcbalp5q-uk.a.run.app/v1/report`,  
-    serviceCategory: `service-category-drzcbalp5q-uk.a.run.app/v1/service-category`,
     serviceCompany: `service-company-drzcbalp5q-uk.a.run.app/v1`,
     session: `login-drzcbalp5q-uk.a.run.app/v1/login/get`
   }

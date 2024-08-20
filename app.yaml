@@ -74,6 +74,7 @@ handlers:
       x-frame-options: deny
       x-xss-protection: 1; mode=block
       X-Content-Type-Options: nosniff
+<<<<<<< Updated upstream
       content-security-policy: "default-src 'self' 'unsafe-inline' data: https://xrisk-client-drzcbalp5q-uk.a.run.app/v1/client https://xrisk-company-drzcbalp5q-uk.a.run.app/v1/company https://xrisk-contact-drzcbalp5q-uk.a.run.app/v1/contact https://xrisk-domain-drzcbalp5q-uk.a.run.app/v1/domain https://xrisk-domain-category-drzcbalp5q-uk.a.run.app/v1/domain-category https://xrisk-group-company-drzcbalp5q-uk.a.run.app/v1/groupcompany https://xrisk-login-drzcbalp5q-uk.a.run.app/v1/login/auth/login https://xrisk-login-drzcbalp5q-uk.a.run.app/v1/login/auth/logout https://xrisk-provider-drzcbalp5q-uk.a.run.app/v1/provider https://xrisk-role-drzcbalp5q-uk.a.run.app/v1/role https://xrisk-subdomain-drzcbalp5q-uk.a.run.app/v1/subdomain https://xrisk-user-drzcbalp5q-uk.a.run.app/v1/user"
 
 # Configuración de recursos
@@ -85,3 +86,6 @@ automatic_scaling:
 # Configuración de logs
 logging:
   level: info
+=======
+      content-security-policy: "default-src 'self' 'unsafe-inline' data: https://xrisk-client-drzcbalp5q-uk.a.run.app/v1/client https://xrisk-company-drzcbalp5q-uk.a.run.app/v1/company https://xrisk-contact-drzcbalp5q-uk.a.run.app/v1/contact https://xrisk-domain-drzcbalp5q-uk.a.run.app/v1/domain https://xrisk-domain-category-drzcbalp5q-uk.a.run.app/v1/domain-category https://xrisk-group-company-drzcbalp5q-uk.a.run.app/v1/groupcompany https://xrisk-login-drzcbalp5q-uk.a.run.app/v1/login/auth/login https://xrisk-login-drzcbalp5q-uk.a.run.app/v1/login/auth/logout https://xrisk-provider-drzcbalp5q-uk.a.run.app/v1/provider https://xrisk-role-drzcbalp5q-uk.a.run.app/v1/role https://xrisk-subdomain-drzcbalp5q-uk.a.run.app/v1/subdomain https://xrisk-user-drzcbalp5q-uk.a.run.app/v1/user; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://xrisk-client-drzcbalp5q-uk.a.run.app https://xrisk-company-drzcbalp5q-uk.a.run.app https://xrisk-contact-drzcbalp5q-uk.a.run.app https://xrisk-domain-drzcbalp5q-uk.a.run.app https://xrisk-domain-category-drzcbalp5q-uk.a.run.app https://xrisk-group-company-drzcbalp5q-uk.a.run.app https://xrisk-login-drzcbalp5q-uk.a.run.app https://xrisk-provider-drzcbalp5q-uk.a.run.app https://xrisk-role-drzcbalp5q-uk.a.run.app https://xrisk-subdomain-drzcbalp5q-uk.a.run.app https://xrisk-user-drzcbalp5q-uk.a.run.app"
+>>>>>>> Stashed changes
