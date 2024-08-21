@@ -1,4 +1,8 @@
 <h2>Categoría de Dominio</h2>
+<div class="spinner" *ngIf="isLoading">
+  <mat-progress-spinner color="accent" mode="indeterminate" diameter="50">
+  </mat-progress-spinner>
+</div>
 <div>
   <div class="search-container table-header"> 
     <mat-form-field *ngIf="domainCategories.length > 0" appearance="outline">
@@ -13,16 +17,11 @@
     </button>
   </div>
 
-  <div *ngIf="domainCategories.length === 0">
+  <div *ngIf="domainCategories.length === 0"  [hidden]="isLoading">
     <h3>No hay categoría de dominios asociadas a este grupo de empresas</h3>
   </div>
 
-  <table *ngIf="domainCategories.length > 0"  mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- ID Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
+  <table *ngIf="domainCategories.length > 0"  mat-table [dataSource]="dataSource" [hidden]="isLoading">
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">

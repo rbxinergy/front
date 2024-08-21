@@ -3,7 +3,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, Inject } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule, MatSortable, Sort } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { Domain, SubDomain } from '../../interfaces/domain.interface';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTableDataSource } from '@angular/material/table';
@@ -24,11 +24,11 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SubdomainService } from 'src/app/services/subdomain.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { subdomains } from 'src/app/shared/dummy-data/subdomains-domain.dummy';
-import { Subdomain } from 'src/app/interfaces/subdomain.interface';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { DomainCategory } from 'src/app/interfaces/domaincategory.interface';
 import { ActivatedRoute } from '@angular/router';
+import { CompanyService } from 'src/app/services/company.service';
+import { Company } from 'src/app/interfaces/company.interface';
 
 @Component({
   selector: 'app-domain-table',
@@ -53,7 +53,7 @@ import { ActivatedRoute } from '@angular/router';
 export class DomainTableComponent implements AfterViewInit {
 
   dataSource = new MatTableDataSource<Domain>();
-  columnsToDisplay = ['select', 'id', 'name', 'description', 'code', 'tag'];
+  columnsToDisplay = ['select', 'name', 'description', 'code', 'tag'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay,  'expand', 'actions'];
   expandedElement: Domain | null;
   domainID = null;
@@ -64,8 +64,8 @@ export class DomainTableComponent implements AfterViewInit {
   client = sessionStorage.getItem('client');
   selection = new SelectionModel<Domain>(true, []);
   selectedSubdomain: SubDomain | null = null;
-  // groupCompanyID: any
-
+  companies: Company[] = []
+  idGroupCompany: string
   formDomainTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
   });
@@ -74,20 +74,23 @@ export class DomainTableComponent implements AfterViewInit {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(private cdr: ChangeDetectorRef,  private DomainService: DomainService,
-    private SubdomainService: SubdomainService, private dialog: MatDialog, 
-    // private route: ActivatedRoute,
+    private companyService: CompanyService,
+    private SubdomainService: SubdomainService, private dialog: MatDialog,
     private dialogRef: MatDialogRef<DomainTableComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DomainCategory) 
-    {
+    @Inject(MAT_DIALOG_DATA) public data: DomainCategory) {
       if(data){
         this.domainCategory = data
+        this.idGroupCompany = data.idGroupCompany
       }
   }
+
   // ngOnInit() {
-  //   this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || ''
-  // }
+  //   console.log( this.route.snapshot.paramMap.get('domainCategory') )
+  //   this.domainCategory = this.route.snapshot.paramMap.get('domainCategory') || ''
+  // }    
   
   ngAfterViewInit(): void {
+    console.log(this.domainCategory)
     this.DomainService.getAllDomainsByCategory(this.domainCategory.id).subscribe((domains: Domain[]) => {
       this.domains = domains;
       this.domains.forEach((domain: Domain) => {
@@ -143,7 +146,6 @@ export class DomainTableComponent implements AfterViewInit {
   }
 
   openSubdomainModal(idDomain: string) {
-    console.log("hello world!", idDomain)
     const dialogRef = this.dialog.open(SubdomainComponent, {
       width: '800px',
       height: '600px',
@@ -195,14 +197,17 @@ export class DomainTableComponent implements AfterViewInit {
     let domainCategory = this.domainCategory 
     const maxId = this.domains.length > 0 ? Math.max(...this.domains.map(domain => parseInt(domain.id))) : 0;
   
+    console.log(domainCategory)
     const dialogRef = this.dialog.open(DomainComponent, {
       width: '90%',
-      data:  domainCategory
+      data:  domainCategory.idGroupCompany
     });
 
     dialogRef.afterClosed().subscribe({
       next: (newDomain: Domain) => {
         if (newDomain) {
+          newDomain.idDomainCategory = domainCategory.id
+          console.log(newDomain)
           this.DomainService.createDomain(newDomain).subscribe({
             next: (response) => {
               if (response.status === 200) {
@@ -241,20 +246,20 @@ export class DomainTableComponent implements AfterViewInit {
   }
 
   // Implementación para abrir el diálogo de edición
-  openUpdate(domain: Domain) {
-    domain.active = true
-    this.selectedDomain = { ...domain }
+  openUpdate(domain: any) {
     delete domain.subDomains
-    console.log(  this.selectedDomain = { ...domain })
+    domain.idGroupCompany = this.domainCategory.idGroupCompany
+    console.log( domain)
     
     const dialogRef = this.dialog.open(DomainComponent, {
       width: '600px',
-      data: this.selectedDomain 
+      data: domain
     });
 
     dialogRef.afterClosed().subscribe({
       next: (updatedDomain: Domain) => {
         if (updatedDomain) {
+          console.log(updatedDomain)
           this.DomainService.updateDomain(updatedDomain).subscribe({
             next: (response) => {
               if (response.status === 200) {
@@ -299,25 +304,24 @@ export class DomainTableComponent implements AfterViewInit {
       width: '400px',
       data: {
         title: 'Confirmar eliminación',
-        message: `¿Está seguro de que deseas eliminar el dominio ${domain.name}?`,
+        message: `¿Está seguro de que deseas eliminar el dominio: ${domain.name}?`,
         type: 'error'
       }
     });
 
     dialogRef.afterClosed().subscribe({
-   
       next: (result) => {
-       
         if (result) {
           this.DomainService.deleteDomain(domain.id).subscribe({
             next: (response) => {
+                console.log('response', response.body);
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
                   data: { message: 'Subdominio eliminado exitosamente.', type: 'success' }
                 });
-                this.subdomains = this.subdomains.filter(c => c.id !== domain.id);
-                if(this.subdomains.length === 0){
+                this.domains = this.domains.filter(c => c.id !== domain.id);
+                if(this.domains.length === 0){
                   this.formDomainTable.controls['tempControl'].setValue(null);
                 }
                 this.dataSource.data = this.domains;
@@ -395,7 +399,6 @@ export class DomainTableComponent implements AfterViewInit {
   }
 
   deleteSubdomain(subdomain: SubDomain) {
-  
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
       data: {

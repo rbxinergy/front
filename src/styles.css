@@ -64,6 +64,20 @@ header{
     font-weight: bold;
     text-align: center;
 }
+
+/* Estilos personalizados para el buscador y botones sobre tablas */
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+section.btn-row{
+    display: grid;
+    gap: 10px;
+    grid-template-columns: auto auto;
+}
+
 /* BUTTON */
 .btn{
     background-color: #5f4ede;

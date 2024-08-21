@@ -39,10 +39,10 @@ export class SubdomainComponent {
   selectedDomainName = this.data?.name
   domainsMap: { [key: string]: SubDomain[] } = {};
   subdomainForm: FormGroup;
-  subdomainsForm: FormGroup;
+  subdomainsForm!: FormGroup;
   subdomains: SubDomain[] = [];
   dataSourcePacks!: MatTableDataSource<any>;
-  displayedColumns = ["Nombre", "Descripción", "Tags", "Eliminar"]
+  displayedColumns = ["name", "description", "tags", "delete"]
 
 
   constructor(@Optional() public dialog: MatDialog, @Optional() private dialogRef: MatDialogRef<SubdomainComponent>,
@@ -56,21 +56,19 @@ export class SubdomainComponent {
           description: new FormControl(data?.data?.description || '', Validators.required),
           tag: new FormControl(data?.data?.tag || ''),
           idDomain: new FormControl(data?.data?.idDomain || '', Validators.required),
-          subdominios: new FormControl('')
         })
       }
 
       this.subdomainsForm = this._fb.group({
-        id: new FormControl([''], Validators.required),
         name: new FormControl([''], Validators.required),
         description: new FormControl([''], Validators.required),
         tag: new FormControl(['']),
-        subdominios: new FormControl('')
+        subdominios: this._fb.array([])
       })
       
     }
   
-    get subdomainss() {
+    get subdominios() {
       return this.subdomainsForm.controls["subdominios"] as FormArray;
     };
   
@@ -79,16 +77,16 @@ export class SubdomainComponent {
       name: [''],
       description: [''],
       tag: [''],
-      idDomain: ['']
+      idDomain: [selectedDomainId]
     }) as unknown as any;
 
-    this.subdomains.push(subdomainsForm.value);
-    this.dataSourcePacks = new MatTableDataSource(this.subdomains);
+    this.subdominios.push(subdomainsForm);
+    this.dataSourcePacks = new MatTableDataSource(this.subdominios.controls);
     this.cd.detectChanges();
   };
   
   onSubmit(selectedDomainId: string):void {
-    this.dialogRef.close(this.subdomains)
+    this.dialogRef.close(this.subdominios.value)
     
   }
   onUpdate(){

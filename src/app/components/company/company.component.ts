@@ -49,7 +49,6 @@ export class CompanyComponent {
           active: new FormControl(data?.active || true),
           tag: new FormControl(data?.tag || ''),
           idContact: new FormControl(data?.idContact || [])
-  
         });
       }
     }

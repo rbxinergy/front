@@ -1,5 +1,4 @@
-<!-- <h2>{{"domain"|translate}}</h2> -->
-<h2>Dominio</h2>
+<h2>{{"domain"|translate}}</h2>
 <div class="p-4">
   <form [formGroup]="domainForm" (ngSubmit)="closeModal()">
     <mat-form-field appearance="outline" class="col-1">
@@ -24,17 +23,14 @@
 
     <mat-form-field appearance="outline" class="col-2">
       <mat-label>Empresa</mat-label>
-      <mat-select  name="company" formControlName="idCompany" placeholder="Seleccione la empresa" required>
-        <mat-option value={{company.id}} *ngFor="let company of companies">{{company.name}}</mat-option>
+      <mat-select name="company" formControlName="idCompany" placeholder="Seleccione la empresa" required>
+          <mat-option value={{company.id}} *ngFor="let company of companies">{{company.name}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <div *ngIf="data.active == true">
       <mat-checkbox class="example-margin">Activo</mat-checkbox>
     </div>
-    <!-- <div *ngIf="data.delete">
-      <mat-checkbox class="example-margin">Eliminar</mat-checkbox>
-    </div> -->
 
     <div class="btn-box">
       <button mat-raised-button type="submit">Volver</button>

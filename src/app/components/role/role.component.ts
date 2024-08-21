@@ -24,8 +24,7 @@ import { ClientDataService } from 'src/app/services/client-data.service';
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
     TranslateModule, MatNativeDateModule, MatDatepickerModule, MatCheckboxModule
   ],
-  templateUrl: './role.component.html',
-  styleUrls: ['./role.component.css']
+  templateUrl: './role.component.html'
 })
 export class RoleComponent {
   roleForm: FormGroup;

@@ -45,7 +45,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class GroupCompanyTableComponent implements AfterViewInit {
   displayedColumns: string[] = [
-    'id', 'name', 'description', 'tag', 'acciones'
+    'name', 'description', 'tag', 'acciones'
   ];
   dataSource = new MatTableDataSource<GroupCompany>();
   groupCompanies: GroupCompany[] = [];
@@ -85,11 +85,13 @@ export class GroupCompanyTableComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+
     this.groupCompanyService.getGroupCompanies(this.clientID).subscribe(data => {
       this.dataSource.data = data
       this.isLoading = false
       this.groupCompanies = data
     })
+    
     //  this.groupCompanyDataService.setGroupCompanyData(data);
   }
 
@@ -191,7 +193,6 @@ export class GroupCompanyTableComponent implements AfterViewInit {
   }
   
   addNewDomainCategory(groupCompany: GroupCompany){
-    console.log(groupCompany.id)
     this.router.navigate(['dashboard/domaincategory', groupCompany.id]);
   }
 

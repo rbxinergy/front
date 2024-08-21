@@ -52,7 +52,7 @@ export class SubdomainService {
   }
 
   updateSubdomain(subdomain: SubDomain): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.subdomain}/update/${subdomain}`, subdomain, { observe: 'response' });
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.subdomain}/update/${subdomain.id}`, subdomain, { observe: 'response' });
   }
 
   getAllSubdomainsByDomain(domain: Domain){
@@ -67,8 +67,8 @@ export class SubdomainService {
     return this.http.get<Subdomain[]>(`${this.serverUrl}${this.apiUrls.subdomain}/get/${idDomain}`, {headers: this.headers});
   }
 
-  deleteSubdomain(id: string): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.subdomain}/delete/${id}`, { observe: 'response' });
+  deleteSubdomain(id: string) {
+    return this.http.delete<any>(`${this.serverUrl}${this.apiUrls.subdomain}/delete/${id}`, { headers: this.headers });
   }
 
 

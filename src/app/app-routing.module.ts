@@ -60,7 +60,7 @@ const routes: Routes = [
       { path: 'provider', component: ProviderComponent },
       { path: 'company2', component: CompanyCmp },
       { path: 'domain', component: DomainComponent },
-      { path: 'domains', component: DomainTableComponent },
+      { path: 'domains/:idDomain', component: DomainTableComponent },
       { path: 'domain-config', component: DomainCfgTableComponent },
       { path: 'subdomain', component: SubdomainComponent },
       { path: 'domaincategory', component: DomaincategoryComponent },

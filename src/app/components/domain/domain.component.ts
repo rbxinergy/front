@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,15 +36,11 @@ import { DomainCategory } from 'src/app/interfaces/domaincategory.interface';
 })
 export class DomainComponent {
   domainForm: FormGroup;
-  idGroupCompany: string = ''
-  datos: any 
   companies: Company[] = []
-  
+  idGroupCompany: string
   constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<DomainComponent>, private companyService: CompanyService,
-    @Inject(MAT_DIALOG_DATA) public data:Domain ) {
+    @Inject(MAT_DIALOG_DATA) public data:any ) {
       if(data) {
-        console.log(data)
-          this.datos = data
         this.domainForm = new FormGroup({
           id: new FormControl(data?.id || '', Validators.required),
           name: new FormControl(data?.name || '', Validators.required),
@@ -56,18 +52,19 @@ export class DomainComponent {
           idServiceCompany: new FormControl(data?.idServiceCompany || '3d447b9d-76d3-4d02-a045-67ca44d66664', Validators.required),
           active: new FormControl(data?.active || true, Validators.required),
         });
-      
-      }
-      this.idGroupCompany = this.datos.idGroupCompany
 
+        this.idGroupCompany = data 
+      }
+      if(data.idGroupCompany){
+        this.idGroupCompany = data.idGroupCompany
+        console.log(data.idGroupCompany)
+      }
+      
       this.companyService.getCompaniesByGroup(this.idGroupCompany).subscribe((companies: Company[]) => {
-        console.log('Empresas', companies)
         this.companies = companies
       });
-      
     }
 
-  
   
   closeModal(){
     this.dialogRef.close(this.domainForm.getRawValue());
