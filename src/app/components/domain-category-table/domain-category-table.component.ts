@@ -29,7 +29,8 @@ import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.serv
 import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
 import { DomainComponent } from '../domain/domain.component';
 import { DomainTableComponent } from '../domain-table/domain-table.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-domain-category-table',
@@ -50,15 +51,15 @@ import { ActivatedRoute } from '@angular/router';
     MatToolbarModule,
     MatPaginatorModule,
     MatSortModule,
-    
+    MatProgressSpinnerModule
     // MatSelectModule, MatSnackBarModule, MatTooltipModule, 
   ]
 })
 
 // Para crear cat de dominio necesito el idGroupCompany que viene del paso 2 del stepper
 export class DomainCategoryTableComponent {
-  // displayedColumns: string[] = ['select', 'id', 'name'];
-  displayedColumns: string[] = ['select', 'id', 'name', 'description', 'tag', 'acciones'];
+  isLoading = true
+  displayedColumns: string[] = ['select', 'name', 'description', 'tag', 'acciones'];
   dataSource = new MatTableDataSource<DomainCategory>();
   selection = new SelectionModel<DomainCategory>(true, []);
 
@@ -72,52 +73,26 @@ export class DomainCategoryTableComponent {
   groupCompany: GroupCompany | null = null;
   groupCompanyID: any
 
-  
   constructor(private domainCategoryService: DomainCategoryService, private dialog: MatDialog, private cdr: ChangeDetectorRef, 
-    private groupCompanyDataService: GroupcompanyDataService, private route: ActivatedRoute
-    // @Inject(MAT_DIALOG_DATA) public data: GroupCompany
-  ) {
-      // if(data){
-      //   console.log(data)
-      //   this.groupCompany = data
-      //   this.groupCompanyDataService.setGroupCompanyData(data);
-      // } else {
-      //   this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
-      // }
-
-    // this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
-    // console.log("GROUPCOMPANY: ", this.groupCompany)
-    // this.domainCategoryService.getallDomainCategories(this.groupCompanyID).subscribe((domainCategories: DomainCategory[]) => {
-    //   this.dataSource.data = domainCategories;
-    //   this.domainCategories = domainCategories
-    //   console.log(domainCategories)
-    // });
+    private groupCompanyDataService: GroupcompanyDataService, private route: ActivatedRoute, private router: Router) {
   }
-
-
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   ngOnInit() {
-    console.log('domain',  this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || '')
     this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || ''
   }
 
   ngAfterViewInit(): void {
     this.domainCategoryService.getallDomainCategories(this.groupCompanyID).subscribe((domainCategories: DomainCategory[]) => {
       this.dataSource.data = domainCategories;
+      this.isLoading = false
       this.domainCategories = domainCategories
       console.log(domainCategories)
     });
   }
-//   @Input() clientName: string;
-// client: Client | null = null;
-  // ngOnInit(): void {
-  //   this.userService.getUsers('client', 'company').subscribe((users: User[]) => {
-  //     this.dataSource.data = users;
-  //   });
-  // }
+
   /** Si el número de elementos seleccionados coincide con el número total de filas. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -140,8 +115,6 @@ export class DomainCategoryTableComponent {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -156,8 +129,9 @@ export class DomainCategoryTableComponent {
     const event = { target: input } as Event & { target: HTMLInputElement };
     this.applyFilter(event);
   }
-
+ 
   addDomainModal(domainCategory: DomainCategory){
+    // this.router.navigate(['dashboard/domains', domainCategory.id ]);
     const dialogRef = this.dialog.open(DomainTableComponent, {
       width: '90%',
       data:  domainCategory

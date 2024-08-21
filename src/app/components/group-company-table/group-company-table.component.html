@@ -1,15 +1,16 @@
 <h2>{{"groupcompany"|translate}}</h2>
+
 <!-- <button mat-menu-item (click)="goBack()">
   <mat-icon>arrow_back_ios</mat-icon>
   <span>Atrás</span>
 </button> -->
-<div class="p-4">
-  <div class="spinner" *ngIf="isLoading">
-    <mat-progress-spinner color="accent" mode="indeterminate" diameter="50">
-    </mat-progress-spinner>
-  </div>
-  <div class="search-container table-header">
-      <mat-form-field *ngIf="groupCompanies.length > 0" appearance="outline" >
+<div class="spinner" *ngIf="isLoading">
+  <mat-progress-spinner color="accent" mode="indeterminate" diameter="100">
+  </mat-progress-spinner>
+</div>
+<div class="p-4" [hidden]="isLoading">
+  <div class="table-header">
+      <mat-form-field *ngIf="groupCompanies.length > 0" appearance="outline">
         <mat-label>Buscar</mat-label>
         <input matInput (input)="applyFilter($event)" placeholder="Buscar" #searchInput>
         <button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch(searchInput)">
@@ -24,12 +25,7 @@
   <div *ngIf="groupCompanies.length === 0">
     <h3>No hay grupos de empresas asociadas a este cliente</h3>
   </div>
-  <table *ngIf="groupCompanies.length > 0" mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort [hidden]="isLoading">
-    <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
+  <table *ngIf="groupCompanies.length > 0" mat-table [dataSource]="dataSource" matSort [hidden]="isLoading">
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Nombre </th>
@@ -85,5 +81,5 @@
 
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons ></mat-paginator>
 </div>

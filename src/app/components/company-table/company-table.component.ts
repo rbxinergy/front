@@ -47,7 +47,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class CompanyTableComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = [
-    'id', 'name', 'businessName', 'address', 'country', 'city', 'documentType', 'document', 'acciones'
+    'name', 'businessName', 'address', 'country', 'city', 'documentType', 'document', 'acciones'
   ];
   dataSource = new MatTableDataSource<Company>();
   companies: Company[] = [];

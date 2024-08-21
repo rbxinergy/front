@@ -23,8 +23,7 @@ import { DomainCategory } from 'src/app/interfaces/domaincategory.interface';
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
     TranslateModule, MatNativeDateModule, MatDatepickerModule
   ],
-  templateUrl: './domaincategory.component.html',
-  styleUrls: ['./domaincategory.component.css']
+  templateUrl: './domaincategory.component.html'
 })
 export class DomaincategoryComponent {
   domainCategoryForm : FormGroup

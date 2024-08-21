@@ -33,6 +33,9 @@ import { GroupCompanyTableComponent } from '../../group-company-table/group-comp
 import { ClientDataService } from 'src/app/services/client-data.service';
 import { FilePreviewDialogComponent } from '../../file-preview-dialog/file-preview-dialog.component';
 import { FileUploadComponent } from '../../file-upload/file-upload.component';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-clients',
@@ -54,7 +57,10 @@ import { FileUploadComponent } from '../../file-upload/file-upload.component';
     MatDialogModule,
     MatDividerModule,
     MatProgressBarModule,
-    FileUploadComponent
+    FileUploadComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTooltipModule
   ],
 })
 export class ClientsComponent implements AfterViewInit {
@@ -102,6 +108,21 @@ export class ClientsComponent implements AfterViewInit {
   
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  clearSearch(input: HTMLInputElement) {
+    input.value = '';
+    const event = { target: input } as Event & { target: HTMLInputElement };
+    this.applyFilter(event);
   }
 
   navigateToNewClient() {
