@@ -20,6 +20,8 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RoleComponent } from '../role/role.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-role-cfg-table',
@@ -37,11 +39,12 @@ import { RoleComponent } from '../role/role.component';
     CommonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule
   ]
 })
 export class RoleCfgTableComponent implements AfterViewInit {
-  displayedColumns: string[] = ['select', 'name', 'create', 'read', 'update', 'delete'];
+  displayedColumns: string[] = ['select', 'name', 'create', 'read', 'update', 'delete', 'acciones'];
   dataSource = new MatTableDataSource<Role>();
   selection = new SelectionModel<Role>(true, []);
   client: string = sessionStorage.getItem('client') || '';
@@ -53,24 +56,17 @@ export class RoleCfgTableComponent implements AfterViewInit {
 
   constructor(private roleService: RoleService, public dialog: MatDialog, private route: ActivatedRoute, private cdr: ChangeDetectorRef) { }
 
-  ngOnInit() {
-    this.companyID = this.route.snapshot.paramMap.get('company') || '';
-    if (!this.company) {
-      this.company = 'defaultCompany'; // Asignar un valor predeterminado si company es indefinido
-    }
-  }
-
   ngAfterViewInit(): void {
     this.isLoading = true;
     this.noRoles = false; // Resetear el flag
     console.log('cliente', this.client)
     console.log('company', this.company)
     this.roleService.getAllRolesByCompany(this.company).subscribe(
-      (roles: any) => {
-        console.log('roles', roles);
-        this.dataSource.data = roles;
+      (response: HttpResponse<any>) => {
+        console.log('roles', response.body);
+        this.dataSource.data = response.body;
         this.isLoading = false;
-        this.noRoles = roles.length === 0; // Mostrar mensaje si no hay roles
+        this.noRoles = response.body.length === 0; // Mostrar mensaje si no hay roles
         this.cdr.detectChanges(); // Marcar para detección de cambios
       },
       (error) => {
@@ -156,5 +152,49 @@ export class RoleCfgTableComponent implements AfterViewInit {
 
   hasValue() {
     return this.selection.selected.length > 0;
+  }
+
+  openEdit(role: Role){
+    const dialogRef = this.dialog.open(RoleComponent, {
+      width: '100%',
+      data: {role: role, id: role.id}
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (newRole: any) => {
+        if (newRole.role) {
+          console.log('newRole', newRole);
+
+          this.roleService.updateRole(newRole.role, newRole.id).subscribe({
+            next: (response) => {
+              console.log('response', response);
+              this.dialog.open(MessagesModalComponent, {
+                width: '400px',
+                data: { message: 'Rol actualizado exitosamente.', type: 'success' }
+              });
+              this.ngAfterViewInit();
+            },
+            error: (error) => {
+              console.error('Error al actualizar el rol:', error);
+              this.dialog.open(MessagesModalComponent, {
+                width: '400px',
+                data: { message: 'Error al actualizar el rol.', type: 'error' }
+              });
+            }
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Error al abrir el modal de editar rol:', error);
+        this.dialog.open(MessagesModalComponent, {
+          width: '400px',
+          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+        });
+      }
+    });
+  }
+
+  openDelete(id: number){
+    console.log('id', id);
   }
 }
