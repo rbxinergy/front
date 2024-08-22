@@ -2,24 +2,27 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { UserService } from '../../services/user.service';
+import { RoleService } from '../../services/role.service';
 import { User } from '../../interfaces/user.interface';
+import { Role } from '../../interfaces/role.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { UserComponent } from '../user/user.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
-import { MatDialog } from '@angular/material/dialog';
-import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { RoleService } from '../../services/role.service';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import { Role } from 'src/app/interfaces/role.interface';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { MatSelectModule } from '@angular/material/select';
+
+
 @Component({
   selector: 'app-users-table',
   templateUrl: './users-table.component.html',
@@ -36,7 +39,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    MatSelectModule
   ],
   animations: [
     trigger('detailExpand', [
@@ -47,55 +52,59 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
 })
 export class UsersTableComponent implements OnInit {
-  displayedColumns = ['select', 'name', 'email', 'jobTitle'];
+  displayedColumns = ['name', 'email', 'jobTitle'];
   columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
-  expandedElement: User | null;
   dataSource = new MatTableDataSource<User>();
-  users: User[]= [];
-  selectedUser: User | null = null;
-
   selection = new SelectionModel<User>(true, []);
+  users: User[] = [];
+  roles: Role[] = [];
+  expandedElement: User | null = null;
   client: string = sessionStorage.getItem('client') || '';
-  formUserTable: FormGroup = new FormGroup({
-    tempControl: new FormControl(null, Validators.required)
-  });
-
   @Input() companyId: string = '';
   searchInput: any;
   userRoles: { [key: string]: any[] } = {};
 
-  constructor(private userService: UserService, public dialog: MatDialog, private roleService: RoleService) {
-
-    this.userService.getAllUsersByClient(this.client).subscribe((users:any )=> {
-      this.dataSource.data = users;
-      console.log("users: ", users)
-      this.selectUsersByCompany();
-      // this.loadRolesForUsers();
-    });
-  }
+  constructor(private userService: UserService, private roleService: RoleService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
+    this.loadUsers();
+    this.loadRoles();
   }
 
-  // loadRolesForUsers(): void {
-  //   this.dataSource.data.forEach(user => {
-  //     this.loadRolesForUser(user.id);
-  //   });
-  // }
-
-  // loadRolesForUser(userId: string): void {
-  //   this.roleService.getUserRole(userId).subscribe(response => {
-  //     this.userRoles[userId] = response.body;
-  //     console.log("userRoles: ", this.userRoles)
-  //   });
-  // }
-
-  selectUsersByCompany(): void {
-    this.dataSource.data.forEach(user => {
-      if (user.company === this.companyId) {
-        this.selection.select(user);
+  loadUsers(): void {
+    this.userService.getAllUsersByClientAndCompany(this.client, this.companyId).subscribe(
+      (response: any) => {
+        if (response.status === 200) {
+          this.users = response.body as User[];
+          this.dataSource.data = this.users;
+        } else {
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Hubo un problema al obtener los usuarios.', type: 'error' }
+          });
+        }
       }
-    });
+    );
+  }
+
+  loadRoles(): void {
+    this.roleService.getAllRolesByCompany(this.companyId).subscribe(
+      (response: any) => {
+        if (response.status === 200) {
+          this.roles = response.body as Role[];
+        } else {
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Hubo un problema al obtener los roles.', type: 'error' }
+          });
+        }
+      }
+    );
+  }
+
+  getRoleName(roleId: string): string {
+    const role = this.roles.find(role => role.id === roleId);
+    return role ? role.name : '';
   }
 
   applyFilter(event: Event) {
@@ -103,15 +112,15 @@ export class UsersTableComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  clearSearch(input: HTMLInputElement) {
+    input.value = '';
+    this.dataSource.filter = '';
+  }
+
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
-  }
-
-  clearSearch(input: HTMLInputElement) {
-    input.value = '';
-    this.dataSource.filter = '';
   }
 
   masterToggle() {
@@ -127,46 +136,61 @@ export class UsersTableComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
 
-  addUsersToCompany() {
-    console.log(this.selection.selected);
+  openNewUserModal() {
+    const dialogRef = this.dialog.open(UserComponent, {
+      width: '600px',
+      data: { companyId: this.companyId }
+    });
 
-    // Crear un array de promesas para todas las solicitudes
-    const requests = this.selection.selected.map(user => 
-      this.userService.addUsersToCompany(user).toPromise()
-    );
-
-    // Esperar a que todas las solicitudes se completen
-    Promise.all(requests)
-      .then((responses) => {
-        // Verificar que todas las respuestas sean exitosas
-        if (responses.every(res => res.status === 200)) {
-          this.dialog.open(MessagesModalComponent, {
-            width: '400px',
-            data: { message: 'Usuarios agregados correctamente.', type: 'success' }
-          });
-        } else {
-          this.dialog.open(MessagesModalComponent, {
-            width: '400px',
-            data: { message: 'Hubo un problema al agregar algunos usuarios.', type: 'error' }
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          delete result.confirmPassword; // Eliminar la propiedad confirmPassword
+          result.company = this.companyId;
+          console.log(result);
+          this.userService.createUser(result).subscribe({
+            next: (response) => {
+              console.log('Usuario creado exitosamente:', response);
+              this.loadUsers(); // Recargar la lista de usuarios
+            },
+            error: (error) => {
+              console.error('Error al crear el usuario:', error);
+            }
           });
         }
-      })
-      .catch((error) => {
-        console.error('Error al agregar usuarios:', error);
-        this.dialog.open(MessagesModalComponent, {
-          width: '400px',
-          data: { message: 'Hubo un problema al agregar los usuarios.', type: 'error' }
-        });
-      });
+      },
+      error: (error) => {
+        console.error('Error al cerrar el diálogo:', error);
+      }
+    });
   }
 
-  hasValue() {
-    return this.selection.selected.length > 0;
-  }
+  toggleRole(user: User, selectedRoles: string[]) {
+    user.idRole = selectedRoles;
+    console.log(user, selectedRoles);
+    this.userService.updateUser(user.id, user).subscribe({
+      next: (response) => {
+        console.log('Roles actualizados exitosamente:', response);
+      },
+      error: (error) => {
+        console.error('Error al actualizar los roles del usuario:', error);
+      }
+    });
+    // const index = user.idRole.indexOf(roleId);
+    // if (index === -1) {
+    //   user.idRole.push(roleId);
+    // } else {
+    //   user.idRole.splice(index, 1);
+    // }
 
-  isExpansionDetailRow = (index: number, row: any) => row.hasOwnProperty('detailRow');
-
-  addRolesToUser(roles: any[]) {
-    console.log("roles: ", roles)
+    // Aquí puedes llamar a un servicio para actualizar los roles del usuario
+    // this.userService.updateUser(user.id, user).subscribe({
+    //   next: (response) => {
+    //     console.log('Roles actualizados exitosamente:', response);
+    //   },
+    //   error: (error) => {
+    //     console.error('Error al actualizar los roles del usuario:', error);
+    //   }
+    // });
   }
 }

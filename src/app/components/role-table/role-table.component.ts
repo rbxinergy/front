@@ -164,7 +164,7 @@ export class RoleTableComponent {
     dialogRef.afterClosed().subscribe({
       next: (updatedRole: Role) => {
         if (updatedRole) {
-          this.roleService.updateRole(updatedRole).subscribe({
+          this.roleService.updateRole(updatedRole, updatedRole.id).subscribe({
             next: (response) => {
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {

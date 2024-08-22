@@ -19,7 +19,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   createUser(user: User): Observable<HttpResponse<any> >{
-    return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/create`, {user}, { observe: 'response' });
+    return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/create`, user, { observe: 'response' });
   }
 
   uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
@@ -31,40 +31,43 @@ export class UserService {
     return this.http.post(`${this.serverUrl}${this.apiUrl}/create/upload/file`, formData, { headers, observe: 'response'});
   }
 
-  updateUser(id: string, user: User): Observable<User> {
-    return this.http.put<User>(`${this.serverUrl}${this.apiUrl}/update/${id}`, user, {headers: this.headers});
+  updateUser(id: string, user: User): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update/${id}`, user, { headers: this.headers, observe: 'response'});
   }
 
-  getAllUsersByClientAndCompany(client: string, company: string): Observable<User> {
-    return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/get/client/${client}/company/${company}`, {headers: this.headers});
+  getAllUsersByClientAndCompany(client: string, company: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(
+      `${this.serverUrl}${this.apiUrl}/get/client/${client}/company/${company}`,
+      {headers: this.headers, observe: 'response'}
+    );
   }
 
-  getUserByCompany(user: string, company: string): Observable<User> {
-    return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/get/${user}/company/${company}`, {headers: this.headers});
+  getUserByCompany(user: string, company: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrl}/get/${user}/company/${company}`, {headers: this.headers, observe: 'response'});
   }
 
-  getAllUsersbyRole(role: string): Observable<User> {
-    return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/get/role/${role}`, {headers: this.headers});
+  getAllUsersbyRole(role: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrl}/get/role/${role}`, {headers: this.headers, observe: 'response'});
   }
 
-  getUserbyRole(user: string, role: string): Observable<User> {
-    return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/get/${user}/role/${role}`, {headers: this.headers});
+  getUserbyRole(user: string, role: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrl}/get/${user}/role/${role}`, {headers: this.headers, observe: 'response'});
   }
 
-  getAllUsersByClient(client: string){
-    return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/get/client/${client}`, {headers: this.headers});
+  getAllUsersByClient(client: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrl}/get/client/${client}`, {headers: this.headers, observe: 'response'});
   }
 
-  getUserByClient(user:string, client: string){
-    return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/get/${user}/client/${client}`, {headers: this.headers});
+  getUserByClient(user:string, client: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrl}/get/${user}/client/${client}`, {headers: this.headers, observe: 'response'});
   }
 
-  getAllUsersByRoleOfClient(client: string, role: string): Observable<User> {
-    return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/get/client/${client}/role/${role}`, {headers: this.headers});
+  getAllUsersByRoleOfClient(client: string, role: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrl}/get/client/${client}/role/${role}`, {headers: this.headers, observe: 'response'});
   }
 
-  getUserByRoleOfClient(user:string, client: string, role: string): Observable<User> {
-    return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/get/${user}/client/${client}/role/${role}`, {headers: this.headers});
+  getUserByRoleOfClient(user:string, client: string, role: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrl}/get/${user}/client/${client}/role/${role}`, {headers: this.headers, observe: 'response'});
   }
 
   // getUsers(client: any, company?: any): Observable<User[]> {
@@ -79,8 +82,8 @@ export class UserService {
   //   return this.http.get<User>(`${this.serverUrl}${this.apiUrl}/${id}`, {headers: this.headers});
   // }
 
-  deleteUser(id: string): Observable<User> {
-    return this.http.delete<User>(`${this.serverUrl}${this.apiUrl}/delete/${id}`, {headers: this.headers});
+  deleteUser(id: string): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${this.serverUrl}${this.apiUrl}/delete/${id}`, {headers: this.headers, observe: 'response'});
   }
 
   // revisar

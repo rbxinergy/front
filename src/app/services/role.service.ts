@@ -37,8 +37,8 @@ export class RoleService {
     return this.http.post(`${this.serverUrl}${this.apiUrls.role}/create/upload/file`, formData, { headers, observe: 'response'});
   }
 
-  updateRole(role: Role): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.role}/update/${role.id}`, role, { headers: this.headers, observe: 'response'})
+  updateRole(role: Role, id: string): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrls.role}/update/${id}`, role, { headers: this.headers, observe: 'response'})
   }
 
   getAllRolesByClient(client: string){
@@ -49,8 +49,8 @@ export class RoleService {
     return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/${role}/client/${client}`, { headers: this.headers })
   }
 
-  getAllRolesByCompany(company: string){
-    return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/company/${company}`, { headers: this.headers })
+  getAllRolesByCompany(company: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/company/${company}`, { headers: this.headers, observe: 'response' })
   }
 
   getRoleByCompany(role: string, company: Company){
