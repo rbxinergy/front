@@ -36,6 +36,7 @@ import { FileUploadComponent } from '../../file-upload/file-upload.component';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { BulkUploadComponent } from '../../bulk-upload/bulk-upload.component';
 
 @Component({
   selector: 'app-clients',
@@ -126,7 +127,57 @@ export class ClientsComponent implements AfterViewInit {
   }
 
   navigateToNewClient() {
-    this.router.navigate(['/dashboard/new-client']);
+    this.router.navigate(['/dashboard/client']);
+  }
+
+  openBulkUpload(){
+    const dialogRef = this.dialog.open(BulkUploadComponent, {
+      width: '600px',
+      data: {}
+    });
+    // dialogRef.afterClosed().subscribe({
+    //   next: (updatedClient: Client) => {
+    //     if (updatedClient) {
+    //       // updatedClient.idGroupCompany = this.groupCompany?.id;
+    //       // updatedClient.idClient = this.client?.id
+    //       console.log('updatedClient', updatedClient);
+        
+    //       this.clientService.updateClient(updatedClient).subscribe({
+    //         next: (response) => {
+    //           if (response.status === 200) {
+    //             this.dialog.open(MessagesModalComponent, {
+    //               width: '500px',
+    //               data: { message: 'Cliente actualizado exitosamente.', type: 'success' }
+    //             });
+                
+    //             const index = this.clients.findIndex(c => c.id === updatedClient.id);
+    //             if (index !== -1) {
+    //               this.clients[index] = response.body;
+    //               this.dataSource.data = this.clients;
+    //             }
+    //           } else {
+    //             this.dialog.open(MessagesModalComponent, {
+    //               width: '500px',
+    //               data: { message: 'Error al actualizar el cliente.', type: 'error' }
+    //             });
+    //           }
+    //         },
+    //         error: (error) => {
+    //           this.dialog.open(MessagesModalComponent, {
+    //             width: '500px',
+    //             data: { message: 'Error al actualizar el cliente.', type: 'error' }
+    //           });
+    //         }
+    //       });
+    //     }
+    //   },
+    //   error: (error) => {
+    //     this.dialog.open(MessagesModalComponent, {
+    //       width: '500px',
+    //       data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+    //     });
+    //   }
+    // });
   }
 
   cancelUpload() {

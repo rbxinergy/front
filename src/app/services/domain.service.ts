@@ -46,7 +46,7 @@ export class DomainService {
   }
 
   createDomain(domain: Domain): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.serverUrl}${this.apiUrls}/create`, domain, { observe: 'response' });
+    return this.http.post<any>(`${this.serverUrl}${this.apiUrls}/create`, domain, { headers: this.headers, observe: 'response' });
   }
 
   uploadCSV(formData: FormData): Observable<HttpResponse<any>> {
@@ -70,7 +70,7 @@ export class DomainService {
     return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/company/${domain}`, { headers: this.headers})
   }
 
-  getDomainByCategory(domain: Domain, domainCategory: string){
+  getDomainByCategory(domain: string, domainCategory: string){
     return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/${domain}/domain-category/${domainCategory}`, { headers: this.headers})
   }
 
@@ -78,8 +78,8 @@ export class DomainService {
     return this.http.get<Domain[]>(`${this.serverUrl}${this.apiUrls}/get/domain-category/${domain}`, { headers: this.headers})
   }
 
-  deleteDomain(id: string){
-    return this.http.delete<any>(`${this.serverUrl}${this.apiUrls}/delete/${id}`, { headers: this.headers });
+  deleteDomain(id: string): Observable<HttpResponse<any>>{
+    return this.http.delete<any>(`${this.serverUrl}${this.apiUrls}/delete/${id}`, { headers: this.headers, observe: 'response'  });
   }
 
   deleteCascadeDomain(id: string) {

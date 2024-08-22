@@ -1,15 +1,11 @@
 <h2>Empresas</h2>
-<div class="p-4">
-  <div class="spinner" *ngIf="isLoading">
-    <mat-progress-spinner color="accent" mode="indeterminate" diameter="50">
-    </mat-progress-spinner>
-  </div>
-  <h3>Cargar masiva de empresas</h3>
-  <app-file-upload (fileSelected)="onFileSelected($event)"></app-file-upload>
-  <button mat-raised-button (click)="onShowPreview()" [disabled]="!selectedFile">Vista previa</button>
-  <button mat-raised-button class="upload-button" color="primary" (click)="onUpload()" [disabled]="!selectedFile">Subir Archivo</button>
-  <p>Para asegurar la correcta carga de los datos, descargar el archivo de ejemplo <a href="assets/csv/company.csv">company.csv</a>.</p>
+<div class="spinner" *ngIf="isLoading">
+  <mat-progress-spinner color="accent" mode="indeterminate" diameter="50">
+  </mat-progress-spinner>
+</div>
 
+<div class="p-4" [hidden]="isLoading">
+  
   <div class="search-container table-header">
       <mat-form-field *ngIf="companies.length > 0" appearance="outline">
         <mat-label>Buscar</mat-label>
@@ -18,9 +14,14 @@
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
-      <button mat-raised-button color="primary" (click)="openNewCompanyModal()">
-          <mat-icon>add</mat-icon>Agregar empresa
-      </button>
+      <section class="btn-row">
+        <button mat-raised-button color="primary" (click)="openBulkUpload()"  matTooltip="Para cargar masivamente clientes desde archivo">
+            <mat-icon>cloud_upload</mat-icon>Carga masiva
+        </button>
+        <button mat-raised-button color="primary" (click)="openNewCompanyModal()">
+          <mat-icon>add_circle</mat-icon>Agregar empresa
+        </button>
+      </section>
   </div>
 
   <div *ngIf="companies.length === 0">

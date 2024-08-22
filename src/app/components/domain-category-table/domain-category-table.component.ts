@@ -199,7 +199,6 @@ export class DomainCategoryTableComponent {
     dialogRef.afterClosed().subscribe({
       next: (updatedDomainCategory: DomainCategory) => {
         if (updatedDomainCategory) {
-          updatedDomainCategory.idGroupCompany = this.groupCompany?.id
           this.domainCategoryService.updateDomainCategory(updatedDomainCategory).subscribe({
             next: (response) => {
               if (response.status === 200) {

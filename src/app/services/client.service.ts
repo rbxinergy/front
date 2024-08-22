@@ -49,7 +49,7 @@ export class ClientService {
 
   updateClient(client: Client): Observable<HttpResponse<any>> {
     console.log(client)
-    return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update`, client, { observe: 'response' });
+    return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update/${client.id}`, client, { headers: this.headers, observe: 'response' });
   }
 
   getClients() {

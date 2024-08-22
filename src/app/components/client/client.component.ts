@@ -30,6 +30,7 @@ import { ClientService } from 'src/app/services/client.service';
 })
 export class ClientComponent implements OnInit {
   public clientForm = new FormGroup({
+    // id: new FormControl(data?.id || '', Validators.required),
     name: new FormControl('', Validators.required),
     businessName: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
@@ -41,7 +42,7 @@ export class ClientComponent implements OnInit {
     documentType: new FormControl('RUT', Validators.required),
     document: new FormControl('', Validators.required),
     tag: new FormControl(''),
-    idContact: new FormControl([''])
+    idContact: new FormControl([])
   });
   @Output() validationStatus = new EventEmitter<boolean>();
   @Input() showSaveBtn = true;

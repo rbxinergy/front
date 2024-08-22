@@ -32,6 +32,7 @@ import { HttpResponse } from '@angular/common/http';
 import { FilePreviewDialogComponent } from '../file-preview-dialog/file-preview-dialog.component';
 import { FileUploadComponent } from '../file-upload/file-upload.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BulkUploadComponent } from '../bulk-upload/bulk-upload.component';
 
 @Component({
   selector: 'app-company-table',
@@ -141,6 +142,13 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
     input.value = '';
     const event = { target: input } as Event & { target: HTMLInputElement };
     this.applyFilter(event);
+  }
+
+  openBulkUpload(){
+    const dialogRef = this.dialog.open(BulkUploadComponent, {
+      width: '600px',
+      data: {}
+    });
   }
 
   openNewCompanyModal() {

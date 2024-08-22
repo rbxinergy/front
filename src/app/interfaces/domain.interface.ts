@@ -11,7 +11,7 @@ export interface Domain {
   idDomainCategory?: string;
   idCompany?: string;
   idServiceCompany?: string;
-  subDomains: SubDomain[]
+  subDomains?: SubDomain[];
 }
 
 export interface SubDomain {

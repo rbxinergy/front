@@ -1,63 +1,66 @@
-<form [formGroup]="clientForm">
-  <mat-form-field appearance="outline" class="col-3">
-    <mat-label>Nombre</mat-label>
-    <input matInput formControlName="name" required>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" class="col-3">
-    <mat-label>Razón Social</mat-label>
-    <input matInput formControlName="businessName" required>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" class="col-3">
-    <mat-label>Dirección</mat-label>
-    <input matInput formControlName="address" required>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" class="col-3">
-    <mat-label>Ciudad</mat-label>
-    <input matInput formControlName="city" required>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" class="col-3">
-    <mat-label>Región</mat-label>
-    <input matInput formControlName="state" required>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" class="col-3">
-    <mat-label>Provincia</mat-label>
-    <input matInput formControlName="county">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" class="col-3">
-    <mat-label>Comuna</mat-label>
-    <input matInput formControlName="district">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" class="col-3">
-    <mat-label>País</mat-label>
-    <input matInput formControlName="country" required>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" class="col-3">
-    <mat-label>Tipo de Documento</mat-label>
-    <mat-select formControlName="documentType" required>
-      <mat-option value="RUT">RUT</mat-option>
-      <mat-option value="DNI">DNI</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" class="col-3">
-    <mat-label>Documento</mat-label>
-    <input matInput formControlName="document" required>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" class="col-3">
-    <mat-label>Etiqueta</mat-label>
-    <input matInput formControlName="tag">
-  </mat-form-field>
-
-  <div *ngIf="showSaveBtn" class="btn-box">
-    <button mat-raised-button color="primary" [disabled]="clientForm.invalid || btnDisabled" (click)="save()">Guardar</button>
-  </div>
-</form>
+<h2>Cliente</h2>
+<div class="p-4">
+  <form [formGroup]="clientForm">
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Razón Social</mat-label>
+      <input matInput formControlName="businessName" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="address" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Ciudad</mat-label>
+      <input matInput formControlName="city" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Región</mat-label>
+      <input matInput formControlName="state" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Provincia</mat-label>
+      <input matInput formControlName="county">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Comuna</mat-label>
+      <input matInput formControlName="district">
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>País</mat-label>
+      <input matInput formControlName="country" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Tipo de Documento</mat-label>
+      <mat-select formControlName="documentType" required>
+        <mat-option value="RUT">RUT</mat-option>
+        <mat-option value="DNI">DNI</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Documento</mat-label>
+      <input matInput formControlName="document" required>
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Etiqueta</mat-label>
+      <input matInput formControlName="tag">
+    </mat-form-field>
+  
+    <div *ngIf="showSaveBtn" class="btn-box">
+      <button mat-raised-button color="primary" [disabled]="clientForm.invalid || btnDisabled" (click)="save()">Guardar</button>
+    </div>
+  </form>
+</div>

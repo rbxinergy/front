@@ -17,9 +17,15 @@
           <mat-icon>close</mat-icon>
         </button>
       </mat-form-field>
-      <button mat-raised-button color="primary" (click)="openNewGroupCompanyModal()">
-          <mat-icon>add</mat-icon>Agregar grupo de empresas
-      </button>
+      <section class="btn-row">
+        <button mat-raised-button color="primary" (click)="openBulkUpload()"  matTooltip="Para cargar masivamente clientes desde archivo">
+            <mat-icon>cloud_upload</mat-icon>Carga masiva
+        </button>
+        <button mat-raised-button color="primary" (click)="openNewGroupCompanyModal()">
+          <mat-icon>add_circle</mat-icon>Agregar grupo de empresas
+        </button>
+      </section>
+    
   </div>
 
   <div *ngIf="groupCompanies.length === 0">

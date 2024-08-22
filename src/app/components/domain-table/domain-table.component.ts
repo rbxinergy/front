@@ -95,7 +95,7 @@ export class DomainTableComponent implements AfterViewInit {
       this.domains = domains;
       this.domains.forEach((domain: Domain) => {
         if(!domain.subDomains){
-          domain.subDomains= [];
+          domain.subDomains = [];
         }
         this.domainID = domain.id
         this.SubdomainService.getAllSubdomainsByDomain(this.domainID).subscribe((subdomains: SubDomain[]) => {
@@ -121,7 +121,7 @@ export class DomainTableComponent implements AfterViewInit {
     dominioss.filter((d) => {
       subdominios.filter((s) => {
           if (d.id === s.idDomain) {
-            d['subdomains']= subdominios
+            d['subDomains']= subdominios
           }
       })
     })
@@ -161,8 +161,9 @@ export class DomainTableComponent implements AfterViewInit {
             ));
             const allSuccess = results.every(response => response && response.status === 200);
             if (allSuccess) {
-              this.SubdomainService.getSubdomains(idDomain).subscribe((subdomains: SubDomain[]) => {
+              this.SubdomainService.getAllSubdomainsByDomain(idDomain).subscribe((subdomains: SubDomain[]) => {
                 this.subdomains = subdomains;
+                this.anexaSub()
               });
               this.dialog.open(MessagesModalComponent, {
                 width: '400px',
@@ -218,6 +219,7 @@ export class DomainTableComponent implements AfterViewInit {
                 this.domains.push(newDomain);
                 this.dataSource.data = this.domains;
                 this.formDomainTable.controls['tempControl'].setValue(newDomain.name);
+                this.ngAfterViewInit()
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
@@ -318,13 +320,13 @@ export class DomainTableComponent implements AfterViewInit {
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Subdominio eliminado exitosamente.', type: 'success' }
+                  data: { message: 'Dominio eliminado exitosamente.', type: 'success' }
                 });
                 this.domains = this.domains.filter(c => c.id !== domain.id);
                 if(this.domains.length === 0){
                   this.formDomainTable.controls['tempControl'].setValue(null);
                 }
-                this.dataSource.data = this.domains;
+                this.ngAfterViewInit();
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
@@ -413,6 +415,7 @@ export class DomainTableComponent implements AfterViewInit {
         if (result) {
           this.SubdomainService.deleteSubdomain(subdomain.id).subscribe({
             next: (response) => {
+              console.log('Response',response)
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
@@ -423,7 +426,7 @@ export class DomainTableComponent implements AfterViewInit {
                   this.formDomainTable.controls['tempControl'].setValue(null);
                 }
                 // Actualizar la dataSource después de eliminar el subdominio
-                this.dataSource.data = this.domains;
+                this.ngAfterViewInit();
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',

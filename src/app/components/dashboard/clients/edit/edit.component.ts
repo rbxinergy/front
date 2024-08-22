@@ -51,7 +51,7 @@ export class EditComponent {
       console.log(this.data)
       if(data) {
         this.clientForm = new FormGroup({
-          id: new FormControl(data?.id || null),
+          id: new FormControl(data?.id || '', Validators.required),
           name: new FormControl(data?.name || '', Validators.required),
           businessName: new FormControl(data?.businessName || '', Validators.required),
           address: new FormControl(data?.address || '', Validators.required),
@@ -62,7 +62,10 @@ export class EditComponent {
           district: new FormControl(data?.district || ''),
           documentType: new FormControl(data?.documentType || '', Validators.required),
           document: new FormControl(data?.document || '', Validators.required),
-          tag: new FormControl(data?.tag || '')
+          tag: new FormControl(data?.tag || ''),
+          createdDate: new FormControl(data?.createdDate || null),
+          modificatedDate: new FormControl(data?.modificatedDate || null),
+          idContact: new FormControl(data?.idContact || [], Validators.required)
         });
       }
     }

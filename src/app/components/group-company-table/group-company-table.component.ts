@@ -30,6 +30,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DomainCategoryTableComponent } from '../domain-category-table/domain-category-table.component';
 import { ServiceCategoryTableComponent } from '../service-category-table/service-category-table.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BulkUploadComponent } from '../bulk-upload/bulk-upload.component';
 
 @Component({
   selector: 'app-group-company-table',
@@ -138,6 +139,12 @@ export class GroupCompanyTableComponent implements AfterViewInit {
     this.applyFilter(event);
   }
 
+  openBulkUpload(){
+    const dialogRef = this.dialog.open(BulkUploadComponent, {
+      width: '600px',
+      data: {}
+    });
+  }
   openNewGroupCompanyModal() {
     const dialogRef = this.dialog.open(GroupcompanyComponent, {
       width: '80%',
