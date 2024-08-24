@@ -117,25 +117,6 @@ export class UsersTableComponent implements OnInit {
     this.dataSource.filter = '';
   }
 
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
-
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
-  checkboxLabel(row?: User): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
   openNewUserModal() {
     const dialogRef = this.dialog.open(UserComponent, {
       width: '600px',
@@ -168,29 +149,31 @@ export class UsersTableComponent implements OnInit {
   toggleRole(user: User, selectedRoles: string[]) {
     user.idRole = selectedRoles;
     console.log(user, selectedRoles);
+  }
+
+  updateUser(user: User) {
+    console.log("upsateUser: ", user);
     this.userService.updateUser(user.id, user).subscribe({
       next: (response) => {
-        console.log('Roles actualizados exitosamente:', response);
+        if (response.status === 200) {
+          console.log('Usuario actualizado exitosamente:', response);
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Roles asignados exitosamente.', type: 'success' }
+          });
+        } else {
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Hubo un problema al asignar los roles.', type: 'error' }
+          });
+        }
       },
       error: (error) => {
-        console.error('Error al actualizar los roles del usuario:', error);
+        this.dialog.open(MessagesModalComponent, {
+          width: '400px',
+          data: { message: 'Hubo un problema al asignar los roles.', type: 'error' }
+        });
       }
     });
-    // const index = user.idRole.indexOf(roleId);
-    // if (index === -1) {
-    //   user.idRole.push(roleId);
-    // } else {
-    //   user.idRole.splice(index, 1);
-    // }
-
-    // Aquí puedes llamar a un servicio para actualizar los roles del usuario
-    // this.userService.updateUser(user.id, user).subscribe({
-    //   next: (response) => {
-    //     console.log('Roles actualizados exitosamente:', response);
-    //   },
-    //   error: (error) => {
-    //     console.error('Error al actualizar los roles del usuario:', error);
-    //   }
-    // });
   }
 }
