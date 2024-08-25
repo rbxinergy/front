@@ -17,7 +17,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { HttpResponse } from '@angular/common/http';
 import { ClientService } from 'src/app/services/client.service';
-import { Client } from 'src/app/interfaces/client.interface';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-role-client',
@@ -35,15 +37,21 @@ export class RoleClientComponent implements AfterViewInit {
   isLoading = false;
   dataSource = new MatTableDataSource<Role>();
   displayedColumns1 = ['role', 'permission', 'blank'];
-  displayedColumns2: string[] = ['name', 'status', 'read', 'write', 'edit', 'delete', 'actions'];
+  displayedColumns2: string[] = ['name', 'status', 'read', 'create', 'update', 'delete', 'actions'];
   clientName: string = sessionStorage.getItem('clientName') || '';
+  initialRolesState: { [key: string]: any } = {};
 
-  constructor(private roleService: RoleService, private router: Router, private clientService: ClientService) { }
+  constructor(private roleService: RoleService, private router: Router, private clientService: ClientService,
+    private dialog: MatDialog
+  ) { }
 
   ngAfterViewInit(): void {
     this.isLoading = true;
     this.roleService.getAllRolesByClient(this.client).subscribe((response: HttpResponse<any>) => {
       this.roles = response.body;
+      this.roles.forEach(role => {
+        this.initialRolesState[role.id] = { ...role };
+      });
       console.log(this.roles);
       this.isLoading = false;
       this.dataSource.data = this.roles;
@@ -70,4 +78,55 @@ export class RoleClientComponent implements AfterViewInit {
     element[permission] = !element[permission];
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  clearSearch(input: HTMLInputElement) {
+    input.value = '';
+    const event = { target: input } as Event & { target: HTMLInputElement };
+    this.applyFilter(event);
+  }
+
+  newRole(): void {
+    console.log('new role');
+  }
+
+  applyChanges(element: Role): void {
+    console.log('apply changes', element);
+    this.roleService.updateRole(element, element.id).subscribe((response: HttpResponse<any>) => {
+      if(response.status === 200){
+        this.dialog.open(MessagesModalComponent, {
+          data: {
+            message: 'Cambios aplicados correctamente',
+            type: 'success'
+          }
+        });
+        this.ngAfterViewInit();
+      } else {
+        this.dialog.open(MessagesModalComponent, {
+          data: {
+            message: 'Error al aplicar los cambios',
+            type: 'error'
+          }
+        });
+      }
+    });
+  }
+
+  hasChanges(role: any): boolean {
+    const initialRole = this.initialRolesState[role.id];
+    return (
+      role.read !== initialRole.read ||
+      role.create !== initialRole.create ||
+      role.update !== initialRole.update ||
+      role.delete !== initialRole.delete ||
+      role.active !== initialRole.active
+    );
+  }
 }
