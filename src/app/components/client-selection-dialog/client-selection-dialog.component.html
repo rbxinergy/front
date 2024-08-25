@@ -3,7 +3,7 @@
   <mat-form-field>
     <mat-label>Cliente</mat-label>
     <mat-select [(value)]="selectedClient">
-      <mat-option *ngFor="let client of data.clients as array" [value]="client.client">
+      <mat-option *ngFor="let client of data.clients as array" [value]="client">
         {{ client.clientName }}
       </mat-option>
     </mat-select>

@@ -56,8 +56,8 @@ export class ClientService {
     return this.http.get<Client[]>(`${this.serverUrl}${this.apiUrl}/get/all`, { headers: this.headers})
   }
 
-  getClient(client: string) {
-    return this.http.get<Client[]>(`${this.serverUrl}${this.apiUrl}/get/${client}`, { headers: this.headers})
+  getClient(client: string): Observable<HttpResponse<Client>> {
+    return this.http.get<Client>(`${this.serverUrl}${this.apiUrl}/get/${client}`, { headers: this.headers, observe: 'response'})
   }
 
   deleteClient(id: string): Observable<HttpResponse<any>> {

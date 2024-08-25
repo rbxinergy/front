@@ -20,6 +20,7 @@ export class DashboardComponent {
   sidenav!: MatSidenav;
   isMobile= false;
   isCollapsed = false;
+  clientName: string = '';
 
   constructor(private authService: AuthService, private translateService: TranslateService, private observer: BreakpointObserver ) {
     const userLang = navigator.language || 'es';
@@ -34,6 +35,7 @@ export class DashboardComponent {
     const lastName = profile.lastName
     this.name =  `${firstName} ${lastName}`
     console.log(this.name)
+    this.clientName = sessionStorage.getItem('clientName') || '';
     this.initials = firstName.charAt(0) + lastName.charAt(0) 
     this.observer.observe(['(max-width: 900px)']).subscribe((screenSize) => {
       if(screenSize.matches){

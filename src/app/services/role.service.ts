@@ -41,8 +41,8 @@ export class RoleService {
     return this.http.put<any>(`${this.serverUrl}${this.apiUrls.role}/update/${id}`, role, { headers: this.headers, observe: 'response'})
   }
 
-  getAllRolesByClient(client: string){
-    return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/client/${client}`, { headers: this.headers })
+  getAllRolesByClient(client: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrls.role}/get/client/${client}`, { headers: this.headers, observe: 'response' })
   }
 
   getRoleByClient(role: string, client: string){

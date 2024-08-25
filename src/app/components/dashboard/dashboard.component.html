@@ -9,7 +9,7 @@
    <div class="welcoming" id="welcoming">
       <div role="img" [attr.aria-label]="name" class="name">{{initials}}</div>
       <div>
-         <p>{{"greeting" | translate}}, {{name}}</p> 
+         <p>{{"greeting" | translate}}, {{name}}, {{clientName}}</p> 
       </div>
       <a ariaCurrentWhenActive="page" (click)="logOut()">
          <mat-icon>logout</mat-icon>{{"logout"| translate}}
@@ -36,6 +36,12 @@
             <span class="entry">
                <mat-icon> business </mat-icon>
                <span *ngIf="!isCollapsed">{{"companies" | translate}}</span>
+            </span>
+         </a>
+         <a mat-list-item [routerLink]="['role-client']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="entry">
+               <mat-icon>person</mat-icon>
+               <span *ngIf="!isCollapsed">{{"roles" | translate}}</span>
             </span>
          </a>
          <a mat-list-item [routerLink]="['bulk-upload']" routerLinkActive="active" ariaCurrentWhenActive="page">

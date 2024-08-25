@@ -64,7 +64,7 @@ export class LoginComponent {
         email: data.email
       }
       sessionStorage.setItem('profile', JSON.stringify(profile));
-      if (Array.isArray(data.permissions)) {
+      if (data.permissions.length > 1) {
         const dialogRef = this.dialog.open(ClientSelectionDialogComponent, {
           data: { clients: data.permissions }
         });
@@ -73,7 +73,8 @@ export class LoginComponent {
           next: (selectedClient) => {
             if (selectedClient) {
               //** Guardar el cliente seleccionado en sessionStorage */
-              sessionStorage.setItem('client', selectedClient);
+              sessionStorage.setItem('client', selectedClient.client);
+              sessionStorage.setItem('clientName', selectedClient.clientName);
             }
             this.router.navigate(['/dashboard']);
           },
@@ -82,7 +83,8 @@ export class LoginComponent {
           }
         });
       } else {
-        sessionStorage.setItem('client', data.permissions?.client?.client);
+        sessionStorage.setItem('client', data.permissions[0].client);
+        sessionStorage.setItem('clientName', data.permissions[0].clientName);
         this.router.navigate(['/dashboard']);
       }
     } catch (error) {

@@ -35,7 +35,7 @@ import { DomainCategoryTableComponent } from './components/domain-category-table
 import { ConfigsComponent } from './components/configs/configs.component';
 import { RoleCfgTableComponent } from './components/role-cfg-table/role-cfg-table.component';
 // import { AddDomaincategoryComponent } from './components/add-domaincategory/add-domaincategory.component';
-
+import { RoleClientComponent } from './components/role-client/role-client.component';
 import { BulkUploadComponent } from './components/bulk-upload/bulk-upload.component';
 
 const routes: Routes = [
@@ -76,7 +76,8 @@ const routes: Routes = [
       // { path: 'company-config/:client/:company', component: CompanyConfigComponent },
       { path: 'company-config/:company', component: CompanyConfigComponent },
       { path: 'company-config/:idCompany/:idGroupCompany', component: CompanyConfigComponent },
-      { path: 'bulk-upload', component: BulkUploadComponent }
+      { path: 'bulk-upload', component: BulkUploadComponent },
+      { path: 'role-client', component: RoleClientComponent}
     ],
     canActivateChild: [AuthGuard]
   },
