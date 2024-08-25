@@ -85,7 +85,9 @@ export class ClientsComponent implements AfterViewInit {
     tempControl: new FormControl(null, Validators.required)
   });
   
-  constructor(private companyService: CompanyService, private clientService: ClientService, private clientDataService: ClientDataService, public dialog: MatDialog, private router: Router, private http: HttpClient){
+  constructor(private companyService: CompanyService, private clientService: ClientService,
+    private clientDataService: ClientDataService, public dialog: MatDialog,
+    private router: Router, private http: HttpClient) {
     this.getClients()
   }
 
