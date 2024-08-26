@@ -102,32 +102,6 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
     })
   }
 
-  onFileSelected(file: File) {
-    this.selectedFile = file;
-  }
-
-  onUpload() {
-    if (this.selectedFile) {
-      const formData = new FormData();
-      formData.append('file', this.selectedFile, this.selectedFile.name);
-
-      this.companyService.uploadCSV(formData).subscribe(
-        (response: HttpResponse<any>) => {
-          console.log('File uploaded successfully', response);
-        },
-        (error) => {
-          console.error('Error uploading file', error);
-        }
-      );
-    }
-  }
-
-  onShowPreview(){
-    this.dialog.open(FilePreviewDialogComponent, {
-      width: '100%',
-      data: { file: this.selectedFile }
-    });
-  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -161,8 +135,9 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe({
       next: (newCompany: Company) => {
         if (newCompany) {
-          newCompany.idGroupCompany = this.groupCompany?.id;
+          newCompany.idGroupCompany = this.groupCompanyID
           newCompany.idClient = this.groupCompany?.idClient
+          console.log(this.companies)
           console.log('newCompany', newCompany);
           this.companyService.createCompany(newCompany).subscribe({
             next: (response) => {
@@ -255,7 +230,7 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe({
       next: (updatedCompany: Company) => {
         if (updatedCompany) {
-          updatedCompany.idGroupCompany = this.groupCompany?.id;
+          updatedCompany.idGroupCompany = this.groupCompanyID
           updatedCompany.idClient = this.client?.id
           console.log('updatedCompany', updatedCompany);
           this.companyService.updateCompany(updatedCompany).subscribe({
