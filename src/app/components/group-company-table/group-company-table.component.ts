@@ -87,11 +87,16 @@ export class GroupCompanyTableComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    this.groupCompanyService.getGroupCompanies(this.clientID).subscribe(data => {
-      this.dataSource.data = data
-      this.isLoading = false
-      this.groupCompanies = data
-    })
+    this.groupCompanyService.getGroupCompanies(this.clientID).subscribe({
+      next: (data: any) => {
+        this.dataSource.data = data.body 
+        this.isLoading = false
+        this.groupCompanies = data.body
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
     
     //  this.groupCompanyDataService.setGroupCompanyData(data);
   }

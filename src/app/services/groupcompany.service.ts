@@ -54,8 +54,8 @@ export class GroupCompanyService {
     return this.http.put<any>(`${this.serverUrl}${this.apiUrl}/update/${company.id}`, company ,{headers: this.headers, observe: 'response' });
   }
 
-  getGroupCompanies(client: any){
-    return this.http.get<GroupCompany[]>(`${this.serverUrl}${this.apiUrl}/get/client/${client}`, { headers: this.headers})
+  getGroupCompanies(client: any): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrl}/get/client/${client}`, { headers: this.headers, observe: 'response'})
   }
 
   getGroupCompany(idGroupCompany: string, client: string) {

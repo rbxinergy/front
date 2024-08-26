@@ -1,5 +1,5 @@
 export interface GroupCompany {
-    id: string;
+    id?: string;
     name: string;
     description: string;
     tag: string;

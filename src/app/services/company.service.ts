@@ -27,26 +27,6 @@ export class CompanyService {
     console.log(this.client);
   }
 
-  // async saveCompany(form: any):Promise<any>{
-  //   console.log(this.groupDocument)
-  //   const body = { 
-  //     "name": form.name,
-  //     "documentNumber": form.documentNumber,
-  //     "documentType": form.documentType,
-  //     "phone": form.phone,
-  //     "email": form.email,
-  //     "groupDocument": this.groupDocument,
-  //     "address":form.address,
-  //     "cityId": parseInt(form.cityId),
-  //     "stateId": parseInt(form.stateId),
-  //     "countryId": parseInt(form.countryId),
-  //     "isGroup": false
-  //   }
-  //   console.log(body)
-  //   const postCompany = this.http.post<Company>(`${this.serverUrl}${this.apiUrls.company}/create`, body, { headers: this.headers })
-
-  //   return await lastValueFrom(postCompany)  
-  // }
   createCompany(company: Company): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/create`, company, { observe: 'response' });
   }

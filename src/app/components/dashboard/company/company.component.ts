@@ -18,6 +18,9 @@ import { MatInputModule } from '@angular/material/input';
 import { FileUploadComponent } from '../../file-upload/file-upload.component';
 import { HttpResponse } from '@angular/common/http';
 import { FilePreviewDialogComponent } from '../../file-preview-dialog/file-preview-dialog.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MessagesModalComponent } from '../../messages-modal/messages-modal.component';
+import { CompanyComponent as NewCompanyComponent } from '../../company/company.component';
 
 @Component({
   selector: 'app-company',
@@ -49,6 +52,9 @@ export class CompanyComponent implements AfterViewInit {
   client: string = sessionStorage.getItem('client') || '';
   dataSource = new MatTableDataSource<Company>();
   selectedFile: File | null = null;
+  formCompanyTable: FormGroup = new FormGroup({
+    tempControl: new FormControl(null, Validators.required)
+  });
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
@@ -114,5 +120,53 @@ export class CompanyComponent implements AfterViewInit {
       width: '100%',
       data: { file: this.selectedFile }
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  clearSearch(input: HTMLInputElement) {
+    input.value = '';
+    const event = { target: input } as Event & { target: HTMLInputElement };
+    this.applyFilter(event);
+  }
+
+  openNewCompanyModal() {
+    console.log("openNewCompanyModal")
+    const dialogRef = this.dialog.open(NewCompanyComponent, {
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      delete result.id
+      result.idClient = this.client
+      console.log(result)
+      this.companyService.createCompany(result).subscribe({
+        next: (response) => {
+          console.log(response)
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Empresa creada exitosamente.', type: 'success' }
+          });
+          this.getCompanies()
+        },
+        error: (error) => {
+          console.log(error)
+          this.dialog.open(MessagesModalComponent, {
+            width: '400px',
+            data: { message: 'Error al crear la empresa.', type: 'error' }
+          });
+        }
+      })
+    });
+  }
+
+  bulkLoad(): void {
+    this.router.navigate(['/dashboard/bulk-upload']);
   }
 }

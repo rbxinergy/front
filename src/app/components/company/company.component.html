@@ -54,6 +54,15 @@
       <input matInput formControlName="document" required>
     </mat-form-field>
 
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Grupo Empresarial</mat-label>
+      <mat-select formControlName="idGroupCompany" required>
+        <mat-option *ngFor="let group of groupCompany" [value]="group.id">
+          {{ group.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <mat-checkbox formControlName="headquarters">Sede Principal</mat-checkbox>
     <mat-checkbox formControlName="branch">Sucursal</mat-checkbox>
     <mat-checkbox formControlName="active">Activo</mat-checkbox>
