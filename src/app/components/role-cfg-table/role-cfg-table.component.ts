@@ -44,7 +44,7 @@ import { HttpResponse } from '@angular/common/http';
   ]
 })
 export class RoleCfgTableComponent implements AfterViewInit {
-  displayedColumns: string[] = ['select', 'name', 'create', 'read', 'update', 'delete', 'acciones'];
+  displayedColumns: string[] = ['name', 'create', 'read', 'update', 'delete', 'acciones'];
   dataSource = new MatTableDataSource<Role>();
   selection = new SelectionModel<Role>(true, []);
   client: string = sessionStorage.getItem('client') || '';

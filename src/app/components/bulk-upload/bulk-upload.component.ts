@@ -72,7 +72,7 @@ export class BulkUploadComponent {
         case 'clients':
           uploadObservable = this.clientService.uploadCSV(formData);
           break;
-        case 'companies':
+        case 'cssompany':
           uploadObservable = this.companyService.uploadCSV(formData);
           break;
         case 'groupcompanies':
