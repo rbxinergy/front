@@ -1,48 +1,55 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ViewChild} from '@angular/core';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import { CompanyService } from 'src/app/services/company.service';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { Company } from 'src/app/company/interfaces/company.interface'
-import { EditComponent } from './edit/edit.component';
-import { DeleteComponent } from './delete/delete.component';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
+import { Component, ViewChild } from '@angular/core';
+import { Company } from './interfaces/company.interface';
+import { CompanyService } from '../services/company.service';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FileUploadComponent } from '../../file-upload/file-upload.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatMenuModule } from '@angular/material/menu';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
-import { FilePreviewDialogComponent } from '../../file-preview-dialog/file-preview-dialog.component';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MessagesModalComponent } from '../../messages-modal/messages-modal.component';
-import { CompanyComponent as NewCompanyComponent } from '../../company/company.component';
+import { DeleteComponent } from '../components/dashboard/company/delete/delete.component';
+import { EditComponent } from '../components/dashboard/company/edit/edit.component';
+import { FilePreviewDialogComponent } from '../components/file-preview-dialog/file-preview-dialog.component';
+import { MessagesModalComponent } from '../components/messages-modal/messages-modal.component';
+import { NewCompanyComponent } from './new-company/new-company.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
   styleUrls: ['./company.component.scss'],
   standalone: true,
-  imports:[
-    MatSlideToggleModule,
+  imports: [
     CommonModule,
-    MatPaginatorModule,
     MatTableModule,
+    MatPaginatorModule,
     MatIconModule,
     MatMenuModule,
     MatProgressSpinnerModule,
-    MatDialogModule,
-    MatButtonModule, 
+    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    FileUploadComponent
+    MatCheckboxModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSlideToggleModule
   ]
 })
-export class CompanyComponent implements AfterViewInit {
+export class CompanyComponent {
   isLoading = true
   companies: Company[] = []
   checked = false
@@ -92,7 +99,7 @@ export class CompanyComponent implements AfterViewInit {
 
   openConfig(idCompany: string, idGroupCompany: string) {
     console.log('openConfig', idCompany, idGroupCompany);
-    this.router.navigate(['/dashboard/company-config', idCompany, idGroupCompany]);
+    this.router.navigate(['company/company-config', idCompany, idGroupCompany]);
   }
 
   onFileSelected(file: File) {
@@ -138,7 +145,6 @@ export class CompanyComponent implements AfterViewInit {
   }
 
   openNewCompanyModal() {
-    console.log("openNewCompanyModal")
     const dialogRef = this.dialog.open(NewCompanyComponent, {
       width: '600px',
     });

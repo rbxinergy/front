@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { Injectable } from '@angular/core';
 import { lastValueFrom, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Company } from '../interfaces/company.interface';
+import { Company } from '../company/interfaces/company.interface';
 import { ClientDataService } from './client-data.service';
 import { GroupcompanyDataService } from './groupcompany-data.service';
 

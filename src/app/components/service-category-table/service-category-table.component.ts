@@ -15,7 +15,7 @@ import { DomaincategoryComponent } from '../domaincategory/domaincategory.compon
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Domain } from 'src/app/interfaces/domain.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Company } from 'src/app/interfaces/company.interface';
+import { Company } from 'src/app/company/interfaces/company.interface';
 import { ClientDataService } from 'src/app/services/client-data.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { CompanyComponent } from '../company/company.component';

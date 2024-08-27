@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Role } from '../interfaces/role.interface';
 import { User } from '../interfaces/user.interface';
-import { Company } from '../interfaces/company.interface';
+import { Company } from '../company/interfaces/company.interface';
 import { GroupCompany } from '../interfaces/groupcompany.interface';
 
 @Injectable({

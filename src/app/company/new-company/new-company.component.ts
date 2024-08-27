@@ -9,30 +9,37 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Company } from 'src/app/company/interfaces/company.interface';
 import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
 import { GroupCompanyService } from 'src/app/services/groupcompany.service';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 
 @Component({
-  selector: 'app-company',
+  selector: 'app-new-company',
   standalone: true,
   imports: [
     FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
-    TranslateModule
+    TranslateModule, MatTableModule, MatPaginatorModule, MatIconModule, MatMenuModule,
+    MatProgressSpinnerModule, MatSlideToggleModule
   ],
-  templateUrl: './company.component.html',
-  styleUrls: ['./company.component.css']
+  templateUrl: './new-company.component.html',
+  styleUrls: ['./new-company.component.scss']
 })
-export class CompanyComponent {
+export class NewCompanyComponent {
 
   companyForm: FormGroup;
   groupCompany: GroupCompany[] = [];
   client: string = sessionStorage.getItem('client') || '';
 
-  constructor(private dialogRef: MatDialogRef<CompanyComponent>,@Inject(MAT_DIALOG_DATA) public data: Company,
+  constructor(private dialogRef: MatDialogRef<NewCompanyComponent>,@Inject(MAT_DIALOG_DATA) public data: Company,
     private fb: FormBuilder, private groupCompanyService: GroupCompanyService) {
     this.companyForm = new FormGroup({
       id: new FormControl(data?.id || null),

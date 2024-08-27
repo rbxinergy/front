@@ -23,7 +23,7 @@ import { Client } from 'src/app/interfaces/client.interface';
 import { GroupCompanyService } from 'src/app/services/groupcompany.service';
 import { GroupcompanyComponent } from '../groupcompany/groupcompany.component';
 import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.service';
-import { Company } from 'src/app/interfaces/company.interface';
+import { Company } from 'src/app/company/interfaces/company.interface';
 import { CompanyComponent } from '../company/company.component';
 import { CompanyTableComponent } from '../company-table/company-table.component';
 import { ActivatedRoute, Router } from '@angular/router';

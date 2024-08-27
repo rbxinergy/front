@@ -26,7 +26,6 @@ import { SessionComponent } from './components/session/session.component';
 import { ServicecompanyComponent } from './components/servicecompany/servicecompany.component';
 import { ResponsiveMenuComponent } from './components/dashboard/responsive-menu/responsive-menu.component';
 import { NewClientComponent } from './components/new-client/new-client.component';
-import { CompanyConfigComponent } from './components/company-config/company-config.component';
 import { CompanyTableComponent } from './components/company-table/company-table.component';
 import { DomainCfgTableComponent } from './components/domain-cfg-table/domain-cfg-table.component';
 import { DomainTableComponent } from './components/domain-table/domain-table.component';
@@ -34,21 +33,21 @@ import { GroupCompanyTableComponent } from './components/group-company-table/gro
 import { DomainCategoryTableComponent } from './components/domain-category-table/domain-category-table.component';
 import { ConfigsComponent } from './components/configs/configs.component';
 import { RoleCfgTableComponent } from './components/role-cfg-table/role-cfg-table.component';
-// import { AddDomaincategoryComponent } from './components/add-domaincategory/add-domaincategory.component';
 import { RoleClientComponent } from './components/role-client/role-client.component';
 import { BulkUploadComponent } from './components/bulk-upload/bulk-upload.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
+  { path: '', component: DashboardComponent, canActivate: [AuthGuard],
     children:[
       { title: 'Configs', path: 'configs', component: ConfigsComponent},
       { path: 'new-client', component: NewClientComponent },
       { path: 'stepper', component: StepperComponent},
       { title: 'Clientes', path: 'clients', component: ClientsComponent},
-      { path: 'company', component: CompanyComponent},
+      // { path: 'company', component: CompanyComponent},
+      { path: 'company', loadChildren: () => import('./company/company.module').then(m => m.CompanyModule) },
       { path: 'company/:groupCompany', component: CompanyTableComponent},
       { path: 'integrations', component: IntegrationsComponent},
       { path: 'roles', component: RolesComponent },
@@ -74,13 +73,12 @@ const routes: Routes = [
       { path: 'permission', component: PermissionComponent },
       { path: 'session', component: SessionComponent },
       // { path: 'company-config/:client/:company', component: CompanyConfigComponent },
-      { path: 'company-config/:company', component: CompanyConfigComponent },
-      { path: 'company-config/:idCompany/:idGroupCompany', component: CompanyConfigComponent },
       { path: 'bulk-upload', component: BulkUploadComponent },
       { path: 'role-client', component: RoleClientComponent}
     ],
     canActivateChild: [AuthGuard]
   },
+
 ];
 
 @NgModule({

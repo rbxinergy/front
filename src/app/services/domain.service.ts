@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 import { Observable, Subscription, catchError, lastValueFrom, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DomainDataService } from './domain-data.service';
-import { Company } from '../interfaces/company.interface';
+import { Company } from '../company/interfaces/company.interface';
 
 
 @Injectable({

@@ -19,7 +19,7 @@ import { SubDomain } from 'src/app/interfaces/domain.interface';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
-import { Company } from 'src/app/interfaces/company.interface';
+import { Company } from 'src/app/company/interfaces/company.interface';
 
 
 @Component({
