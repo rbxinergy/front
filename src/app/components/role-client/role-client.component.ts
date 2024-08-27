@@ -19,6 +19,7 @@ import { HttpResponse } from '@angular/common/http';
 import { ClientService } from 'src/app/services/client.service';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { RoleComponent } from '../role/role.component';
 
 
 @Component({
@@ -94,7 +95,44 @@ export class RoleClientComponent implements AfterViewInit {
   }
 
   newRole(): void {
-    console.log('new role');
+    const dialogRef = this.dialog.open(RoleComponent, {
+      width: '800px',
+      height: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        result.role.client = this.client;
+        delete result.role.company;
+        console.log(result);
+        this.roleService.createRole(result.role).subscribe((response: HttpResponse<any>) => {
+          if(response.status === 200) {
+            this.dialog.open(MessagesModalComponent, {
+              data: {
+                message: 'Rol creado correctamente',
+                type: 'success'
+              }
+            }); 
+            this.ngAfterViewInit();
+          } else {
+            this.dialog.open(MessagesModalComponent, {
+              data: {
+                message: 'Error al crear el rol',
+                type: 'error'
+              }
+            });
+          }
+        });
+      },
+      error: (error) => {
+        this.dialog.open(MessagesModalComponent, {
+          data: {
+            message: 'Error al crear el rol',
+            type: 'error'
+          }
+        });
+      }
+    });
   }
 
   applyChanges(element: Role): void {

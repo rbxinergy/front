@@ -33,21 +33,19 @@ export class RoleComponent {
   constructor(@Optional()private dialogRef: MatDialogRef<RoleComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder) {
-      if(data) {
-        this.roleForm = new FormGroup({
-          accessType: new FormControl(data?.role?.accessType || ''),
-          active: new FormControl(data?.role?.active || false),
-          company: new FormControl(data?.role?.company || ''),
-          client: new FormControl(data?.role?.client || ''),
-          create: new FormControl(data?.role?.create || false),
-          delete: new FormControl(data?.role?.delete || false),
-          description: new FormControl(data?.role?.description || ''),
-          name: new FormControl(data?.role?.name || ''),
-          read: new FormControl(data?.role?.read || false),
-          tag: new FormControl(data?.role?.tag || ''),
-          update: new FormControl(data?.role?.update || false)
-        });
-      }
+      this.roleForm = new FormGroup({
+        accessType: new FormControl(data?.role?.accessType || ''),
+        active: new FormControl(data?.role?.active || false),
+        company: new FormControl(data?.role?.company || ''),
+        client: new FormControl(data?.role?.client || ''),
+        create: new FormControl(data?.role?.create || false),
+        delete: new FormControl(data?.role?.delete || false),
+        description: new FormControl(data?.role?.description || '', [Validators.required]),
+        name: new FormControl(data?.role?.name || '', [Validators.required]),
+        read: new FormControl(data?.role?.read || false),
+        tag: new FormControl(data?.role?.tag || ''),
+        update: new FormControl(data?.role?.update || false)
+      });
     }
 
   closeModal() {
