@@ -46,7 +46,11 @@ const routes: Routes = [
       { path: 'new-client', component: NewClientComponent },
       { path: 'stepper', component: StepperComponent},
       { title: 'Clientes', path: 'clients', component: ClientsComponent},
+<<<<<<< HEAD
       { path: 'company', loadChildren: () => import('./company/company.module').then(m => m.CompanyModule) },
+=======
+      { path: 'company', loadChildren: () => import('./company/company.module').then(m => m.CompanyModule) }, // Company module lazy loading
+>>>>>>> 1d02de22c88a1e01bd8faf3e53e62629db2eb9a1
       { path: 'company/:groupCompany', component: CompanyTableComponent},
       { path: 'integrations', component: IntegrationsComponent},
       { path: 'roles', component: RolesComponent },
