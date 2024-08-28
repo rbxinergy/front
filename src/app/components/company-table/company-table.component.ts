@@ -26,7 +26,7 @@ import { CompanyDataService } from 'src/app/services/company-data.service';
 import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
 import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoleCfgTableComponent } from '../role-cfg-table/role-cfg-table.component';
+import { RoleCfgTableComponent } from '../../company/role-cfg-table/role-cfg-table.component';
 import { HttpResponse } from '@angular/common/http';
 import { FilePreviewDialogComponent } from '../file-preview-dialog/file-preview-dialog.component';
 import { FileUploadComponent } from '../file-upload/file-upload.component';

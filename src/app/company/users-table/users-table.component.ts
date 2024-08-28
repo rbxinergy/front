@@ -6,7 +6,7 @@ import { RoleService } from '../../services/role.service';
 import { User } from '../../interfaces/user.interface';
 import { Role } from '../../interfaces/role.interface';
 import { MatDialog } from '@angular/material/dialog';
-import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { MessagesModalComponent } from '../../components/messages-modal/messages-modal.component';
 import { UserComponent } from '../user/user.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';

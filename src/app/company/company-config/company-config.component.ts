@@ -4,11 +4,11 @@ import { MatStepperModule } from '@angular/material/stepper';
 
 import { RoleComponent } from "../../components/role/role.component";
 import { UserComponent } from "../../components/user/user.component";
-import { UsersTableComponent } from "../../components/users-table/users-table.component";
+import { UsersTableComponent } from "../users-table/users-table.component";
 import { CompanyService } from 'src/app/services/company.service';
 
 import { ActivatedRoute, Params } from '@angular/router';
-import { RoleCfgTableComponent } from "../../components/role-cfg-table/role-cfg-table.component";
+import { RoleCfgTableComponent } from "../role-cfg-table/role-cfg-table.component";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { RoleTableComponent } from '../../components/role-table/role-table.component';
