@@ -16,10 +16,10 @@ import { Role } from '../../interfaces/role.interface';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
-import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { MessagesModalComponent } from '../../components/messages-modal/messages-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { RoleComponent } from '../role/role.component';
+import { RoleComponent } from '../../components/role/role.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { HttpResponse } from '@angular/common/http';
 

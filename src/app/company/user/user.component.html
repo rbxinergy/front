@@ -1,0 +1,56 @@
+<h2>{{"user"|translate}}</h2>
+<div class="p-4">
+  <form [formGroup]="userForm">
+    <mat-form-field appearance="outline" class="col-2">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" formControlName="name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-2">
+      <mat-label>Apellido</mat-label>
+      <input matInput type="text" formControlName="lastName" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Puesto</mat-label>
+      <input matInput type="text" formControlName="jobTitle" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Etiqueta</mat-label>
+      <input matInput type="text" formControlName="tag">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Roles</mat-label>
+      <mat-select formControlName="idRole" multiple>
+        <mat-option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="passwd">
+      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Confirmar Contraseña</mat-label>
+      <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword">
+      <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+        <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <div class="btn-box">
+      <button mat-raised-button type="submit" (click)="save()" [disabled]="userForm.invalid">Guardar</button>
+    </div>
+  </form>
+</div>

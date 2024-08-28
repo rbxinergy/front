@@ -99,7 +99,7 @@ export class CompanyComponent {
 
   openConfig(idCompany: string, idGroupCompany: string) {
     console.log('openConfig', idCompany, idGroupCompany);
-    this.router.navigate(['company/company-config', idCompany, idGroupCompany]);
+    this.router.navigate(['dashboard/company/company-config', idCompany, idGroupCompany]);
   }
 
   onFileSelected(file: File) {

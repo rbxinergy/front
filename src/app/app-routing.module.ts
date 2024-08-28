@@ -32,7 +32,7 @@ import { DomainTableComponent } from './components/domain-table/domain-table.com
 import { GroupCompanyTableComponent } from './components/group-company-table/group-company-table.component';
 import { DomainCategoryTableComponent } from './components/domain-category-table/domain-category-table.component';
 import { ConfigsComponent } from './components/configs/configs.component';
-import { RoleCfgTableComponent } from './components/role-cfg-table/role-cfg-table.component';
+import { RoleCfgTableComponent } from './company/role-cfg-table/role-cfg-table.component';
 import { RoleClientComponent } from './components/role-client/role-client.component';
 import { BulkUploadComponent } from './components/bulk-upload/bulk-upload.component';
 
@@ -40,13 +40,12 @@ const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
-  { path: '', component: DashboardComponent, canActivate: [AuthGuard],
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
     children:[
       { title: 'Configs', path: 'configs', component: ConfigsComponent},
       { path: 'new-client', component: NewClientComponent },
       { path: 'stepper', component: StepperComponent},
       { title: 'Clientes', path: 'clients', component: ClientsComponent},
-      // { path: 'company', component: CompanyComponent},
       { path: 'company', loadChildren: () => import('./company/company.module').then(m => m.CompanyModule) },
       { path: 'company/:groupCompany', component: CompanyTableComponent},
       { path: 'integrations', component: IntegrationsComponent},
@@ -72,7 +71,6 @@ const routes: Routes = [
       { path: 'rolestable', component: RoleCfgTableComponent},
       { path: 'permission', component: PermissionComponent },
       { path: 'session', component: SessionComponent },
-      // { path: 'company-config/:client/:company', component: CompanyConfigComponent },
       { path: 'bulk-upload', component: BulkUploadComponent },
       { path: 'role-client', component: RoleClientComponent}
     ],
