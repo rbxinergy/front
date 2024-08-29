@@ -12,27 +12,28 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MessagesModalComponent } from '../../role/messages-modal/messages-modal.component';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { Role } from 'src/app/interfaces/role.interface';
 import { ClientDataService } from 'src/app/services/client-data.service';
 
 @Component({
-  selector: 'app-role',
+  selector: 'app-role-dialog',
   standalone: true,
   imports: [
     FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
     TranslateModule, MatNativeDateModule, MatDatepickerModule, MatCheckboxModule
   ],
-  templateUrl: './role.component.html'
+  templateUrl: './role-dialog.component.html'
 })
-export class RoleComponent {
+export class RoleDialogComponent {
   roleForm: FormGroup;
   checked: false
 
-  constructor(@Optional()private dialogRef: MatDialogRef<RoleComponent>,
+  constructor(@Optional()private dialogRef: MatDialogRef<RoleDialogComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder) {
+      console.log('RoleDialogComponent');
       this.roleForm = new FormGroup({
         accessType: new FormControl(data?.role?.accessType || ''),
         active: new FormControl(data?.role?.active || false),

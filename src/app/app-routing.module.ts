@@ -20,7 +20,6 @@ import { DomaincategoryComponent } from './components/domaincategory/domaincateg
 import { GroupcompanyComponent } from './components/groupcompany/groupcompany.component';
 import { ClientComponent } from './components/client/client.component';
 import { UserComponent } from './components/user/user.component';
-import { RoleComponent } from './components/role/role.component';
 import { PermissionComponent } from './components/permission/permission.component';
 import { SessionComponent } from './components/session/session.component';
 import { ServicecompanyComponent } from './components/servicecompany/servicecompany.component';
@@ -37,7 +36,7 @@ import { RoleClientComponent } from './components/role-client/role-client.compon
 import { BulkUploadComponent } from './components/bulk-upload/bulk-upload.component';
 
 const routes: Routes = [
-  // { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
@@ -46,11 +45,8 @@ const routes: Routes = [
       { path: 'new-client', component: NewClientComponent },
       { path: 'stepper', component: StepperComponent},
       { title: 'Clientes', path: 'clients', component: ClientsComponent},
-<<<<<<< HEAD
       { path: 'company', loadChildren: () => import('./company/company.module').then(m => m.CompanyModule) },
-=======
-      { path: 'company', loadChildren: () => import('./company/company.module').then(m => m.CompanyModule) }, // Company module lazy loading
->>>>>>> 1d02de22c88a1e01bd8faf3e53e62629db2eb9a1
+      { path: 'role-module', loadChildren: () => import('./role/role.module').then(m => m.RoleModule) },
       { path: 'company/:groupCompany', component: CompanyTableComponent},
       { path: 'integrations', component: IntegrationsComponent},
       { path: 'roles', component: RolesComponent },
@@ -80,6 +76,7 @@ const routes: Routes = [
     ],
     canActivateChild: [AuthGuard]
   },
+  
 
 ];
 
