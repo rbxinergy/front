@@ -50,6 +50,12 @@
                <span *ngIf="!isCollapsed">{{"bulk-upload" | translate}}</span>
             </span>
          </a>
+         <a mat-list-item [routerLink]="['contact-module']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="entry">
+               <mat-icon>contacts</mat-icon>
+               <span *ngIf="!isCollapsed">{{"contact" | translate}}</span>
+            </span>
+         </a>
 
       </mat-nav-list>
    </mat-sidenav>

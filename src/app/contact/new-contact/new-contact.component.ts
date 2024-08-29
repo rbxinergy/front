@@ -1,10 +1,10 @@
-import { Component, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
-import { CommonModule} from '@angular/common';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,29 +12,29 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 
+
+
 @Component({
-  selector: 'app-contact',
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css'],
+  selector: 'app-new-contact',
+  templateUrl: './new-contact.component.html',
+  styleUrls: ['./new-contact.component.scss'],
   standalone: true,
-  imports: [
-    FormsModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatSelectModule,
     ReactiveFormsModule, CommonModule, MatDividerModule, MatRadioModule, MatButtonModule,
-    TranslateModule
-  ],
+    TranslateModule]
 })
-export class ContactComponent {
+export class NewContactComponent {
   contactForm = new FormGroup({
-    id: new FormControl('',Validators.required),
+    id: new FormControl(''),
     name: new FormControl('',Validators.required),
-    lastName: new FormControl('',Validators.required),
-    surname: new FormControl(''),
+    surName: new FormControl('',Validators.required),
+    lastName: new FormControl(''),
     email: new FormControl('',[Validators.required, Validators.email]),
     phone: new FormControl(''),
     cellphone: new FormControl(''),
     jobTitle: new FormControl(''),
-    contactType: new FormControl(''),
-    active: new FormControl(''),
+    contactType: new FormControl('',[Validators.required]),
+    active: new FormControl(true),
     delete: new FormControl(''),
     tag: new FormControl('')
   });
@@ -51,5 +51,9 @@ export class ContactComponent {
         type: 'success'
       }
     });
+  }
+
+  cancel() {
+    this.dialog.closeAll();
   }
 }

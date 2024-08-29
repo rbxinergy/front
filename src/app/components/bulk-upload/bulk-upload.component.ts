@@ -20,7 +20,7 @@ import { DomainService } from 'src/app/services/domain.service';
 import { SubdomainService } from 'src/app/services/subdomain.service';
 import { ServiceCompanyService } from 'src/app/services/servicecompany.service';
 import { ProviderService } from 'src/app/services/provider.service';
-import { ContactService } from 'src/app/services/contact.service';
+import { ContactService } from '../../services/contact.service';
 
 
 @Component({

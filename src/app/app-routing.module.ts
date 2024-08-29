@@ -10,7 +10,6 @@ import { IntegrationsComponent } from './components/dashboard/integrations/integ
 import { ClientsComponent } from './components/dashboard/clients/clients.component';
 import { RolesComponent } from './components/dashboard/roles/roles.component';
 import { ContactServiceCompanyComponent } from './components/dashboard/contact-service-company/contact-service-company.component';
-import { ContactComponent } from './components/contact/contact.component';
 import { ServicecategoryComponent } from './components/servicecategory/servicecategory.component';
 import { ProviderComponent } from './components/provider/provider.component';
 import { CompanyComponent as CompanyCmp } from './components/company/company.component';
@@ -54,7 +53,6 @@ const routes: Routes = [
       { path: 'roles', component: RolesComponent },
       { path: 'nav', component: ResponsiveMenuComponent },
       { path: 'contact-service-company', component: ContactServiceCompanyComponent },
-      { path: 'contact', component: ContactComponent },
       { path: 'servicecategory', component: ServicecategoryComponent },
       { path: 'servicecompany', component: ServicecompanyComponent },
       { path: 'provider', component: ProviderComponent },
@@ -77,7 +75,8 @@ const routes: Routes = [
       { path: 'company-config/:company', component: CompanyConfigComponent },
       { path: 'company-config/:idCompany/:idGroupCompany', component: CompanyConfigComponent },
       { path: 'bulk-upload', component: BulkUploadComponent },
-      { path: 'role-client', component: RoleClientComponent}
+      { path: 'role-client', component: RoleClientComponent},
+      { path: 'contact-module', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)}
     ],
     canActivateChild: [AuthGuard]
   },

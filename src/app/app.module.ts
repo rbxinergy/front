@@ -26,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { ConfigsComponent } from './components/configs/configs.component';
 import { ServiceCategoryTableComponent } from './components/service-category-table/service-category-table.component';
+import { ContactModule } from './contact/contact.module';
 
 
 export function HttpLoaderFactory(http: HttpClient){
@@ -58,7 +59,8 @@ export function HttpLoaderFactory(http: HttpClient){
     }),
     BrowserAnimationsModule,
     StepperModule,
-    MatDialogModule
+    MatDialogModule,
+    ContactModule
   ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
