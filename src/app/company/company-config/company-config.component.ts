@@ -1,13 +1,11 @@
 import { OnInit, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatStepperModule } from '@angular/material/stepper';
 
-import { RoleComponent } from "../../components/role/role.component";
 import { UserComponent } from "../../components/user/user.component";
 import { UsersTableComponent } from "../users-table/users-table.component";
 import { CompanyService } from 'src/app/services/company.service';
 
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RoleCfgTableComponent } from "../role-cfg-table/role-cfg-table.component";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
@@ -21,7 +19,6 @@ import { RoleTableComponent } from '../../components/role-table/role-table.compo
     standalone: true,
     imports: [
         CommonModule,
-        RoleComponent,
         RoleTableComponent,
         UserComponent,
         UsersTableComponent,

@@ -16,17 +16,17 @@ import { Role } from '../../interfaces/role.interface';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
-import { MessagesModalComponent } from '../../components/messages-modal/messages-modal.component';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { RoleComponent } from '../../components/role/role.component';
+import { RoleDialogComponent } from '../role-dialog/role-dialog.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-role-cfg-table',
   templateUrl: './role-cfg-table.component.html',
-  styleUrls: ['./role-cfg-table.component.css'],
+  styleUrls: ['./role-cfg-table.component.scss'],
   standalone: true,
   imports: [
     MatTableModule,
@@ -108,7 +108,7 @@ export class RoleCfgTableComponent implements AfterViewInit {
   }
 
   openNewRoleModal(){
-    const dialogRef = this.dialog.open(RoleComponent, {
+    const dialogRef = this.dialog.open(RoleDialogComponent, {
       width: '100%',
       data: {}
     });
@@ -155,7 +155,7 @@ export class RoleCfgTableComponent implements AfterViewInit {
   }
 
   openEdit(role: Role){
-    const dialogRef = this.dialog.open(RoleComponent, {
+    const dialogRef = this.dialog.open(RoleDialogComponent, {
       width: '100%',
       data: {role: role, id: role.id}
     });

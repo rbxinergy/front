@@ -27,7 +27,7 @@ import { HttpResponse } from '@angular/common/http';
     TranslateModule, MatNativeDateModule, MatDatepickerModule, MatIconModule
   ],
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
 
