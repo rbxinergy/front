@@ -76,7 +76,12 @@ const routes: Routes = [
       { path: 'company-config/:idCompany/:idGroupCompany', component: CompanyConfigComponent },
       { path: 'bulk-upload', component: BulkUploadComponent },
       { path: 'role-client', component: RoleClientComponent},
-      { path: 'contact-module', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)}
+      {
+        path: 'contact-module',
+        loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule),
+        canActivate: [AuthGuard],
+        data: { module: 'contact', action: 'read' }
+      }
     ],
     canActivateChild: [AuthGuard]
   },
