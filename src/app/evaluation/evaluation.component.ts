@@ -1,5 +1,5 @@
 import { CommonModule, NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -24,6 +24,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UpdateEvaluationComponent } from './update-evaluation/update-evaluation.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-evaluation',
@@ -48,10 +50,11 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
     MatListModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule
   ]
 })
-export class EvaluationComponent {
+export class EvaluationComponent implements OnInit {
 
   currentCompany!: any;
   profile: any = {};
@@ -90,9 +93,20 @@ export class EvaluationComponent {
     {id:3, name: 'Licitación'}
   ]
 
+  dataSource = new MatTableDataSource<Evaluation>();
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
   constructor(private evaluationService: EvaluationService, private getServicesService: GetservicesService,
       private questService: QuestService, private router: Router, private route: ActivatedRoute,
-      public dialog: MatDialog) {
+      public dialog: MatDialog) { }
+
+  ngOnInit(): void {
+    this.getEvaluations();
+  }
+
+  getEvaluations(): void {
     this.createForm.addControl('name', new FormControl('', Validators.required));
     this.createForm.addControl('serviceId', new FormControl('', Validators.required));
     this.createForm.addControl('type', new FormControl('',Validators.required));
@@ -100,15 +114,13 @@ export class EvaluationComponent {
     this.profile = JSON.parse(sessionStorage.getItem('profile') || '');
     this.currentCompany =  27 // TODO: Forzado por compatibilidad con modelo anterior. Cambiar por el cliente seleccionado
     console.log("COMPANY", this.currentCompany);
-    this.getEvaluations();
-
-  }
-
-  getEvaluations(): void {
     this.evaluationService.getEvaluationsByCompanyId(this.currentCompany)
     .subscribe((data: Evaluation[]) => {
       console.log("EVALUACIONES:", data);
       this.evaluations = data;
+      this.dataSource.data = this.evaluations;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       if(data.length === 0 ) {
         this.dataEmpty = true;
         this.showSpinner = false;

@@ -9,7 +9,7 @@
   <table
     *ngIf="evaluations.length > 0"
     mat-table
-    [dataSource]="evDataSource"
+    [dataSource]="dataSource" matSort
   >
     <ng-container matColumnDef="evaluationid">
       <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -52,6 +52,7 @@
     <tr mat-header-row *matHeaderRowDef="evaluationTableColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: evaluationTableColumns"></tr>
   </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   <br>
   <br>
   <mat-list>
