@@ -1,0 +1,344 @@
+<h2>Cuestionarios</h2>
+<div class="container">
+
+  <div align="end">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="goNewQuestionnaire()"
+    >
+      Crear cuestionario
+    </button>
+  </div>
+  <div *ngIf="quests.length === 0 && showSpinner">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div *ngIf="quests.length === 0 && dataEmpty == true">
+    <p>No hay cuestionarios para mostrar.-</p>
+  </div>
+
+  <table
+    *ngIf="quests.length > 0"
+    mat-table
+    [dataSource]="dataSource"
+  >
+    <ng-container matColumnDef="questName">
+      <th mat-header-cell *matHeaderCellDef>Cuestionario</th>
+      <td mat-cell *matCellDef="let row">{{ row.questName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="subDomainName">
+      <th mat-header-cell *matHeaderCellDef>Subdominio</th>
+      <td mat-cell *matCellDef="let row">{{ row.subDomainName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="documentNumber">
+      <th mat-header-cell *matHeaderCellDef>Rut</th>
+      <td mat-cell *matCellDef="let row">{{ row.documentNumber }}</td>
+    </ng-container>
+    <ng-container matColumnDef="companyName">
+      <th mat-header-cell *matHeaderCellDef>Empresa</th>
+      <td mat-cell *matCellDef="let row">{{ row.companyName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let row">{{ row.status == true ? 'Vigente' : 'No vigente'}}</td>
+    </ng-container>
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>Fecha creación</th>
+      <td mat-cell *matCellDef="let row">{{ row.createdAt}}</td>
+    </ng-container>
+    <ng-container matColumnDef="visibility">
+      <th mat-header-cell *matHeaderCellDef>Visibilidad</th>
+      <td mat-cell *matCellDef="let row">{{ row.visibility === true ? 'Grupo' : 'Empresa'}}</td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="viewQuestion(row.questId)">
+            <mat-icon>question_mark</mat-icon>
+            <span>Ver preguntas</span>
+          </button>
+          <button mat-menu-item (click)="addQuestions(row.questId)">
+            <mat-icon>question_mark</mat-icon>
+            <span>Agregar preguntas</span>
+          </button>
+          <button mat-menu-item (click)="updateDialog(row.questId)">
+            <mat-icon>edit</mat-icon>
+            <span>Editar</span>
+          </button>
+          <button mat-menu-item (click)="delService(row.questId)">
+            <mat-icon>delete</mat-icon>
+            <span>Eliminar</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="questTableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: questTableColumns"></tr>
+  </table>
+
+
+<!-- 
+ <mat-stepper
+    [animationDuration]="animationDuration"
+    orientation="horizontal"
+    #stepper
+  >
+    <mat-step [stepControl]="questForm" errorMessage="Campos requeridos.">
+      <form [formGroup]="questForm">
+        <mat-form-field class="w-100">
+          <mat-label>Título del cuestionario</mat-label>
+          <input
+            matInput
+            placeholder="Definir texto de ayuda"
+            value=""
+            formControlName="name"
+            #name
+          />
+        </mat-form-field>
+        <ng-template matStepLabel>Cuestionario:</ng-template>
+        <mat-form-field class="w-100">
+          <mat-label>Sudominio</mat-label>
+          <mat-select
+            formControlName="questionnaireId"
+            placeholder="Seleccione subdominio"
+            (selectionChange)="changeQuestQuestions($event)"
+            required
+          >
+            <mat-option *ngFor="let element of quests"
+              [value]="element.questid"
+              >{{ element.questname }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Descripción</mat-label>
+          <input
+            matInput
+            placeholder="Definir texto de ayuda"
+            value=""
+            formControlName="description"
+          />
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Subdominio</mat-label>
+          <mat-select
+            #city
+            placeholder="Seleccione subdominio"
+            formControlName="subdominio"
+            required
+          >
+            <mat-option *ngFor="let service of services" [value]="service.id">{{
+              service.servicename
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Evaluación</mat-label>
+          <mat-select
+            #city
+            placeholder="Seleccione evaluación"
+            formControlName="evaluation"
+            required
+          >
+            <mat-option *ngFor="let service of services" [value]="service.id">{{
+              service.servicename
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Criticidad</mat-label>
+          <mat-select
+            #city
+            placeholder="Seleccione criticidad"
+            formControlName="criticality"
+            required
+          >
+            <mat-option *ngFor="let criticality of criticalities" [value]="criticality.id">{{
+              criticality.name
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="w-100">
+          <mat-label>Servicio</mat-label>
+          <mat-select
+            #city
+            placeholder="Seleccione servicios"
+            formControlName="services"
+            required
+          >
+            <mat-option *ngFor="let service of services" [value]="service.id">{{
+              service.servicename
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button matStepperNext color="primary">Next</button>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="questionForm" errorMessage="Campos requeridos.">
+
+
+
+    </mat-step>
+    <mat-step [stepControl]="answerForm" errorMessage="Campos requeridos.">
+      <form [formGroup]="answerForm">
+        <ng-template matStepLabel>Respuestas</ng-template>
+        <div [formGroup]="formOptions" *ngIf="controlType == 'radio' || controlType == 'checkbox'">
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              type="text"
+              formControlName="clave"
+              placeholder="Opción"
+            />
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              type="text"
+              formControlName="valor"
+              placeholder="Valor"
+            />
+          </mat-form-field>
+          <button
+            mat-raised-button
+            extended
+            color="primary"
+            (click)="agregarElemento()"
+          >
+            Agregar opción
+            <mat-icon>add</mat-icon>
+          </button>
+          <button
+            mat-raised-button
+            extended
+            color="danger"
+            (click)="clearOptions()"
+          >
+            Limpiar opciones
+            <mat-icon>cleaning_services</mat-icon>
+          </button>
+          <mat-list role="list">
+            <mat-list-item *ngFor="let item of lista" role="list-item"
+              >{{ item.clave }} - {{ item.valor }}</mat-list-item
+            >
+          </mat-list>
+        </div>
+        <div *ngIf="controlType == 'text'">
+          <mat-form-field class="w-100">
+            <mat-label>Respuesta</mat-label>
+            <input matInput type="text" formControlName="answerText" required />
+          </mat-form-field>
+        </div>
+      </form>
+      <button mat-raised-button matStepperPrevious color="primary">Back</button>
+      <button mat-raised-button (click)="stepper.reset()">Reset</button>
+    </mat-step>
+    <mat-step [stepControl]="questConfigForm" errorMessage="Campos requeridos.">
+      <form [formGroup]="questConfigForm">
+        <mat-form-field class="w-100">
+        <mat-label>Título del cuestionario</mat-label>
+        <input
+          matInput
+          placeholder="Definir texto de ayuda"
+          value=""
+          formControlName="name"
+          #name
+        />
+      </mat-form-field>
+        <ng-template matStepLabel>Asociar preguntas a cuestionario:</ng-template>
+       
+        <button mat-raised-button matStepperNext color="primary">Next</button>
+      </form>
+    </mat-step>
+  </mat-stepper> -->
+ 
+
+  <!-- <div align="end">
+    <button mat-raised-button>Volver</button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="saveQuestion()"
+    
+    >
+      Crear Pregunta
+    </button>
+  </div> -->
+</div>
+
+
+<!--
+
+<h2>Cuestionario: {{ quest.questName }} (vista previa)</h2>
+    <div cdkDropList (cdkDropListDropped)="drop($event)">
+      <mat-card *ngFor="let question of quest.questions" cdkDrag>
+        <div class="drag-placeholder" *cdkDragPlaceholder></div>
+        <mat-card-header>
+          <mat-card-title
+            >{{ question.order }}.- {{ question.questiontext }}</mat-card-title
+          >
+        </mat-card-header>
+        <mat-card-content>
+          <div [ngSwitch]="question.questioncontrol">
+            <div *ngSwitchCase="'checkbox'">
+              <div *ngFor="let answer of question.answers">
+                <mat-checkbox
+                  color="primary"
+                  [name]="'question' + answer.answerid"
+                  [id]="'question' + answer.answerid"
+                >
+                  <div class="label">{{ answer.answertext }}</div>
+                </mat-checkbox>
+              </div>
+            </div>
+            <div *ngSwitchCase="'radio'">
+              <mat-radio-group>
+                <div *ngFor="let answer of question.answers">
+                  <mat-radio-button
+                    color="primary"
+                    [name]="'question' + question.order"
+                    [id]="'question' + answer.answerid"
+                  >
+                    <div class="label">{{ answer.answertext }}</div>
+                  </mat-radio-button>
+                </div>
+              </mat-radio-group>
+            </div>
+            <div *ngSwitchCase="'text'">
+              <mat-form-field>
+                <mat-label
+                  class="label"
+                  for="'question' + question.order"
+                ></mat-label>
+                <input
+                  matInput
+                  [type]="question.questioncontrol"
+                  [name]="'question' + question.order"
+                />
+              </mat-form-field>
+            </div>
+            <mat-form-field *ngIf="question.reqfile">
+              <mat-label class="label" for="'questionfile'+question.order"
+                >Seleccione archivo:</mat-label
+              >
+              <ngx-mat-file-input
+                [multiple]="true"
+              />
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <mat-divider></mat-divider>
+      <div align="end">
+        <button mat-raised-button>Volver</button>
+        <button mat-raised-button color="primary">Crear cuestionario</button>
+      </div>
+    </div>
+  </div>
+
+
+-->

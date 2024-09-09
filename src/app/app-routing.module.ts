@@ -66,6 +66,11 @@ const routes: Routes = [
         loadChildren: () => import('./evaluation/evaluation.module').then(m => m.EvaluationModule),
         canActivate: [AuthGuard],
         data: { module: 'evaluation', action: 'read' }
+      },
+      { path: 'questionnaires-module',
+        loadChildren: () => import('./questionnaires/questionnaires.module').then(m => m.QuestionnairesModule),
+        canActivate: [AuthGuard],
+        data: { module: 'questionnaires', action: 'read' }
       }
     ],
     canActivateChild: [AuthGuard]

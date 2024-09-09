@@ -1,0 +1,116 @@
+<div class="container">
+    <h2>Nuevo cuestionario</h2>
+    <h3>Crear cuestionario</h3>
+    <form [formGroup]="questionnaireForm" class="questionnaire-form">
+      <mat-card>
+        <mat-card-content>
+          <mat-form-field class="col-2">
+            <mat-label>Título del cuestionario</mat-label>
+            <input matInput formControlName="name" placeholder="Definir texto de ayuda">
+          </mat-form-field>
+          <mat-form-field class="col-2">
+            <mat-label>Descripción</mat-label>
+            <input matInput formControlName="description" placeholder="Definir texto de ayuda">
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="col-1">
+            <mat-label>Subdominio</mat-label>
+            <mat-select formControlName="idSubDomain" placeholder="Seleccione un subdominio" (selectionChange)="onSubDomainChange($event.value)">
+              <mat-option *ngFor="let subdomain of subdomains" [value]="subdomain.idSubDomain">
+                {{ subdomain.subDomain }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-divider></mat-divider>
+          <br>
+          <mat-card *ngIf="selectedSubDomainId">
+            <mat-card-header>
+              <div class="header-content">
+                <h4 class="subdomain-title">Subdominio: {{ selectedSubDomainName }}</h4>
+                <div class="controls">
+                  <span>Peso total: {{ getTotalWeight() }}</span>
+                  <mat-checkbox [(ngModel)]="autoFillWeight" [ngModelOptions]="{standalone:true}" (change)="autoFillWeights()">Peso automático</mat-checkbox>
+                </div>
+                <div class="button-group">
+                  <button mat-raised-button color="primary" class="rounded-button" (click)="addQuestion(selectedSubDomainId)">
+                    <mat-icon>add</mat-icon> Agregar pregunta
+                  </button>
+                  <button mat-raised-button color="primary" class="rounded-button" (click)="openLibrary(selectedSubDomainId.toString())">
+                    <mat-icon>library_add</mat-icon> Agregar pregunta desde biblioteca
+                  </button>
+                </div>
+              </div>
+            </mat-card-header>
+            <mat-card-content>
+              <div cdkDropList class="example-list" *ngIf="questionsMap[selectedSubDomainId]?.length > 0" (cdkDropListDropped)="drop($event, selectedSubDomainId.toString())">
+                <div cdkDrag class="example-box" *ngFor="let question of questionsMap[selectedSubDomainId]">
+                  <mat-icon class="drag-handle-question" cdkDragHandle>drag_indicator</mat-icon>
+                  <mat-card class="question-card">
+                    <mat-card-content>
+                      <div class="question-header">
+                        <div class="question-content">
+                          <h5>Pregunta</h5>
+                          <button mat-icon-button color="warn" (click)="removeQuestion(+selectedSubDomainId, question)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </div>
+                      </div>
+                      <mat-form-field class="col-2" appearance="outline">
+                        <mat-label>Pregunta</mat-label>
+                        <input matInput [(ngModel)]="question.text" [ngModelOptions]="{standalone:true}" />
+                      </mat-form-field>
+                      <mat-form-field class="col-2" appearance="outline">
+                        <mat-label>Peso</mat-label>
+                        <input matInput type="number" placeholder="entre 1 y 100" [(ngModel)]="question.percentage" [ngModelOptions]="{standalone:true}" (ngModelChange)="updatePercentageSum()" />
+                      </mat-form-field>
+                      <mat-form-field class="col-2" appearance="outline">
+                        <mat-select placeholder="Seleccione de criticidad" required>
+                          <mat-option *ngFor="let cr of criticality" [value]="cr.id">{{cr.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-form-field class="col-2" appearance="outline">
+                        <mat-select placeholder="Seleccione de tipo de control" required (selectionChange)="onQuestionTypeChange($event, question)">
+                          <mat-option *ngFor="let option of controlOptions" [value]="option.type">
+                            {{ option.name }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-checkbox [(ngModel)]="question.visibility" [ngModelOptions]="{standalone:true}">Visible para el grupo?</mat-checkbox>
+                      <mat-checkbox [(ngModel)]="question.hasFile" [ngModelOptions]="{standalone:true}">¿Tiene archivo adjunto?</mat-checkbox>
+                      <mat-checkbox [(ngModel)]="question.isRequired" [ngModelOptions]="{standalone:true}">¿Pregunta requerida?</mat-checkbox>
+                      <mat-checkbox [(ngModel)]="question.isRequiredFile" [ngModelOptions]="{standalone:true}">¿Requiere documentación?</mat-checkbox>
+                      <div *ngIf="question.type === 'radio' || question.type === 'checkbox' ">
+                        <h5>Alternativas (máximo 5)</h5>
+                        <div cdkDropList class="alternative-list" (cdkDropListDropped)="dropAlternative($event, question)">
+                          <div *ngFor="let answer of question.answers; let j = index" cdkDrag class="alternative-row">
+                            <mat-icon class="drag-handle-answer" cdkDragHandle>drag_indicator</mat-icon>
+                            <mat-form-field class="col-2" appearance="outline">
+                              <mat-label>Alternativa {{j + 1}}</mat-label>
+                              <input matInput [(ngModel)]="answer.text" [ngModelOptions]="{standalone:true}" />
+                            </mat-form-field>
+                            <button mat-icon-button color="warn" (click)="removeAnswer(question, j)">
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                            <mat-form-field class="col-2" appearance="outline">
+                              <mat-label>Puntaje</mat-label>
+                              <input matInput type="number" [(ngModel)]="answer.score" [ngModelOptions]="{standalone:true}" />
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <button mat-raised-button class="rounded-button" (click)="addAnswer(question)">
+                          <mat-icon>add</mat-icon> Agregar alternativa
+                        </button>
+                      </div>
+                    </mat-card-content>
+                  </mat-card>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </mat-card-content>
+      </mat-card>
+      <button mat-raised-button color="primary" class="rounded-button" (click)="createQuest()" [disabled]="!isValidated()">
+        <mat-icon>save</mat-icon> Agregar cuestionario
+      </button>
+    </form>
+</div>

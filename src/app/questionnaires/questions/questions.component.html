@@ -1,0 +1,100 @@
+<h2>Pregunta</h2>
+<div class="p-4">
+  <form [formGroup]="questionForm" class="p-4">
+      <ng-template matStepLabel>Crear pregunta</ng-template>
+      <mat-form-field class="w-100">
+        <mat-label>Pregunta</mat-label>
+        <input
+          matInput
+          formControlName="name"
+          placeholder="Ej: ¿Posee acceso controlado al personal?"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <mat-label>Tipo de control</mat-label>
+        <mat-select
+          formControlName="type"
+          placeholder=""
+          [value]="controlType"
+          (selectionChange)="changeControlType($event)"
+          required
+        >
+          <mat-option
+            *ngFor="let option of controlOptions"
+            [value]="option.type"
+            >{{ option.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <mat-checkbox formControlName="visibility" color="primary">
+          ¿Disponible en el grupo?
+      </mat-checkbox>
+      <mat-form-field class="w-100">
+          <mat-label>Etiquetas (max. 10)</mat-label>
+          <mat-chip-grid #chipGrid aria-label="Ingrese etiquetas">
+              <mat-chip-row *ngFor="let label of labels"
+                            (removed)="remove(label)"
+                            [editable]="true"
+                            (edited)="edit(label, $event)"
+                            [aria-description]="'presione enter para editar ' + label.name">
+                {{label.name}}
+                <button matChipRemove [attr.aria-label]="'remove ' + label.name">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+              <input matInput placeholder="Escriba palabras descriptivas, presion ENTER, coma o espacio para agregar."
+                  [matChipInputFor]="chipGrid"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)"
+                  formControlName="labels" />
+          </mat-chip-grid>
+      </mat-form-field>
+      <div [ngSwitch]="controlType">
+          <form [formGroup]="answerForm">
+              <h3>Respuesta</h3>
+              <mat-form-field class="w-100">
+                  <mat-label>Score</mat-label>
+                  <input
+                    matInput
+                    formControlName="score"
+                    placeholder="Valor entre 0 y 100"
+                    required
+                  />
+              </mat-form-field>
+              <div [formGroup]="formOptions" *ngIf="controlType == 'radio' || controlType == 'checkbox'">
+                  <mat-form-field class="w-100">
+                      <input matInput type="text" formControlName="clave" placeholder="Texto de la opción" />
+                  </mat-form-field>
+                  <mat-form-field class="w-100">
+                      <input matInput type="text" formControlName="valor" placeholder="Valor de la opción" />
+                  </mat-form-field>
+                  <button mat-raised-button extended color="primary" (click)="agregarElemento()">
+                      Agregar opción
+                      <mat-icon>add</mat-icon>
+                  </button>
+                  <button mat-raised-button extended color="danger" (click)="clearOptions()">
+                      Limpiar opciones
+                      <mat-icon>cleaning_services</mat-icon>
+                  </button>
+                  <mat-list role="list">
+                      <mat-list-item *ngFor="let item of lista" role="list-item">{{ item.clave }} - {{ item.valor }}</mat-list-item>
+                  </mat-list>
+              </div>
+              <div *ngIf="controlType == 'text'">
+                  <mat-form-field class="w-100">
+                      <mat-label>Descripción de la respuesta</mat-label>
+                      <input matInput type="text" formControlName="answerText" required />
+                  </mat-form-field>
+              </div>
+          </form>
+      </div>
+  </form>
+  <div align="end">
+      <button mat-raised-button>Limpiar</button>
+      <button mat-raised-button color="primary" (click)="saveQuestion()" [disabled]="validateForm()">Crear pregunta</button>
+  </div>
+  <mat-divider></mat-divider>
+
+</div>

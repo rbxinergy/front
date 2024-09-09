@@ -1,0 +1,163 @@
+.w-100 {
+  width: 100%;
+}
+.w-50 {
+  width: auto;
+  margin: 10px 10px 0 0;
+}
+/* DIALOG */
+::ng-deep {
+  .custom-modalbox {
+    mat-dialog-container {
+      padding: 1rem !important;
+    }
+  }
+}
+
+.cdk-overlay-pane mat-dialog-container.mat-dialog-container {
+  // <- in this way all other styles
+  margin: 20px 5px;
+  padding: 30px;
+}
+
+.example-list {
+  max-width: 100%;
+  border: solid 1px #ccc;
+  min-height: 60px;
+  display: block;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.example-box {
+  padding: 20px 10px;
+  border-bottom: solid 1px #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  cursor: move;
+  background: white;
+  font-size: 14px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  background-color: #ffb65c;
+  opacity: 0.5;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.question-card {
+  margin-bottom: 16px;
+}
+
+.questionnaire-form {
+  margin: auto;
+}
+
+mat-card {
+  margin-bottom: 16px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.subdomain-title {
+  margin: 0;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.rounded-button {
+  border-radius: 20px;
+}
+
+.horizontal-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.question-header {
+  display: flex;
+  align-items: center;
+}
+
+.question-content {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.question-header h5 {
+  margin: 0;
+}
+
+.question-header button {
+  margin-left: auto;
+}
+
+.alternative-row, .question-header {
+  display: flex;
+  align-items: center;
+}
+
+.alternative-row mat-form-field, .question-header mat-form-field {
+  margin-right: 8px;
+}
+
+.drag-handle-question, .drag-handle-answer {
+  cursor: move;
+  margin-right: 8px;
+  width: 32px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+}
+
+.controls span {
+  margin-right: 10px;
+}

@@ -61,35 +61,41 @@ export class AuthService {
                                   "roleName": "Role gestion",
                                   "roleID": "34563789iouygjhfjkl",
                                   "modules": {
-                                      "dominio": {
-                                          "create": true,
-                                          "read": true,
-                                          "update": true,
-                                          "delete": true
-                                      },
-                                      "sub-dominio": {
-                                          "create": true,
-                                          "read": true,
-                                          "update": true,
-                                          "delete": true
-                                      },
-                                      "cliente": {
-                                          "create": true,
-                                          "read": true,
-                                          "update": true,
-                                          "delete": true
-                                      },
-                                      "company": {
-                                          "create": true,
-                                          "read": true,
-                                          "update": true,
-                                          "delete": true
-                                      },
-                                      "evaluation": {
+                                    "dominio": {
                                         "create": true,
                                         "read": true,
                                         "update": true,
                                         "delete": true
+                                    },
+                                    "sub-dominio": {
+                                        "create": true,
+                                        "read": true,
+                                        "update": true,
+                                        "delete": true
+                                    },
+                                    "cliente": {
+                                        "create": true,
+                                        "read": true,
+                                        "update": true,
+                                        "delete": true
+                                    },
+                                    "company": {
+                                        "create": true,
+                                        "read": true,
+                                        "update": true,
+                                        "delete": true
+                                    },
+                                    "evaluation": {
+                                      "create": true,
+                                      "read": true,
+                                      "update": true,
+                                      "delete": true
+                                    },
+                                    "questionnaires": {
+                                      "create": true,
+                                      "read": true,
+                                      "update": true,
+                                      "delete": true
                                     }
                                   }
                               },

@@ -1,0 +1,7 @@
+<div class="container">
+    <h2>Biblioteca de preguntas</h2>
+    <app-questions-table (questionsData)="getQuestions($event)"></app-questions-table>
+    <div align="end">
+        <button mat-raised-button color="primary" (click)="close()">Cerrar</button>
+    </div>
+</div>
