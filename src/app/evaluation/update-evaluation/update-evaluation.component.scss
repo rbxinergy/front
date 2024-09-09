@@ -1,0 +1,30 @@
+.w-100 {
+    width: 100%;
+}
+
+button {
+    margin: 8px;
+}
+
+.geo-select {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.mr-16 {
+    margin-right: 16px;
+}
+
+.mat-mdc-form-field-hint {
+    font-size: 12px;
+    color: #095011;
+}
+
+::ng-deep .mdc-button__label .mat-accent {
+    color: #095011 !important;
+}
+
+.container {
+    margin: 16px;
+}

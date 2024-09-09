@@ -1,0 +1,121 @@
+<h2>Nueva Evaluación</h2>
+<div [formGroup]="createForm" class="container">
+  <mat-form-field class="col-1" appearance="outline">
+    <mat-label>Título de la evaluación</mat-label>
+    <input
+      matInput
+      placeholder="Título"
+      value=""
+      formControlName="name"
+      #name
+    />
+  </mat-form-field>
+  <mat-form-field class="col-2" appearance="outline">
+    <mat-label>Tipo de evaluación</mat-label>
+    <mat-select
+      #type
+      placeholder="Seleccione tipo de evaluación"
+      formControlName="type"
+      required
+    >
+      <mat-option *ngFor="let type of types" [value]="type.id">{{
+        type.name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- <mat-form-field appearance="outline" class="col-2">
+    <mat-label>Lista de proveedores</mat-label>
+    <mat-select [formControl]="providers" multiple>
+      <mat-option *ngFor="let provider of providerList" [value]="provider">{{provider}}</mat-option>
+    </mat-select>
+  </mat-form-field> -->
+  <mat-form-field class="col-2" appearance="outline">
+    <mat-label>Visibilidad de la evaluación</mat-label>
+    <mat-select
+      #visivility
+      placeholder="Visibilidad"
+      formControlName="visibility"
+      required
+    >
+      <mat-option *ngFor="let element of visibility" [value]="element.value">{{ element.value === false ? 'Empresa' : 'Grupo' }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- <mat-form-field appearance="outline" class="col-2">
+    <mat-label>Fecha de inicio</mat-label>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matIconSuffix [for]="picker" name="created_date" required></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="col-2">
+    <mat-label>Fecha de cierre</mat-label>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matIconSuffix [for]="picker" name="modificated_date" required></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field> -->
+</div>
+<br />
+<div class="container">
+  <h3>Seleccione cuestionario para agregar a evaluación:</h3>
+  <table
+    *ngIf="questionnaires.length > 0"
+    mat-table
+    [dataSource]="questDataSource"
+    class="mat-elevation-z2"
+  >
+    <ng-container matColumnDef="questId">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let row">{{ row.questId }}</td>
+    </ng-container>
+    <ng-container matColumnDef="questName">
+      <th mat-header-cell *matHeaderCellDef>Cuestionario</th>
+      <td mat-cell *matCellDef="let row">{{ row.questName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="subDomainName">
+      <th mat-header-cell *matHeaderCellDef>Sub dominio</th>
+      <td mat-cell *matCellDef="let row">{{ row.subDomainName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="companyName">
+      <th mat-header-cell *matHeaderCellDef>Empresa</th>
+      <td mat-cell *matCellDef="let row">{{ row.companyName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="clientName">
+      <th mat-header-cell *matHeaderCellDef>Grupo</th>
+      <td mat-cell *matCellDef="let row">{{ row.clientName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          color="primary"
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          color="primary"
+          (click)="$event.stopPropagation()"
+          (change)="changeSelection($event, row)"
+          [checked]="selection.isSelected(row)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="questTableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: questTableColumns"></tr>
+  </table>
+  <br />
+  
+  <button mat-raised-button (click)="goBack()">Volver</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="saveEvaluation()"
+    [disabled]="!createForm.valid && selection.isEmpty()"
+  >
+    Crear evaluación
+  </button>
+  
+</div>

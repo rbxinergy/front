@@ -43,44 +43,29 @@ const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
     children:[
-      { title: 'Configs', path: 'configs', component: ConfigsComponent},
-      { path: 'new-client', component: NewClientComponent },
-      { path: 'stepper', component: StepperComponent},
-      { title: 'Clientes', path: 'clients', component: ClientsComponent},
-      { path: 'company', component: CompanyComponent},
-      { path: 'company/:groupCompany', component: CompanyTableComponent},
-      { path: 'integrations', component: IntegrationsComponent},
-      { path: 'roles', component: RolesComponent },
-      { path: 'nav', component: ResponsiveMenuComponent },
-      { path: 'contact-service-company', component: ContactServiceCompanyComponent },
-      { path: 'servicecategory', component: ServicecategoryComponent },
-      { path: 'servicecompany', component: ServicecompanyComponent },
-      { path: 'provider', component: ProviderComponent },
-      { path: 'company2', component: CompanyCmp },
-      { path: 'domain', component: DomainComponent },
-      { path: 'domains/:idDomain', component: DomainTableComponent },
-      { path: 'domain-config', component: DomainCfgTableComponent },
-      { path: 'subdomain', component: SubdomainComponent },
-      { path: 'domaincategory', component: DomaincategoryComponent },
-      { path: 'domaincategory/:groupCompany', component: DomainCategoryTableComponent },
-      { path: 'groupcompany', component: GroupcompanyComponent },
-      { path: 'groupcompanytable', component: GroupCompanyTableComponent},
-      { path: 'groupcompany/:client', component: GroupCompanyTableComponent},
-      { path: 'client', component: ClientComponent },
-      { path: 'user', component: UserComponent },
-      { path: 'rolestable', component: RoleCfgTableComponent},
-      { path: 'permission', component: PermissionComponent },
-      { path: 'session', component: SessionComponent },
-      // { path: 'company-config/:client/:company', component: CompanyConfigComponent },
-      { path: 'company-config/:company', component: CompanyConfigComponent },
-      { path: 'company-config/:idCompany/:idGroupCompany', component: CompanyConfigComponent },
-      { path: 'bulk-upload', component: BulkUploadComponent },
-      { path: 'role-client', component: RoleClientComponent},
+      { title: 'Configs', path: 'configs', component: ConfigsComponent}, //TODO: Mantener
+      { path: 'new-client', component: NewClientComponent }, //TODO: Mantener
+      { path: 'stepper', component: StepperComponent}, //TODO: Mantener
+      { title: 'Clientes', path: 'clients', component: ClientsComponent}, //TODO: Mantener
+      { path: 'company', component: CompanyComponent}, //TODO: Mantener
+      { path: 'company/:groupCompany', component: CompanyTableComponent}, //TODO: Mantener
+      { path: 'integrations', component: IntegrationsComponent}, //TODO: Mantener
+      { path: 'roles', component: RolesComponent }, //TODO: Mantener
+      { path: 'nav', component: ResponsiveMenuComponent }, //TODO: Mantener
+      { path: 'company-config/:company', component: CompanyConfigComponent }, //TODO: Mantener
+      { path: 'company-config/:idCompany/:idGroupCompany', component: CompanyConfigComponent }, //TODO: Mantener
+      { path: 'bulk-upload', component: BulkUploadComponent }, //TODO: Mantener
+      { path: 'role-client', component: RoleClientComponent}, //TODO: Mantener
       {
         path: 'contact-module',
         loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule),
         canActivate: [AuthGuard],
         data: { module: 'contact', action: 'read' }
+      },
+      { path: 'evaluation-module',
+        loadChildren: () => import('./evaluation/evaluation.module').then(m => m.EvaluationModule),
+        canActivate: [AuthGuard],
+        data: { module: 'evaluation', action: 'read' }
       }
     ],
     canActivateChild: [AuthGuard]

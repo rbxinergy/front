@@ -56,7 +56,12 @@
                <span *ngIf="!isCollapsed">{{"contact" | translate}}</span>
             </span>
          </a>
-
+         <a mat-list-item [routerLink]="['evaluation-module']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="entry">
+               <mat-icon>assignment_add</mat-icon>
+               <span *ngIf="!isCollapsed">{{"evaluation" | translate}}</span>
+            </span>
+         </a>
       </mat-nav-list>
    </mat-sidenav>
    <mat-sidenav-content>

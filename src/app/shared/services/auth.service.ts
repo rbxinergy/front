@@ -84,7 +84,13 @@ export class AuthService {
                                           "read": true,
                                           "update": true,
                                           "delete": true
-                                      }
+                                      },
+                                      "evaluation": {
+                                        "create": true,
+                                        "read": true,
+                                        "update": true,
+                                        "delete": true
+                                    }
                                   }
                               },
                               {
@@ -217,6 +223,7 @@ export class AuthService {
 
   hasPermission(module: string, action: keyof ModulePermissions): boolean {
     const user = this.getCurrentUser();
+    console.log("user", user);
     if (!user) return false;
 
     for (const permission of user.permissions) {
