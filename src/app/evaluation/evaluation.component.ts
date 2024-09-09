@@ -133,28 +133,6 @@ export class EvaluationComponent {
   
   }
 
-  viewData(id: number) {
-    // const providerFound: Provider = this.providers.filter(
-    //   (provider) => provider.id === id
-    // )[0];
-    // if (providerFound) {
-    //   console.log("proveedor encontrado:", providerFound);
-    //   const dialogRef = this.dialog.open(ViewProviderComponent, {
-    //     data: providerFound,
-    //   });
-    // } else {
-    //   const dialogRef = this.dialog.open(MessagesModalComponent, {
-    //     width: '500px',
-    //     enterAnimationDuration: '500ms',
-    //     exitAnimationDuration: '500ms',
-    //     data: {
-    //       message: `Proveedor id:${id} no encontrado.`,
-    //       type: 'error'
-    //     }
-    //   });
-    // };
-  }
-
   async updateDialog(id: number) {
     const evalFound: Evaluation = this.evaluations.filter(
       (evaluation) => evaluation.evalid === id
