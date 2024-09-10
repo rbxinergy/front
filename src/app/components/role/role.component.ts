@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { MessagesModalComponent } from '../../role/messages-modal/messages-modal.component';
 import { Role } from 'src/app/interfaces/role.interface';
 import { ClientDataService } from 'src/app/services/client-data.service';
 

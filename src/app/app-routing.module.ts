@@ -19,23 +19,21 @@ import { DomaincategoryComponent } from './components/domaincategory/domaincateg
 import { GroupcompanyComponent } from './components/groupcompany/groupcompany.component';
 import { ClientComponent } from './components/client/client.component';
 import { UserComponent } from './components/user/user.component';
-import { RoleComponent } from './components/role/role.component';
 import { PermissionComponent } from './components/permission/permission.component';
 import { SessionComponent } from './components/session/session.component';
 import { ServicecompanyComponent } from './components/servicecompany/servicecompany.component';
 import { ResponsiveMenuComponent } from './components/dashboard/responsive-menu/responsive-menu.component';
 import { NewClientComponent } from './components/new-client/new-client.component';
-import { CompanyConfigComponent } from './components/company-config/company-config.component';
 import { CompanyTableComponent } from './components/company-table/company-table.component';
 import { DomainCfgTableComponent } from './components/domain-cfg-table/domain-cfg-table.component';
 import { DomainTableComponent } from './components/domain-table/domain-table.component';
 import { GroupCompanyTableComponent } from './components/group-company-table/group-company-table.component';
 import { DomainCategoryTableComponent } from './components/domain-category-table/domain-category-table.component';
 import { ConfigsComponent } from './components/configs/configs.component';
-import { RoleCfgTableComponent } from './components/role-cfg-table/role-cfg-table.component';
-// import { AddDomaincategoryComponent } from './components/add-domaincategory/add-domaincategory.component';
+import { RoleCfgTableComponent } from './company/role-cfg-table/role-cfg-table.component';
 import { RoleClientComponent } from './components/role-client/role-client.component';
 import { BulkUploadComponent } from './components/bulk-upload/bulk-upload.component';
+import { CompanyConfigComponent } from './company/company-config/company-config.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },

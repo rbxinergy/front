@@ -28,7 +28,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { DomainCategory } from 'src/app/interfaces/domaincategory.interface';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from 'src/app/services/company.service';
-import { Company } from 'src/app/interfaces/company.interface';
+import { Company } from 'src/app/company/interfaces/company.interface';
 
 @Component({
   selector: 'app-domain-table',

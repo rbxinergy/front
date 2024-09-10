@@ -11,7 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
-import { Company } from 'src/app/interfaces/company.interface';
+import { Company } from 'src/app/company/interfaces/company.interface';
 import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
 import { GroupCompanyService } from 'src/app/services/groupcompany.service';
 

@@ -1,0 +1,23 @@
+<h3
+  [ngClass]="
+    data.type === 'error'
+      ? 'head-error'
+      : data.type === 'info'
+      ? 'head-info'
+      : 'head-primary'
+  "
+>
+{{ data.type | translate }}
+</h3>
+<div mat-dialog-content>
+  <p>{{ data.message }}</p>
+</div>
+<div mat-dialog-actions align="end">
+  <button
+    mat-raised-button 
+    (click)="onClose()"
+    [color]="data.type === 'error'? 'warn' : data.type === 'info'? 'info': 'primary'">
+    {{ "close" | translate }}
+  </button>
+</div>
+

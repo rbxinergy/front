@@ -16,7 +16,7 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 import { Domain } from 'src/app/interfaces/domain.interface';
-import { Company } from 'src/app/interfaces/company.interface';
+import { Company } from 'src/app/company/interfaces/company.interface';
 import { CompanyService } from 'src/app/services/company.service';
 import { DomainCategory } from 'src/app/interfaces/domaincategory.interface';
 

@@ -12,7 +12,6 @@ import { MessagesModalComponent } from './messages-modal/messages-modal.componen
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Company } from '../interfaces/company.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContactService } from './services/contact.service';
 import { MatTableModule } from '@angular/material/table';
