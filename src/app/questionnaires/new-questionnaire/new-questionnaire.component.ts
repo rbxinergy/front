@@ -21,6 +21,7 @@ import { GetSubDomainService } from '../services/get-sub-domain.service';
 import { MatIconModule } from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 
 
 @Component({
@@ -84,7 +85,7 @@ export class NewQuestionnaireComponent implements OnInit {
       criticality: [0, Validators.required]
     });
 
-    this.currentCompany = JSON.parse(sessionStorage.getItem('company') || '{}');
+    this.currentCompany = {id: 27} // JSON.parse(sessionStorage.getItem('company') || '{}');
   }
 
   ngOnInit() {
@@ -200,14 +201,26 @@ export class NewQuestionnaireComponent implements OnInit {
 
     console.log("Datos del cuestionario:", data);
     // Enviar el objeto `data` al backend
-    // this.questService.createQuestionnaire(data).subscribe(
-    //   (result) => {
-    //     console.log("Resultado del backend:", result);
-    //   },
-    //   (error) => {
-    //     console.error("Error al enviar los datos al backend:", error);
-    //   }
-    // );
+    this.questService.createQuestionnaire(data).subscribe(
+      (result) => {
+        console.log("Resultado del backend:", result);
+        this.dialog.open(MessagesModalComponent, {
+          data: {
+            message: 'Cuestionario creado correctamente',
+            type: 'success'
+          }
+        });
+      },
+      (error) => {
+        console.error("Error al enviar los datos al backend:", error);
+        this.dialog.open(MessagesModalComponent, {
+          data: {
+            message: 'Error al crear el cuestionario',
+            type: 'error'
+          }
+        });
+      }
+    );
   }
 
   addAnswer(question: Question) {

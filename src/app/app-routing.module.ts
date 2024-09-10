@@ -69,6 +69,11 @@ const routes: Routes = [
         loadChildren: () => import('./questionnaires/questionnaires.module').then(m => m.QuestionnairesModule),
         canActivate: [AuthGuard],
         data: { module: 'questionnaires', action: 'read' }
+      },
+      { path: 'questions-module',
+        loadChildren: () => import('./questions/questions.module').then(m => m.QuestionsModule),
+        canActivate: [AuthGuard],
+        data: { module: 'questions', action: 'read' }
       }
     ],
     canActivateChild: [AuthGuard]

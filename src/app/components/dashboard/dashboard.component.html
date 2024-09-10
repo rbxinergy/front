@@ -20,52 +20,58 @@
 <mat-sidenav-container autosize="true">
    <mat-sidenav [ngClass]="!isCollapsed ? 'expanded' : ''" [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'">
       <mat-nav-list>
-         <a mat-list-item [routerLink]="['configs']" routerLinkActive="active" ariaCurrentWhenActive="page">
+         <a *ngIf="permittedModules.includes('dashboard')" mat-list-item [routerLink]="['configs']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon>house</mat-icon>
                <span *ngIf="!isCollapsed">Dashboard</span>
             </span>
          </a>
-         <a mat-list-item  [routerLink]="['clients']" routerLinkActive="active" ariaCurrentWhenActive="page">
+         <a *ngIf="permittedModules.includes('clients')" mat-list-item [routerLink]="['clients']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon class="material-icons">work_outline</mat-icon>
                <span *ngIf="!isCollapsed">{{"clients" | translate}}</span>
             </span>
          </a>
-         <a mat-list-item [routerLink]="['company']" routerLinkActive="active" ariaCurrentWhenActive="page">
+         <a *ngIf="permittedModules.includes('companies')" mat-list-item [routerLink]="['company']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon> business </mat-icon>
                <span *ngIf="!isCollapsed">{{"companies" | translate}}</span>
             </span>
          </a>
-         <a mat-list-item [routerLink]="['role-module']" routerLinkActive="active" ariaCurrentWhenActive="page">
+         <a *ngIf="permittedModules.includes('roles')" mat-list-item [routerLink]="['role-client']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon>person</mat-icon>
                <span *ngIf="!isCollapsed">{{"roles" | translate}}</span>
             </span>
          </a>
-         <a mat-list-item [routerLink]="['bulk-upload']" routerLinkActive="active" ariaCurrentWhenActive="page">
+         <a *ngIf="permittedModules.includes('bulk-upload')" mat-list-item [routerLink]="['bulk-upload']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon>cloud_upload</mat-icon>
                <span *ngIf="!isCollapsed">{{"bulk-upload" | translate}}</span>
             </span>
          </a>
-         <a mat-list-item [routerLink]="['contact-module']" routerLinkActive="active" ariaCurrentWhenActive="page">
+         <a *ngIf="permittedModules.includes('contacts')" mat-list-item [routerLink]="['contact-module']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon>contacts</mat-icon>
                <span *ngIf="!isCollapsed">{{"contact" | translate}}</span>
             </span>
          </a>
-         <a mat-list-item [routerLink]="['evaluation-module']" routerLinkActive="active" ariaCurrentWhenActive="page">
+         <a *ngIf="permittedModules.includes('evaluation-module')" mat-list-item [routerLink]="['evaluation-module']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon>assignment_add</mat-icon>
                <span *ngIf="!isCollapsed">{{"evaluation" | translate}}</span>
             </span>
          </a>
-         <a mat-list-item [routerLink]="['questionnaires-module']" routerLinkActive="active" ariaCurrentWhenActive="page">
+         <a *ngIf="permittedModules.includes('questionnaires-module')" mat-list-item [routerLink]="['questionnaires-module']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon>quizz</mat-icon>
                <span *ngIf="!isCollapsed">{{"questionnaires" | translate}}</span>
+            </span>
+         </a>
+         <a *ngIf="permittedModules.includes('questions-module')" mat-list-item [routerLink]="['questions-module']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="entry">
+               <mat-icon>question_mark</mat-icon>
+               <span *ngIf="!isCollapsed">{{"questions" | translate}}</span>
             </span>
          </a>
       </mat-nav-list>

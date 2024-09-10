@@ -1,0 +1,64 @@
+    <mat-form-field class="w-100">
+        <mat-label>Búsqueda:</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar por pregunta, etiquetas, etc." #input>
+      </mat-form-field>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z2" matSort>
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>Id</th>
+            <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+        </ng-container>
+        <ng-container matColumnDef="text">
+            <th mat-header-cell *matHeaderCellDef>Pregunta</th>
+            <td mat-cell *matCellDef="let row">{{ row.text }}</td>
+        </ng-container>
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>Tipo</th>
+            <td mat-cell *matCellDef="let row">
+                {{ row.name == 'radio'? 'Opción única' : row.type == 'checkbox' ? 'Selección múltiple' : 'Texto libre' }}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="visibility">
+            <th mat-header-cell *matHeaderCellDef>Visible</th>
+            <td mat-cell *matCellDef="let row">
+                {{ row.visibility == true? 'Grupo' : 'Empresa' }}
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="group">
+            <th mat-header-cell *matHeaderCellDef>Cliente</th>
+            <td mat-cell *matCellDef="let row">{{ row.group }}</td>
+        </ng-container>
+        <ng-container matColumnDef="labels">
+            <th mat-header-cell *matHeaderCellDef>Etiquetas</th>
+            <td mat-cell *matCellDef="let row">
+                <mat-chip-listbox>
+                    <mat-chip *ngFor="let label of row.labels">
+                        {{ label }}
+                    </mat-chip>
+                </mat-chip-listbox>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()"
+                            [aria-label]="checkboxLabel()">
+                </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="select($event, row)"
+                            [checked]="selection.isSelected(row)"
+                            [aria-label]="checkboxLabel(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="questionsTableColumns"></tr>
+        <tr
+        mat-row
+        *matRowDef="let row; columns: questionsTableColumns"
+        (click)="selection.toggle(row)"
+        ></tr>
+    </table>
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons aria-label="Seleccione páginas de preguntas"></mat-paginator>

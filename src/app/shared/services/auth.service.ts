@@ -23,7 +23,7 @@ export class AuthService {
   serverUrl: any = environment.serverUrl;
   isAuth: boolean = false;
   private currentUser: User | null = null;
-
+  private permittedModules: string[] = [];
   /**
    * Constructor del servicio de autenticación.
    * @param router Servicio de enrutamiento.
@@ -60,56 +60,84 @@ export class AuthService {
                               {
                                   "roleName": "Role gestion",
                                   "roleID": "34563789iouygjhfjkl",
-                                  "modules": {
-                                    "dominio": {
+                                  "modules": [
+                                    {
+                                        "module": "dashboard",
                                         "create": true,
                                         "read": true,
                                         "update": true,
                                         "delete": true
                                     },
-                                    "sub-dominio": {
+                                    {
+                                        "module": "clients",
                                         "create": true,
                                         "read": true,
                                         "update": true,
                                         "delete": true
                                     },
-                                    "cliente": {
+                                    {
+                                        "module": "companies",
                                         "create": true,
                                         "read": true,
                                         "update": true,
                                         "delete": true
                                     },
-                                    "company": {
+                                    {
+                                        "module": "roles",
                                         "create": true,
                                         "read": true,
                                         "update": true,
                                         "delete": true
                                     },
-                                    "evaluation": {
-                                      "create": true,
-                                      "read": true,
-                                      "update": true,
-                                      "delete": true
+                                    // {
+                                    //     "module": "bulk-upload",
+                                    //     "create": true,
+                                    //     "read": true,
+                                    //     "update": true,
+                                    //     "delete": true
+                                    // },
+                                    {
+                                        "module": "contacts",
+                                        "create": true,
+                                        "read": true,
+                                        "update": true,
+                                        "delete": true
                                     },
-                                    "questionnaires": {
-                                      "create": true,
-                                      "read": true,
-                                      "update": true,
-                                      "delete": true
+                                    {
+                                        "module": "evaluation-module",
+                                        "create": true,
+                                        "read": true,
+                                        "update": true,
+                                        "delete": true
+                                    },
+                                    {
+                                        "module": "questionnaires-module",
+                                        "create": true,
+                                        "read": true,
+                                        "update": true,
+                                        "delete": true
+                                    },
+                                    {
+                                        "module": "questions-module",
+                                        "create": true,
+                                        "read": true,
+                                        "update": true,
+                                        "delete": true
                                     }
-                                  }
+                                  ]
                               },
                               {
                                   "roleName": "Role comercial",
                                   "roleID": "dghfjkljhgdkhtj,447579860",
-                                  "modules": {
-                                      "dominio": {
-                                          "create": true,
-                                          "read": true,
-                                          "update": true,
-                                          "delete": true
-                                      }
-                                  }
+                                  "modules": [
+                                    {
+                                        "module": "dominio",
+                                        "create": true,
+                                        "read": true,
+                                        "update": true,
+                                        "delete": true
+                                    }
+                                  ]
                               }
                           ]
                       },
@@ -127,47 +155,52 @@ export class AuthService {
                             {
                                 "roleName": "Role gestion",
                                 "roleID": "34563789iouygjhfjkl",
-                                "modules": {
-                                    "dominio": {
+                                "modules": [
+                                    {
+                                        "module": "dominio",
                                         "create": true,
                                         "read": true,
                                         "update": true,
                                         "delete": true
                                     },
-                                    "sub-dominio": {
+                                    {
+                                        "module": "sub-dominio",
                                         "create": true,
                                         "read": true,
                                         "update": true,
                                         "delete": true
                                     },
-                                    "cliente": {
+                                    {
+                                        "module": "cliente",
                                         "create": true,
                                         "read": true,
                                         "update": true,
                                         "delete": true
                                     },
-                                    "company": {
+                                    {
+                                        "module": "company",
                                         "create": true,
                                         "read": true,
                                         "update": true,
                                         "delete": true
-                                    }
-                                }
+                                  }
+                                ]
                             },
                             {
                                 "roleName": "Role comercial",
                                 "roleID": "dghfjkljhgdkhtj,447579860",
-                                "modules": {
-                                    "dominio": {
+                                "modules": [
+                                    {
+                                        "module": "dominio",
                                         "create": true,
                                         "read": true,
                                         "update": true,
                                         "delete": true
                                     }
-                                }
+                                ]
                             }
                         ]
-                    },
+                    }
                 ]
             }
           ],
@@ -180,11 +213,25 @@ export class AuthService {
       sessionStorage.setItem('client', response1.permissions[0].client);
       sessionStorage.setItem('session', response.session);
       this.isAuth = true;
+      this.permittedModules = this.extractPermittedModules(response1.permissions[0].companies[0].roles[0].modules);
+      console.log("Modulos permitidos",this.permittedModules);
       return response1;
     } catch (error) {
       console.error('Error during login:', error);
       return Promise.reject(error);
     }
+  }
+
+  extractPermittedModules(modules: any[]): string[] {
+    const modulesArray = modules.map((module: any) => {
+      return module.module;
+    });
+    console.log("Modulos",modulesArray);
+    return modulesArray;
+  }
+
+  getPermittedModules(): string[] {
+    return this.permittedModules;
   }
 
   /**

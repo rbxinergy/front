@@ -1,5 +1,5 @@
 import { CommonModule, NgFor } from '@angular/common';
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormsModule, FormControl, FormGroup, FormGroupName, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,6 +25,7 @@ import { MatListModule } from '@angular/material/list';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
@@ -44,7 +45,7 @@ import { QuestionnaireQuestionsComponent } from './questionnaire-questions/quest
     MatInputModule, MatButtonModule, MatIconModule, MatCheckboxModule, MatMenuModule,
     ReactiveFormsModule, MatDividerModule, MatButtonModule,
     CdkDrag, CdkDropList, CdkDragPlaceholder, MatCardModule, MatSelectModule,
-    MatStepperModule, MatListModule, MatProgressSpinnerModule, MatTableModule, HttpClientModule],
+    MatStepperModule, MatListModule, MatProgressSpinnerModule, MatTableModule, HttpClientModule, MatPaginatorModule],
     providers: [
       {
         provide: STEPPER_GLOBAL_OPTIONS,
@@ -89,7 +90,8 @@ export class QuestionairesComponent {
   showSpinner: boolean = true;
   dataEmpty: boolean = false;
   dataSource = new MatTableDataSource<Quest>();
-
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
   constructor(private fb: FormBuilder, private questService: QuestService,
     private router: Router, private route: ActivatedRoute, private subDomainService: SubdomainService, public dialog: MatDialog) {
     console.log('Cuestionario constructor');
@@ -98,7 +100,11 @@ export class QuestionairesComponent {
       clave: new FormControl('', Validators.required),
       valor: new FormControl('', Validators.required),
     });
+  }
+
+  ngAfterViewInit() {
     this.getQuest();
+    this.dataSource.paginator = this.paginator;
   }
 
   openDialog(): void {
@@ -107,7 +113,7 @@ export class QuestionairesComponent {
     });
   }
   goNewQuestionnaire() {
-    this.router.navigate(['../new-questionnaire'], {relativeTo: this.route});
+    this.router.navigate(['new-questionnaire'], {relativeTo: this.route});
   }
 
   getSubdomains(): void {
