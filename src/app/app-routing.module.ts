@@ -75,8 +75,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: { module: 'questions', action: 'read' }
       }
-    ],
-    canActivateChild: [AuthGuard]
+    ]
   },
 ];
 
