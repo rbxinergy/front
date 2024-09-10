@@ -68,6 +68,12 @@
                <span *ngIf="!isCollapsed">{{"questionnaires" | translate}}</span>
             </span>
          </a>
+         <a mat-list-item [routerLink]="['questions-module']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="entry">
+               <mat-icon>question_mark</mat-icon>
+               <span *ngIf="!isCollapsed">{{"questions" | translate}}</span>
+            </span>
+         </a>
       </mat-nav-list>
    </mat-sidenav>
    <mat-sidenav-content>

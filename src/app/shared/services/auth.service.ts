@@ -96,6 +96,12 @@ export class AuthService {
                                       "read": true,
                                       "update": true,
                                       "delete": true
+                                    },
+                                    "questions": {
+                                      "create": true,
+                                      "read": true,
+                                      "update": true,
+                                      "delete": true
                                     }
                                   }
                               },

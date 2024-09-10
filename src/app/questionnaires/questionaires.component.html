@@ -79,6 +79,7 @@
     <tr mat-header-row *matHeaderRowDef="questTableColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: questTableColumns"></tr>
   </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
 
 <!-- 

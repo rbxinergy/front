@@ -63,7 +63,7 @@ export class QuestionsTableComponent implements AfterViewInit{
   questions: Question[] = [];
 
   constructor(private questService: QuestService) {
-    this.currentCompany = {id: 27}; // JSON.parse(sessionStorage.getItem('company') || '');
+    this.currentCompany = {id: 27} // JSON.parse(sessionStorage.getItem('company') || '');
     this.selection.clear();
   }
 

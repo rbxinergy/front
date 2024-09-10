@@ -1,0 +1,10 @@
+<div class="p-4">
+    <mat-dialog-content>
+    <app-questions></app-questions>
+    <app-questions-table (questionsData)="onReceiveQuestions($event)"></app-questions-table>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cerrar</button>
+        <button mat-button [mat-dialog-close]="questions" cdkFocusInitial (click)="addQuestions()">Agregar</button>
+    </mat-dialog-actions>
+</div>
