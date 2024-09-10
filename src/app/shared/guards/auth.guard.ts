@@ -18,26 +18,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     const module = route.data['module'];
     const action = route.data['action'];
 
-    if (this.authService.hasPermission(module, action)) {
-      return true;
-    } else {
-      this.router.navigate(['login']);
-      return false;
-    }
+    return this.authService.hasPermission(module, action);
 
-    // return this.authService.isActive().pipe(
-    //   map((isActive: boolean) => {
-    //     if (isActive) {
-    //       return true;
-    //     } else {
-    //       this.router.navigate(['login']);
-    //       return false;
-    //     }
-    //   }),
-    //   catchError(() => {
-    //     this.router.navigate(['login']);
-    //     return of(false);
-    //   })
-    // );
   }
 }

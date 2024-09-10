@@ -21,6 +21,7 @@ export class DashboardComponent {
   isMobile= false;
   isCollapsed = false;
   clientName: string = '';
+  permittedModules: string[] = [];
 
   constructor(private authService: AuthService, private translateService: TranslateService, private observer: BreakpointObserver ) {
     const userLang = navigator.language || 'es';
@@ -30,6 +31,8 @@ export class DashboardComponent {
   }
   
   ngOnInit():void{
+    this.permittedModules = this.authService.getPermittedModules();
+    console.log(this.permittedModules);
     const profile = JSON.parse(sessionStorage.getItem('profile') || ''); 
     const firstName = profile.firstName
     const lastName = profile.lastName
