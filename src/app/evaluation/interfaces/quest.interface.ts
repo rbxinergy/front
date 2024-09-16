@@ -1,20 +1,21 @@
 export interface Quest {
-  id: number;
-  name: string;
-  questions: Question[];
-  questId: number;
-  subDomain: number;
-  subDomainName: string;
-  companyId: number;
-  documentNumber: string;
-  companyName: string;
-  description: string;
-  status: boolean;
-  createdAt: Date;
-  deletedAt: Date | null;
-  group: boolean;
-  clientName: string;
-  visibility: boolean;
+  id?: number;
+  subDomainId?: number;
+  name?: string;
+  questions?: Question[];
+  questId?: number;
+  subDomain?: number;
+  subDomainName?: string;
+  companyId?: number;
+  documentNumber?: string;
+  companyName?: string;
+  description?: string;
+  status?: boolean;
+  createdAt?: Date;
+  deletedAt?: Date | null;
+  group?: boolean;
+  clientName?: string;
+  visibility?: boolean;
 }
 
 export interface Question {

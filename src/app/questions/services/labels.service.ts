@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { retry, catchError, throwError } from 'rxjs';
+import { retry, catchError, throwError, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -18,11 +18,20 @@ export class LabelsService {
   }
 
   createLabel(data:any) {
-    const url = environment.apiPostLabels;
-    return this.http.post(url, data, {headers: this.headers}).pipe(
-      retry(3),
-      catchError(this.handleError)
-    )
+    console.log("CREATE LABELS");
+    const response = {
+      "status": 200,
+      "message": "Etiquetas repetidas / insertadas.",
+      "existingLabels": [
+          "Label1",
+          "Label2"
+      ],
+      "insertedLabels": [
+          "Label3",
+          "Label4"
+      ]
+  }
+    return of(response);
   }
 
   private handleError(error: HttpErrorResponse) {

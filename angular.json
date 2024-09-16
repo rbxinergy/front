@@ -90,7 +90,7 @@
                 }
               ]
             },
-            "dummydev": {
+            "dummy": {
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
@@ -118,6 +118,9 @@
             },
             "staging": {
               "buildTarget": "xr-backoffice:build:staging"
+            },
+            "dummy": {
+              "buildTarget": "xr-backoffice:build:dummy"
             }
           },
           "defaultConfiguration": "development"

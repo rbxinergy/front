@@ -33,6 +33,7 @@ import { SubdomainService } from './services/subdomain.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NewQuestionnaireComponent } from './new-questionnaire/new-questionnaire.component';
 import { QuestionnaireQuestionsComponent } from './questionnaire-questions/questionnaire-questions.component';
+import { MessagesModalComponent } from './messages-modal/messages-modal.component';
 
 
 @Component({
@@ -158,5 +159,27 @@ export class QuestionairesComponent {
 
   updateDialog(id: number) { console.log(id)}
 
-  delService(id: number) { console.log(id)}
+  delService(id: number) {
+    const dialogRef = this.dialog.open(MessagesModalComponent, {
+      width: '250px',
+      data: {
+        message: '¿Estás seguro que deseas eliminar este cuestionario?',
+        type: 'warning',
+        showCancel: true,
+        showOk: true,
+        }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialog.open(MessagesModalComponent, {
+        width: '250px',
+        data: {
+          message: 'Cuestionario eliminado correctamente',
+          type: 'success',
+          showCancel: false,
+          showOk: false,
+        }
+      });
+    });
+  }
 }

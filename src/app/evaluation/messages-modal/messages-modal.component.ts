@@ -16,10 +16,11 @@ export class MessagesModalComponent {
   modalMessage: string = '';
   modalColor: string = '';
   showCancel: boolean = false;
+  showOk: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<MessagesModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { message: string, type: string, showCancel: boolean}
+    @Inject(MAT_DIALOG_DATA) public data: { message: string, type: string, showCancel: boolean, showOk: boolean}
   ) {
     this.modalTitle = this.data.type;
     this.showCancel = this.data.showCancel;
@@ -28,5 +29,13 @@ export class MessagesModalComponent {
 
   onClose() {
     this.dialogRef.close();
+  }
+
+  onCancel() {
+    this.dialogRef.close(false);
+  }
+
+  onOk() {
+    this.dialogRef.close(true);
   }
 }

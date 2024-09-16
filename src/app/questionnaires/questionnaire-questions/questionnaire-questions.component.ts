@@ -50,7 +50,7 @@ export class QuestionnaireQuestionsComponent {
   ]
 
   constructor(private questService: QuestService, public dialog: MatDialog) {
-    this.currentCompany = JSON.parse(sessionStorage.getItem('company') || '')
+    this.currentCompany = {id: 27} // JSON.parse(sessionStorage.getItem('company') || '')
     this.getQuestions()
   }
 

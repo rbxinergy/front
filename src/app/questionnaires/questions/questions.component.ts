@@ -29,6 +29,8 @@ import { MatSortModule, MatSort, Sort } from '@angular/material/sort';
 import {MatPaginator, MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
 import { AfterViewInit } from '@angular/core';
 import { MatSortable } from '@angular/material/sort';
+import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 // import { MyCustomPaginatorIntl } from 'src/app/utils/MyCustomPaginatorIntl';
 
 
@@ -82,7 +84,8 @@ export class QuestionsComponent { // implements AfterViewInit
   // ];
 
   constructor(private route: ActivatedRoute, private questService: QuestService,
-    private fb: FormBuilder, private labelsService: LabelsService
+    private fb: FormBuilder, private labelsService: LabelsService,
+    private dialog: MatDialog
   ) {
     this.questionForm = new FormGroup({
       name: new FormControl('', Validators.required),
@@ -123,7 +126,15 @@ export class QuestionsComponent { // implements AfterViewInit
     data.companyId = this.currentCompany.id;
     console.log(data);
     this.questService.createQuestion(data).subscribe((result) => {
-      console.log(result);
+      const dialogRef = this.dialog.open(MessagesModalComponent, {
+        width: '250px',
+        data: {
+          message: 'Pregunta creada correctamente',
+          type: 'success',
+          showCancel: false,
+          showOk: false,
+        }
+      });
     })
   }
 

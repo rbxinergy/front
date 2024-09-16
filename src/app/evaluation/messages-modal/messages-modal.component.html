@@ -13,11 +13,29 @@
   <p>{{ data.message }}</p>
 </div>
 <div mat-dialog-actions align="end">
-  <button
-    mat-raised-button 
-    (click)="onClose()"
-    [color]="data.type === 'error'? 'warn' : data.type === 'info'? 'info': 'primary'">
-    {{ "close" | translate }}
-  </button>
+  @if (data.showCancel) {
+    <button
+      mat-raised-button 
+      (click)="onCancel()"
+      [color]="'warn'">
+      {{ "cancel" | translate }}
+    </button>
+  }
+  @if (data.showOk) {
+    <button
+      mat-raised-button 
+      (click)="onOk()"
+      [color]="'primary'">
+      {{ "ok" | translate }}
+    </button>
+  }
+  @if (!data.showCancel && !data.showOk) {
+    <button
+      mat-raised-button 
+      (click)="onClose()"
+      [color]="data.type === 'error'? 'warn' : data.type === 'info'? 'info': 'primary'">
+      {{ "close" | translate }}
+    </button>
+  }
 </div>
 

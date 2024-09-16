@@ -1,5 +1,5 @@
 import { CommonModule, NgFor } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -26,6 +26,7 @@ import { UpdateEvaluationComponent } from './update-evaluation/update-evaluation
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MessagesModalComponent } from './messages-modal/messages-modal.component';
 
 @Component({
   selector: 'app-evaluation',
@@ -54,7 +55,7 @@ import { MatSort } from '@angular/material/sort';
     MatPaginatorModule
   ]
 })
-export class EvaluationComponent implements OnInit {
+export class EvaluationComponent implements AfterViewInit {
 
   currentCompany!: any;
   profile: any = {};
@@ -102,7 +103,7 @@ export class EvaluationComponent implements OnInit {
       private questService: QuestService, private router: Router, private route: ActivatedRoute,
       public dialog: MatDialog) { }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.getEvaluations();
   }
 
@@ -142,7 +143,41 @@ export class EvaluationComponent implements OnInit {
   }
 
   delEval(id: number) {
-  
+    const dialogRef = this.dialog.open(MessagesModalComponent, {
+      width: '500px',
+      enterAnimationDuration: '500ms',
+      exitAnimationDuration: '500ms',
+      data: {
+        message: '¿Está seguro que desea eliminar la evaluación?',
+        type: 'warning',
+        showCancel: true,
+        showOk: true
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        this.dialog.open(MessagesModalComponent, {
+          width: '500px',
+          enterAnimationDuration: '500ms',
+          exitAnimationDuration: '500ms',
+          data: {
+            message: 'La evaluación se ha eliminado correctamente',
+            type: 'success'
+          }
+        });
+      } else {
+        this.dialog.open(MessagesModalComponent, {
+          width: '500px',
+          enterAnimationDuration: '500ms',
+          exitAnimationDuration: '500ms',
+          data: {
+            message: 'Error al eliminar la evaluación. Intente nuevamente.',
+            type: 'error'
+          }
+        });
+      }
+    });
   }
 
   async updateDialog(id: number) {

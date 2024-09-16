@@ -22,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -76,7 +77,8 @@ export class NewQuestionnaireComponent implements OnInit {
     private questService: QuestService,
     public dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public router: Router
   ) {
     this.questionnaireForm = this.fb.group({
       name: ['', Validators.required],
@@ -210,6 +212,7 @@ export class NewQuestionnaireComponent implements OnInit {
             type: 'success'
           }
         });
+        this.router.navigate(['dashboard/questionnaires-module']);
       },
       (error) => {
         console.error("Error al enviar los datos al backend:", error);
