@@ -139,7 +139,7 @@ export class EvaluationComponent implements AfterViewInit {
   }
 
   goNewEval() {
-    this.router.navigate(['../new-evaluation'], {relativeTo: this.route});
+    this.router.navigate(['new-evaluation'], {relativeTo: this.route});
   }
 
   delEval(id: number) {

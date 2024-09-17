@@ -1,5 +1,5 @@
 import { CommonModule, NgFor } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
@@ -27,6 +27,7 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
 import { UpdateEvaluationComponent } from '../update-evaluation/update-evaluation.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-new-evaluation',
@@ -53,9 +54,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDatepickerModule, 
     MatNativeDateModule,
     ReactiveFormsModule,
+    MatPaginatorModule
   ]
 })
-export class NewEvaluationComponent {
+export class NewEvaluationComponent implements AfterViewInit {
 
   currentCompany!: any;
   profile: any = {};
@@ -90,6 +92,8 @@ export class NewEvaluationComponent {
     {value: true, text: 'group'},
   ]
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   constructor(private evaluationService: EvaluationService, private getServicesService: GetservicesService,
       private questService: QuestService, private router: Router,
       private route: ActivatedRoute, public dialog: MatDialog
@@ -98,13 +102,22 @@ export class NewEvaluationComponent {
     this.createForm.addControl('type', new FormControl('',Validators.required));
     this.createForm.addControl('companyId', new FormControl(''));
     this.createForm.addControl('quests', new FormControl(''));
-    this.profile = JSON.parse(sessionStorage.getItem('user-profile') || '');
-    this.currentCompany =  JSON.parse(sessionStorage.getItem('company') || '');
+    this.profile = JSON.parse(sessionStorage.getItem('profile') || '');
+    this.currentCompany = {id: 27} // JSON.parse(sessionStorage.getItem('company') || '');
 
+
+  }
+
+  ngAfterViewInit(): void {
+    this.getQuests();
+  }
+
+  getQuests() {
     this.questService.getQuestionnaires(this.currentCompany.id).subscribe((data: Quest[]) => {
       console.log("ANY: ", data);
       this.questionnaires = data;
       this.questDataSource.data = data;
+      this.questDataSource.paginator = this.paginator;
       console.log("Cuestionarios:", this.questionnaires);
     });
   }

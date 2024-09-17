@@ -40,19 +40,6 @@
       <mat-option *ngFor="let element of visibility" [value]="element.value">{{ element.value === false ? 'Empresa' : 'Grupo' }}</mat-option>
     </mat-select>
   </mat-form-field>
-  <!-- <mat-form-field appearance="outline" class="col-2">
-    <mat-label>Fecha de inicio</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <mat-datepicker-toggle matIconSuffix [for]="picker" name="created_date" required></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline" class="col-2">
-    <mat-label>Fecha de cierre</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <mat-datepicker-toggle matIconSuffix [for]="picker" name="modificated_date" required></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field> -->
 </div>
 <br />
 <div class="container">
@@ -106,6 +93,7 @@
     <tr mat-header-row *matHeaderRowDef="questTableColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: questTableColumns"></tr>
   </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   <br />
   
   <button mat-raised-button (click)="goBack()">Volver</button>
