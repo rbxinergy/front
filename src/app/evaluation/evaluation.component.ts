@@ -1,5 +1,5 @@
 import { CommonModule, NgFor } from '@angular/common';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -57,7 +57,7 @@ import { MessagesModalComponent } from './messages-modal/messages-modal.componen
 })
 export class EvaluationComponent implements AfterViewInit {
 
-  currentCompany!: any;
+  currentCompany: any = {};
   profile: any = {};
   startDate: string = '';
   endDate: string = '';
@@ -101,7 +101,7 @@ export class EvaluationComponent implements AfterViewInit {
 
   constructor(private evaluationService: EvaluationService, private getServicesService: GetservicesService,
       private questService: QuestService, private router: Router, private route: ActivatedRoute,
-      public dialog: MatDialog) { }
+      public dialog: MatDialog, private cdr: ChangeDetectorRef) { }
 
   ngAfterViewInit(): void {
     this.getEvaluations();
@@ -113,9 +113,9 @@ export class EvaluationComponent implements AfterViewInit {
     this.createForm.addControl('type', new FormControl('',Validators.required));
     this.createForm.addControl('companyId', new FormControl(''));
     this.profile = JSON.parse(sessionStorage.getItem('profile') || '');
-    this.currentCompany =  27 // TODO: Forzado por compatibilidad con modelo anterior. Cambiar por el cliente seleccionado
-    console.log("COMPANY", this.currentCompany);
-    this.evaluationService.getEvaluationsByCompanyId(this.currentCompany)
+    this.currentCompany = {id: 27, companyname: 'Compañía Minera del Pacífico'}; // TODO: Forzado por compatibilidad con modelo anterior. Cambiar por el cliente seleccionado
+    console.log("COMPANY", this.currentCompany.id);
+    this.evaluationService.getEvaluationsByCompanyId(this.currentCompany.id)
     .subscribe((data: Evaluation[]) => {
       console.log("EVALUACIONES:", data);
       this.evaluations = data;
@@ -129,6 +129,7 @@ export class EvaluationComponent implements AfterViewInit {
       } else {
         this.evDataSource.data = this.evaluations;
       }
+      this.cdr.detectChanges();
     }, (error) => {
       this.dataEmpty = true;
       this.showSpinner = false;

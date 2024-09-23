@@ -103,7 +103,7 @@ export class NewEvaluationComponent implements AfterViewInit {
     this.createForm.addControl('companyId', new FormControl(''));
     this.createForm.addControl('quests', new FormControl(''));
     this.profile = JSON.parse(sessionStorage.getItem('profile') || '');
-    this.currentCompany = {id: 27} // JSON.parse(sessionStorage.getItem('company') || '');
+    this.currentCompany = {id: 27, companyname: 'Compañía Minera del Pacífico'} // JSON.parse(sessionStorage.getItem('company') || '');
 
 
   }
@@ -125,13 +125,14 @@ export class NewEvaluationComponent implements AfterViewInit {
   saveEvaluation() {
     let data: any = this.createForm.getRawValue();
     data.companyId = this.currentCompany.id;
+    data.companyName = this.currentCompany.companyname;
     data.quests = this.selection.selected;
-    console.log(data);
+    console.log("CREATE EVALUATION", data);
     this.evaluationService.createEvaluation(data).subscribe((data) => {
-      console.log(data);
+      console.log("RESPONSE", data);
       this.createForm.reset();
       this.showDialog('500ms', '500ms', 'Evaluación creada correctamente.', 'success');
-      this.router.navigate(['home/evaluation']);
+      this.router.navigate(['dashboard/evaluation-module']);
     }, (error) => {
       this.showDialog('500ms', '500ms', 'No se pudo crear la evaluación. Por favor intente en unos momentos.', 'error');
       console.log(error);
@@ -168,7 +169,7 @@ export class NewEvaluationComponent implements AfterViewInit {
   }
 
   goBack() {
-    this.router.navigate(['home/evaluation']);
+    this.router.navigate(['dashboard/evaluation-module']);
   }
 
 }

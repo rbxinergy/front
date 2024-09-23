@@ -18,10 +18,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { StepperModule } from "./components/dashboard/stepper.module";
 import { SignUpComponent } from "./components/sign-up/sign-up.component";
-import { ContactModule } from "./contact/contact.module";
 import { ObjectToArrayPipe } from "./object-to-array.pipe";
 import { AuthInterceptor } from "./shared/interceptors/auth.interceptor";
-
 
 
 export function HttpLoaderFactory(http: HttpClient){
@@ -51,12 +49,11 @@ export function HttpLoaderFactory(http: HttpClient){
     }),
     BrowserAnimationsModule,
     StepperModule,
-    MatDialogModule,
-    ContactModule
+    MatDialogModule
   ],
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}  
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ],
   bootstrap: [AppComponent],
   exports:[
