@@ -93,6 +93,7 @@ export class ContactComponent implements AfterViewInit {
   }
 
   openNewContactModal() {
+    console.log("New contact modal");
     const dialogRef = this.dialog.open(NewContactComponent, {
       width: '600px',
       data: {}
@@ -100,6 +101,8 @@ export class ContactComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe({
       next: (newContact: Contact) => {
+        delete newContact.id;
+        delete newContact.active;
         this.contactService.createContact(newContact).subscribe({
           next: (res) => {
             console.log(res);

@@ -16,7 +16,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Role } from '../../interfaces/role.interface';
-import { RoleService } from 'src/app/services/role.service';
+import { RoleService } from '../../services/role.service';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
