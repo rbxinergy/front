@@ -15,10 +15,10 @@ mat-toolbar{
     top:0;
     z-index: 2;
     background-color:#f4f3fc ;
-    display: grid;
-    grid-template-columns: auto auto auto;
+    display: flex;
+    // grid-template-columns: auto auto auto auto;
     align-items: center;
-    grid-template-columns: 68px auto 375px;
+    grid-template-columns: 68px 256px auto auto;
     font-weight: normal;
     .mdc-icon-button{
         background-color: #5f4ede;
@@ -99,6 +99,7 @@ mat-sidenav-content{
     gap: 5px;
     padding: 0.5rem 0.75rem;
     align-items: center;
+    justify-content: end;
 }
 
 .welcoming > *{
@@ -172,4 +173,9 @@ aside > * > ul > li > a {
     font-weight: 300;
     font-family: system-ui;
     font-size: .9rem;
+}
+
+.selector-container {
+    margin-left: 40px;
+    padding: 8px;
 }

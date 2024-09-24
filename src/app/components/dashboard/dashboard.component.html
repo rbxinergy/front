@@ -5,7 +5,20 @@
    <div class="title">
       <h1><a [routerLink]="['configs']">X-RISK</a></h1><span>Backoffice</span>
    </div>
-   
+   <div class="selector-container">
+      <button mat-stroked-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+         Seleccionar empresa<mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+       </button>
+       <mat-menu #menu="matMenu">
+         <div>
+            <mat-radio-group *ngFor="let client of clients">
+              <mat-radio-button *ngFor="let company of client.companies" [value]="company.name" mat-menu-item>
+                {{ company.name }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+       </mat-menu>
+   </div>
    <div class="welcoming" id="welcoming">
       <div role="img" [attr.aria-label]="name" class="name">{{initials}}</div>
       <div>

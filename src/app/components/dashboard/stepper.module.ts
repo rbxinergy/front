@@ -16,12 +16,15 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './dashboard.component';
 import { CompanyTableComponent } from '../company-table/company-table.component';
-
+import { MatMenuModule } from '@angular/material/menu';
+import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
 export function HttpLoaderFactory(http: HttpClient){
   return new TranslateHttpLoader(http)
 }
@@ -43,14 +46,18 @@ export function HttpLoaderFactory(http: HttpClient){
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
+    MatSelectModule,
     TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+        }
     }),
-  ],
+    MatMenuModule,
+    MatRadioModule,
+    FormsModule
+],
   exports:[
     ClientComponent,
     DomainsComponent,

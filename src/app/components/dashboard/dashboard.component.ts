@@ -4,13 +4,22 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 
-
 declare var require: any;
+
+interface Client {
+  name: string;
+  companies: Company[];
+}
+
+interface Company {
+  name: string;
+}
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  
 })
 export class DashboardComponent {
   name : string = ''
@@ -22,6 +31,25 @@ export class DashboardComponent {
   isCollapsed = false;
   clientName: string = '';
   permittedModules: string[] = [];
+
+  clients: Client[] = [
+    {
+      name: 'Client 1',
+      companies: [
+        { name: 'Company A' },
+        { name: 'Company B' }
+      ]
+    },
+    {
+      name: 'Client 2',
+      companies: [
+        { name: 'Company C' },
+        { name: 'Company D' }
+      ]
+    }
+  ];
+
+  selectedCompany: string | null = null;
 
   constructor(private authService: AuthService, private translateService: TranslateService, private observer: BreakpointObserver ) {
     const userLang = navigator.language || 'es';
