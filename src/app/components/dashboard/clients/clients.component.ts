@@ -129,7 +129,7 @@ export class ClientsComponent implements AfterViewInit {
   }
 
   navigateToNewClient() {
-    this.router.navigate(['/dashboard/client']);
+    this.router.navigate(['/dashboard/new-client']);
   }
 
   openBulkUpload(){
