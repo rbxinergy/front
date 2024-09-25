@@ -13,7 +13,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Role } from 'src/app/interfaces/role.interface';
-import { RoleService } from 'src/app/services/role.service';
+import { RoleService } from '../services/role.service';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpResponse } from '@angular/common/http';
 

@@ -50,6 +50,6 @@ export class RoleDialogComponent {
     }
 
   closeModal() {
-    this.dialogRef.close({role: this.roleForm?.getRawValue(), id: this.data?.id});
+    this.dialogRef.close({...this.roleForm?.getRawValue(), id: this.data?.id});
   }
 }

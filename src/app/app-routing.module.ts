@@ -44,8 +44,9 @@ const routes: Routes = [
       { title: 'Configs', path: 'configs', component: ConfigsComponent}, //TODO: Mantener
       { path: 'new-client', component: NewClientComponent }, //TODO: Mantener
       { path: 'stepper', component: StepperComponent}, //TODO: Mantener
-      { title: 'Clientes', path: 'clients', component: ClientsComponent}, //TODO: Mantener
+      { path: 'clients', component: ClientsComponent}, //TODO: Mantener
       { path: 'company', component: CompanyComponent}, //TODO: Mantener
+      { path: 'groupcompany/:client', component: GroupCompanyTableComponent}, //TODO: Mantener
       { path: 'company/:groupCompany', component: CompanyTableComponent}, //TODO: Mantener
       { path: 'integrations', component: IntegrationsComponent}, //TODO: Mantener
       { path: 'roles', component: RolesComponent }, //TODO: Mantener

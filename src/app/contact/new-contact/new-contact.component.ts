@@ -9,8 +9,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
+import { ContactComponent } from '../contact.component';
 
 
 
@@ -25,7 +26,6 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
 })
 export class NewContactComponent {
   contactForm = new FormGroup({
-    id: new FormControl(''),
     name: new FormControl('',Validators.required),
     surName: new FormControl('',Validators.required),
     lastName: new FormControl(''),
@@ -34,26 +34,16 @@ export class NewContactComponent {
     cellphone: new FormControl(''),
     jobTitle: new FormControl(''),
     contactType: new FormControl('',[Validators.required]),
-    active: new FormControl(true),
-    delete: new FormControl(''),
     tag: new FormControl('')
   });
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialogRef: MatDialogRef<NewContactComponent>) { }
 
   save() {
-    this.dialog.open(MessagesModalComponent, {
-      width: '500px',
-      enterAnimationDuration:'500ms',
-      exitAnimationDuration:'500ms',
-      data: {
-        message: 'Elemento creado satisfactoriamente',
-        type: 'success'
-      }
-    });
+    this.dialogRef.close(this.contactForm.getRawValue());
   }
 
   cancel() {
-    this.dialog.closeAll();
+    this.dialogRef.close();
   }
 }

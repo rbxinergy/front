@@ -1,5 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { RoleService } from '../services/role.service';
+import { RoleService } from '../company/services/role.service';
 import { Role } from '../interfaces/role.interface';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';

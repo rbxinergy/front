@@ -16,7 +16,7 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
 import { Role } from 'src/app/interfaces/role.interface';
 import { User } from 'src/app/interfaces/user.interface';
 import { Users } from 'src/app/interfaces/users';
-import { RoleService } from 'src/app/services/role.service';
+import { RoleService } from '../../services/role.service';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpResponse } from '@angular/common/http';
 
@@ -41,7 +41,7 @@ export class UserComponent implements OnInit {
 
   constructor( private dialogRef: MatDialogRef<UserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder,
-    private roleService: RoleService) {
+    private roleService:  RoleService) {
     if(data) {
       this.userForm = this.fb.group({
         id: [data.id],

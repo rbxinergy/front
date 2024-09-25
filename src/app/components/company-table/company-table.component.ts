@@ -89,7 +89,7 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || ''
+    this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || this.groupCompanyDataService.getGroupCompanyData().id;
   }
 
 

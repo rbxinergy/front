@@ -82,7 +82,7 @@ export class GroupCompanyTableComponent implements AfterViewInit {
   //     }
 
   ngOnInit() {
-    this.clientID = this.route.snapshot.paramMap.get('client') || ''
+    this.clientID = this.route.snapshot.paramMap.get('client') || this.clientDataService.getClientData().id;
   }
 
   ngAfterViewInit(): void {

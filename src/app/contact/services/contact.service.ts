@@ -40,6 +40,6 @@ export class ContactService {
   }
 
   createContact(contact: Contact): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/create/contact`, contact, { headers: this.headers, observe: 'response'});
+    return this.http.post<any>(`${this.serverUrl}${this.apiUrl}/create`, contact, { headers: this.headers, observe: 'response'});
   }
 }

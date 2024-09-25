@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
-import { UserService } from '../../services/user.service';
-import { RoleService } from '../../services/role.service';
+import { UserService } from '../services/user.service';
+import { RoleService } from '../services/role.service';
 import { User } from '../../interfaces/user.interface';
 import { Role } from '../../interfaces/role.interface';
 import { MatDialog } from '@angular/material/dialog';
