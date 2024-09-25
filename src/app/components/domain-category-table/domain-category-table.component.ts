@@ -81,7 +81,7 @@ export class DomainCategoryTableComponent {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   ngOnInit() {
-    this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || ''
+    this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || this.groupCompanyDataService.getGroupCompanyData().id
   }
 
   ngAfterViewInit(): void {

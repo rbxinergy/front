@@ -12,6 +12,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { CompanyService } from 'src/app/services/company.service';
+import { ClientDataService } from '../../../../services/client-data.service';
 // import { Companies } from 'src/app/interfaces/companies';
 
 @Component({
@@ -48,9 +49,8 @@ export class UsersComponent implements OnInit {
   
   showTable = false
   
-  constructor(private _formBuilder: FormBuilder, private userService: UsersService, private companyService: CompanyService) {
-    
-  }
+  constructor(private _formBuilder: FormBuilder, private userService: UsersService,
+    private companyService: CompanyService, private clientDataService: ClientDataService) {}
   
   companies:any
   roles:any
@@ -74,8 +74,8 @@ export class UsersComponent implements OnInit {
   }
 
   getCompaniesByGrp(){
-    this.companyService.getCompaniesByClient(sessionStorage.getItem('client')).subscribe(async data => {
-      await data
+    const client = this.clientDataService.getClientData()
+    this.companyService.getCompaniesByClient(client).subscribe(async data => {
       this.companies = data
       console.log('companies',data)
     })
