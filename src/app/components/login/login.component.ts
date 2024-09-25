@@ -64,29 +64,9 @@ export class LoginComponent {
         email: data.email
       }
       sessionStorage.setItem('profile', JSON.stringify(profile));
-      if (data.permissions.length > 1) {
-        const dialogRef = this.dialog.open(ClientSelectionDialogComponent, {
-          data: { clients: data.permissions }
-        });
-
-        dialogRef.afterClosed().subscribe({
-          next: (selectedClient) => {
-            if (selectedClient) {
-              //** Guardar el cliente seleccionado en sessionStorage */
-              sessionStorage.setItem('client', selectedClient.client);
-              sessionStorage.setItem('clientName', selectedClient.clientName);
-            }
-            this.router.navigate(['/dashboard']);
-          },
-          error: (err) => {
-            throw err;
-          }
-        });
-      } else {
-        sessionStorage.setItem('client', data.permissions[0].client);
-        sessionStorage.setItem('clientName', data.permissions[0].clientName);
-        this.router.navigate(['/dashboard']);
-      }
+      sessionStorage.setItem('client', data.permissions[0].client);
+      sessionStorage.setItem('clientName', data.permissions[0].clientName);
+      this.router.navigate(['/dashboard']);
     } catch (error) {
       console.log("ERROR", error);
       this.dialog.open(MessagesModalComponent, {

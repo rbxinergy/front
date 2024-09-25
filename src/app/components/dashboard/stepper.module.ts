@@ -25,6 +25,7 @@ import { CompanyTableComponent } from '../company-table/company-table.component'
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 export function HttpLoaderFactory(http: HttpClient){
   return new TranslateHttpLoader(http)
 }
@@ -56,7 +57,8 @@ export function HttpLoaderFactory(http: HttpClient){
     }),
     MatMenuModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    MatCheckboxModule
 ],
   exports:[
     ClientComponent,

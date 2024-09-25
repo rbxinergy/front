@@ -15,10 +15,10 @@ mat-toolbar{
     top:0;
     z-index: 2;
     background-color:#f4f3fc ;
-    display: flex;
+    display: inline-flex;
     // grid-template-columns: auto auto auto auto;
     align-items: center;
-    grid-template-columns: 68px 256px auto auto;
+    // grid-template-columns: 68px auto auto;
     font-weight: normal;
     .mdc-icon-button{
         background-color: #5f4ede;
@@ -176,6 +176,54 @@ aside > * > ul > li > a {
 }
 
 .selector-container {
-    margin-left: 40px;
+    margin-left: 32px;
     padding: 8px;
+}
+
+.menu {
+    width: 256px;
+    padding: 16px;
+}
+
+.menu-label {
+    font-weight: 500;
+    background-color: #f4f3fc;
+    color: #000;
+    border-radius: 10px 10px 0 0;
+    height: 30px;
+    label{
+        top: 4px;
+        position: relative;
+        left: 8px;
+    }
+}
+
+.menu-table {
+    width: 100%;
+    border: 0px!important;
+    margin-bottom: 0px!important;
+    td {
+        padding: 0 10px;
+    }
+}
+
+.selector {
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.welcoming-container{
+    display: inline-flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.menu-container{
+    display: inline-flex;
+}
+
+.company-container{
+    color: #5f4ede;
+    font-size:14px;
+    font-weight: 500;
 }

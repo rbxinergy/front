@@ -34,24 +34,31 @@ export class DashboardComponent {
 
   clients: Client[] = [
     {
-      name: 'Client 1',
+      name: 'Cencosud',
       companies: [
-        { name: 'Company A' },
-        { name: 'Company B' }
+        { name: 'Paris' },
+        { name: 'Santa Isabel' },
+        { name: 'Shopping Centers' }
       ]
     },
     {
-      name: 'Client 2',
+      name: 'Antofagasta Minerals',
       companies: [
-        { name: 'Company C' },
-        { name: 'Company D' }
+        { name: 'Minera los Pelambres' },
+        { name: 'Minera Centinela' },
+        { name: 'Minera Escondida' },
+        { name: 'Minera El Tesoro' },
+        { name: 'Minera Zaldívar' },
+        { name: 'Minera Andina' }
       ]
     }
   ];
 
   selectedCompany: string | null = null;
+  selectByDefault: boolean = false;
 
-  constructor(private authService: AuthService, private translateService: TranslateService, private observer: BreakpointObserver ) {
+  constructor(private authService: AuthService, private translateService: TranslateService,
+    private observer: BreakpointObserver) {
     const userLang = navigator.language || 'es';
     const languageCode = userLang.split('-')[0];
     this.translateService.setDefaultLang(languageCode)
@@ -59,7 +66,7 @@ export class DashboardComponent {
   }
   
   ngOnInit():void{
-    this.permittedModules = this.authService.getPermittedModules();
+    this.permittedModules = JSON.parse(sessionStorage.getItem('modules') || '[]');
     console.log(this.permittedModules);
     const profile = JSON.parse(sessionStorage.getItem('profile') || ''); 
     const firstName = profile.firstName
@@ -89,6 +96,12 @@ export class DashboardComponent {
       this.sidenav.open();
       this.isCollapsed = !this.isCollapsed;
     }
+  }
+
+  onCompanySelect(companyName: string, event: Event): void {
+    this.selectedCompany = companyName;
+    this.selectByDefault = false;
+    event.stopPropagation();
   }
   
 }

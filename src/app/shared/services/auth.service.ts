@@ -7,7 +7,6 @@ import { map, catchError } from 'rxjs/operators';
 import { ModulePermissions, User } from 'src/app/interfaces/role.interface';
 
 
-
 /**
  * Servicio de autenticación.
  * Este servicio maneja la lógica de autenticación y la gestión de sesiones.
@@ -213,8 +212,7 @@ export class AuthService {
       sessionStorage.setItem('client', response1.permissions[0].client);
       sessionStorage.setItem('session', response.session);
       this.isAuth = true;
-      this.permittedModules = this.extractPermittedModules(response1.permissions[0].companies[0].roles[0].modules);
-      console.log("Modulos permitidos",this.permittedModules);
+      sessionStorage.setItem('modules', JSON.stringify(this.extractPermittedModules(response1.permissions[0].companies[0].roles[0].modules)));
       return response1;
     } catch (error) {
       console.error('Error during login:', error);
