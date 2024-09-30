@@ -88,13 +88,13 @@ export class AuthService {
                                         "update": true,
                                         "delete": true
                                     },
-                                    // {
-                                    //     "module": "bulk-upload",
-                                    //     "create": true,
-                                    //     "read": true,
-                                    //     "update": true,
-                                    //     "delete": true
-                                    // },
+                                    {
+                                        "module": "bulk-upload",
+                                        "create": true,
+                                        "read": true,
+                                        "update": true,
+                                        "delete": true
+                                    },
                                     {
                                         "module": "contacts",
                                         "create": true,

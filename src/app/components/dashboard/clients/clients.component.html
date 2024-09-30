@@ -9,21 +9,25 @@
     </button>
   </mat-form-field>
   <section class="btn-row">
+    @if (permitedModules.includes('bulk-upload')) {
     <button mat-raised-button color="primary" (click)="openBulkUpload()"  matTooltip="Para cargar masivamente clientes desde archivo">
         <mat-icon>cloud_upload</mat-icon>Carga masiva
     </button>
-      <button mat-raised-button color="primary" (click)="navigateToNewClient()">
-          <mat-icon>add_circle</mat-icon>Nuevo cliente
+    }
+    @if (permitedModules.includes('clients')) {
+    <button mat-raised-button color="primary" (click)="navigateToNewClient()">
+        <mat-icon>add_circle</mat-icon>Nuevo cliente
       </button>
+    }
   </section>
   
 </div>
-
+@if (uploadProgress) {
 <div class="progress">
-  <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress">
-  </mat-progress-bar>
+  <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress"></mat-progress-bar>
   <mat-icon class="cancel-upload" (click)="cancelUpload()" *ngIf="uploadProgress">delete_forever</mat-icon>
 </div>
+}
 <div>
   <div class="spinner" *ngIf="isLoading">
     <mat-progress-spinner color="accent" mode="indeterminate" diameter="50">

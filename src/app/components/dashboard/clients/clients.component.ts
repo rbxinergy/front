@@ -67,7 +67,7 @@ import { BulkUploadComponent } from '../../bulk-upload/bulk-upload.component';
 export class ClientsComponent implements AfterViewInit {
   @Input()
   requiredFileType:string;
-
+  permitedModules: string[] = JSON.parse(sessionStorage.getItem('modules') || '[]');
   fileName = '';
   uploadProgress:number;
   uploadSub: Subscription;
