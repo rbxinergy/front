@@ -256,11 +256,12 @@ export class AuthService {
   async logOut(): Promise<void> {
     try {
       await this.http.delete(`${this.serverUrl}${this.apiUrls.logout}`, {}).toPromise();
-      sessionStorage.clear();
       this.router.navigate(['login']);
     } catch (error) {
       console.error('Error during logout:', error);
       return Promise.reject(error);
+    } finally {
+      sessionStorage.clear();
     }
   }
 

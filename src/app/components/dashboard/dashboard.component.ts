@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
-
+import { Router } from '@angular/router';
 declare var require: any;
 
 interface Client {
@@ -58,7 +58,7 @@ export class DashboardComponent {
   selectByDefault: boolean = false;
 
   constructor(private authService: AuthService, private translateService: TranslateService,
-    private observer: BreakpointObserver) {
+    private observer: BreakpointObserver, private router: Router) {
     const userLang = navigator.language || 'es';
     const languageCode = userLang.split('-')[0];
     this.translateService.setDefaultLang(languageCode)
@@ -86,6 +86,7 @@ export class DashboardComponent {
   
   logOut() {
     this.authService.logOut();
+    this.router.navigate(['login']);
   }
 
   toggleMenu() {
