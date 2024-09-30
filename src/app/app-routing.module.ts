@@ -41,7 +41,8 @@ const routes: Routes = [
   { path: 'sign-up', component: SignUpComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
     children:[
-      { title: 'Configs', path: 'configs', component: ConfigsComponent}, //TODO: Mantener
+      { path: '', redirectTo: 'configs', pathMatch: 'full'},
+      { path: 'configs', component: ConfigsComponent}, //TODO: Mantener
       { path: 'new-client', component: NewClientComponent }, //TODO: Mantener
       { path: 'stepper', component: StepperComponent}, //TODO: Mantener
       { path: 'clients', component: ClientsComponent}, //TODO: Mantener
