@@ -20,6 +20,8 @@ import { StepperModule } from "./components/dashboard/stepper.module";
 import { SignUpComponent } from "./components/sign-up/sign-up.component";
 import { ObjectToArrayPipe } from "./object-to-array.pipe";
 import { AuthInterceptor } from "./shared/interceptors/auth.interceptor";
+import { MatPaginatorIntl } from "@angular/material/paginator";
+import { CustomPaginatorIntl } from "./shared/custom-paginator-intl";
 
 
 export function HttpLoaderFactory(http: HttpClient){
@@ -54,6 +56,7 @@ export function HttpLoaderFactory(http: HttpClient){
   providers: [
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },
   ],
   bootstrap: [AppComponent],
   exports:[

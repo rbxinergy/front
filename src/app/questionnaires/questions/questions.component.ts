@@ -31,7 +31,7 @@ import { AfterViewInit } from '@angular/core';
 import { MatSortable } from '@angular/material/sort';
 import { MessagesModalComponent } from '../messages-modal/messages-modal.component';
 import { MatDialog } from '@angular/material/dialog';
-// import { MyCustomPaginatorIntl } from 'src/app/utils/MyCustomPaginatorIntl';
+import { CustomPaginatorIntl } from '../../shared/custom-paginator-intl';
 
 
 @Component({
@@ -39,7 +39,7 @@ import { MatDialog } from '@angular/material/dialog';
     standalone: true,
     templateUrl: './questions.component.html',
     styleUrls: ['./questions.component.scss'],
-    // providers: [{ provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl }],
+    providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }],
     imports: [CommonModule, MatCardModule, MatCheckboxModule,
         MatRadioModule, MatInputModule, MatFormFieldModule, FormsModule,
         ReactiveFormsModule, MatDividerModule, MatSelectModule,

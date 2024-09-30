@@ -60,7 +60,7 @@
          <a *ngIf="permittedModules.includes('dashboard')" mat-list-item [routerLink]="['configs']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon>house</mat-icon>
-               <span *ngIf="!isCollapsed">Dashboard</span>
+               <span *ngIf="!isCollapsed">{{"home" | translate}}</span>
             </span>
          </a>
          <a *ngIf="permittedModules.includes('clients')" mat-list-item [routerLink]="['clients']" routerLinkActive="active" ariaCurrentWhenActive="page">
