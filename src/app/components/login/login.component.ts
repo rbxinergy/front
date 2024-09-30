@@ -17,7 +17,7 @@ import { ClientSelectionDialogComponent } from '../client-selection-dialog/clien
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
   standalone: true,
   imports: [
     MatIconModule,
@@ -75,6 +75,12 @@ export class LoginComponent {
           type: 'error'
         }
       });
+    }
+  }
+
+  handleKeydown(event: KeyboardEvent, email: string, password: string) {
+    if (event.key === 'Enter') {
+      this.logIn(email, password);
     }
   }
 }

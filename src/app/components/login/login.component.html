@@ -9,14 +9,14 @@
 <div class="form">
   <mat-form-field appearance="outline">
     <mat-label>Enter your e-mail</mat-label>
-    <input matInput type="email" name="email" #email placeholder="example@email.com" required>
+    <input matInput type="email" name="email" #email placeholder="example@email.com" required (keydown)="handleKeydown($event, email.value, password.value)">
     <button mat-icon-button matSuffix>
       <mat-icon>mail</mat-icon>
     </button>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Enter your password</mat-label>
-    <input matInput [type]="hide ? 'password' : 'text'" #password>
+    <input matInput [type]="hide ? 'password' : 'text'" #password required (keydown)="handleKeydown($event, email.value, password.value)">
     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
