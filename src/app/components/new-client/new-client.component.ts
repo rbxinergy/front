@@ -32,7 +32,7 @@ import { Client } from 'src/app/interfaces/client.interface';
     selector: 'app-new-client',
     standalone: true,
     templateUrl: './new-client.component.html',
-    styleUrls: ['./new-client.component.css'],
+    styleUrls: ['./new-client.component.scss'],
     providers: [
         {
             provide: STEPPER_GLOBAL_OPTIONS,

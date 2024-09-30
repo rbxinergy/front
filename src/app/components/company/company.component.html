@@ -52,6 +52,11 @@
     <mat-form-field appearance="outline" class="col-3">
       <mat-label>Número de Documento</mat-label>
       <input matInput formControlName="document" required>
+      @if (companyForm.get('document')?.hasError('invalidRut')) {
+      <mat-error>
+        RUT inválido
+      </mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="col-3">

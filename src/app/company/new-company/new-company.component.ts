@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { rutValidator } from '../../shared/rut.validator';
 
 
 @Component({
@@ -70,6 +71,15 @@ export class NewCompanyComponent {
         this.dialogRef.close(null);
       }
     })
+
+    this.companyForm.get('documentType')?.valueChanges.subscribe((value: string) => {
+      if (value === 'RUT') {
+        this.companyForm.get('document')?.setValidators([Validators.required, rutValidator()]);
+      } else {
+        this.companyForm.get('document')?.clearValidators();
+      }
+      this.companyForm.get('document')?.updateValueAndValidity();
+    });
 
   }
 

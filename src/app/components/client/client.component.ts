@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
@@ -16,6 +16,8 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
 import { ClientDataService } from 'src/app/services/client-data.service';
 import { Client } from 'src/app/interfaces/client.interface';
 import { ClientService } from 'src/app/services/client.service';
+import { rutValidator } from '../../shared/rut.validator';
+
 
 @Component({
   selector: 'app-client',
@@ -26,31 +28,46 @@ import { ClientService } from 'src/app/services/client.service';
     TranslateModule, MatNativeDateModule, MatDatepickerModule, MatDialogModule
   ],
   templateUrl: './client.component.html',
-  styleUrls: ['./client.component.css']
+  styleUrls: ['./client.component.scss']
 })
 export class ClientComponent implements OnInit {
-  public clientForm = new FormGroup({
-    // id: new FormControl(data?.id || '', Validators.required),
-    name: new FormControl('', Validators.required),
-    businessName: new FormControl('', Validators.required),
-    address: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required),
-    state: new FormControl('', Validators.required),
-    county: new FormControl(''),
-    district: new FormControl(''),
-    documentType: new FormControl('RUT', Validators.required),
-    document: new FormControl('', Validators.required),
-    tag: new FormControl(''),
-    idContact: new FormControl([])
-  });
+  clientForm: FormGroup;
   @Output() validationStatus = new EventEmitter<boolean>();
   @Input() showSaveBtn = true;
   btnDisabled = false;
 
-  constructor(private clientDataService: ClientDataService, private clientService: ClientService, private dialog: MatDialog) { }
+  constructor(private clientDataService: ClientDataService, private clientService: ClientService,
+    private fb: FormBuilder, private dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
+    this.clientForm = this.fb.group({
+      name: ['', Validators.required],
+      businessName: ['', Validators.required],
+      documentType: ['', Validators.required],
+      document: ['', Validators.required],
+      phone: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      address: ['', Validators.required],
+      country: ['', Validators.required],
+      county: ['', Validators.required],
+      district: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      tag: ['']
+    });
+
+    this.clientForm.get('documentType')?.valueChanges.subscribe(value => {
+      console.log(value);
+      if (value === 'RUT') {
+        this.clientForm.get('document')?.setValidators([Validators.required, rutValidator()]);
+      } else {
+        this.clientForm.get('document')?.clearValidators();
+      }
+      this.clientForm.get('document')?.updateValueAndValidity();
+    });
+
+
     this.clientForm.statusChanges.subscribe(status => {
       this.validationStatus.emit(status === 'VALID'? true : false);
     });

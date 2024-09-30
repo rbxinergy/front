@@ -14,6 +14,7 @@ import { MessagesModalComponent } from '../messages-modal/messages-modal.compone
 import { Company } from 'src/app/company/interfaces/company.interface';
 import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
 import { GroupCompanyService } from 'src/app/services/groupcompany.service';
+import { rutValidator } from '../../shared/rut.validator';
 
 @Component({
   selector: 'app-company',
@@ -24,7 +25,7 @@ import { GroupCompanyService } from 'src/app/services/groupcompany.service';
     TranslateModule
   ],
   templateUrl: './company.component.html',
-  styleUrls: ['./company.component.css']
+  styleUrls: ['./company.component.scss']
 })
 export class CompanyComponent {
 
@@ -63,6 +64,15 @@ export class CompanyComponent {
         this.dialogRef.close(null);
       }
     })
+
+    this.companyForm.get('documentType')?.valueChanges.subscribe((value: string) => {
+      if (value === 'RUT') {
+        this.companyForm.get('document')?.setValidators([Validators.required, rutValidator()]);
+      } else {
+        this.companyForm.get('document')?.clearValidators();
+      }
+      this.companyForm.get('document')?.updateValueAndValidity();
+    });
 
   }
 
