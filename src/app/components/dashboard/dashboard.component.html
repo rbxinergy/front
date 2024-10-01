@@ -69,13 +69,13 @@
                <span *ngIf="!isCollapsed">{{"clients" | translate}}</span>
             </span>
          </a>
-         <a *ngIf="permittedModules.includes('companies')" mat-list-item [routerLink]="['company']" routerLinkActive="active" ariaCurrentWhenActive="page">
+         <a *ngIf="permittedModules.includes('company')" mat-list-item [routerLink]="['company']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon> business </mat-icon>
                <span *ngIf="!isCollapsed">{{"companies" | translate}}</span>
             </span>
          </a>
-         <a *ngIf="permittedModules.includes('roles')" mat-list-item [routerLink]="['role-client']" routerLinkActive="active" ariaCurrentWhenActive="page">
+         <a *ngIf="permittedModules.includes('role')" mat-list-item [routerLink]="['role-client']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon>person</mat-icon>
                <span *ngIf="!isCollapsed">{{"roles" | translate}}</span>
@@ -87,7 +87,7 @@
                <span *ngIf="!isCollapsed">{{"bulk-upload" | translate}}</span>
             </span>
          </a>
-         <a *ngIf="permittedModules.includes('contacts')" mat-list-item [routerLink]="['contact-module']" routerLinkActive="active" ariaCurrentWhenActive="page">
+         <a *ngIf="permittedModules.includes('contact')" mat-list-item [routerLink]="['contact-module']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon>contacts</mat-icon>
                <span *ngIf="!isCollapsed">{{"contact" | translate}}</span>
