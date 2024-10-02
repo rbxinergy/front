@@ -12,6 +12,7 @@ export class GetservicesService {
 
   headers!: HttpHeaders;
   param!: HttpParams;
+  apiGetServices = ''; // TODO: change to environment.apiUrls.evaluationModule
 
   constructor(private http: HttpClient) {
     const token = sessionStorage.getItem('token');
@@ -25,7 +26,7 @@ export class GetservicesService {
     const params = new HttpParams({
       fromString: `groupDocument=${groupDocument}`
     })
-    return this.http.get<Services[]>(environment.apiGetServices, {headers: this.headers, params})
+    return this.http.get<Services[]>(this.apiGetServices, {headers: this.headers, params})
     .pipe(
       retry(3),
       catchError(this.handleError)
@@ -37,7 +38,7 @@ export class GetservicesService {
     const params = new HttpParams({
       fromString: `companyId=${companyId}`
     })
-    return this.http.get<Services[]>(environment.apiGetServices, {headers: this.headers, params})
+    return this.http.get<Services[]>(this.apiGetServices, {headers: this.headers, params})
     .pipe(
       retry(3),
       catchError(this.handleError)

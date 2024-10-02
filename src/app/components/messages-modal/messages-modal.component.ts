@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-messages-modal',
   templateUrl: './messages-modal.component.html',
-  styleUrls: ['./messages-modal.component.css'],
+  styleUrls: ['./messages-modal.component.scss'],
   standalone: true,
   imports: [MatButtonModule, MatDialogModule, CommonModule, TranslateModule]
 })

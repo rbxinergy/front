@@ -226,6 +226,16 @@ export class AuthService {
                           upload: false,
                         },
                       },
+                      {
+                        'client-module': {
+                          create: true,
+                          read: true,
+                          update: true,
+                          delete: true,
+                          cascade: true,
+                          upload: false,
+                        },
+                      },
                     ],
                   },
                   {

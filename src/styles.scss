@@ -269,6 +269,10 @@ section[class*="col-"] {
     padding:0 2rem;
 }
 
+.mat-mdc-dialog-container {
+    --mdc-dialog-container-shape: 20px;
+}
+
 /* .mdc-text-field--no-label:not(.mdc-text-field--textarea) .mat-mdc-form-field-input-control.mdc-text-field__input, .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
     height: 9px;
 } 

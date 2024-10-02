@@ -15,6 +15,13 @@ import { environment } from 'src/environments/environment';
 export class QuestService {
   private headers!: HttpHeaders;
 
+  apiGetQuestByCompany = ''; // TODO: change to environment.apiUrls.questionnairesModule
+  apiCreateQuestionnaire = ''; // TODO: change to environment.apiUrls.questionnairesModule
+  apiCreateQuestQuestion = ''; // TODO: change to environment.apiUrls.questionnairesModule
+  apiGetQuestionsByQuestId = ''; // TODO: change to environment.apiUrls.questionnairesModule
+  apiGetQuestByEvalId = ''; // TODO: change to environment.apiUrls.questionnairesModule
+  apiSetQuestionsOrder = ''; // TODO: change to environment.apiUrls.questionnairesModule
+
   constructor(private http: HttpClient) {
     const token = sessionStorage.getItem('token');
     this.headers = new HttpHeaders({
@@ -27,14 +34,14 @@ export class QuestService {
     const params = new HttpParams({
       fromString: `id=${id}`,
     });
-    return this.http.get<Quest[]>(environment.apiGetQuestByCompany, {
+    return this.http.get<Quest[]>(this.apiGetQuestByCompany, {
       headers: this.headers,
       params,
     });
   }
 
   createQuestionnaire(data: Quest) {
-    const url = environment.apiCreateQuestionnaire;
+    const url = this.apiCreateQuestionnaire;
     return this.http
       .post(url, data, { headers: this.headers })
       .pipe(retry(3), catchError(this.handleError));
@@ -50,14 +57,14 @@ export class QuestService {
     return of(response);
   }
   createQuestQuestion(data: any) {
-    const url = environment.apiCreateQuestQuestion;
+    const url = this.apiCreateQuestQuestion;
     return this.http
       .post(url, data, { headers: this.headers })
       .pipe(retry(3), catchError(this.handleError));
   }
 
   getQuestByQuestId(id: number) {
-    const url = environment.apiGetQuestionsByQuestId;
+    const url = this.apiGetQuestionsByQuestId;
     const params = new HttpParams({
       fromString: `id=${id}`,
     });
@@ -67,7 +74,7 @@ export class QuestService {
   }
 
   getQuestionsByQuestId(id: number) {
-    const url = environment.apiGetQuestionsByQuestId;
+    const url = this.apiGetQuestionsByQuestId;
     const params = new HttpParams({
       fromString: `id=${id}`,
     });
@@ -476,7 +483,7 @@ export class QuestService {
   }
 
   getQuestionsByEvalId(id: number) {
-    const url = environment.apiGetQuestByEvalId;
+    const url = this.apiGetQuestByEvalId;
     const params = new HttpParams({
       fromString: `id=${id}`,
     });
@@ -486,7 +493,7 @@ export class QuestService {
   }
 
   setQuestionsOrder(quest: Question[]) {
-    const url = environment.apiSetQuestionsOrder;
+    const url = this.apiSetQuestionsOrder;
     return this.http
       .post<Quest>(url, quest, { headers: this.headers })
       .pipe(retry(3), catchError(this.handleError));

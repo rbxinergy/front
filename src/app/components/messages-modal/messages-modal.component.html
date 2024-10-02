@@ -1,23 +1,26 @@
-<h3
-  [ngClass]="
-    data.type === 'error'
-      ? 'head-error'
-      : data.type === 'info'
-      ? 'head-info'
-      : 'head-primary'
-  "
->
-{{ data.type | translate }}
-</h3>
-<div mat-dialog-content>
-  <p>{{ data.message }}</p>
+<div mat-dialog-title class="modal-header">
+  @if (data.type === 'success') {
+  <img
+    src="/assets/svg/exito.svg"
+    alt="Success Icon"
+  />
+  }
+  @if (data.type === 'error') {
+  <img
+    src="/assets/svg/error.svg"
+    alt="Error Icon"
+  />
+  }
 </div>
-<div mat-dialog-actions align="end">
+<mat-dialog-content>
+  <p>{{ data.message }}</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
   <button
-    mat-raised-button 
+    mat-raised-button
     (click)="onClose()"
-    [color]="data.type === 'error'? 'warn' : data.type === 'info'? 'info': 'primary'">
+    [color]="data.type === 'error' ? 'warn' : data.type === 'info' ? 'info' : 'primary'"
+  >
     {{ "close" | translate }}
   </button>
-</div>
-
+</mat-dialog-actions>

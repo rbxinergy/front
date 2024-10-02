@@ -7,6 +7,10 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UsersService {
+  apiGetRoles = ''; // TODO: change to environment.apiUrls.roleModule
+  apiGetUsers = ''; // TODO: change to environment.apiUrls.roleModule
+  apiGetUsersRoles = ''; // TODO: change to environment.apiUrls.roleModule
+  apiPostUser = ''; // TODO: change to environment.apiUrls.roleModule
 
   constructor(private http: HttpClient) { }
 
@@ -21,15 +25,15 @@ export class UsersService {
   })
 
   getRoles(): Observable<any>{
-    const url = environment.getRolesUrl
+    const url = this.apiGetRoles;
     return this.http.get<any>(url, { headers: this.headers })
   }
   getUsers(): Observable<any>{
-    const url = environment.getUsersUrl
+    const url = this.apiGetUsers;
     return this.http.get<any>(url, { headers: this.headers })
   } 
   getUsersRoles(): Observable<any>{
-    const url = environment.getUsersRolesUrl
+    const url = this.apiGetUsersRoles;
     const params = new HttpParams({
       fromString: 'group=' + this.groupDocument
     })
@@ -52,7 +56,7 @@ export class UsersService {
     }
     console.log(body)
 
-    const url = environment.postUserUrl
+    const url = this.apiPostUser;
     const postUser = this.http.post<any>(url, body, { headers: this.headers })
     return await lastValueFrom(postUser)  
   

@@ -1,0 +1,64 @@
+<div class="header">
+  <h2>Nuevo cliente</h2>
+  <div class="buttons">
+    <button mat-raised-button color="primary" (click)="saveClient()">Guardar</button>
+    @if (stepper.selectedIndex > 0) {
+      <button mat-raised-button (click)="goToPreviousStep()">Anterior</button>
+    }
+    <button mat-raised-button (click)="goToNextStep()">Siguiente</button>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<mat-horizontal-stepper labelPosition="bottom" #stepper>
+  <ng-template matStepperIcon="number" let-index="index">
+    <div class="big-icon-step">{{ index + 1 }}</div>
+  </ng-template>
+  <ng-template matStepperIcon="number" let-index="index">
+    <div class="big-icon-step">{{ index + 1 }}</div>
+  </ng-template>
+  <ng-template matStepperIcon="number" let-index="index">
+    <div class="big-icon-step">{{ index + 1 }}</div>
+  </ng-template>
+  <ng-template matStepperIcon="number" let-index="index">
+    <div class="big-icon-step">{{ index + 1 }}</div>
+  </ng-template>
+  <mat-step>
+    <ng-template matStepLabel>
+      <div class="p-label-step">
+        <span>Datos del cliente</span>
+      </div>
+    </ng-template>
+    <app-new-client></app-new-client>
+  </mat-step>
+  <mat-step label="Fill out your address"> <!-- [stepControl]="secondFormGroup" -->
+    <ng-template matStepLabel>
+      <div class="p-label-step">
+        <span>Categorías Corporativas</span>
+      </div>
+    </ng-template>
+    
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+  </mat-step>
+  <mat-step label="Fill out your address">
+    <ng-template matStepLabel>
+      <div class="p-label-step">
+        <span>Organización</span>
+      </div>
+    </ng-template>
+    
+  </mat-step>
+  <mat-step label="Fill out your address">
+    <ng-template matStepLabel>
+      <div class="p-label-step">
+        <span>Empresas</span>
+      </div>
+    </ng-template>  
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+  </mat-step>
+</mat-horizontal-stepper>

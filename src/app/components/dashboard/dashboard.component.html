@@ -69,6 +69,12 @@
                <span *ngIf="!isCollapsed">{{"clients" | translate}}</span>
             </span>
          </a>
+         <a *ngIf="permittedModules.includes('client-module')" mat-list-item [routerLink]="['client-module']" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <span class="entry">
+               <mat-icon class="material-icons">work_outline</mat-icon>
+               <span *ngIf="!isCollapsed">{{"clients" | translate}} V2</span>
+            </span>
+         </a>
          <a *ngIf="permittedModules.includes('company')" mat-list-item [routerLink]="['company']" routerLinkActive="active" ariaCurrentWhenActive="page">
             <span class="entry">
                <mat-icon> business </mat-icon>

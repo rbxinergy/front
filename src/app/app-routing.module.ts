@@ -57,6 +57,12 @@ const routes: Routes = [
       { path: 'bulk-upload', component: BulkUploadComponent }, //TODO: Mantener
       { path: 'role-client', component: RoleClientComponent}, //TODO: Mantener
       {
+        path: 'client-module',
+        loadChildren: () => import('./client/client.module').then(m => m.ClientModule),
+        canActivate: [AuthGuard],
+        data: { module: 'client', action: 'read' }
+      },
+      {
         path: 'contact-module',
         loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule),
         canActivate: [AuthGuard],

@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment';
 })
 export class SubdomainService {
 
+  apiGetSubDomain = ''; // TODO: change to environment.apiUrls.questionnairesModule
+
   constructor(private http: HttpClient) { }
 
   getData(groupDocument: string): Observable<CompanySubDomain> {
@@ -21,6 +23,6 @@ export class SubdomainService {
     const params = new HttpParams({
       fromString: `groupDocument=${groupDocument}`
     })
-    return this.http.get<CompanySubDomain>(environment.apiGetSubDomain, {headers, params});
+    return this.http.get<CompanySubDomain>(this.apiGetSubDomain, {headers, params});
   }
 }
