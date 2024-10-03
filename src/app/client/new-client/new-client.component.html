@@ -1,3 +1,4 @@
+<mat-dialog-content>
 <div class="p-4">
   <form [formGroup]="clientForm">
     <mat-form-field appearance="outline" class="col-3">
@@ -64,3 +65,10 @@
     </mat-form-field>
   </form>
 </div>
+</mat-dialog-content>
+<mat-dialog-actions >
+    <div class="p-4 action-buttons">
+        <button mat-raised-button class="button-back">Volver</button>
+        <button mat-raised-button color="primary" (click)="saveClient()">Guardar</button>
+    </div>
+</mat-dialog-actions>

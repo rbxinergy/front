@@ -16,7 +16,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ClientService } from '../services/client.service';
 import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-
+import { NewClientComponent } from '../new-client/new-client.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-client',
@@ -24,7 +27,7 @@ import { Router } from '@angular/router';
   imports: [CommonModule, MatTableModule, MatPaginatorModule,
     MatMenuModule, MatIconModule, MatButtonModule, MatFormFieldModule,
     MatInputModule, TranslateModule, MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule, MatDividerModule, MatStepperModule
   ],
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
@@ -38,7 +41,8 @@ export class ClientComponent implements OnInit {
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
-  constructor(private clientService: ClientService, private router: Router) {
+  constructor(private clientService: ClientService, private router: Router,
+    private dialog: MatDialog) {
     this.permitedModules = JSON.parse(sessionStorage.getItem('modules') || '[]');
   }
 
@@ -88,8 +92,16 @@ export class ClientComponent implements OnInit {
     console.log('openBulkUpload');
   }
 
-  navigateToNewClient() {
-    console.log('navigateToNewClient');
-    this.router.navigate(['dashboard/client-module/new-client']);
+  newClientDialog() {
+    const dialogRef = this.dialog.open(NewClientComponent, {
+      width: '800px',
+      height: '500px',
+      data: {
+        title: 'Nuevo cliente',
+        message: 'Por favor, complete el formulario para crear un nuevo cliente.',
+        type: 'info',
+        showCancel: true
+      }
+    });
   }
 }
