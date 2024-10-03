@@ -43,14 +43,12 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class ConfigsComponent implements AfterViewInit {
   isLoading = true
-
   domains:Domains[] = []
-
   domainsTableColumns: string[] = [
     'name', 'description', 'typename', 'companyname', 'acciones'
   ];
-  
   dataSource = new MatTableDataSource<Domains>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   constructor(private domainService: DomainsService, public dialog: MatDialog){
     this.getDomains()
@@ -61,7 +59,6 @@ export class ConfigsComponent implements AfterViewInit {
       this.domains = data;
       this.isLoading = false
       this.dataSource.data = data
-      console.log("Domains", this.dataSource.data)
     })
   }
 
@@ -71,23 +68,20 @@ export class ConfigsComponent implements AfterViewInit {
       data: result[0]
     }) 
   }
+  
   openEdit(id:number){
     const result: any[] = this.domains.filter((domain:any) => domain.id === id);
     this.dialog.open(EditComponent, { 
       data: result[0]
     }) 
   }
+
   openDelete(id:number){
     const result: any[] = this.domains.filter((domain:any) => domain.id === id);
     this.dialog.open(DeleteComponent, { 
       data: result[0]
     }) 
   }
-
-
-
-  
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

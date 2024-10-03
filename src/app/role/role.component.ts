@@ -51,7 +51,6 @@ export class RoleComponent implements AfterViewInit {
       this.roles.forEach(role => {
         this.initialRolesState[role.id] = { ...role };
       });
-      console.log(this.roles);
       this.isLoading = false;
       this.dataSource.data = this.roles;
     });
@@ -102,7 +101,6 @@ export class RoleComponent implements AfterViewInit {
       next: (result) => {
         result.role.client = this.client;
         delete result.role.company;
-        console.log(result);
         this.roleService.createRole(result.role).subscribe((response: HttpResponse<any>) => {
           if(response.status === 200) {
             this.dialog.open(MessagesModalComponent, {
@@ -134,7 +132,6 @@ export class RoleComponent implements AfterViewInit {
   }
 
   applyChanges(element: Role): void {
-    console.log('apply changes', element);
     this.roleService.updateRole(element, element.id).subscribe((response: HttpResponse<any>) => {
       if(response.status === 200){
         this.dialog.open(MessagesModalComponent, {

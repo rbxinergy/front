@@ -114,10 +114,8 @@ export class EvaluationComponent implements AfterViewInit {
     this.createForm.addControl('companyId', new FormControl(''));
     this.profile = JSON.parse(sessionStorage.getItem('profile') || '');
     this.currentCompany = {id: 27, companyname: 'Compañía Minera del Pacífico'}; // TODO: Forzado por compatibilidad con modelo anterior. Cambiar por el cliente seleccionado
-    console.log("COMPANY", this.currentCompany.id);
     this.evaluationService.getEvaluationsByCompanyId(this.currentCompany.id)
     .subscribe((data: Evaluation[]) => {
-      console.log("EVALUACIONES:", data);
       this.evaluations = data;
       this.dataSource.data = this.evaluations;
       this.dataSource.paginator = this.paginator;
@@ -133,7 +131,6 @@ export class EvaluationComponent implements AfterViewInit {
     }, (error) => {
       this.dataEmpty = true;
       this.showSpinner = false;
-      console.log(error);
     }, () => {
       this.showSpinner = false;
     });
@@ -186,8 +183,6 @@ export class EvaluationComponent implements AfterViewInit {
       (evaluation) => evaluation.evalid === id
     )[0];
     if (evalFound) {
-      
-      console.log("evaluación encontrada:", evalFound);
       const dialogRef = this.dialog.open(UpdateEvaluationComponent, {
         data: evalFound,
         width: '1024px'
@@ -195,10 +190,7 @@ export class EvaluationComponent implements AfterViewInit {
       dialogRef.afterClosed().subscribe(() => {
         this.getEvaluations();
       })
-    } else {
-      // Mostrar un mensaje de error si no se encuentra el servicio
-      console.error(`No se encontró la evaluación con ID ${id}`);
-    }
+    } else { }
   }
 
   goBack() {

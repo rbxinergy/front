@@ -12,7 +12,5 @@ import { RoleRoutingModule } from './role-routing.module';
   ]
 })
 export class RoleModule { 
-  constructor() {
-    console.log('RoleModule loaded');
-  }
+  constructor() { }
 }

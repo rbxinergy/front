@@ -215,7 +215,6 @@ export class AuthService {
       sessionStorage.setItem('modules', JSON.stringify(this.extractPermittedModules(response1.permissions[0].companies[0].roles[0].modules)));
       return response1;
     } catch (error) {
-      console.error('Error during login:', error);
       return Promise.reject(error);
     }
   }
@@ -224,7 +223,6 @@ export class AuthService {
     const modulesArray = modules.map((module: any) => {
       return module.module;
     });
-    console.log("Modulos",modulesArray);
     return modulesArray;
   }
 
@@ -238,7 +236,6 @@ export class AuthService {
   isLoggedIn(): boolean {
     const user = sessionStorage.getItem('user');
     this.isAuth = !user ? false : true;
-    console.log("isLoggedIn", this.isAuth);
     return this.isAuth;
   }
 
@@ -258,7 +255,6 @@ export class AuthService {
       await this.http.delete(`${this.serverUrl}${this.apiUrls.logout}`, {}).toPromise();
       this.router.navigate(['login']);
     } catch (error) {
-      console.error('Error during logout:', error);
       return Promise.reject(error);
     } finally {
       sessionStorage.clear();
@@ -275,7 +271,6 @@ export class AuthService {
 
   hasPermission(module: string, action: keyof ModulePermissions): boolean {
     const user = this.getCurrentUser();
-    console.log("user", user);
     if (!user) return false;
 
     for (const permission of user.permissions) {

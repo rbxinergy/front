@@ -6,7 +6,5 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './edit.component.html'
 })
 export class EditComponent {
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any ){
-    console.log(this.data)
-  }
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any ){ }
 }

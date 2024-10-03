@@ -20,11 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
   ]
 })
 export class DeleteComponent {
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any ){
-    console.log(this.data)
-    }
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any ){ }
 
-  onClientDelete (){
-    console.log("Client Delete")
-  }
+  onClientDelete (){ }
 }

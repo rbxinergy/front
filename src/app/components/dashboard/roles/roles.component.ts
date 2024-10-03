@@ -33,12 +33,11 @@ import { MatButtonModule } from '@angular/material/button';
 export class RolesComponent implements AfterViewInit {
   isLoading= true
   users:Users[] = []
-
   usersTableColumns: string[] = [
     'name', 'position', 'email', 'companyname', 'acciones'
   ];
-  
   dataSource = new MatTableDataSource<Users>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   constructor(private userService: UsersService, public dialog: MatDialog){
     this.getUsers()
@@ -49,10 +48,8 @@ export class RolesComponent implements AfterViewInit {
       this.users = data;
       this.isLoading = false
       this.dataSource.data = data
-      console.log("Users", this.dataSource.data)
     })
   }
-  
 
   openEdit(id:number){
     const result: any[] = this.users.filter((company:any) => company.id === id);
@@ -66,7 +63,6 @@ export class RolesComponent implements AfterViewInit {
       data: result[0]
     }) 
   }
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

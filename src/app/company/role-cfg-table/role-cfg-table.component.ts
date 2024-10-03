@@ -59,18 +59,15 @@ export class RoleCfgTableComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.isLoading = true;
     this.noRoles = false; // Resetear el flag
-    console.log('cliente', this.client)
-    console.log('company', this.company)
+
     this.roleService.getAllRolesByCompany(this.company).subscribe(
       (response: HttpResponse<any>) => {
-        console.log('roles', response.body);
         this.dataSource.data = response.body;
         this.isLoading = false;
         this.noRoles = response.body.length === 0; // Mostrar mensaje si no hay roles
         this.cdr.detectChanges(); // Marcar para detección de cambios
       },
       (error) => {
-        console.error('Error al cargar roles:', error);
         this.isLoading = false;
         this.noRoles = true; // Mostrar mensaje en caso de error
         this.cdr.detectChanges(); // Marcar para detección de cambios
@@ -118,7 +115,6 @@ export class RoleCfgTableComponent implements AfterViewInit {
         if (newRole) {
           newRole.client = this.client;
           newRole.company = this.company;
-          console.log('newRole', newRole);
           this.roleService.createRole(newRole).subscribe({
             next: (response) => {
               if (response.status === 200) {
@@ -141,7 +137,6 @@ export class RoleCfgTableComponent implements AfterViewInit {
         }
       },
       error: (error) => {
-        console.error('Error al abrir el modal de nuevo grupo:', error);
         this.dialog.open(MessagesModalComponent, {
           width: '400px',
           data: { message: 'Error al cerrar el diálogo.', type: 'error' }
@@ -163,11 +158,8 @@ export class RoleCfgTableComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe({
       next: (newRole: any) => {
         if (newRole.role) {
-          console.log('newRole', newRole);
-
           this.roleService.updateRole(newRole.role, newRole.id).subscribe({
             next: (response) => {
-              console.log('response', response);
               this.dialog.open(MessagesModalComponent, {
                 width: '400px',
                 data: { message: 'Rol actualizado exitosamente.', type: 'success' }
@@ -175,7 +167,6 @@ export class RoleCfgTableComponent implements AfterViewInit {
               this.ngAfterViewInit();
             },
             error: (error) => {
-              console.error('Error al actualizar el rol:', error);
               this.dialog.open(MessagesModalComponent, {
                 width: '400px',
                 data: { message: 'Error al actualizar el rol.', type: 'error' }
@@ -185,7 +176,6 @@ export class RoleCfgTableComponent implements AfterViewInit {
         }
       },
       error: (error) => {
-        console.error('Error al abrir el modal de editar rol:', error);
         this.dialog.open(MessagesModalComponent, {
           width: '400px',
           data: { message: 'Error al cerrar el diálogo.', type: 'error' }
@@ -194,7 +184,5 @@ export class RoleCfgTableComponent implements AfterViewInit {
     });
   }
 
-  openDelete(id: number){
-    console.log('id', id);
-  }
+  openDelete(id: number){ }
 }

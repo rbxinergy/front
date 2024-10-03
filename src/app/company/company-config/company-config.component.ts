@@ -38,8 +38,6 @@ export class CompanyConfigComponent implements OnInit{
   ngOnInit(): void {
     this.idGroupCompany = this.route.snapshot.paramMap.get('idGroupCompany') || '';
     this.idCompany = this.route.snapshot.paramMap.get('idCompany') || '';
-    console.log('companyConfig', this.idGroupCompany);
-    console.log('companyConfig', this.idCompany);
     this.loadCompany();
   }
 
@@ -47,11 +45,8 @@ export class CompanyConfigComponent implements OnInit{
     this.companyService.getCompany(this.idCompany, this.idGroupCompany).subscribe(
       (company) => {
         this.company = company;
-        console.log('Company loaded:', this.company);
       },
-      (error) => {
-        console.error('Error loading company:', error);
-      }
+      (error) => { }
     );
   }
 

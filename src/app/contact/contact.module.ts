@@ -13,7 +13,5 @@ import { NewContactComponent } from './new-contact/new-contact.component';
   ]
 })
 export class ContactModule {
-  constructor() {
-    console.log("ContactModule loaded");
-  }
+  constructor() { }
 }

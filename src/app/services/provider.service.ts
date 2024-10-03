@@ -22,7 +22,6 @@ export class ProviderService {
 
   constructor(private http: HttpClient, private clientDataService: ClientDataService) { 
     this.client = this.clientDataService.getClientData();
-    console.log(this.client);
   }
 
   uploadCSV(formData: FormData): Observable<HttpResponse<any>> {

@@ -56,7 +56,6 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('Data', this.data);
     this.loadRoles();
   }
 
@@ -64,11 +63,8 @@ export class UserComponent implements OnInit {
     this.roleService.getAllRolesByCompany(this.data.companyId).subscribe(
       (response: HttpResponse<any>) => {
         this.roles = response.body;
-        console.log('Roles', this.roles);
       },
-      (error) => {
-        console.error('Error al cargar roles:', error);
-      }
+      (error) => {}
     );
   }
 

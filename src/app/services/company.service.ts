@@ -24,7 +24,6 @@ export class CompanyService {
   constructor(private http: HttpClient, private clientDataService: ClientDataService, private groupCompanyDataService: GroupcompanyDataService) {
     this.client = this.clientDataService.getClientData();
     this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
-    console.log(this.client);
   }
 
   createCompany(company: Company): Observable<HttpResponse<any>> {

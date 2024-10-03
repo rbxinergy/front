@@ -75,7 +75,6 @@ export class CompanyComponent {
       this.companies = data;
       this.isLoading = false;
       this.dataSource.data = data
-      console.log("Companies", this.dataSource.data)
     })
   }
 
@@ -98,7 +97,6 @@ export class CompanyComponent {
   }
 
   openConfig(idCompany: string, idGroupCompany: string) {
-    console.log('openConfig', idCompany, idGroupCompany);
     this.router.navigate(['dashboard/company/company-config', idCompany, idGroupCompany]);
   }
 
@@ -113,10 +111,10 @@ export class CompanyComponent {
 
       this.companyService.uploadCSV(formData).subscribe(
         (response: HttpResponse<any>) => {
-          console.log('File uploaded successfully', response);
+
         },
         (error) => {
-          console.error('Error uploading file', error);
+
         }
       );
     }
@@ -151,10 +149,8 @@ export class CompanyComponent {
     dialogRef.afterClosed().subscribe(result => {
       delete result.id
       result.idClient = this.client
-      console.log(result)
       this.companyService.createCompany(result).subscribe({
         next: (response) => {
-          console.log(response)
           this.dialog.open(MessagesModalComponent, {
             width: '400px',
             data: { message: 'Empresa creada exitosamente.', type: 'success' }
@@ -162,7 +158,6 @@ export class CompanyComponent {
           this.getCompanies()
         },
         error: (error) => {
-          console.log(error)
           this.dialog.open(MessagesModalComponent, {
             width: '400px',
             data: { message: 'Error al crear la empresa.', type: 'error' }

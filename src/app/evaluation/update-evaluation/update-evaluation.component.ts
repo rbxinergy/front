@@ -93,21 +93,17 @@ export class UpdateEvaluationComponent {
     this.createForm.addControl('companyId', new FormControl(data.companyid));
     this.createForm.addControl('visibility', new FormControl(data.visibility, Validators.required));
     this.profile = JSON.parse(sessionStorage.getItem('profile') || '');
-    console.log("Profile:", this.profile);
     this.currentCompany = 27; // this.profile.permissions[0].companies[0].company; TODO: Forzado por compatibilidad con modelo anterior. Cambiar por el cliente seleccionado
-    console.log("Current Company:", this.currentCompany);
  
     this.questService.getQuestionnaires(this.currentCompany)
     .pipe(
       concatMap(questionnaires => {
-        console.log("questionnaires:", questionnaires);
         this.questionnaires = questionnaires;
         this.questDataSource.data = this.questionnaires;
         return this.questService.getQuestionsByEvalId(data.evalid);
       })
     )
     .subscribe(questions => {
-      console.log("questionnaires by eval:", questions);
       const selectedQuestIds = questions.map(quest => quest.questId);
       this.initialQuests = this.questionnaires.filter(questionnaire => selectedQuestIds.includes(questionnaire.questId));
       this.selection.select(...this.questionnaires.filter(questionnaire => selectedQuestIds.includes(questionnaire.questId)));
@@ -120,14 +116,11 @@ export class UpdateEvaluationComponent {
     data.newQuests = this.selection.selected;
     data.quest = this.initialQuests;
     data.evalId = this.data.evalid;
-    console.log(data);
     this.evaluationService.updateEvaluation(data).subscribe((data) => {
-      console.log(data);
       this.createForm.reset();
       this.showDialog('500ms', '500ms', 'Evaluación actualizada correctamente.', 'success');
     }, (error) => {
       this.showDialog('500ms', '500ms', 'No se pudo actualizar la evaluación. Por favor intente en unos momentos.', 'error');
-      console.log(error);
     })
   }
 
@@ -160,7 +153,6 @@ export class UpdateEvaluationComponent {
 
   changeSelection(event: MatCheckboxChange, row: any) {
     event ? this.selection.toggle(row) : null
-    console.log(!this.createForm.valid && this.selection.isEmpty());
   }
 
   goBack() {

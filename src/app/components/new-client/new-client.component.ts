@@ -162,7 +162,6 @@ export class NewClientComponent implements AfterViewInit {
   }
 
   onStepChange(event: StepperSelectionEvent) {
-    // console.log('Step changed', event);
     switch(event.selectedIndex) {
       case 0:
         this.clientDataService.setClientData(this.clientForm.getRawValue() as unknown as Client);

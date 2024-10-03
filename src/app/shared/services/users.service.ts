@@ -50,7 +50,6 @@ export class UsersService {
       "position": form.position,
       "userCreator": this.userCreator
     }
-    console.log(body)
 
     const url = environment.postUserUrl
     const postUser = this.http.post<any>(url, body, { headers: this.headers })

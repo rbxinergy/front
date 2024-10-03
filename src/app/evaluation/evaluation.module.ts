@@ -12,7 +12,5 @@ import { EvaluationRoutingModule } from './evaluation-routing.module';
   ]
 })
 export class EvaluationModule {
-  constructor() {
-    console.log("EvaluationModule loaded");
-  }
+  constructor() { }
 }

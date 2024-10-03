@@ -128,35 +128,26 @@ export class UsersTableComponent implements OnInit {
         if (result) {
           delete result.confirmPassword; // Eliminar la propiedad confirmPassword
           result.company = this.companyId;
-          console.log(result);
           this.userService.createUser(result).subscribe({
             next: (response) => {
-              console.log('Usuario creado exitosamente:', response);
               this.loadUsers(); // Recargar la lista de usuarios
             },
-            error: (error) => {
-              console.error('Error al crear el usuario:', error);
-            }
+            error: (error) => { }
           });
         }
       },
-      error: (error) => {
-        console.error('Error al cerrar el diálogo:', error);
-      }
+      error: (error) => { }
     });
   }
 
   toggleRole(user: User, selectedRoles: string[]) {
     user.idRole = selectedRoles;
-    console.log(user, selectedRoles);
   }
 
   updateUser(user: User) {
-    console.log("upsateUser: ", user);
     this.userService.updateUser(user.id, user).subscribe({
       next: (response) => {
         if (response.status === 200) {
-          console.log('Usuario actualizado exitosamente:', response);
           this.dialog.open(MessagesModalComponent, {
             width: '400px',
             data: { message: 'Roles asignados exitosamente.', type: 'success' }
