@@ -56,7 +56,6 @@ export class DomainsComponent implements OnInit {
     this.domainsService.getDomainGroup().subscribe(data => {
       this.showTable = true
       this.domainsGroup = data.domains
-      console.log(this.domainsGroup)
     })
 
     this.domainsForm.reset()
@@ -71,7 +70,6 @@ export class DomainsComponent implements OnInit {
   ngOnInit() {
     this.domainsService.getDomainsType().subscribe(data => {
       this.domainsType = data;
-      console.log("DomainsType",data)
     })
   }
 

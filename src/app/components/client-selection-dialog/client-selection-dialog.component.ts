@@ -19,9 +19,7 @@ export class ClientSelectionDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ClientSelectionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { clients: any[] }
-  ) {
-    console.log("DATA CLIENT SELECTION", data);
-  }
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();

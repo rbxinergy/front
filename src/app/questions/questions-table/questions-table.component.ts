@@ -87,12 +87,10 @@ export class QuestionsTableComponent implements AfterViewInit{
         this.sort.direction = sortState.direction;
         this.sort.sortChange.emit(sortState);
         this.dataSource.sort = this.sort;
-        console.log("Question:", this.questions);
       }
     }, (error) => {
       this.dataEmpty = true;
       this.showSpinner = false;
-      console.log(error);
     }, () => {
       this.showSpinner = false;
     });
@@ -129,7 +127,6 @@ export class QuestionsTableComponent implements AfterViewInit{
   select(event: any, row: Question) {
     if(event) {
       this.selection.toggle(row);
-      console.log("Seleccionados:", this.selection.selected);
       this.questionsData.emit(this.selection.selected);
     } else null
   }

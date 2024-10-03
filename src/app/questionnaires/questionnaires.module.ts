@@ -12,7 +12,5 @@ import { QuestionnairesRoutingModule } from './questionnaires-routing.module';
   ]
 })
 export class QuestionnairesModule {
-  constructor() {
-    console.log("QuestionnairesModule loaded");
-  }
+  constructor() { }
 }

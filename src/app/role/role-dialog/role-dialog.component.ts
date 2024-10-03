@@ -33,7 +33,6 @@ export class RoleDialogComponent {
   constructor(@Optional()private dialogRef: MatDialogRef<RoleDialogComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder) {
-      console.log('RoleDialogComponent');
       this.roleForm = new FormGroup({
         accessType: new FormControl(data?.role?.accessType || ''),
         active: new FormControl(data?.role?.active || false),

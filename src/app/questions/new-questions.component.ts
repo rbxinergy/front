@@ -30,11 +30,8 @@ export class NewQuestionsComponent {
   ];
 
   onReceiveQuestions(event: Question[]) {
-    console.log("Preguntas seleccionadas:", event);
     return this.questions = event
   }
 
-  addQuestions(){
-    console.log('aqui', this.questions)
-  }
+  addQuestions(){ }
 }

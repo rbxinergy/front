@@ -29,9 +29,6 @@ export class DomainsService {
       "idDomainType": parseInt(form.idDomainType),
       "documentGroup": form.documentGroup
     }
-
-    console.log(body)
-
     const postDomain = this.http.post<any>(url, body, { headers: this.headers })
     return await lastValueFrom(postDomain)  
   

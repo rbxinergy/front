@@ -124,7 +124,6 @@ export class QuestionsComponent { // implements AfterViewInit
     }
     data.question.labels = this.labels;
     data.companyId = this.currentCompany.id;
-    console.log(data);
     this.questService.createQuestion(data).subscribe((result) => {
       const dialogRef = this.dialog.open(MessagesModalComponent, {
         width: '250px',
@@ -143,9 +142,7 @@ export class QuestionsComponent { // implements AfterViewInit
     if (value) {
       const label: Label = {name: value};
       this.labels.push(label);
-      this.labelsService.createLabel({labels: this.labels}).subscribe((data) => {
-        console.log(data);
-      })
+      this.labelsService.createLabel({labels: this.labels}).subscribe((data) => { })
     }
     event.chipInput!.clear();
   }

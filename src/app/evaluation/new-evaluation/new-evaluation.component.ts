@@ -114,11 +114,9 @@ export class NewEvaluationComponent implements AfterViewInit {
 
   getQuests() {
     this.questService.getQuestionnaires(this.currentCompany.id).subscribe((data: Quest[]) => {
-      console.log("ANY: ", data);
       this.questionnaires = data;
       this.questDataSource.data = data;
       this.questDataSource.paginator = this.paginator;
-      console.log("Cuestionarios:", this.questionnaires);
     });
   }
 
@@ -127,15 +125,12 @@ export class NewEvaluationComponent implements AfterViewInit {
     data.companyId = this.currentCompany.id;
     data.companyName = this.currentCompany.companyname;
     data.quests = this.selection.selected;
-    console.log("CREATE EVALUATION", data);
     this.evaluationService.createEvaluation(data).subscribe((data) => {
-      console.log("RESPONSE", data);
       this.createForm.reset();
       this.showDialog('500ms', '500ms', 'Evaluación creada correctamente.', 'success');
       this.router.navigate(['dashboard/evaluation-module']);
     }, (error) => {
       this.showDialog('500ms', '500ms', 'No se pudo crear la evaluación. Por favor intente en unos momentos.', 'error');
-      console.log(error);
     })
   }
 
@@ -165,7 +160,6 @@ export class NewEvaluationComponent implements AfterViewInit {
 
   changeSelection(event: MatCheckboxChange, row: any) {
     event ? this.selection.toggle(row) : null
-    console.log(!this.createForm.valid && this.selection.isEmpty());
   }
 
   goBack() {

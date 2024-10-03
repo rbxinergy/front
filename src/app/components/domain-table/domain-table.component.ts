@@ -82,15 +82,9 @@ export class DomainTableComponent implements AfterViewInit {
         this.domainCategory = data
         this.idGroupCompany = data.idGroupCompany
       }
-  }
-
-  // ngOnInit() {
-  //   console.log( this.route.snapshot.paramMap.get('domainCategory') )
-  //   this.domainCategory = this.route.snapshot.paramMap.get('domainCategory') || ''
-  // }    
+  } 
   
   ngAfterViewInit(): void {
-    console.log(this.domainCategory)
     this.DomainService.getAllDomainsByCategory(this.domainCategory.id).subscribe((domains: Domain[]) => {
       this.domains = domains;
       this.domains.forEach((domain: Domain) => {
@@ -105,7 +99,6 @@ export class DomainTableComponent implements AfterViewInit {
         });
       });
       this.dataSource.data = this.domains;
-      console.log('domains', this.dataSource.data);
       this.cdr.detectChanges();
     });
   }
@@ -125,9 +118,6 @@ export class DomainTableComponent implements AfterViewInit {
           }
       })
     })
-
-    console.log(subdominios)
-    console.log(dominioss)
   }
 
   applyFilter(event: Event) {
@@ -153,7 +143,6 @@ export class DomainTableComponent implements AfterViewInit {
     });
     dialogRef.afterClosed().subscribe({
       next: async (newSubdomains: SubDomain[]) => {
-        console.log('newSubdomain', newSubdomains);
         if (newSubdomains) {
           try {
             const results = await Promise.all(newSubdomains.map(newSubdomain => 
@@ -184,7 +173,6 @@ export class DomainTableComponent implements AfterViewInit {
         }
       },
       error: (error) => {
-        console.error('Error al abrir el modal de nuevo subdominio:', error);
         this.dialog.open(MessagesModalComponent, {
           width: '400px',
           data: { message: 'Error al cerrar el diálogo.', type: 'error' }
@@ -198,7 +186,6 @@ export class DomainTableComponent implements AfterViewInit {
     let domainCategory = this.domainCategory 
     const maxId = this.domains.length > 0 ? Math.max(...this.domains.map(domain => parseInt(domain.id))) : 0;
   
-    console.log(domainCategory)
     const dialogRef = this.dialog.open(DomainComponent, {
       width: '90%',
       data:  domainCategory.idGroupCompany
@@ -208,7 +195,6 @@ export class DomainTableComponent implements AfterViewInit {
       next: (newDomain: Domain) => {
         if (newDomain) {
           newDomain.idDomainCategory = domainCategory.id
-          console.log(newDomain)
           this.DomainService.createDomain(newDomain).subscribe({
             next: (response) => {
               if (response.status === 200) {
@@ -237,7 +223,6 @@ export class DomainTableComponent implements AfterViewInit {
         }
       },
       error: (error) => {
-        console.error('Error al abrir el modal de nueva dominio:', error);
         this.dialog.open(MessagesModalComponent, {
           width: '400px',
           data: { message: 'Error al cerrar el diálogo.', type: 'error' }
@@ -251,7 +236,6 @@ export class DomainTableComponent implements AfterViewInit {
   openUpdate(domain: any) {
     delete domain.subDomains
     domain.idGroupCompany = this.domainCategory.idGroupCompany
-    console.log( domain)
     
     const dialogRef = this.dialog.open(DomainComponent, {
       width: '600px',
@@ -261,7 +245,6 @@ export class DomainTableComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe({
       next: (updatedDomain: Domain) => {
         if (updatedDomain) {
-          console.log(updatedDomain)
           this.DomainService.updateDomain(updatedDomain).subscribe({
             next: (response) => {
               if (response.status === 200) {
@@ -300,8 +283,6 @@ export class DomainTableComponent implements AfterViewInit {
   }
 
   openDelete(domain: Domain) {
-    // Implementación para abrir el diálogo de eliminación
-    console.log(domain.id)
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
       data: {
@@ -316,7 +297,6 @@ export class DomainTableComponent implements AfterViewInit {
         if (result) {
           this.DomainService.deleteDomain(domain.id).subscribe({
             next: (response) => {
-                console.log('response', response.body);
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
@@ -372,7 +352,6 @@ export class DomainTableComponent implements AfterViewInit {
                 const index = this.subdomains.findIndex(c => c.id === updatedSubdomain.id);
                 if (index !== -1) {
                   this.subdomains[index] = updatedSubdomain;
-                  console.log('mensaje desde el guardar subdominio', this.subdomains[index] = updatedSubdomain)
                     this.subdomains;
                 }
               } else {
@@ -415,7 +394,6 @@ export class DomainTableComponent implements AfterViewInit {
         if (result) {
           this.SubdomainService.deleteSubdomain(subdomain.id).subscribe({
             next: (response) => {
-              console.log('Response',response)
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
@@ -495,7 +473,6 @@ export class DomainTableComponent implements AfterViewInit {
         }
       })
       .catch(error => {
-        console.error('Error al añadir dominios:', error);
         this.dialog.open(MessagesModalComponent, {
           width: '400px',
           data: { message: 'Error al añadir los dominios.', type: 'error' }

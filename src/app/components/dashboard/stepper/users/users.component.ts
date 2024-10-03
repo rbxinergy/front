@@ -66,8 +66,6 @@ export class UsersComponent implements OnInit {
       
       this.userService.getUsersRoles().subscribe(data => {
         this.users = data.usersRoles
-        console.log(data)
-        console.log(this.users)
       })
     })
 
@@ -77,17 +75,12 @@ export class UsersComponent implements OnInit {
     const client = this.clientDataService.getClientData()
     this.companyService.getCompaniesByClient(client).subscribe(async data => {
       this.companies = data
-      console.log('companies',data)
     })
   }
 
   ngOnInit() {
     this.userService.getRoles().subscribe(data => {
-      this.roles = data
-      console.log('roles', this.roles)
-      console.log("ngOnInit", this.roles)
+      this.roles = data;
     })
-    // this.getCompaniesByGrp();
-    
   }
 }

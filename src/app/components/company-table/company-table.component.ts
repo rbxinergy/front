@@ -70,28 +70,15 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
     private dialog: MatDialog, 
     private route: ActivatedRoute,
     private router: Router,
-    // private dialogRef: MatDialogRef<CompanyTableComponent>,
-    // @Inject(MAT_DIALOG_DATA) public data: GroupCompany,
     private clientDataService: ClientDataService, 
     private groupCompanyDataService: GroupcompanyDataService ) {
-      // if(data){
-      //   this.groupCompany = data
-      //   this.groupCompanyDataService.setGroupCompanyData(data);
-      // } else {
-      //   this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
-      // }
-
       this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
       this.client= this.clientDataService.getClientData();
-      console.log("datos: ", this.groupCompany, this.client)
     }
-
-
 
   ngOnInit() {
     this.groupCompanyID = this.route.snapshot.paramMap.get('groupCompany') || this.groupCompanyDataService.getGroupCompanyData().id;
   }
-
 
   ngAfterViewInit(): void {
     this.companyService.getCompaniesByGroup(this.groupCompanyID).subscribe(data => {
@@ -101,11 +88,9 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
     })
   }
 
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
@@ -136,8 +121,6 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
         if (newCompany) {
           newCompany.idGroupCompany = this.groupCompanyID
           newCompany.idClient = this.groupCompany?.idClient
-          console.log(this.companies)
-          console.log('newCompany', newCompany);
           this.companyService.createCompany(newCompany).subscribe({
             next: (response) => {
               if (response.status === 200) {
@@ -148,7 +131,6 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
                 this.companies.push(response.body);
                 this.dataSource.data = this.companies;
                 this.formCompanyTable.controls['tempControl'].setValue(response.body.name);
-                console.log('this.formGroupCompanyTable VALID', this.formCompanyTable);
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
@@ -164,39 +146,8 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
             }
           });
         }
-        // if (newCompany) {
-        //   newCompany.idGroupCompany = this.groupCompany?.id;
-        //   newCompany.idClient = this.client?.id
-        //   console.log('newCompany', newCompany);
-        //   // this.companyService.createCompany(newCompany).subscribe({
-        //   //   next: (response) => {
-        //   //     if (response.status === 200) {
-        //   //       this.dialog.open(MessagesModalComponent, {
-        //   //         width: '400px',
-        //   //         data: { message: 'Compañía creada exitosamente.', type: 'success' }
-        //   //       });
-        //   //       newCompany.id = (maxId + 1).toString();
-        //   //       this.companies.push(response.body);
-        //   //       this.dataSource.data = this.companies;
-        //   //       this.formCompanyTable.controls['tempControl'].setValue(response.body.name);
-        //   //     } else {
-        //   //       this.dialog.open(MessagesModalComponent, {
-        //   //         width: '400px',
-        //   //         data: { message: 'Error al crear la compañía.', type: 'error' }
-        //   //       });
-        //   //     }
-        //   //   },
-        //   //   error: (error) => {
-        //   //     this.dialog.open(MessagesModalComponent, {
-        //   //       width: '400px',
-        //   //       data: { message: 'Error al crear la compañía.', type: 'error' }
-        //   //     });
-        //   //   }
-        //   // });
-        // }
       },
       error: (error) => {
-        console.error('Error al abrir el modal de nueva empresa:', error);
         this.dialog.open(MessagesModalComponent, {
           width: '400px',
           data: { message: 'Error al cerrar el diálogo.', type: 'error' }
@@ -210,7 +161,6 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
   }
 
   openSeeCompanyModal(company: Company) {
-    console.log(company)
     this.selectedCompany = { ...company };
     const dialogRef = this.dialog.open(CompanyComponent, {
       width: '600px',
@@ -219,7 +169,6 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
   }
 
   openEditCompanyModal(company: Company) {
-    console.log(company)
     this.selectedCompany = { ...company };
     const dialogRef = this.dialog.open(CompanyComponent, {
       width: '600px',
@@ -231,7 +180,6 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
         if (updatedCompany) {
           updatedCompany.idGroupCompany = this.groupCompanyID
           updatedCompany.idClient = this.client?.id
-          console.log('updatedCompany', updatedCompany);
           this.companyService.updateCompany(updatedCompany).subscribe({
             next: (response) => {
               if (response.status === 200) {
@@ -285,13 +233,11 @@ export class CompanyTableComponent implements OnInit, AfterViewInit {
         if (result) {
           this.companyService.deleteCompany(company.id).subscribe({
             next: (response) => {
-              console.log('response', response.body);
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
                   data: { message: 'Compañía eliminada exitosamente.', type: 'success' }
                 });
-                console.log('company', company);
                 this.companies = this.companies.filter(c => c.id !== company.id);
                 if(this.companies.length === 0){
                   this.formCompanyTable.controls['tempControl'].setValue(null);

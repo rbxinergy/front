@@ -67,7 +67,6 @@ export class NewCompanyComponent {
         this.groupCompany = data.body;
       },
       error: (error: any) => {
-        console.log(error);
         this.dialogRef.close(null);
       }
     })

@@ -55,45 +55,15 @@ export class RoleTableComponent {
     private dialog: MatDialog, private clientDataService: ClientDataService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    console.log(this.companyID = this.route.snapshot.paramMap.get('company') || '')
     this.companyID = this.route.snapshot.paramMap.get('company') || ''
   }
 
   ngAfterViewInit(): void {
     this.roleService.getAllRolesByCompany(this.companyID).subscribe((roles: any) => {
-      console.log(roles)
       this.dataSource.data = roles;
       this.roles = roles
     })
   }
-
-  // loadClientData() {s
-  //   this.client = this.clientDataService.getClientData();
-  //   console.log('client', this.client);
-  //   this.loadRoles(this.client.name);
-  // }
-
-  // loadRoles(clientName: string) {
-  //   this.roleService.getRoles(clientName).subscribe((roles: any) => {
-  //     if(roles.body.length === 0){
-  //       this.formRoleTable.controls['tempControl'].setValue('');
-  //     }
-  //     this.roles = roles.body;
-  //     this.dataSource.data = this.roles;
-  //     this.dataSource.paginator = this.paginator;
-  //     this.dataSource.sort = this.sort;
-  //     this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
-  //       const sortState: Sort = {active: 'id', direction: 'desc'};
-  //       this.sort.active = sortState.active;
-  //       this.sort.direction = sortState.direction;
-  //       this.sort.sortChange.emit(sortState);
-  //       this.dataSource.sort = this.sort;
-  //     this.sort.direction = 'desc'; // Establece el orden inicial como descendente
-  //     this.sort.active = 'id'; // Establece 'ID' como la columna activa para ordenar
-  //     this.cdr.detectChanges(); // Forzar la detección de cambios
-  //   });
-  // }
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

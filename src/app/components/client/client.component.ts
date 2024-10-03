@@ -58,7 +58,6 @@ export class ClientComponent implements OnInit {
     });
 
     this.clientForm.get('documentType')?.valueChanges.subscribe(value => {
-      console.log(value);
       if (value === 'RUT') {
         this.clientForm.get('document')?.setValidators([Validators.required, rutValidator()]);
       } else {
@@ -91,7 +90,6 @@ export class ClientComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.log(error);
         this.dialog.open(MessagesModalComponent, {
           width: '400px',
           data: { message: 'Error al crear el cliente.', type: 'error' }
