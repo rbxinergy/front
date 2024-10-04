@@ -42,178 +42,23 @@ export class AuthService {
         `${this.serverUrl}${this.apiUrls.login}`,
         { email, password }
       ).toPromise();
-      const response1 = {
-          "name": "Armin",
-          "lastName": "Vera",
-          "email": "armin.vera@xinergy.cl",
-          "permissions": [
-              {
-                  "client": "2bb1b180-1c6f-4c94-8526-0d1bec54acd6",
-                  "clientName": "Grupo Austral",
-                  "accessType": "xinergy",
-                  "companies": [
-                      {
-                          "company": "4995c9b2-1e34-4384-9143-68d6d1c3eca0",
-                          "accessType": "xinergy",
-                          "roles": [
-                              {
-                                  "roleName": "Role gestion",
-                                  "roleID": "34563789iouygjhfjkl",
-                                  "modules": [
-                                    {
-                                        "module": "dashboard",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                    },
-                                    {
-                                        "module": "clients",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                    },
-                                    {
-                                        "module": "companies",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                    },
-                                    {
-                                        "module": "roles",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                    },
-                                    {
-                                        "module": "bulk-upload",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                    },
-                                    {
-                                        "module": "contacts",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                    },
-                                    {
-                                        "module": "evaluation-module",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                    },
-                                    {
-                                        "module": "questionnaires-module",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                    },
-                                    {
-                                        "module": "questions-module",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                    }
-                                  ]
-                              },
-                              {
-                                  "roleName": "Role comercial",
-                                  "roleID": "dghfjkljhgdkhtj,447579860",
-                                  "modules": [
-                                    {
-                                        "module": "dominio",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                    }
-                                  ]
-                              }
-                          ]
-                      },
-                  ]
-              },
-              {
-                "client": "fb161c55-937b-47d2-be7d-195165aff77e",
-                "clientName": "Xinergy",
-                "accessType": "xinergy",
-                "companies": [
-                    {
-                        "company": null,
-                        "accessType": "xinergy",
-                        "roles": [
-                            {
-                                "roleName": "Role gestion",
-                                "roleID": "34563789iouygjhfjkl",
-                                "modules": [
-                                    {
-                                        "module": "dominio",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                    },
-                                    {
-                                        "module": "sub-dominio",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                    },
-                                    {
-                                        "module": "cliente",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                    },
-                                    {
-                                        "module": "company",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                  }
-                                ]
-                            },
-                            {
-                                "roleName": "Role comercial",
-                                "roleID": "dghfjkljhgdkhtj,447579860",
-                                "modules": [
-                                    {
-                                        "module": "dominio",
-                                        "create": true,
-                                        "read": true,
-                                        "update": true,
-                                        "delete": true
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-          ],
-          "session": "e8abb370-ca1b-47d9-b514-3e55e8338924",
-          "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrQHhpbmVyZ3kuY2wiLCJmaXJzdE5hbWUiOiIiLCJsYXN0TmFtZSI6IiIsInBlcm1pc3Npb25zIjpbeyJjbGllbnQiOiJmYjE2MWM1NS05MzdiLTQ3ZDItYmU3ZC0xOTUxNjVhZmY3N2UiLCJjbGllbnROYW1lIjoiWGluZXJneSIsImNvbXBhbmllcyI6W3siY29tcGFueSI6bnVsbCwiY29tcGFueU5hbWUiOm51bGwsInJvbGVOYW1lIjoiUm9sZSBJbml0IiwiYWNjZXNzVHlwZSI6InhpbmVyZ3kiLCJjcmVhdGUiOnRydWUsInJlYWQiOnRydWUsInVwZGF0ZSI6dHJ1ZSwiZGVsZXRlIjp0cnVlfV19XSwiZXhwIjoxNzc4NzE0NzQ5fQ.QeW32tZ3le4BLiS1xqSiekxX7W215mh_93iVVMnzcGg93EFzY9Dsuz_9m75tPPYVJ0iTYrmvkeiEHGvEXT5Z-w"
-      }
 
-      sessionStorage.setItem('user', JSON.stringify(response1));
+      sessionStorage.setItem('user', JSON.stringify(response));
       sessionStorage.setItem('token', response.token);
-      sessionStorage.setItem('client', response1.permissions[0].client);
+      sessionStorage.setItem('client', response.permissions[0].client);
       sessionStorage.setItem('session', response.session);
       this.isAuth = true;
-      sessionStorage.setItem('modules', JSON.stringify(this.extractPermittedModules(response1.permissions[0].companies[0].roles[0].modules)));
-      return response1;
+      const modules = response.permissions[0].company.consolidateRole.modules;
+      const modulesArray = Object.entries(modules).map(([moduleName, actions]) => ({
+        module: moduleName,
+        actions: Object.entries(actions).map(([actionName, action]) => ({
+          action: actionName,
+          values: action
+        }))
+      }));
+
+      sessionStorage.setItem('modules', JSON.stringify(modulesArray));
+      return response;
     } catch (error) {
       return Promise.reject(error);
     }

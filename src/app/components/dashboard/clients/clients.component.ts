@@ -67,7 +67,7 @@ import { BulkUploadComponent } from '../../bulk-upload/bulk-upload.component';
 export class ClientsComponent implements AfterViewInit {
   @Input()
   requiredFileType:string;
-  permitedModules: string[] = JSON.parse(sessionStorage.getItem('modules') || '[]');
+  permittedModules: any[] = JSON.parse(sessionStorage.getItem('modules') || '[]');
   fileName = '';
   uploadProgress:number;
   uploadSub: Subscription;
@@ -84,6 +84,7 @@ export class ClientsComponent implements AfterViewInit {
   formClientTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
   });
+
   
   constructor(private companyService: CompanyService, private clientService: ClientService,
     private clientDataService: ClientDataService, public dialog: MatDialog,
@@ -274,4 +275,7 @@ export class ClientsComponent implements AfterViewInit {
     });
   }
 
+  hasModule(module: string): boolean {
+    return this.permittedModules.find(item => item.module === module)
+  }
 }
