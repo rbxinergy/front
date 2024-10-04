@@ -30,7 +30,7 @@ export class DashboardComponent {
   isMobile= false;
   isCollapsed = false;
   clientName: string = '';
-  permittedModules: string[] = [];
+  permittedModules: any[] = [];
 
   clients: Client[] = [
     {
@@ -103,6 +103,9 @@ export class DashboardComponent {
     event.stopPropagation();
   }
   
+  hasModule(module: string): boolean {
+    return this.permittedModules.find(item => item.module === module)
+  }
 }
 
 
