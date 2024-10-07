@@ -1,158 +1,126 @@
-<h2>{{"client.client" | translate }}</h2>
+<h2>{{ "client.client" | translate }}</h2>
 <div class="table-header">
   <mat-form-field appearance="outline">
     <mat-label>Buscar</mat-label>
-    <input matInput (input)="applyFilter($event)" placeholder="Buscar" #searchInput>
-    <button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch(searchInput)">
+    <input
+      matInput
+      (input)="applyFilter($event)"
+      placeholder="Buscar"
+      #searchInput
+    />
+    <button
+      *ngIf="searchInput.value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="clearSearch(searchInput)"
+    >
       <mat-icon>close</mat-icon>
       <mat-hint>Hint</mat-hint>
     </button>
   </mat-form-field>
   <section class="btn-row">
-    @if (permitedModules.includes('bulk-upload')) {
-    <button mat-raised-button color="primary" (click)="openBulkUpload()"  matTooltip="Para cargar masivamente clientes desde archivo">
-        <mat-icon>cloud_upload</mat-icon>Carga masiva
+    @if (hasModule('bulk-upload')) {
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="openBulkUpload()"
+      matTooltip="Para cargar masivamente clientes desde archivo"
+    >
+      <mat-icon>cloud_upload</mat-icon>Carga masiva
+    </button>
+    } @if (hasModule('client')) {
+    <button mat-raised-button color="primary" (click)="newClientDialog()">
+      <mat-icon>add_circle</mat-icon>Nuevo cliente
     </button>
     }
-    @if (permitedModules.includes('clients')) {
-    <button mat-raised-button color="primary" (click)="newClientDialog()">
-        <mat-icon>add_circle</mat-icon>Nuevo cliente
-      </button>
-    }
   </section>
-  
 </div>
 @if (uploadProgress) {
 <div class="progress">
-  <mat-progress-bar class="progress-bar" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
-  <mat-icon class="cancel-upload" (click)="cancelUpload()" *ngIf="uploadProgress">delete_forever</mat-icon>
+  <mat-progress-bar
+    class="progress-bar"
+    mode="determinate"
+    [value]="uploadProgress"
+  ></mat-progress-bar>
+  <mat-icon
+    class="cancel-upload"
+    (click)="cancelUpload()"
+    *ngIf="uploadProgress"
+    >delete_forever</mat-icon
+  >
 </div>
 }
+<div class="p-label-step">
+  <div class="spinner" *ngIf="isLoading">
+    <mat-progress-spinner color="accent" mode="indeterminate" diameter="50">
+    </mat-progress-spinner>
+  </div>
+  <table mat-table [dataSource]="dataSource" [hidden]="isLoading">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
 
-<mat-horizontal-stepper labelPosition="bottom" #stepper>
-  <ng-template matStepperIcon="number" let-index="index">
-    <div class="big-icon-step">{{ index + 1 }}</div>
-  </ng-template>
-  <ng-template matStepperIcon="number" let-index="index">
-    <div class="big-icon-step">{{ index + 1 }}</div>
-  </ng-template>
-  <ng-template matStepperIcon="number" let-index="index">
-    <div class="big-icon-step">{{ index + 1 }}</div>
-  </ng-template>
-  <ng-template matStepperIcon="number" let-index="index">
-    <div class="big-icon-step">{{ index + 1 }}</div>
-  </ng-template>
-  <mat-step>
-    <ng-template matStepLabel>
-      <div class="p-label-step">
-        <span>Datos cliente</span>
-      </div>
-    </ng-template>
-    <div class="p-label-step">
-      <div class="spinner" *ngIf="isLoading">
-        <mat-progress-spinner color="accent" mode="indeterminate" diameter="50">
-        </mat-progress-spinner>
-      </div>
-      <table mat-table [dataSource]="dataSource" [hidden]="isLoading">
-      
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Nombre </th>
-          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="businessName">
-          <th mat-header-cell *matHeaderCellDef> Razón Social </th>
-          <td mat-cell *matCellDef="let element"> {{element.businessName}} </td>
-        </ng-container>
-    
-    
-        <ng-container matColumnDef="address">
-          <th mat-header-cell *matHeaderCellDef> Dirección </th>
-          <td mat-cell *matCellDef="let element"> {{element.address}} </td>
-        </ng-container>
-    
-    
-        <ng-container matColumnDef="country">
-          <th mat-header-cell *matHeaderCellDef> País </th>
-          <td mat-cell *matCellDef="let element"> {{element.country}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="documentType">
-          <th mat-header-cell *matHeaderCellDef> Tipo de Documento </th>
-          <td mat-cell *matCellDef="let element"> {{element.documentType}} </td>
-        </ng-container>
-    
-    
-        <ng-container matColumnDef="document">
-          <th mat-header-cell *matHeaderCellDef> Documento </th>
-          <td mat-cell *matCellDef="let element"> {{element.document}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="acciones">
-          <th mat-header-cell *matHeaderCellDef> Acciones </th>
-          <td mat-cell *matCellDef="let element"> 
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="openNewGroupCompanyModal(element)">
-                <mat-icon>add_circle</mat-icon>
-                <span>Grupo de empresas</span>
-              </button>
-              <button mat-menu-item (click)="openEditClientModal(element)">
-                <mat-icon>edit</mat-icon>
-                <span>Editar</span>
-              </button>
-              <button mat-menu-item (click)="openDeleteCompanyModal(element)">
-                <mat-icon>delete</mat-icon>
-                <span>Borrar</span>
-              </button>
-            </mat-menu>
-          </td>
-        </ng-container>
-    
-        <tr mat-header-row *matHeaderRowDef="clientsTableColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: clientsTableColumns;"></tr>
-    
-      </table>
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
-      </mat-paginator>
-      </div>
-  </mat-step>
-  <mat-step label="Fill out your address"> <!-- [stepControl]="secondFormGroup" -->
-    <ng-template matStepLabel>
-      <div class="p-label-step">
-        <span>Categorías Corporativas</span>
-      </div>
-    </ng-template>
-    
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-  </mat-step>
-  <mat-step label="Fill out your address">
-    <ng-template matStepLabel>
-      <div class="p-label-step">
-        <span>Organización</span>
-      </div>
-    </ng-template>
-    
-  </mat-step>
-  <mat-step label="Fill out your address">
-    <ng-template matStepLabel>
-      <div class="p-label-step">
-        <span>Empresas</span>
-      </div>
-    </ng-template>  
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-  </mat-step>
-</mat-horizontal-stepper>
-<!-- <div>
+    <ng-container matColumnDef="businessName">
+      <th mat-header-cell *matHeaderCellDef>Razón Social</th>
+      <td mat-cell *matCellDef="let element">{{ element.businessName }}</td>
+    </ng-container>
 
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef>Dirección</th>
+      <td mat-cell *matCellDef="let element">{{ element.address }}</td>
+    </ng-container>
 
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef>País</th>
+      <td mat-cell *matCellDef="let element">{{ element.country }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="documentType">
+      <th mat-header-cell *matHeaderCellDef>Tipo de Documento</th>
+      <td mat-cell *matCellDef="let element">{{ element.documentType }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="document">
+      <th mat-header-cell *matHeaderCellDef>Documento</th>
+      <td mat-cell *matCellDef="let element">{{ element.document }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openNewGroupCompanyModal(element)">
+            <mat-icon>add_circle</mat-icon>
+            <span>Grupo de empresas</span>
+          </button>
+          <button mat-menu-item (click)="openEditClientModal(element)">
+            <mat-icon>edit</mat-icon>
+            <span>Editar</span>
+          </button>
+          <button mat-menu-item (click)="openDeleteCompanyModal(element)">
+            <mat-icon>delete</mat-icon>
+            <span>Borrar</span>
+          </button>
+        </mat-menu>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="clientsTableColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: clientsTableColumns"></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    aria-label="Select page of periodic elements"
+  >
+  </mat-paginator>
 </div>
- -->

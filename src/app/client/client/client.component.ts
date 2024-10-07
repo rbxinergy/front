@@ -20,6 +20,7 @@ import { NewClientComponent } from '../new-client/new-client.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatStepperModule } from '@angular/material/stepper';
+import { BaseComponent } from 'src/app/shared/core/base-componente.component';
 
 @Component({
   selector: 'app-client',
@@ -32,8 +33,7 @@ import { MatStepperModule } from '@angular/material/stepper';
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
 })
-export class ClientComponent implements OnInit {
-  permitedModules: string[] = [];
+export class ClientComponent extends BaseComponent implements OnInit {
   isLoading: boolean = false;
   uploadProgress: number = 0;
   clientsTableColumns: string[] = ['name', 'businessName', 'address', 'country', 'documentType', 'document', 'acciones'];
@@ -43,7 +43,7 @@ export class ClientComponent implements OnInit {
   
   constructor(private clientService: ClientService, private router: Router,
     private dialog: MatDialog) {
-    this.permitedModules = JSON.parse(sessionStorage.getItem('modules') || '[]');
+    super();
   }
 
   ngOnInit(): void {
