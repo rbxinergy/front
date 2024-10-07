@@ -68,18 +68,15 @@ export class ServiceCategoryTableComponent {
     private groupCompanyDataService: GroupcompanyDataService, private dialogRef: MatDialogRef<ServiceCategoryTableComponent>,
     @Inject(MAT_DIALOG_DATA) public data: GroupCompany) {
       if(data){
-        console.log(data)
         this.groupCompany = data
         this.groupCompanyDataService.setGroupCompanyData(data);
       } else {
         this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
       }
     this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
-    console.log("GROUPCOMPANY: ", this.groupCompany)
     this.serviceCategoryService.getallServiceCategories(this.groupCompany).subscribe((domainCategories: ServiceCategory[]) => {
       this.dataSource.data = domainCategories;
       this.serviceCategories = domainCategories
-      console.log(domainCategories)
     });
   }
 
@@ -136,7 +133,6 @@ export class ServiceCategoryTableComponent {
 
   // Add domain categories to Group Company
   addServiceCategories() {
-    console.log(this.selection.selected);
     const maxId = this.serviceCategories.length > 0 ? Math.max(...this.serviceCategories.map(company => parseInt(company.id))) : 0;
     const dialogRef = this.dialog.open(ServiceCategoryService, {
       width: '600px',
@@ -147,7 +143,6 @@ export class ServiceCategoryTableComponent {
       next: (newServiceCategory: ServiceCategory) => {
         if (newServiceCategory) {
           newServiceCategory.idGroupCompany = this.groupCompany.id
-          console.log(newServiceCategory)
           this.serviceCategoryService.createServiceCategory(newServiceCategory).subscribe({
             next: (response) => {
               if (response.status === 200) {
@@ -176,7 +171,6 @@ export class ServiceCategoryTableComponent {
         }
       },
       error: (error) => {
-        console.error('Error al abrir el modal de nueva empresa:', error);
         this.dialog.open(MessagesModalComponent, {
           width: '400px',
           data: { message: 'Error al cerrar el diálogo.', type: 'error' }
@@ -249,13 +243,11 @@ export class ServiceCategoryTableComponent {
         if (result) {
           this.serviceCategoryService.deleteServiceCategory(serviceCategory.id).subscribe({
             next: (response) => {
-              console.log('response', response.body);
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
                   data: { message: 'Categoría de dominio eliminada exitosamente.', type: 'success' }
                 });
-                console.log('Categoría de dominio', serviceCategory);
                 this.serviceCategories = this.serviceCategories.filter(c => c.id !== serviceCategory.id);
                 if(this.serviceCategories.length === 0){
                   this.formServiceCategoryTable.controls['tempControl'].setValue(null);

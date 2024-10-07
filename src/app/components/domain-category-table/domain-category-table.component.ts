@@ -89,7 +89,6 @@ export class DomainCategoryTableComponent {
       this.dataSource.data = domainCategories;
       this.isLoading = false
       this.domainCategories = domainCategories
-      console.log(domainCategories)
     });
   }
 
@@ -139,7 +138,6 @@ export class DomainCategoryTableComponent {
   }
   // Add domain categories to Group Company
   addDomainCategories() {
-    console.log(this.selection.selected);
     const maxId = this.domainCategories.length > 0 ? Math.max(...this.domainCategories.map(company => parseInt(company.id))) : 0;
     const dialogRef = this.dialog.open(DomaincategoryComponent, {
       width: '600px',
@@ -150,7 +148,6 @@ export class DomainCategoryTableComponent {
       next: (newDomainCategory: DomainCategory) => {
         if (newDomainCategory) {
           newDomainCategory.idGroupCompany = this.groupCompanyID
-          console.log(newDomainCategory)
           this.domainCategoryService.createDomainCategory(newDomainCategory).subscribe({
             next: (response) => {
               if (response.status === 200) {
@@ -179,7 +176,6 @@ export class DomainCategoryTableComponent {
         }
       },
       error: (error) => {
-        console.error('Error al abrir el modal de nueva empresa:', error);
         this.dialog.open(MessagesModalComponent, {
           width: '400px',
           data: { message: 'Error al cerrar el diálogo.', type: 'error' }
@@ -189,7 +185,6 @@ export class DomainCategoryTableComponent {
   }
   
   editDomainCategoryModal(domainCategory: DomainCategory) {
-    console.log(domainCategory)
     this.selectedDomainCategory = { ...domainCategory };
     const dialogRef = this.dialog.open(DomaincategoryComponent, {
       width: '600px',
@@ -251,13 +246,11 @@ export class DomainCategoryTableComponent {
         if (result) {
           this.domainCategoryService.deleteDomainCategory(domainCategory.id).subscribe({
             next: (response) => {
-              console.log('response', response.body);
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
                   data: { message: 'Categoría de dominio eliminada exitosamente.', type: 'success' }
                 });
-                console.log('Categoría de dominio', domainCategory);
                 this.domainCategories = this.domainCategories.filter(c => c.id !== domainCategory.id);
                 if(this.domainCategories.length === 0){
                   this.formDomainCategoryTable.controls['tempControl'].setValue(null);

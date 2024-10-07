@@ -63,7 +63,6 @@ export class BulkUploadComponent {
   }
 
   onUpload() {
-    console.log('onUpload');
     if (this.selectedFile) {
       let uploadObservable: Observable<HttpResponse<any>>;
       const formData = new FormData();
@@ -106,7 +105,6 @@ export class BulkUploadComponent {
           uploadObservable = this.contactService.uploadCSV(formData);
           break;
         default:
-          console.error('Opción de carga no válida');
           return;
       }
 

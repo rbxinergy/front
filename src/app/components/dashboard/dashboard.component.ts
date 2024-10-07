@@ -30,7 +30,7 @@ export class DashboardComponent {
   isMobile= false;
   isCollapsed = false;
   clientName: string = '';
-  permittedModules: string[] = [];
+  permittedModules: any[] = [];
 
   clients: Client[] = [
     {
@@ -67,12 +67,10 @@ export class DashboardComponent {
   
   ngOnInit():void{
     this.permittedModules = JSON.parse(sessionStorage.getItem('modules') || '[]');
-    console.log(this.permittedModules);
     const profile = JSON.parse(sessionStorage.getItem('profile') || ''); 
     const firstName = profile.firstName
     const lastName = profile.lastName
     this.name =  `${firstName} ${lastName}`
-    console.log(this.name)
     this.clientName = sessionStorage.getItem('clientName') || '';
     this.initials = firstName.charAt(0) + lastName.charAt(0) 
     this.observer.observe(['(max-width: 900px)']).subscribe((screenSize) => {
@@ -105,6 +103,9 @@ export class DashboardComponent {
     event.stopPropagation();
   }
   
+  hasModule(module: string): boolean {
+    return this.permittedModules.find(item => item.module === module)
+  }
 }
 
 

@@ -38,17 +38,7 @@ export class SubdomainCfgTableComponent {
   selection = new SelectionModel<SubDomain>(true, []);
   isLoading: boolean = false;
 
-  constructor(private subdomainService: SubdomainService) {
-    console.log('subdomainService');
-    // this.subdomainService.getSubdomains().subscribe((subdomains: SubDomain[]) => {
-    //   this.dataSource.data = subdomains;
-    // });
-  }
-  // ngOnInit(): void {
-  //   this.userService.getUsers('client', 'company').subscribe((users: User[]) => {
-  //     this.dataSource.data = users;
-  //   });
-  // }
+  constructor(private subdomainService: SubdomainService) { }
   /** Si el número de elementos seleccionados coincide con el número total de filas. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -76,10 +66,8 @@ export class SubdomainCfgTableComponent {
       this.selection.selected.forEach((subdomain, index) => {
         this.subdomainService.createSubdomain(subdomain).subscribe((subdomain:any) => {
           this.isLoading = false;
-          console.log(subdomain, index);
         }, (error) => {
           this.isLoading = false;
-          console.error(error);
         }, () => {
           this.isLoading = false;
         });

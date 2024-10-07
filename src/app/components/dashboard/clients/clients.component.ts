@@ -67,7 +67,7 @@ import { BulkUploadComponent } from '../../bulk-upload/bulk-upload.component';
 export class ClientsComponent implements AfterViewInit {
   @Input()
   requiredFileType:string;
-  permitedModules: string[] = JSON.parse(sessionStorage.getItem('modules') || '[]');
+  permittedModules: any[] = JSON.parse(sessionStorage.getItem('modules') || '[]');
   fileName = '';
   uploadProgress:number;
   uploadSub: Subscription;
@@ -84,6 +84,7 @@ export class ClientsComponent implements AfterViewInit {
   formClientTable: FormGroup = new FormGroup({
     tempControl: new FormControl(null, Validators.required)
   });
+
   
   constructor(private companyService: CompanyService, private clientService: ClientService,
     private clientDataService: ClientDataService, public dialog: MatDialog,
@@ -137,49 +138,6 @@ export class ClientsComponent implements AfterViewInit {
       width: '600px',
       data: {}
     });
-    // dialogRef.afterClosed().subscribe({
-    //   next: (updatedClient: Client) => {
-    //     if (updatedClient) {
-    //       // updatedClient.idGroupCompany = this.groupCompany?.id;
-    //       // updatedClient.idClient = this.client?.id
-    //       console.log('updatedClient', updatedClient);
-        
-    //       this.clientService.updateClient(updatedClient).subscribe({
-    //         next: (response) => {
-    //           if (response.status === 200) {
-    //             this.dialog.open(MessagesModalComponent, {
-    //               width: '500px',
-    //               data: { message: 'Cliente actualizado exitosamente.', type: 'success' }
-    //             });
-                
-    //             const index = this.clients.findIndex(c => c.id === updatedClient.id);
-    //             if (index !== -1) {
-    //               this.clients[index] = response.body;
-    //               this.dataSource.data = this.clients;
-    //             }
-    //           } else {
-    //             this.dialog.open(MessagesModalComponent, {
-    //               width: '500px',
-    //               data: { message: 'Error al actualizar el cliente.', type: 'error' }
-    //             });
-    //           }
-    //         },
-    //         error: (error) => {
-    //           this.dialog.open(MessagesModalComponent, {
-    //             width: '500px',
-    //             data: { message: 'Error al actualizar el cliente.', type: 'error' }
-    //           });
-    //         }
-    //       });
-    //     }
-    //   },
-    //   error: (error) => {
-    //     this.dialog.open(MessagesModalComponent, {
-    //       width: '500px',
-    //       data: { message: 'Error al cerrar el diálogo.', type: 'error' }
-    //     });
-    //   }
-    // });
   }
 
   cancelUpload() {
@@ -193,62 +151,11 @@ export class ClientsComponent implements AfterViewInit {
   }
   
   openNewGroupCompanyModal(client: Client){
-    console.log(client)
     this.router.navigate(['dashboard/groupcompany', client.id]);
-    // const dialogRef = this.dialog.open(GroupCompanyTableComponent, {
-    //   width: '80%',
-    //   data: client
-    // }); 
-    // dialogRef.afterClosed().subscribe({
-    //   next: (updatedClient: Client) => {
-    //     if (updatedClient) {
-    //       // updatedClient.idGroupCompany = this.groupCompany?.id;
-    //       // updatedClient.idClient = this.client?.id
-    //       console.log('updatedClient', updatedClient);
-        
-    //       this.clientService.updateClient(updatedClient).subscribe({
-    //         next: (response) => {
-    //           if (response.status === 200) {
-    //             this.dialog.open(MessagesModalComponent, {
-    //               width: '500px',
-    //               data: { message: 'Cliente actualizado exitosamente.', type: 'success' }
-    //             });
-                
-    //             const index = this.clients.findIndex(c => c.id === updatedClient.id);
-    //             if (index !== -1) {
-    //               this.clients[index] = response.body;
-    //               this.dataSource.data = this.clients;
-    //             }
-    //           } else {
-    //             this.dialog.open(MessagesModalComponent, {
-    //               width: '500px',
-    //               data: { message: 'Error al actualizar el cliente.', type: 'error' }
-    //             });
-    //           }
-    //         },
-    //         error: (error) => {
-    //           this.dialog.open(MessagesModalComponent, {
-    //             width: '500px',
-    //             data: { message: 'Error al actualizar el cliente.', type: 'error' }
-    //           });
-    //         }
-    //       });
-    //     }
-    //   },
-    //   error: (error) => {
-    //     this.dialog.open(MessagesModalComponent, {
-    //       width: '500px',
-    //       data: { message: 'Error al cerrar el diálogo.', type: 'error' }
-    //     });
-    //   }
-    // });
-
   }
 
   openEditClientModal(client: Client) {
-    console.log("cliente", client)
     this.selectedClient = { ...client };
-    console.log("Seleccionado cliente", this.selectedClient)
     const dialogRef = this.dialog.open(EditComponent, {
       width: '600px',
       data: this.selectedClient
@@ -256,11 +163,7 @@ export class ClientsComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe({
       next: (updatedClient: Client) => {
-        if (updatedClient) {
-          // updatedClient.idGroupCompany = this.groupCompany?.id;
-          // updatedClient.idClient = this.client?.id
-          console.log('updatedClient', updatedClient);
-        
+        if (updatedClient) {  
           this.clientService.updateClient(updatedClient).subscribe({
             next: (response) => {
               if (response.status === 200) {
@@ -314,13 +217,11 @@ export class ClientsComponent implements AfterViewInit {
         if (result) {
           this.clientService.deleteClient(client.id).subscribe({
             next: (response) => {
-              console.log('response', response.body);
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
                   data: { message: 'Cliente eliminado exitosamente.', type: 'success' }
                 });
-                console.log('client', client);
                 this.clients = this.clients.filter(c => c.id !== client.id);
                 if(this.clients.length === 0){
                   this.formClientTable.controls['tempControl'].setValue(null);
@@ -361,12 +262,8 @@ export class ClientsComponent implements AfterViewInit {
       formData.append('file', this.selectedFile, this.selectedFile.name);
 
       this.clientService.uploadCSV(formData).subscribe(
-        (response: HttpResponse<any>) => {
-          console.log('File uploaded successfully', response);
-        },
-        (error) => {
-          console.error('Error uploading file', error);
-        }
+        (response: HttpResponse<any>) => { },
+        (error) => { }
       );
     }
   }
@@ -378,4 +275,7 @@ export class ClientsComponent implements AfterViewInit {
     });
   }
 
+  hasModule(module: string): boolean {
+    return this.permittedModules.find(item => item.module === module)
+  }
 }

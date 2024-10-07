@@ -37,18 +37,12 @@ import { Client } from 'src/app/interfaces/client.interface';
   ]
 })
 export class EditComponent {
- 
-
   clients: any
-
   clientForm: FormGroup;
 
-  constructor(
-    // private companyService: CompanyService, @Inject(MAT_DIALOG_DATA) public data: any,
-  private dialogRef: MatDialogRef<EditComponent>,
+  constructor(private dialogRef: MatDialogRef<EditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Client,
     private fb: FormBuilder) {
-      console.log(this.data)
       if(data) {
         this.clientForm = new FormGroup({
           id: new FormControl(data?.id || '', Validators.required),
@@ -71,22 +65,7 @@ export class EditComponent {
     }
 
   closeModal() {
-    console.log('hola')
-    console.log(this.clientForm.getRawValue())
     this.dialogRef.close(this.clientForm.getRawValue());
   }
-
-
-  // compareObjects(data: any, states: any ){
-  //   console.log(data.statename, states.name)
-  //   if(data.statename === states.name && data.stateId === states.id )
-  //   return true
-  //   else return false
-  // }
-  // compareWith(obj1: any, obj2: any ): boolean{
-  //   console.log(obj1.stateId,  obj2.id, obj1.statename, obj2.name)
-  //   return obj1 && obj2? obj1.stateId === obj2.id : obj1 === obj2
-  // }
-
 }
 

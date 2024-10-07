@@ -17,14 +17,8 @@ export class ContactServiceCompanyComponent implements OnInit{
   constructor(fb: FormBuilder) { }
 
   ngOnInit(): void {
-    this.contactForm = new FormGroup({
-      // idContact: new FormControl('', [Validators.required, Validators.number]),
-      // idServiceCompany: new FormControl('', [Validators.required, Validators.number]),
-    });
+    this.contactForm = new FormGroup({});
   }
 
-  onSubmit(): void {
-    // Implementar la lógica para enviar el formulario
-    console.log('Formulario enviado:', this.contactForm.value);
-  }
+  onSubmit(): void { }
 }

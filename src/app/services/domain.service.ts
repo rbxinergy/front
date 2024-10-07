@@ -29,17 +29,14 @@ export class DomainService {
   }
 
   async saveDomain(form: any):Promise<any>{
-    // console.log(this.groupDocument)
     const body = { 
       "name": form.name,
       "description": form.description,
       "code": form.code,
       "tag": form.tag,
       "idDomainCategory": form.idDomainCategory,
-      // "groupDocument": this.groupDocument,
       "idCompany":form.idCompany,
     }
-    console.log(body)
     const postDomain = this.http.post<Domain>(`${this.serverUrl}${this.apiUrls}/create`, body, { headers: this.headers })
 
     return await lastValueFrom(postDomain)  

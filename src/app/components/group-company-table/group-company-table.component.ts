@@ -93,41 +93,10 @@ export class GroupCompanyTableComponent implements AfterViewInit {
         this.isLoading = false
         this.groupCompanies = data.body
       },
-      error: (error: any) => {
-        console.log(error);
-      }
+      error: (error: any) => { }
     });
-    
-    //  this.groupCompanyDataService.setGroupCompanyData(data);
+
   }
-
-  // loadClientData() {
-  //   this.client = this.clientDataService.getClientData();
-  //   console.log('client de loadClient', this.client.id);
-  // }
-
-  // loadGroups(clientName: string) {
-  //   console.log('clientName', clientName);
-  //   this.groupCompanyService.getGroupCompanies(clientName).subscribe(companies => {
-  //     this.groupCompanies = companies;
-  //     this.dataSource.data = this.groupCompanies;
-  //     if(companies.length === 0){
-  //       console.log('No hay empresas');
-  //       this.formGroupCompanyTable.controls['tempControl'].setValue('');
-  //     }
-  //     this.dataSource.paginator = this.paginator;
-  //     this.dataSource.sort = this.sort;
-  //     this.sort.sort({id: 'id', start: 'desc', disableClear: false} as MatSortable);
-  //     const sortState: Sort = {active: 'id', direction: 'desc'};
-  //     this.sort.active = sortState.active;
-  //     this.sort.direction = sortState.direction;
-  //     this.sort.sortChange.emit(sortState);
-  //     this.dataSource.sort = this.sort;
-  //     this.sort.direction = 'desc';
-  //     this.sort.active = 'id';
-  //     this.cdr.detectChanges();
-  //   });
-  // }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -158,10 +127,8 @@ export class GroupCompanyTableComponent implements AfterViewInit {
   
     dialogRef.afterClosed().subscribe({
       next: (newGroupCompany: GroupCompany) => {
-        console.log("NEW GROUP COMPANY:", newGroupCompany);
         if (newGroupCompany) {
           newGroupCompany.idClient = this.clientID;
-          console.log('newGroupCompany', newGroupCompany);
           this.groupCompanyService.createGroupCompany(newGroupCompany).subscribe({
             next: (response) => {
               if (response.status === 200) {
@@ -173,7 +140,6 @@ export class GroupCompanyTableComponent implements AfterViewInit {
                 this.groupCompanies.push(response.body);
                 this.dataSource.data = this.groupCompanies;
                 this.formGroupCompanyTable.controls['tempControl'].setValue(response.body.name);
-                console.log('this.formGroupCompanyTable VALID', this.formGroupCompanyTable);
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
@@ -191,7 +157,6 @@ export class GroupCompanyTableComponent implements AfterViewInit {
         }
       },
       error: (error) => {
-        console.error('Error al abrir el modal de nuevo grupo:', error);
         this.dialog.open(MessagesModalComponent, {
           width: '400px',
           data: { message: 'Error al cerrar el diálogo.', type: 'error' }

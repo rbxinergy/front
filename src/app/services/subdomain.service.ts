@@ -25,19 +25,6 @@ export class SubdomainService {
     this.subdomain = this.subdomainDataService.getSubdomainData();
   }
 
-  // async saveSubdomain(form: any):Promise<any>{
-  //   const body = { 
-  //     "name": form.name,
-  //     "description": form.description,
-  //     "tag": form.tag,
-  //     "idDomain": form.idDomain,
-  //   }
-  //   console.log(body)
-  //   const postSubdomain = this.http.post<SubDomain>(`${this.serverUrl}${this.apiUrls.subdomain}/create`, body, { headers: this.headers })
-
-  //   return await lastValueFrom(postSubdomain)  
-  // }
-
   createSubdomain(subdomain: SubDomain): Observable<HttpResponse<any>> {
     return this.http.post<any>(`${this.serverUrl}${this.apiUrls.subdomain}/create`, subdomain, { observe: 'response' });
   }

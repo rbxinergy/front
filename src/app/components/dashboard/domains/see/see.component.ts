@@ -14,8 +14,6 @@ import { MatButtonModule } from '@angular/material/button';
   ]
 })
 export class SeeComponent {
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any ){
-    console.log(this.data)
-  }
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any ){ }
 
 }

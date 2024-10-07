@@ -56,7 +56,6 @@ export class LoginComponent {
    
     try {
       const data = await this.authService.logInWithEmailAndPassword(email, password);
-      console.log("DATA", data);
       sessionStorage.setItem('client', Array.isArray(data.permissions?.client) ? JSON.stringify(data.permissions?.client) : data.permissions?.client);
       const profile = {
         firstName: data.name,
@@ -68,7 +67,6 @@ export class LoginComponent {
       sessionStorage.setItem('clientName', data.permissions[0].clientName);
       this.router.navigate(['/dashboard']);
     } catch (error) {
-      console.log("ERROR", error);
       this.dialog.open(MessagesModalComponent, {
         data: {
           message: 'Error en inicio de sesión. Intente nuevamente.',

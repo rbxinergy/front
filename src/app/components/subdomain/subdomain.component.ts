@@ -96,13 +96,10 @@ export class SubdomainComponent {
   closeModal(selectedDomainId:string){
     const subdominios = []
     subdominios.push(this.subdomainForm.getRawValue())
-    console.log('GUARDAR',subdominios)
     this.dialogRef.close(this.subdomainForm.getRawValue());
   }
 
   deleteSubdomain(i: number): void {
-    console.log(i)
-    console.log(this.subdomains)
     this.subdomains.splice(i, 1);
     this.dataSourcePacks = new MatTableDataSource(this.subdomains);
   };

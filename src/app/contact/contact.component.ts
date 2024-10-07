@@ -63,14 +63,11 @@ export class ContactComponent implements AfterViewInit {
     this.isLoading = true;
     this.contactService.getContactByClient(this.clientId).subscribe({
       next: (res) => {
-        console.log(res);
         this.contact = res.body;
         this.dataSource.data = this.contact;
         this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.log(err);
-      },
+      error: (err) => { },
       complete: () => {
         this.isLoading = false;
       }
@@ -93,7 +90,6 @@ export class ContactComponent implements AfterViewInit {
   }
 
   openNewContactModal() {
-    console.log("New contact modal");
     const dialogRef = this.dialog.open(NewContactComponent, {
       width: '600px',
       data: {}
@@ -105,7 +101,6 @@ export class ContactComponent implements AfterViewInit {
         delete newContact.active;
         this.contactService.createContact(newContact).subscribe({
           next: (res) => {
-            console.log(res);
             this.ngAfterViewInit();
             this.cdr.detectChanges();
             this.dialog.open(MessagesModalComponent, {
@@ -114,7 +109,6 @@ export class ContactComponent implements AfterViewInit {
             });
           },
           error: (err) => {
-            console.log(err);
             this.dialog.open(MessagesModalComponent, {
               width: '400px',
               data: { message: 'Error al crear el contacto.', type: 'error' }
@@ -126,7 +120,6 @@ export class ContactComponent implements AfterViewInit {
         });
       },
       error: (err) => {
-        console.log(err);
         this.dialog.open(MessagesModalComponent, {
           width: '400px',
           data: { message: 'Error al crear el contacto.', type: 'error' }
@@ -142,16 +135,10 @@ export class ContactComponent implements AfterViewInit {
     this.router.navigate(['/dashboard/bulk-upload']);
   }
 
-  openAddRolesModal(contact: Contact) {
-    console.log(contact);
-  }
+  openAddRolesModal(contact: Contact) { }
 
-  openEditCompanyModal(contact: Contact) {
-    console.log(contact);
-  }
+  openEditCompanyModal(contact: Contact) { }
 
-  openDeleteCompanyModal(contact: Contact) {
-    console.log(contact);
-  }
+  openDeleteCompanyModal(contact: Contact) { }
 
 }

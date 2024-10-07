@@ -95,7 +95,6 @@ export class QuestionairesComponent {
   
   constructor(private fb: FormBuilder, private questService: QuestService,
     private router: Router, private route: ActivatedRoute, private subDomainService: SubdomainService, public dialog: MatDialog) {
-    console.log('Cuestionario constructor');
     this.currentCompany = {id: 27, groupDocument: '92926482-7'}; // JSON.parse(sessionStorage.getItem('company') || '')
     this.formOptions = new FormGroup({
       clave: new FormControl('', Validators.required),
@@ -120,20 +119,17 @@ export class QuestionairesComponent {
   getSubdomains(): void {
     this.subDomainService.getData(this.currentCompany.groupDocument).subscribe((data: CompanySubDomain) => {
       this.subdomains = data.subDomains;
-      console.log("subdominios:", this.subdomains);
     });
   }
   getQuest(): void {
     this.questService.getQuestionnaires(this.currentCompany.id).subscribe((data: Quest[]) => {
       this.quests = data;
       this.dataSource.data = this.quests;
-      console.log("Cuestionarios:", this.quests);
     });
   }
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.questions, event.previousIndex, event.currentIndex);
-    console.log(this.questions);
   }
 
   saveQuestion(){
@@ -141,7 +137,6 @@ export class QuestionairesComponent {
       options: this.lista
     }
     this.questService.createQuestion(data).subscribe((result) => {
-      console.log(result);
     })
   }
 
@@ -150,14 +145,13 @@ export class QuestionairesComponent {
     this.dialog.open(QuestionnaireQuestionsComponent, { 
       data: id,
       width: '100%'
-    }) 
-    console.log(id)
+    });
   }
   async viewQuestion(id: number) {
     await this.router.navigate(['questions', id], {relativeTo: this.route});
   }
 
-  updateDialog(id: number) { console.log(id)}
+  updateDialog(id: number) { }
 
   delService(id: number) {
     const dialogRef = this.dialog.open(MessagesModalComponent, {

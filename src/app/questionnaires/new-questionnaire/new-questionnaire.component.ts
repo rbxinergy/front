@@ -97,7 +97,6 @@ export class NewQuestionnaireComponent implements OnInit {
   loadSubDomains() {
     this.getSubDomains.getData(this.currentCompany.id).subscribe((data:any) => {
       this.subdomains = data;
-      console.log("subdominios:", this.subdomains);
     });
   }
 
@@ -105,12 +104,10 @@ export class NewQuestionnaireComponent implements OnInit {
     this.selectedSubDomainId = subDomainId;
     this.selectedSubDomainName =  this.subdomains.find(subdomain => subdomain.idSubDomain === subDomainId)?.subDomain;  //this.getSelectedSubDomainName(subDomainId);
     this.cdRef.detectChanges();
-    console.log("selectedSubDomainName:", this.selectedSubDomainName);
   }
 
   getSelectedSubDomainName(subDomainId: number): string {
     const selectedSubDomain = this.subdomains.find(subdomain => subdomain.idSubDomain === subDomainId);
-    console.log("selectedSubDomain:", selectedSubDomain);
     return selectedSubDomain ? selectedSubDomain.subDomain : '';
   }
 
@@ -140,7 +137,6 @@ export class NewQuestionnaireComponent implements OnInit {
   }
 
   openLibrary(subdomain: string){
-    console.log("HOLA");
     const dialogRef = this.dialog.open(QuestionLibraryComponent, {
       enterAnimationDuration: '500ms',
       exitAnimationDuration: '500ms',
@@ -154,16 +150,12 @@ export class NewQuestionnaireComponent implements OnInit {
         const uniqueQuestions = result.questions.filter((question: Question) => !existingQuestions.some(existing => existing.id === question.id));
         this.questionsMap[subdomain] = existingQuestions.concat(uniqueQuestions);
         this.subdomainFromDialog = result?.subdomain || '';
-        //this.cdRef.detectChanges(); // Detectar cambios en 'subdomainFromDialog'
-        console.log("DIALOG RESULT:", result);
         this.dialog.closeAll();
       }
     });
   }
 
-  updatePercentageSum() {
-    // Implementar lógica para actualizar la suma de porcentajes
-  }
+  updatePercentageSum() { }
 
   drop(event: CdkDragDrop<any[]>, subDomain: string) {
     moveItemInArray(this.questionsMap[subDomain], event.previousIndex, event.currentIndex);
@@ -174,19 +166,14 @@ export class NewQuestionnaireComponent implements OnInit {
   }
 
   createQuest() {
-    // Asegurarse de que el subdominio seleccionado tenga preguntas
     if (!this.questionsMap[this.selectedSubDomainId] || this.questionsMap[this.selectedSubDomainId].length === 0) {
-      console.error("No hay preguntas para el subdominio seleccionado.");
       return;
     }
 
-    // Asegurarse de que el formulario sea válido
     if (!this.questionnaireForm.valid) {
-      console.error("El formulario del cuestionario no es válido.");
       return;
     }
 
-    // Crear el objeto de datos del cuestionario
     const data: Quest = {
       questions: this.questionsMap[this.selectedSubDomainId],
       companyId: this.currentCompany.id,
@@ -196,16 +183,12 @@ export class NewQuestionnaireComponent implements OnInit {
     // Verificar que cada pregunta tenga los campos necesarios
     data.questions.forEach(question => {
       if (!question.text || question.percentage === undefined || question.criticality === undefined) {
-        console.error("Una o más preguntas no tienen todos los campos necesarios.");
         return;
       }
     });
 
-    console.log("Datos del cuestionario:", data);
-    // Enviar el objeto `data` al backend
     this.questService.createQuestionnaire(data).subscribe(
       (result) => {
-        console.log("Resultado del backend:", result);
         this.dialog.open(MessagesModalComponent, {
           data: {
             message: 'Cuestionario creado correctamente',
@@ -215,7 +198,6 @@ export class NewQuestionnaireComponent implements OnInit {
         this.router.navigate(['dashboard/questionnaires-module']);
       },
       (error) => {
-        console.error("Error al enviar los datos al backend:", error);
         this.dialog.open(MessagesModalComponent, {
           data: {
             message: 'Error al crear el cuestionario',
@@ -227,13 +209,11 @@ export class NewQuestionnaireComponent implements OnInit {
   }
 
   addAnswer(question: Question) {
-    console.log('RESPUESTAS:', question.answers, question.type)
     if(!question.answers){
       question.answers = [];
     }
 
     if (question.type === 'checkbox' || question.type === 'radio') {
-    //   // Verificar si ya existe una respuesta tipo 'text' y reemplazarla
       const textAnswerIndex = question.answers.findIndex(answer => answer.text === 'text');
       if (textAnswerIndex !== -1) {
         question.answers.splice(textAnswerIndex, 1);
@@ -272,7 +252,6 @@ export class NewQuestionnaireComponent implements OnInit {
       this.autoFillWeights();
     }
     this.cdRef.detectChanges();
-    console.log("QUESTION MAP:", this.questionsMap[this.selectedSubDomainId]);
   }
 
   getTotalWeight(): number {
@@ -311,9 +290,6 @@ export class NewQuestionnaireComponent implements OnInit {
     } else if (question.type === 'checkbox' || question.type === 'radio') {
       question.answers = [];
     }
-
-    console.log("QUESTION:", question);
-    console.log("QUESTION MAP:", this.questionsMap[this.selectedSubDomainId]);
   }
 
   isValidated(): boolean {

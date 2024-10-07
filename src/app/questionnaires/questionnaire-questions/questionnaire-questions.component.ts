@@ -58,7 +58,6 @@ export class QuestionnaireQuestionsComponent {
     this.questService.getQuestionsByCompanyId(this.currentCompany.id).subscribe((data: any) => {
       this.questions = data.questions;
       this.questionDataSource.data = this.questions;
-      console.log("Preguntas:", this.questions);
     });
   }
 
@@ -93,27 +92,11 @@ export class QuestionnaireQuestionsComponent {
 
   changeSelection(event: MatCheckboxChange, row: any) {
     event ? this.selection.toggle(row) : null
-    console.log(!this.createForm.valid && this.selection.isEmpty());
   }
 
   saveQuestQuestion(){
-    console.log("guardando quest question")
     let data: any = this.createForm.getRawValue();
     data.companyId = this.currentCompany.id;
     data.quests = this.selection.selected;
-    console.log(data);
-    // this.questService.createQuestQuestion(data).subscribe((data) => {
-    //   console.log(data);
-    //   this.createForm.reset();
-    //   this.showDialog('500ms', '500ms', 'Cuestionario creado correctamente.', 'success');
-    //   // this.router.navigate(['home/evaluation']);
-    // }, (error) => {
-    //   this.showDialog('500ms', '500ms', 'No se pudo crear el cuestionario. Por favor intente en unos momentos.', 'error');
-    //   console.log(error);
-    // })
   }
 }
-function getQuestions() {
-  throw new Error('Function not implemented.');
-}
-

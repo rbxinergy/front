@@ -23,12 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
   ]
 })
 export class DeleteComponent {
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any ){ }
 
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any ){
-    console.log(this.data)
-  }
-
-  onDomainDelete(){
-    console.log("Domain deleted", this.data)
-  }
+  onDomainDelete(){ }
 }

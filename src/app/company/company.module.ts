@@ -12,7 +12,5 @@ import { CompanyRoutingModule } from './company-routing.module';
   ]
 })
 export class CompanyModule { 
-  constructor() {
-    console.log("CompanyModule loaded");
-  }
+  constructor() {}
 }

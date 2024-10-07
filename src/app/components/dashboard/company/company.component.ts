@@ -68,7 +68,6 @@ export class CompanyComponent implements AfterViewInit {
       this.companies = data;
       this.isLoading = false;
       this.dataSource.data = data
-      console.log("Companies", this.dataSource.data)
     })
   }
 
@@ -91,7 +90,6 @@ export class CompanyComponent implements AfterViewInit {
   }
 
   openConfig(idCompany: string, idGroupCompany: string) {
-    console.log('openConfig', idCompany, idGroupCompany);
     this.router.navigate(['/dashboard/company-config', idCompany, idGroupCompany]);
   }
 
@@ -105,12 +103,8 @@ export class CompanyComponent implements AfterViewInit {
       formData.append('file', this.selectedFile, this.selectedFile.name);
 
       this.companyService.uploadCSV(formData).subscribe(
-        (response: HttpResponse<any>) => {
-          console.log('File uploaded successfully', response);
-        },
-        (error) => {
-          console.error('Error uploading file', error);
-        }
+        (response: HttpResponse<any>) => { },
+        (error) => { }
       );
     }
   }
@@ -138,17 +132,14 @@ export class CompanyComponent implements AfterViewInit {
   }
 
   openNewCompanyModal() {
-    console.log("openNewCompanyModal")
     const dialogRef = this.dialog.open(NewCompanyComponent, {
       width: '600px',
     });
     dialogRef.afterClosed().subscribe(result => {
       delete result.id
       result.idClient = this.client
-      console.log(result)
       this.companyService.createCompany(result).subscribe({
         next: (response) => {
-          console.log(response)
           this.dialog.open(MessagesModalComponent, {
             width: '400px',
             data: { message: 'Empresa creada exitosamente.', type: 'success' }
@@ -156,7 +147,6 @@ export class CompanyComponent implements AfterViewInit {
           this.getCompanies()
         },
         error: (error) => {
-          console.log(error)
           this.dialog.open(MessagesModalComponent, {
             width: '400px',
             data: { message: 'Error al crear la empresa.', type: 'error' }

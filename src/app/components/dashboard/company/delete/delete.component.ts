@@ -15,10 +15,6 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
   ]
 })
 export class DeleteComponent {
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any ){
-    console.log(this.data)
-  }
-  onCompanyDelete(){
-    console.log("Company deleted: ", this.data)
-  }
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any ){ }
+  onCompanyDelete(){ }
 }

@@ -40,31 +40,29 @@ export class DomainComponent {
   idGroupCompany: string
   constructor(public dialog: MatDialog, private dialogRef: MatDialogRef<DomainComponent>, private companyService: CompanyService,
     @Inject(MAT_DIALOG_DATA) public data:any ) {
-      if(data) {
-        this.domainForm = new FormGroup({
-          id: new FormControl(data?.id || '', Validators.required),
-          name: new FormControl(data?.name || '', Validators.required),
-          description: new FormControl(data?.description || '', Validators.required),
-          code: new FormControl(data?.code || '', Validators.required),
-          tag: new FormControl(data?.tag || ''),
-          idDomainCategory: new FormControl(data?.idDomainCategory || '', Validators.required),
-          idCompany: new FormControl(data?.idCompany || '', Validators.required),
-          idServiceCompany: new FormControl(data?.idServiceCompany || '3d447b9d-76d3-4d02-a045-67ca44d66664', Validators.required),
-          active: new FormControl(data?.active || true, Validators.required),
-        });
-
-        this.idGroupCompany = data 
-      }
-      if(data.idGroupCompany){
-        this.idGroupCompany = data.idGroupCompany
-        console.log(data.idGroupCompany)
-      }
-      
-      this.companyService.getCompaniesByGroup(this.idGroupCompany).subscribe((companies: Company[]) => {
-        this.companies = companies
+    if(data) {
+      this.domainForm = new FormGroup({
+        id: new FormControl(data?.id || '', Validators.required),
+        name: new FormControl(data?.name || '', Validators.required),
+        description: new FormControl(data?.description || '', Validators.required),
+        code: new FormControl(data?.code || '', Validators.required),
+        tag: new FormControl(data?.tag || ''),
+        idDomainCategory: new FormControl(data?.idDomainCategory || '', Validators.required),
+        idCompany: new FormControl(data?.idCompany || '', Validators.required),
+        idServiceCompany: new FormControl(data?.idServiceCompany || '3d447b9d-76d3-4d02-a045-67ca44d66664', Validators.required),
+        active: new FormControl(data?.active || true, Validators.required),
       });
-    }
 
+      this.idGroupCompany = data 
+    }
+    if(data.idGroupCompany){
+      this.idGroupCompany = data.idGroupCompany
+    }
+    
+    this.companyService.getCompaniesByGroup(this.idGroupCompany).subscribe((companies: Company[]) => {
+      this.companies = companies
+    });
+  }
   
   closeModal(){
     this.dialogRef.close(this.domainForm.getRawValue());

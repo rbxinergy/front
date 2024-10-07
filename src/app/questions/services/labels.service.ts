@@ -18,7 +18,6 @@ export class LabelsService {
   }
 
   createLabel(data:any) {
-    console.log("CREATE LABELS");
     const response = {
       "status": 200,
       "message": "Etiquetas repetidas / insertadas.",
@@ -35,11 +34,8 @@ export class LabelsService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      console.error('An error occurred:', error.error);
-    } else {
-      console.error(`Backend returned code ${error.status}, body was: `, error.error);
-    }
+    if (error.status === 0) { }
+    else { }
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 }

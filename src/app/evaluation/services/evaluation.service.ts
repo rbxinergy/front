@@ -204,8 +204,6 @@ export class EvaluationService {
       createdAt: new Date()
     };
     this.evaluations.push(newEvaluation);
-    console.log("New evaluation created:", newEvaluation);
-    console.log("Updated evaluations:", this.evaluations);
     return of(newEvaluation);
   }
 
@@ -213,7 +211,6 @@ export class EvaluationService {
     const index = this.evaluations.findIndex(e => e.evalid === data.evalid);
     if (index !== -1) {
       this.evaluations[index] = { ...this.evaluations[index], ...data };
-      console.log("Evaluation updated:", this.evaluations[index]);
       return of(this.evaluations[index]);
     }
     return throwError(() => new Error('Evaluation not found'));
@@ -223,19 +220,14 @@ export class EvaluationService {
     const index = this.evaluations.findIndex(e => e.evalid === id);
     if (index !== -1) {
       this.evaluations.splice(index, 1);
-      console.log("Evaluation deleted:", id);
-      console.log("Updated evaluations:", this.evaluations);
       return of(void 0);
     }
     return throwError(() => new Error('Evaluation not found'));
   }
 
   private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      console.error('An error occurred:', error.error);
-    } else {
-      console.error(`Backend returned code ${error.status}, body was: `, error.error);
-    }
+    if (error.status === 0) { }
+    else { }
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 }
