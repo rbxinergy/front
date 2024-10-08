@@ -13,48 +13,54 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Client } from '../interfaces/client.interface';
 import { ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { ClientService } from '../services/client.service';
+import { CompanyService } from '../services/company.service';
+import { Company } from '../interfaces/company.interface';
 import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { NewClientComponent } from '../new-client/new-client.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatStepperModule } from '@angular/material/stepper';
 import { BaseComponent } from 'src/app/shared/core/base-componente.component';
+import { GroupcompanyDataService } from '../services/groupcompany-data.service';
+import { GroupCompanyService } from '../services/groupcompany.service';
+import { NewCompanyComponent } from '../new-company/new-company.component';
+import { MessagesModalComponent } from '../../components/messages-modal/messages-modal.component';
+
 
 @Component({
-  selector: 'app-client',
+  selector: 'app-organization',
   standalone: true,
   imports: [CommonModule, MatTableModule, MatPaginatorModule,
     MatMenuModule, MatIconModule, MatButtonModule, MatFormFieldModule,
     MatInputModule, TranslateModule, MatProgressSpinnerModule,
     MatProgressBarModule, MatDividerModule, MatStepperModule
   ],
-  templateUrl: './client.component.html',
-  styleUrl: './client.component.scss'
+  templateUrl: './organization.component.html',
+  styleUrl: './organization.component.scss'
 })
-export class ClientComponent extends BaseComponent implements OnInit {
+export class OrganizationComponent extends BaseComponent implements OnInit {
   isLoading: boolean = false;
   uploadProgress: number = 0;
   clientsTableColumns: string[] = ['name', 'businessName', 'address', 'country', 'documentType', 'document', 'acciones'];
   dataSource = new MatTableDataSource<Client>();
-  
+  groupCompany: any;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
-  constructor(private clientService: ClientService, private router: Router,
-    private dialog: MatDialog) {
+  constructor(private groupCompanyService: GroupCompanyService, private router: Router,
+    private dialog: MatDialog, private groupCompanyDataService: GroupcompanyDataService) {
     super();
   }
 
   ngOnInit(): void {
     this.isLoading = true;
     this.dataSource.paginator = this.paginator;
-    this.getClients();
+    this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
+    this.getGroupCompanies();
   }
 
-  getClients() {
-    this.clientService.getClients().subscribe((clients: HttpResponse<Client[]>) => {
-      this.dataSource.data =  clients.body || [];
+  getGroupCompanies() {
+    this.groupCompanyService.getGroupCompanies(this.groupCompany).subscribe((companies: HttpResponse<Company[]>) => {
+      this.dataSource.data =  companies.body || [];
       this.isLoading = false;
     });
   } 
@@ -92,7 +98,27 @@ export class ClientComponent extends BaseComponent implements OnInit {
     console.log('openBulkUpload');
   }
 
-  newClient() {
-    this.router.navigate(['dashboard/client-module/new-client']);
+  newCompany() {
+    this.dialog.open(NewCompanyComponent).afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.dialog.open(MessagesModalComponent, {
+          data: {
+            message: 'Se ha creado una nueva empresa.',
+            buttonText: 'Aceptar',
+            showCancel: true,
+            type: 'success'
+          }
+        });
+      } else {
+        this.dialog.open(MessagesModalComponent, {
+          data: {
+            message: 'Se ha cancelado la creación de una nueva empresa.',
+            buttonText: 'Aceptar',
+            showCancel: true,
+            type: 'error'
+          }
+        });
+      }
+    });
   }
 }

@@ -57,7 +57,7 @@ export class ClientService {
     const dataDummy = [
         {
           "id": "550e8400-e29b-41d4-a716-446655440001",
-          "name": "Santander Chile",
+          "name": "Grupo Santander",
           "businessName": "Banco Santander Chile",
           "address": "Bandera 140, Santiago, Chile",
           "country": "Chile",
@@ -73,46 +73,6 @@ export class ClientService {
           "modificatedDate": "2023-10-01 10:00:00.000",
           "idContact": [
             "550e8400-e29b-41d4-a716-446655440002"
-          ]
-        },
-        {
-          "id": "550e8400-e29b-41d4-a716-446655440003",
-          "name": "Santander Consumer Chile",
-          "businessName": "Santander Consumer Chile S.A.",
-          "address": "Avenida Providencia 1760, Santiago, Chile",
-          "country": "Chile",
-          "county": "Santiago",
-          "city": "Santiago",
-          "district": "Providencia",
-          "state": "Región Metropolitana",
-          "documentType": "RUT",
-          "document": "76.123.456-7",
-          "tag": "consumer-finance",
-          "active": true,
-          "createdDate": "2023-10-01 10:00:00.000",
-          "modificatedDate": "2023-10-01 10:00:00.000",
-          "idContact": [
-            "550e8400-e29b-41d4-a716-446655440004"
-          ]
-        },
-        {
-          "id": "550e8400-e29b-41d4-a716-446655440005",
-          "name": "Santander Corredores de Bolsa",
-          "businessName": "Santander Corredores de Bolsa Limitada",
-          "address": "Bandera 140, Santiago, Chile",
-          "country": "Chile",
-          "county": "Santiago",
-          "city": "Santiago",
-          "district": "Santiago Centro",
-          "state": "Región Metropolitana",
-          "documentType": "RUT",
-          "document": "96.789.123-4",
-          "tag": "brokerage",
-          "active": true,
-          "createdDate": "2023-10-01 10:00:00.000",
-          "modificatedDate": "2023-10-01 10:00:00.000",
-          "idContact": [
-            "550e8400-e29b-41d4-a716-446655440006"
           ]
         }
     ]

@@ -11,9 +11,9 @@
     border-bottom: 0px solid #ccc;
 }
   
-.header .buttons {
+.buttons {
     display: flex;
-    gap: 8px;
+    justify-content: space-between;    
 }
 
 .big-icon-step {

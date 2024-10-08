@@ -59,6 +59,9 @@ export class DomainCategoryService {
     return this.http.delete<any>(`${this.serverUrl}${this.apiUrls}/delete/cascade/${id}`, { observe: 'response' });
   }
 
+  getDomainCategoryByClient(clientId: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrls}/get/cliente/${clientId}`, {headers: this.headers, observe: 'response'});
+  }
 }
 
 

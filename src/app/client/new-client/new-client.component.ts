@@ -28,9 +28,7 @@ export class NewClientComponent {
   clientForm: FormGroup;
   hasError = false;
 
-  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<NewClientComponent>,
-    private dialog: MatDialog
-  ) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog) {
     this.clientForm = this.fb.group({
       name: new FormControl('', [Validators.required]),
       businessName: new FormControl('', [Validators.required]),
@@ -57,7 +55,7 @@ export class NewClientComponent {
 
   saveClient() {
     if (this.clientForm.valid) {
-      const modalRef = this.dialog.open(MessagesModalComponent, {
+      this.dialog.open(MessagesModalComponent, {
         data: {
           message: 'Se ha creado un nuevo cliente.',
           buttonText: 'Aceptar',
@@ -65,9 +63,7 @@ export class NewClientComponent {
           type: 'success'
         }
       });
-      modalRef.afterClosed().subscribe(result => {
-        this.dialogRef.close();
-      });
+      this.clientForm.disable();
     }
   }
 }
