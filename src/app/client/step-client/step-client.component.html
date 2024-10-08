@@ -1,12 +1,5 @@
 <div class="header">
   <h2>Nuevo cliente</h2>
-  <div class="buttons">
-    <button mat-raised-button color="primary" (click)="saveClient()">Guardar</button>
-    @if (stepper.selectedIndex > 0) {
-      <button mat-raised-button (click)="goToPreviousStep()">Anterior</button>
-    }
-    <button mat-raised-button (click)="goToNextStep()">Siguiente</button>
-  </div>
 </div>
 <mat-divider></mat-divider>
 <mat-horizontal-stepper labelPosition="bottom" #stepper>
@@ -30,17 +23,13 @@
     </ng-template>
     <app-new-client></app-new-client>
   </mat-step>
-  <mat-step label="Fill out your address"> <!-- [stepControl]="secondFormGroup" -->
+  <mat-step label="Fill out your address">
     <ng-template matStepLabel>
       <div class="p-label-step">
         <span>Categorías Corporativas</span>
       </div>
     </ng-template>
-    
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
+    <app-corp-categories></app-corp-categories>
   </mat-step>
   <mat-step label="Fill out your address">
     <ng-template matStepLabel>
@@ -48,7 +37,7 @@
         <span>Organización</span>
       </div>
     </ng-template>
-    
+    <app-group-company-table></app-group-company-table>
   </mat-step>
   <mat-step label="Fill out your address">
     <ng-template matStepLabel>
@@ -56,9 +45,10 @@
         <span>Empresas</span>
       </div>
     </ng-template>  
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
+    <app-organization></app-organization>
   </mat-step>
 </mat-horizontal-stepper>
+<div class="buttons">
+  <button mat-raised-button (click)="goToPreviousStep()">Volver</button>
+  <button mat-raised-button (click)="goToNextStep()">Avanzar</button>
+</div>

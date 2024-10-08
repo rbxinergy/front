@@ -8,6 +8,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { NewClientComponent } from '../new-client/new-client.component';
 import { MessagesModalComponent } from 'src/app/components/messages-modal/messages-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CorpCategoriesComponent } from '../corp-categories/corp-categories.component';
+import { OrganizationComponent } from '../organization/organization.component';
+import { GroupCompanyTableComponent } from '../group-company-table/group-company-table.component';
+
 
 @Component({
   selector: 'app-step-client',
@@ -22,7 +26,10 @@ import { MatDialog } from '@angular/material/dialog';
     MatFormFieldModule,
     MatInputModule,
     MatDividerModule,
-    NewClientComponent
+    NewClientComponent,
+    CorpCategoriesComponent,
+    OrganizationComponent,
+    GroupCompanyTableComponent
   ],
 })
 export class StepClientComponent implements AfterViewInit {

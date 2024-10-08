@@ -1,0 +1,27 @@
+<mat-dialog-content>
+<div class="p-4">
+  <form [formGroup]="form">
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Etiqueta</mat-label>
+      <input matInput formControlName="tag">
+    </mat-form-field>
+
+      
+    <mat-form-field appearance="outline" class="col-3">
+      <mat-label>Descripción</mat-label>
+      <input matInput formControlName="description" required>
+    </mat-form-field>
+  </form>
+</div>
+</mat-dialog-content>
+<mat-dialog-actions >
+  <div class="p-4 action-buttons">
+    <button mat-raised-button class="button-back">Volver</button>
+    <button mat-raised-button color="primary" (click)="saveServiceCategory()">Guardar</button>
+  </div>
+</mat-dialog-actions>

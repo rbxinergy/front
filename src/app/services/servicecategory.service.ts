@@ -45,6 +45,10 @@ export class ServiceCategoryService {
     return this.http.get<ServiceCategory[]>(`${this.serverUrl}${this.apiUrl}/get/cliente1`, {headers: this.headers});
   }
 
+  getServiceCategoriesByClient(clientId: string): Observable<HttpResponse<any>> {
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrl}/get/cliente/${clientId}`, {headers: this.headers, observe: 'response'});
+  }
+
   getallServiceCategories(groupCompany: GroupCompany): Observable<ServiceCategory[]> {
     return this.http.get<ServiceCategory[]>(`${this.serverUrl}${this.apiUrl}/get/group-company/${groupCompany.id}`,  {headers: this.headers});
   }

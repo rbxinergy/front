@@ -1,46 +1,46 @@
-<mat-dialog-content>
+<h2>{{"company"|translate}}</h2>
 <div class="p-4">
-  <form [formGroup]="clientForm">
+  <form [formGroup]="companyForm" (ngSubmit)="closeModal()">
     <mat-form-field appearance="outline" class="col-3">
       <mat-label>Nombre</mat-label>
       <input matInput formControlName="name" required>
     </mat-form-field>
-  
+
     <mat-form-field appearance="outline" class="col-3">
       <mat-label>Razón Social</mat-label>
       <input matInput formControlName="businessName" required>
     </mat-form-field>
-  
+
     <mat-form-field appearance="outline" class="col-3">
       <mat-label>Dirección</mat-label>
       <input matInput formControlName="address" required>
     </mat-form-field>
-  
+
     <mat-form-field appearance="outline" class="col-3">
       <mat-label>Ciudad</mat-label>
       <input matInput formControlName="city" required>
     </mat-form-field>
-  
+
     <mat-form-field appearance="outline" class="col-3">
-      <mat-label>Región</mat-label>
+      <mat-label>Estado/Provincia</mat-label>
       <input matInput formControlName="state" required>
     </mat-form-field>
-  
+
     <mat-form-field appearance="outline" class="col-3">
-      <mat-label>Provincia</mat-label>
+      <mat-label>Condado</mat-label>
       <input matInput formControlName="county">
     </mat-form-field>
-  
+
     <mat-form-field appearance="outline" class="col-3">
-      <mat-label>Comuna</mat-label>
+      <mat-label>Distrito</mat-label>
       <input matInput formControlName="district">
     </mat-form-field>
-  
+
     <mat-form-field appearance="outline" class="col-3">
       <mat-label>País</mat-label>
       <input matInput formControlName="country" required>
     </mat-form-field>
-  
+
     <mat-form-field appearance="outline" class="col-3">
       <mat-label>Tipo de Documento</mat-label>
       <mat-select formControlName="documentType" required>
@@ -48,27 +48,31 @@
         <mat-option value="DNI">DNI</mat-option>
       </mat-select>
     </mat-form-field>
-  
+
     <mat-form-field appearance="outline" class="col-3">
-      <mat-label>Documento</mat-label>
+      <mat-label>Número de Documento</mat-label>
       <input matInput formControlName="document" required>
-      @if (clientForm.get('document').hasError('invalidRut')) {
-      <mat-error>
-        RUT inválido
-      </mat-error>
-    }
+      @if (companyForm.get('document')?.hasError('invalidRut')) {
+        <mat-error>
+          RUT inválido
+        </mat-error>
+      }
     </mat-form-field>
-  
+
     <mat-form-field appearance="outline" class="col-3">
-      <mat-label>Etiqueta</mat-label>
-      <input matInput formControlName="tag">
+      <mat-label>Grupo Empresarial</mat-label>
+      <mat-select formControlName="idGroupCompany" required>
+        <mat-option *ngFor="let group of groupCompany" [value]="group.id">
+          {{ group.name }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+
+    <mat-checkbox formControlName="headquarters">Sede Principal</mat-checkbox>
+    <mat-checkbox formControlName="branch">Sucursal</mat-checkbox>
+
+    <div class="btn-box">
+      <button mat-raised-button color="primary" type="submit" class="d-right" (click)="saveCompany()">Guardar</button>
+    </div>
   </form>
 </div>
-</mat-dialog-content>
-<mat-dialog-actions >
-    <div class="p-4 action-buttons">
-        <button mat-raised-button class="button-back">Volver</button>
-        <button mat-raised-button color="primary" (click)="saveClient()">Guardar</button>
-    </div>
-</mat-dialog-actions>

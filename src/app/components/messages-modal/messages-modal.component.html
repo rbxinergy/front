@@ -15,7 +15,16 @@
 <mat-dialog-content>
   <p>{{ data.message }}</p>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+<mat-dialog-actions style="justify-content: space-between;">
+  @if (data.showCancel) {
+  <button
+    mat-raised-button
+    (click)="onClose()"
+    color="warn"
+  >
+    {{ "cancel" | translate }}
+  </button>
+  }
   <button
     mat-raised-button
     (click)="onClose()"
