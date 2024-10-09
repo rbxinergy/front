@@ -15,20 +15,18 @@
 <mat-dialog-content>
   <p>{{ data.message }}</p>
 </mat-dialog-content>
-<mat-dialog-actions style="justify-content: space-between;">
+<mat-dialog-actions [ngClass]="{'top-buttons': data.showCancel, 'one-button': !data.showCancel}">
   @if (data.showCancel) {
   <button
-    mat-raised-button
+    mat-stroked-button
     (click)="onClose()"
-    color="warn"
   >
     {{ "cancel" | translate }}
   </button>
   }
   <button
-    mat-raised-button
+    mat-stroked-button
     (click)="onClose()"
-    [color]="data.type === 'error' ? 'warn' : data.type === 'info' ? 'info' : 'primary'"
   >
     {{ "close" | translate }}
   </button>

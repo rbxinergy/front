@@ -17,7 +17,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MessagesModalComponent } from '../../components/messages-modal/messages-modal.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ClientDataService } from 'src/app/services/client-data.service'; 
+import { ClientDataService } from '../services/client-data.service'; 
 import { Client } from 'src/app/interfaces/client.interface';
 import { GroupCompanyService } from 'src/app/services/groupcompany.service';
 import { GroupcompanyComponent } from '../groupcompany/groupcompany.component';
@@ -40,7 +40,7 @@ import { BulkUploadComponent } from '../../components/bulk-upload/bulk-upload.co
     MatFormFieldModule, MatSortModule,  MatProgressSpinnerModule
   ]
 })
-export class GroupCompanyTableComponent extends BaseComponent implements OnInit{
+export class GroupCompanyTableComponent extends BaseComponent implements OnInit {
   displayedColumns: string[] = [
     'name', 'description', 'tag', 'acciones'
   ];
@@ -67,6 +67,7 @@ export class GroupCompanyTableComponent extends BaseComponent implements OnInit{
 
 
   ngOnInit() {
+    console.log(this.clientDataService.getClientData());
     this.clientID = this.clientDataService.getClientData().id;
   }
 
@@ -107,7 +108,7 @@ export class GroupCompanyTableComponent extends BaseComponent implements OnInit{
   }
   openNewGroupCompanyModal() {
     const dialogRef = this.dialog.open(GroupcompanyComponent, {
-      width: '80%',
+      width: '600px',
       data: {}
     });
   
@@ -115,28 +116,40 @@ export class GroupCompanyTableComponent extends BaseComponent implements OnInit{
       next: (newGroupCompany: GroupCompany) => {
         if (newGroupCompany) {
           newGroupCompany.idClient = this.clientID;
+          delete newGroupCompany.id;
           this.groupCompanyService.createGroupCompany(newGroupCompany).subscribe({
             next: (response) => {
               if (response.status === 200) {
                 this.groupCompanyDataService.setGroupCompanyData(response.body);
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
-                  data: { message: 'Grupo creado exitosamente.', type: 'success' }
+                  data: {
+                    message: 'Grupo creado exitosamente.',
+                    type: 'success',
+                    showCancel: false
+                  }
                 });
-                this.groupCompanies.push(response.body);
-                this.dataSource.data = this.groupCompanies;
+                this.getGroupCompanies();
                 this.formGroupCompanyTable.controls['tempControl'].setValue(response.body.name);
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '400px',
-                  data: { message: 'Error al crear el grupo.', type: 'error' }
+                  data: {
+                    message: 'Error al crear el grupo.',
+                    type: 'error',
+                    showCancel: false
+                  }
                 });
               }
             },
             error: (error) => {
               this.dialog.open(MessagesModalComponent, {
                 width: '400px',
-                data: { message: 'Error al crear el grupo.', type: 'error' }
+                data: {
+                  message: 'Error al crear el grupo.',
+                  type: 'error',
+                  showCancel: false
+                }
               });
             }
           });
@@ -145,7 +158,11 @@ export class GroupCompanyTableComponent extends BaseComponent implements OnInit{
       error: (error) => {
         this.dialog.open(MessagesModalComponent, {
           width: '400px',
-          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+          data: {
+            message: 'Error al cerrar el diálogo.',
+            type: 'error',
+            showCancel: false
+          }
         });
       }
     });

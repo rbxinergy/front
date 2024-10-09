@@ -8,6 +8,8 @@ import { rutValidator } from 'src/app/shared/rut.validator';
 import { MatDialogModule, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MessagesModalComponent } from '../../components/messages-modal/messages-modal.component';
+import { ClientService } from '../services/client.service';
+import { ClientDataService } from '../services/client-data.service';
 
 
 @Component({
@@ -28,7 +30,9 @@ export class NewClientComponent {
   clientForm: FormGroup;
   hasError = false;
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog,
+    private clientService: ClientService, private clientDataService: ClientDataService
+  ) {
     this.clientForm = this.fb.group({
       name: new FormControl('', [Validators.required]),
       businessName: new FormControl('', [Validators.required]),
@@ -55,15 +59,35 @@ export class NewClientComponent {
 
   saveClient() {
     if (this.clientForm.valid) {
-      this.dialog.open(MessagesModalComponent, {
-        data: {
-          message: 'Se ha creado un nuevo cliente.',
-          buttonText: 'Aceptar',
-          showCancel: true,
-          type: 'success'
+      let data = this.clientForm.value;
+      data.idContact = [];
+      this.clientService.createClient(data).subscribe({
+        next: (data) => {
+          this.clientDataService.setClientData(data.body);
+          this.dialog.open(MessagesModalComponent, {
+            width: '600px',
+            height: '400px',
+            data: {
+              message: 'Se ha creado un nuevo cliente.',
+              buttonText: 'Aceptar',
+              showCancel: false,
+              type: 'success'
+            },
+          });
+        },
+        error: () => {
+          this.dialog.open(MessagesModalComponent, {
+            width: '600px',
+            height: '400px',
+            data: {
+              message: 'Error al crear el cliente.',
+              buttonText: 'Aceptar',
+              showCancel: false,
+              type: 'error'
+            },
+          });
         }
       });
-      this.clientForm.disable();
     }
   }
 }

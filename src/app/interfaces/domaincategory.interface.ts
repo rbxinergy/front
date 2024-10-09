@@ -6,5 +6,5 @@ export interface DomainCategory {
   active?: boolean;
   createdDate?:string;
   modificatedDate?:string;
-  idGroupCompany: string;
+  idGroupCompany?: string;
 }

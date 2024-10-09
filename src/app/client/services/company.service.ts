@@ -114,8 +114,8 @@ export class CompanyService {
     return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrl}/get/${company}/group-company/${groupCompany}`, { headers: this.headers})
   }
 
-  getCompaniesByClient(client: any){
-    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrl}/get/client/${client}`, { headers: this.headers})
+  getCompaniesByClient(client: any): Observable<HttpResponse<Company[]>> {
+    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrl}/get/client/${client}`, { headers: this.headers, observe: 'response'})
   }
 
   deleteCompany(id: string): Observable<HttpResponse<any>> {

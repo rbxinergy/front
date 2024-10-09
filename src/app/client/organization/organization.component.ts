@@ -25,6 +25,7 @@ import { GroupcompanyDataService } from '../services/groupcompany-data.service';
 import { GroupCompanyService } from '../services/groupcompany.service';
 import { NewCompanyComponent } from '../new-company/new-company.component';
 import { MessagesModalComponent } from '../../components/messages-modal/messages-modal.component';
+import { GroupCompany } from '../interfaces/groupcompany.interface';
 
 
 @Component({
@@ -42,28 +43,48 @@ export class OrganizationComponent extends BaseComponent implements OnInit {
   isLoading: boolean = false;
   uploadProgress: number = 0;
   clientsTableColumns: string[] = ['name', 'businessName', 'address', 'country', 'documentType', 'document', 'acciones'];
-  dataSource = new MatTableDataSource<Client>();
-  groupCompany: any;
+  dataSource = new MatTableDataSource<Company>();
+  groupCompanies: GroupCompany[] = [];
+  groupCompany: GroupCompany;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   constructor(private groupCompanyService: GroupCompanyService, private router: Router,
-    private dialog: MatDialog, private groupCompanyDataService: GroupcompanyDataService) {
+    private dialog: MatDialog, private groupCompanyDataService: GroupcompanyDataService,
+    private companyService: CompanyService
+  ) {
     super();
   }
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.dataSource.paginator = this.paginator;
     this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
-    this.getGroupCompanies();
   }
 
   getGroupCompanies() {
-    this.groupCompanyService.getGroupCompanies(this.groupCompany).subscribe((companies: HttpResponse<Company[]>) => {
-      this.dataSource.data =  companies.body || [];
-      this.isLoading = false;
+    this.groupCompanyService.getGroupCompanies(this.groupCompany).subscribe({
+      next: (groupCompanies: HttpResponse<GroupCompany[]>) => {
+        this.groupCompanies =  groupCompanies.body || [];
+        this.isLoading = false;
+      },
+      error: (error: any) => {
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
     });
-  } 
+  }
+
+  getCompanies(idClient: string) {
+    this.companyService.getCompaniesByClient(idClient).subscribe({
+      next: (companies: HttpResponse<Company[]>) => {
+        this.dataSource.data = companies.body || [];
+      },
+      error: (error: any) => {
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    })
+  }
 
   openNewGroupCompanyModal(element: any) {
     console.log(element);
@@ -101,20 +122,38 @@ export class OrganizationComponent extends BaseComponent implements OnInit {
   newCompany() {
     this.dialog.open(NewCompanyComponent).afterClosed().subscribe((result: any) => {
       if (result) {
-        this.dialog.open(MessagesModalComponent, {
-          data: {
-            message: 'Se ha creado una nueva empresa.',
-            buttonText: 'Aceptar',
-            showCancel: true,
-            type: 'success'
+        this.companyService.createCompany(result).subscribe({
+          next: (company: HttpResponse<Company>) => {
+            this.dialog.open(MessagesModalComponent, {
+              data: {
+                message: 'Se ha creado una nueva empresa.',
+                buttonText: 'Aceptar',
+                showCancel: false,
+                type: 'success'
+              }
+            });
+          },
+          error: (error: any) => {
+            this.dialog.open(MessagesModalComponent, {
+              data: {
+                message: 'Error al crear una nueva empresa.',
+                buttonText: 'Aceptar',
+                showCancel: false,
+                type: 'error'
+              }
+            });
+          },
+          complete: () => {
+            this.isLoading = false;
+            this.getGroupCompanies();
           }
-        });
+        })
       } else {
         this.dialog.open(MessagesModalComponent, {
           data: {
             message: 'Se ha cancelado la creación de una nueva empresa.',
             buttonText: 'Aceptar',
-            showCancel: true,
+            showCancel: false,
             type: 'error'
           }
         });

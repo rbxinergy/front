@@ -53,30 +53,7 @@ export class ClientService {
   }
 
   getClients(): Observable<HttpResponse<Client[]>> {
-    // return this.http.get<Client[]>(`${this.serverUrl}${this.apiUrl}/get/all`, { headers: this.headers, observe: 'response'})
-    const dataDummy = [
-        {
-          "id": "550e8400-e29b-41d4-a716-446655440001",
-          "name": "Grupo Santander",
-          "businessName": "Banco Santander Chile",
-          "address": "Bandera 140, Santiago, Chile",
-          "country": "Chile",
-          "county": "Santiago",
-          "city": "Santiago",
-          "district": "Santiago Centro",
-          "state": "Región Metropolitana",
-          "documentType": "RUT",
-          "document": "97.036.000-K",
-          "tag": "banking",
-          "active": true,
-          "createdDate": "2023-10-01 10:00:00.000",
-          "modificatedDate": "2023-10-01 10:00:00.000",
-          "idContact": [
-            "550e8400-e29b-41d4-a716-446655440002"
-          ]
-        }
-    ]
-    return of(new HttpResponse({ body: dataDummy }));
+    return this.http.get<Client[]>(`${this.serverUrl}${this.apiUrl}/get/all`, { headers: this.headers, observe: 'response'})
   }
 
   getClient(client: string): Observable<HttpResponse<Client>> {

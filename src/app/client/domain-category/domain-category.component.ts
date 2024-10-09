@@ -28,7 +28,7 @@ export class DomainCategoryComponent {
   form: FormGroup;
   hasError = false;
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog, private dialogRef: MatDialogRef<DomainCategoryComponent>) {
     this.form = this.fb.group({
       name: new FormControl('', [Validators.required]),
       tag: new FormControl('', [Validators.required]),
@@ -39,15 +39,7 @@ export class DomainCategoryComponent {
 
   saveDomainCategory() {
     if (this.form.valid) {
-      this.dialog.open(MessagesModalComponent, {
-        data: {
-          message: 'Se ha creado una nueva categoría de dominio.',
-          buttonText: 'Aceptar',
-          showCancel: true,
-          type: 'success'
-        }
-      });
-      
+      this.dialogRef.close(this.form.value);
     }
   }
 }
