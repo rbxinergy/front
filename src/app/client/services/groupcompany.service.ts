@@ -41,70 +41,7 @@ export class GroupCompanyService {
   }
 
   getGroupCompanies(client: any): Observable<HttpResponse<any>> {
-    // return this.http.get<any>(`${this.serverUrl}${this.apiUrl}/get/client/${client}`, { headers: this.headers, observe: 'response'})
-    const dataDummy = [
-      {
-          "id": 1,
-          "name": "Santander UK",
-          "description": "Operaciones en el Reino Unido.",
-          "tag": "UK"
-      },
-      {
-          "id": 2,
-          "name": "Santander Brasil",
-          "description": "Una de las principales operaciones del banco en América Latina.",
-          "tag": "Brasil"
-      },
-      {
-          "id": 3,
-          "name": "Santander España",
-          "description": "La sede principal y operaciones en España.",
-          "tag": "España"
-      },
-      {
-          "id": 4,
-          "name": "Santander Consumer USA",
-          "description": "Enfocado en servicios financieros al consumidor en Estados Unidos.",
-          "tag": "USA"
-      },
-      {
-          "id": 5,
-          "name": "Santander México",
-          "description": "Operaciones en México.",
-          "tag": "México"
-      },
-      {
-          "id": 6,
-          "name": "Santander Chile",
-          "description": "Presencia significativa en el mercado chileno.",
-          "tag": "Chile"
-      },
-      {
-          "id": 7,
-          "name": "Santander Argentina",
-          "description": "Operaciones en Argentina.",
-          "tag": "Argentina"
-      },
-      {
-          "id": 8,
-          "name": "Santander Portugal",
-          "description": "Operaciones en Portugal.",
-          "tag": "Portugal"
-      },
-      {
-          "id": 9,
-          "name": "Santander Alemania",
-          "description": "Presencia en el mercado alemán.",
-          "tag": "Alemania"
-      },
-      {
-          "id": 10,
-          "name": "Santander Bank, N.A.",
-          "description": "Operaciones en el noreste de Estados Unidos.",
-          "tag": "USA"
-      }
-  ];
-    return of(new HttpResponse({ body: dataDummy }));
+    return this.http.get<any>(`${this.serverUrl}${this.apiUrl}/get/client/${client}`, { headers: this.headers, observe: 'response'})
   }
 
   getGroupCompany(idGroupCompany: string, client: string) {

@@ -25,3 +25,13 @@
 p {
     color:  #5f4ede;
 }
+
+.two-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.one-button {
+  display: flex;
+  justify-content: flex-end;
+}

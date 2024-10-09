@@ -97,20 +97,40 @@ export class DomainCategoryTableComponent extends BaseComponent implements OnIni
 
   newDomainCategory() {
     const dialogRef = this.dialog.open(DomainCategoryComponent, {
-      width: '500px',
+      width: '800px',
+      height: '600px',
       data: {}
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // this.getDomainCategories();
-        this.dialog.open(MessagesModalComponent, {
-          data: {
-            message: 'Se ha creado una nueva categoría de dominio.',
-            buttonText: 'Aceptar',
-            showCancel: false,
-            type: 'success'
+        console.log(result);
+
+        this.domainCategoryService.createDomainCategory(result).subscribe({
+          next: () => {
+            this.dialog.open(MessagesModalComponent, {
+              data: {
+                message: 'Se ha creado una nueva categoría de dominio.',
+                buttonText: 'Aceptar',
+                showCancel: false,
+                type: 'success'
+              }
+            });
+          },
+          error: () => {
+            this.dialog.open(MessagesModalComponent, {
+              data: {
+                message: 'Error al crear una nueva categoría de dominio.',
+                buttonText: 'Aceptar',
+                showCancel: false,
+                type: 'error'
+              }
+            });
+          },
+          complete: () => {
+            this.getDomainCategories();
           }
         });
+
       } else {
         this.dialog.open(MessagesModalComponent, {
           data: {
