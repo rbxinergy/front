@@ -68,7 +68,7 @@ export class GroupCompanyTableComponent extends BaseComponent implements OnInit 
 
   ngOnInit() {
     console.log(this.clientDataService.getClientData());
-    this.clientID = this.clientDataService.getClientData().id;
+    this.clientID = this.clientDataService.getClientData()?.id || '';
   }
 
   getGroupCompanies(): void {
@@ -117,6 +117,7 @@ export class GroupCompanyTableComponent extends BaseComponent implements OnInit 
         if (newGroupCompany) {
           newGroupCompany.idClient = this.clientID;
           delete newGroupCompany.id;
+          console.log("GROUP COMPANY:", newGroupCompany);
           this.groupCompanyService.createGroupCompany(newGroupCompany).subscribe({
             next: (response) => {
               if (response.status === 200) {

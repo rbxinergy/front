@@ -45,7 +45,8 @@ export class OrganizationComponent extends BaseComponent implements OnInit {
   clientsTableColumns: string[] = ['name', 'businessName', 'address', 'country', 'documentType', 'document', 'acciones'];
   dataSource = new MatTableDataSource<Company>();
   groupCompanies: GroupCompany[] = [];
-  groupCompany: GroupCompany;
+  //groupCompany: GroupCompany;
+  idClient: string;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
   constructor(private groupCompanyService: GroupCompanyService, private router: Router,
@@ -56,11 +57,12 @@ export class OrganizationComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
+    //this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
+    this.idClient = this.groupCompanyDataService.getGroupCompanyData()?.id || '';
   }
 
   getGroupCompanies() {
-    this.groupCompanyService.getGroupCompanies(this.groupCompany).subscribe({
+    this.groupCompanyService.getGroupCompanies(this.idClient).subscribe({
       next: (groupCompanies: HttpResponse<GroupCompany[]>) => {
         this.groupCompanies =  groupCompanies.body || [];
         this.isLoading = false;
@@ -122,8 +124,11 @@ export class OrganizationComponent extends BaseComponent implements OnInit {
   newCompany() {
     this.dialog.open(NewCompanyComponent).afterClosed().subscribe((result: any) => {
       if (result) {
+        result.idClient = this.idClient;
+        delete result.id;
         this.companyService.createCompany(result).subscribe({
           next: (company: HttpResponse<Company>) => {
+            this.getCompanies(this.idClient);
             this.dialog.open(MessagesModalComponent, {
               data: {
                 message: 'Se ha creado una nueva empresa.',

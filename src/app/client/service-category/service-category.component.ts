@@ -5,11 +5,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { MessagesModalComponent } from '../../components/messages-modal/messages-modal.component';
 import { ClientDataService } from '../services/client-data.service';
 import { ServiceCategoryService } from '../../services/servicecategory.service';
 import { BaseComponent } from '../../shared/core/base-componente.component';
 import { HttpResponse } from '@angular/common/http';
+import { MatDialogRef } from '@angular/material/dialog';
 
 
 @Component({
@@ -32,8 +32,8 @@ export class ServiceCategoryComponent extends BaseComponent implements OnInit{
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog, private serviceCategoryService: ServiceCategoryService,
-    private clientDataService: ClientDataService
+  constructor(private fb: FormBuilder, private serviceCategoryService: ServiceCategoryService,
+    private clientDataService: ClientDataService, private dialogRef: MatDialogRef<ServiceCategoryComponent>
   ) {
     super();
     this.form = this.fb.group({
@@ -56,14 +56,7 @@ export class ServiceCategoryComponent extends BaseComponent implements OnInit{
 
   saveServiceCategory() {
     if (this.form.valid) {
-      this.dialog.open(MessagesModalComponent, {
-        data: {
-          message: 'Se ha creado una nueva categoría de servicio.',
-          buttonText: 'Aceptar',
-          showCancel: true,
-          type: 'success'
-        }
-      });
+      this.dialogRef.close(this.form.getRawValue());
     }
   }
 }

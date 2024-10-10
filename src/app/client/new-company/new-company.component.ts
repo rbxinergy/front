@@ -38,7 +38,7 @@ export class NewCompanyComponent {
 
   companyForm: FormGroup;
   groupCompany: GroupCompany[] = [];
-  client: string = sessionStorage.getItem('client') || '';
+  client: string = "";
 
   constructor(private dialogRef: MatDialogRef<NewCompanyComponent>,@Inject(MAT_DIALOG_DATA) public data: Company,
     private fb: FormBuilder, private groupCompanyService: GroupCompanyService) {
@@ -60,6 +60,8 @@ export class NewCompanyComponent {
       idContact: new FormControl(data?.idContact || []),
       idGroupCompany: new FormControl(data?.idGroupCompany || '')
     });
+
+    this.client = data?.idClient || sessionStorage.getItem('clientId') || '';
 
     this.groupCompanyService.getGroupCompanies(this.client).subscribe({
       next: (data: any) => {

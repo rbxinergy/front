@@ -17,6 +17,7 @@ export const environment = {
       groupCompany: `/v1/group-company`,
       serviceCompany: `/v1/service-company`,
       user: `/v1/user`,
-      session: `/v1/login/get`
+      session: `/v1/login/get`,
+      provision: `/v1/provision-category`
     }
 };

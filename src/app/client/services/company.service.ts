@@ -44,70 +44,7 @@ export class CompanyService {
   }
 
   getCompaniesByGroup(groupCompany: any): Observable<HttpResponse<Company[]>> {
-    // return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrl}/get/group-company/${groupCompany}`, { headers: this.headers, observe: 'response'})
-    const dataDummy = [
-      {
-        "id": "550e8400-e29b-41d4-a716-446655440001",
-        "name": "Grupo Santander",
-        "businessName": "Banco Santander Chile",
-        "address": "Bandera 140, Santiago, Chile",
-        "country": "Chile",
-        "county": "Santiago",
-        "city": "Santiago",
-        "district": "Santiago Centro",
-        "state": "Región Metropolitana",
-        "documentType": "RUT",
-        "document": "97.036.000-K",
-        "tag": "banking",
-        "active": true,
-        "createdDate": "2023-10-01 10:00:00.000",
-        "modificatedDate": "2023-10-01 10:00:00.000",
-        "idContact": [
-          "550e8400-e29b-41d4-a716-446655440002"
-        ]
-      },
-      {
-        "id": "550e8400-e29b-41d4-a716-446655440003",
-        "name": "Santander Consumer Chile",
-        "businessName": "Santander Consumer Chile S.A.",
-        "address": "Avenida Providencia 1760, Santiago, Chile",
-        "country": "Chile",
-        "county": "Santiago",
-        "city": "Santiago",
-        "district": "Providencia",
-        "state": "Región Metropolitana",
-        "documentType": "RUT",
-        "document": "76.123.456-7",
-        "tag": "consumer-finance",
-        "active": true,
-        "createdDate": "2023-10-01 10:00:00.000",
-        "modificatedDate": "2023-10-01 10:00:00.000",
-        "idContact": [
-          "550e8400-e29b-41d4-a716-446655440004"
-        ]
-      },
-      {
-        "id": "550e8400-e29b-41d4-a716-446655440005",
-        "name": "Santander Corredores de Bolsa",
-        "businessName": "Santander Corredores de Bolsa Limitada",
-        "address": "Bandera 140, Santiago, Chile",
-        "country": "Chile",
-        "county": "Santiago",
-        "city": "Santiago",
-        "district": "Santiago Centro",
-        "state": "Región Metropolitana",
-        "documentType": "RUT",
-        "document": "96.789.123-4",
-        "tag": "brokerage",
-        "active": true,
-        "createdDate": "2023-10-01 10:00:00.000",
-        "modificatedDate": "2023-10-01 10:00:00.000",
-        "idContact": [
-          "550e8400-e29b-41d4-a716-446655440006"
-        ]
-      }
-    ]
-    return of(new HttpResponse({ body: dataDummy as Company[] }));
+    return this.http.get<Company[]>(`${this.serverUrl}${this.apiUrl}/get/group-company/${groupCompany}`, { headers: this.headers, observe: 'response'})
   }
 
   getCompany(company: string, groupCompany: string) {
