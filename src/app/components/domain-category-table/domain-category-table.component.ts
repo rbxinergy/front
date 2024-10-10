@@ -85,7 +85,7 @@ export class DomainCategoryTableComponent {
   }
 
   ngAfterViewInit(): void {
-    this.domainCategoryService.getallDomainCategories(this.groupCompanyID).subscribe((domainCategories: DomainCategory[]) => {
+    this.domainCategoryService.getAllDomainCategories(this.groupCompanyID).subscribe((domainCategories: DomainCategory[]) => {
       this.dataSource.data = domainCategories;
       this.isLoading = false
       this.domainCategories = domainCategories

@@ -17,6 +17,7 @@ export const environment = {
       user: `user-drzcbalp5q-uk.a.run.app/v1/user`,
       report: `report-drzcbalp5q-uk.a.run.app/v1/report`,  
       serviceCompany: `service-company-drzcbalp5q-uk.a.run.app/v1/`,
-      session: `login-drzcbalp5q-uk.a.run.app/v1/login/get`
+      session: `login-drzcbalp5q-uk.a.run.app/v1/login/get`,
+      provision: `provision-drzcbalp5q-uk.a.run.app/v1/provision-category`
     }
 };

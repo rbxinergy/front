@@ -59,9 +59,7 @@ export class DomainCategoryTableComponent extends BaseComponent implements OnIni
     super();
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   getDomainCategories() {
     const clientId = this.clientDataService.getClientData().id;
@@ -103,8 +101,8 @@ export class DomainCategoryTableComponent extends BaseComponent implements OnIni
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log(result);
-
+        result.idClient = this.clientDataService.getClientData().id;
+        result.idGroupCompany = "";
         this.domainCategoryService.createDomainCategory(result).subscribe({
           next: () => {
             this.dialog.open(MessagesModalComponent, {

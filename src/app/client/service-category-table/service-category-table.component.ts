@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BaseComponent } from 'src/app/shared/core/base-componente.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { ServiceCategoryService } from '../../services/servicecategory.service';
+import { ProvisionService } from '../services/provision.service';
 import { ClientDataService } from '../services/client-data.service';
 import { HttpResponse } from '@angular/common/http';
 
@@ -51,20 +51,21 @@ export class ServiceCategoryTableComponent extends BaseComponent implements OnIn
   serviceCategoryTableColumns: string[] = ['name', 'tag', 'description', 'acciones'];
   isLoading = false;
   uploadProgress = 0;
+  clientId = "";
 
-  constructor(private dialog: MatDialog, private serviceCategoryService: ServiceCategoryService,
+  constructor(private dialog: MatDialog, private provisionService: ProvisionService,
     private clientDataService: ClientDataService
   ) {
     super();
+    this.clientId = this.clientDataService.getClientData()?.id || '';
   }
 
   ngOnInit(): void {
 
   }
 
-  getServiceCategories() {
-    const clientId = this.clientDataService.getClientData().id;
-    this.serviceCategoryService.getServiceCategoriesByClient(clientId).subscribe((data: HttpResponse<any>) => {
+  getServiceCategories(idClient: string) {
+    this.provisionService.getProvisionsByClient(idClient).subscribe((data: HttpResponse<any>) => {
       this.serviceCategories = data.body;
       this.dataSource = this.serviceCategories;
     });
@@ -101,14 +102,33 @@ export class ServiceCategoryTableComponent extends BaseComponent implements OnIn
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // this.getServiceCategories();
-        this.dialog.open(MessagesModalComponent, {
-          data: {
-            message: 'Se ha creado una nueva categoría de servicio.',
-            buttonText: 'Aceptar',
-            showCancel: false,
-            type: 'success'
-          }
+        result.idClient = this.clientId;
+        result.idGroupCompany = "";
+        this.provisionService.createProvision(result).subscribe({
+          next: (response) => {
+            this.dialog.open(MessagesModalComponent, {  
+              data: {
+                message: 'Se ha creado una nueva categoría de servicio.',
+                buttonText: 'Aceptar',
+                showCancel: false,
+                type: 'success'
+              }
+            });
+            this.serviceCategories = response.body;
+            this.dataSource = this.serviceCategories;
+            this.getServiceCategories(this.clientId);
+          },
+          error: (error) => {
+            this.dialog.open(MessagesModalComponent, {  
+              data: {
+                message: 'Error al crear la categoría de servicio.',
+                buttonText: 'Aceptar',
+                showCancel: false,
+                type: 'error'
+              }
+            });
+          },
+          complete: () => { }
         });
       } else {
         this.dialog.open(MessagesModalComponent, {
