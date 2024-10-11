@@ -2,7 +2,7 @@
   <h2>Nuevo cliente</h2>
 </div>
 <mat-divider></mat-divider>
-<mat-horizontal-stepper labelPosition="bottom" #stepper>
+<mat-horizontal-stepper labelPosition="bottom" #stepper class="m-b-16">
   <ng-template matStepperIcon="number" let-index="index">
     <div class="big-icon-step">{{ index + 1 }}</div>
   </ng-template>
@@ -29,7 +29,9 @@
         <span>Categorías Corporativas</span>
       </div>
     </ng-template>
-    <app-corp-categories></app-corp-categories>
+    @if(stepper.selectedIndex === 1){
+      <app-corp-categories></app-corp-categories>
+    }
   </mat-step>
   <mat-step label="Fill out your address">
     <ng-template matStepLabel>
@@ -37,7 +39,9 @@
         <span>Organización</span>
       </div>
     </ng-template>
-    <app-group-company-table></app-group-company-table>
+    @if(stepper.selectedIndex === 2){
+      <app-group-company-table></app-group-company-table>
+    }
   </mat-step>
   <mat-step label="Fill out your address">
     <ng-template matStepLabel>
@@ -45,7 +49,9 @@
         <span>Empresas</span>
       </div>
     </ng-template>  
-    <app-organization></app-organization>
+    @if(stepper.selectedIndex === 3){
+      <app-organization></app-organization>
+    }
   </mat-step>
 </mat-horizontal-stepper>
 <div class="buttons">

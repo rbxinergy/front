@@ -19,6 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ProvisionService } from '../services/provision.service';
 import { ClientDataService } from '../services/client-data.service';
 import { HttpResponse } from '@angular/common/http';
+import { LoadingOverlayComponent } from 'src/app/components/loading-overlay/loading-overlay.component';
 
 @Component({
   selector: 'app-service-category-table',
@@ -39,7 +40,8 @@ import { HttpResponse } from '@angular/common/http';
     MatProgressSpinnerModule,
     MatIconModule,
     MatProgressBarModule,
-    TranslateModule
+    TranslateModule,
+    LoadingOverlayComponent
   ],
   templateUrl: './service-category-table.component.html',
   styleUrl: './service-category-table.component.scss',
@@ -104,6 +106,7 @@ export class ServiceCategoryTableComponent extends BaseComponent implements OnIn
       if (result) {
         result.idClient = this.clientId;
         result.idGroupCompany = "";
+        this.isLoading = true;
         this.provisionService.createProvision(result).subscribe({
           next: (response) => {
             this.dialog.open(MessagesModalComponent, {  
@@ -128,7 +131,9 @@ export class ServiceCategoryTableComponent extends BaseComponent implements OnIn
               }
             });
           },
-          complete: () => { }
+          complete: () => {
+            this.isLoading = false;
+          }
         });
       } else {
         this.dialog.open(MessagesModalComponent, {

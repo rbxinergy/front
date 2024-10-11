@@ -25,8 +25,8 @@ import { GroupcompanyDataService } from 'src/app/services/groupcompany-data.serv
 import { BaseComponent } from 'src/app/shared/core/base-componente.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceCategoryTableComponent } from '../service-category-table/service-category-table.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BulkUploadComponent } from '../../components/bulk-upload/bulk-upload.component';
+import { LoadingOverlayComponent } from 'src/app/components/loading-overlay/loading-overlay.component';
 
 @Component({
   selector: 'app-group-company-table',
@@ -37,7 +37,7 @@ import { BulkUploadComponent } from '../../components/bulk-upload/bulk-upload.co
     MatTableModule, CommonModule, TranslateModule, MatMenuModule,
     MatIconModule, MatButtonModule, MatDialogModule, MatInputModule,
     MatSelectModule, MatSnackBarModule, MatTooltipModule, MatPaginatorModule,
-    MatFormFieldModule, MatSortModule,  MatProgressSpinnerModule
+    MatFormFieldModule, MatSortModule, LoadingOverlayComponent
   ]
 })
 export class GroupCompanyTableComponent extends BaseComponent implements OnInit {
@@ -67,7 +67,6 @@ export class GroupCompanyTableComponent extends BaseComponent implements OnInit 
 
 
   ngOnInit() {
-    console.log(this.clientDataService.getClientData());
     this.clientID = this.clientDataService.getClientData()?.id || '';
   }
 
@@ -118,6 +117,7 @@ export class GroupCompanyTableComponent extends BaseComponent implements OnInit 
           newGroupCompany.idClient = this.clientID;
           delete newGroupCompany.id;
           console.log("GROUP COMPANY:", newGroupCompany);
+          this.isLoading = true;
           this.groupCompanyService.createGroupCompany(newGroupCompany).subscribe({
             next: (response) => {
               if (response.status === 200) {
@@ -152,6 +152,10 @@ export class GroupCompanyTableComponent extends BaseComponent implements OnInit 
                   showCancel: false
                 }
               });
+              this.isLoading = false;
+            },
+            complete: () => {
+              this.isLoading = false;
             }
           });
         }

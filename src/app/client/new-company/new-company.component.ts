@@ -20,6 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { rutValidator } from '../../shared/rut.validator';
+import { ClientDataService } from '../services/client-data.service';
 
 
 @Component({
@@ -38,10 +39,11 @@ export class NewCompanyComponent {
 
   companyForm: FormGroup;
   groupCompany: GroupCompany[] = [];
-  client: string = "";
+  clientId: any;
 
   constructor(private dialogRef: MatDialogRef<NewCompanyComponent>,@Inject(MAT_DIALOG_DATA) public data: Company,
-    private fb: FormBuilder, private groupCompanyService: GroupCompanyService) {
+    private fb: FormBuilder, private groupCompanyService: GroupCompanyService,
+    private clientDataService: ClientDataService) {
     this.companyForm = new FormGroup({
       id: new FormControl(data?.id || null),
       name: new FormControl(data?.name || '', [Validators.required]),
@@ -61,9 +63,9 @@ export class NewCompanyComponent {
       idGroupCompany: new FormControl(data?.idGroupCompany || '')
     });
 
-    this.client = data?.idClient || sessionStorage.getItem('clientId') || '';
+    this.clientId = this.clientDataService.getClientData()?.id || data?.idClient || sessionStorage.getItem('clientId') || '';
 
-    this.groupCompanyService.getGroupCompanies(this.client).subscribe({
+    this.groupCompanyService.getGroupCompanies(this.clientId).subscribe({
       next: (data: any) => {
         this.groupCompany = data.body;
       },

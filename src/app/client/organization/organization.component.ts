@@ -10,7 +10,6 @@ import { MatInputModule } from '@angular/material/input';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { Client } from '../interfaces/client.interface';
 import { ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { CompanyService } from '../services/company.service';
@@ -21,11 +20,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatStepperModule } from '@angular/material/stepper';
 import { BaseComponent } from 'src/app/shared/core/base-componente.component';
-import { GroupcompanyDataService } from '../services/groupcompany-data.service';
-import { GroupCompanyService } from '../services/groupcompany.service';
 import { NewCompanyComponent } from '../new-company/new-company.component';
 import { MessagesModalComponent } from '../../components/messages-modal/messages-modal.component';
-import { GroupCompany } from '../interfaces/groupcompany.interface';
+import { ClientDataService } from '../services/client-data.service';
+import { LoadingOverlayComponent } from 'src/app/components/loading-overlay/loading-overlay.component';
 
 
 @Component({
@@ -34,7 +32,8 @@ import { GroupCompany } from '../interfaces/groupcompany.interface';
   imports: [CommonModule, MatTableModule, MatPaginatorModule,
     MatMenuModule, MatIconModule, MatButtonModule, MatFormFieldModule,
     MatInputModule, TranslateModule, MatProgressSpinnerModule,
-    MatProgressBarModule, MatDividerModule, MatStepperModule
+    MatProgressBarModule, MatDividerModule, MatStepperModule,
+    LoadingOverlayComponent
   ],
   templateUrl: './organization.component.html',
   styleUrl: './organization.component.scss'
@@ -44,48 +43,23 @@ export class OrganizationComponent extends BaseComponent implements OnInit {
   uploadProgress: number = 0;
   clientsTableColumns: string[] = ['name', 'businessName', 'address', 'country', 'documentType', 'document', 'acciones'];
   dataSource = new MatTableDataSource<Company>();
-  groupCompanies: GroupCompany[] = [];
-  //groupCompany: GroupCompany;
   idClient: string;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
-  constructor(private groupCompanyService: GroupCompanyService, private router: Router,
-    private dialog: MatDialog, private groupCompanyDataService: GroupcompanyDataService,
-    private companyService: CompanyService
+  constructor(private router: Router, private dialog: MatDialog,
+    private companyService: CompanyService, private clientDataService: ClientDataService
   ) {
     super();
   }
 
   ngOnInit(): void {
-    //this.groupCompany = this.groupCompanyDataService.getGroupCompanyData();
-    this.idClient = this.groupCompanyDataService.getGroupCompanyData()?.id || '';
-  }
-
-  getGroupCompanies() {
-    this.groupCompanyService.getGroupCompanies(this.idClient).subscribe({
-      next: (groupCompanies: HttpResponse<GroupCompany[]>) => {
-        this.groupCompanies =  groupCompanies.body || [];
-        this.isLoading = false;
-      },
-      error: (error: any) => {
-      },
-      complete: () => {
-        this.isLoading = false;
-      }
-    });
+    this.idClient = this.clientDataService.getClientData()?.id || '';
   }
 
   getCompanies(idClient: string) {
-    this.companyService.getCompaniesByClient(idClient).subscribe({
-      next: (companies: HttpResponse<Company[]>) => {
-        this.dataSource.data = companies.body || [];
-      },
-      error: (error: any) => {
-      },
-      complete: () => {
-        this.isLoading = false;
-      }
-    })
+    this.companyService.getCompaniesByClient(idClient).subscribe((companies: HttpResponse<Company[]>) => {
+      this.dataSource.data = companies.body || [];
+    });
   }
 
   openNewGroupCompanyModal(element: any) {
@@ -126,9 +100,9 @@ export class OrganizationComponent extends BaseComponent implements OnInit {
       if (result) {
         result.idClient = this.idClient;
         delete result.id;
+        this.isLoading = true;
         this.companyService.createCompany(result).subscribe({
           next: (company: HttpResponse<Company>) => {
-            this.getCompanies(this.idClient);
             this.dialog.open(MessagesModalComponent, {
               data: {
                 message: 'Se ha creado una nueva empresa.',
@@ -147,10 +121,11 @@ export class OrganizationComponent extends BaseComponent implements OnInit {
                 type: 'error'
               }
             });
+            this.isLoading = false;
           },
           complete: () => {
             this.isLoading = false;
-            this.getGroupCompanies();
+            this.getCompanies(this.idClient);
           }
         })
       } else {

@@ -20,6 +20,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DomainCategoryService } from '../../services/domaincategory.service';
 import { ClientDataService } from '../services/client-data.service';
 import { HttpResponse } from '@angular/common/http';
+import { LoadingOverlayComponent } from "../../components/loading-overlay/loading-overlay.component";
+
 @Component({
   selector: 'app-domain-category-table',
   standalone: true,
@@ -40,8 +42,9 @@ import { HttpResponse } from '@angular/common/http';
     MatProgressSpinnerModule,
     MatIconModule,
     MatProgressBarModule,
-    TranslateModule
-  ],
+    TranslateModule,
+    LoadingOverlayComponent
+],
   templateUrl: './domain-category-table.component.html',
   styleUrl: './domain-category-table.component.scss',
 })
@@ -52,6 +55,7 @@ export class DomainCategoryTableComponent extends BaseComponent implements OnIni
   uploadProgress = 0;
   isLoading = false;
   dataSource: any[] = [];
+  clientId: string = '';
 
   constructor(private dialog: MatDialog, private domainCategoryService: DomainCategoryService,
     private clientDataService: ClientDataService
@@ -59,11 +63,12 @@ export class DomainCategoryTableComponent extends BaseComponent implements OnIni
     super();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.clientId = this.clientDataService.getClientData()?.id || '';
+  }
 
   getDomainCategories() {
-    const clientId = this.clientDataService.getClientData().id;
-    this.domainCategoryService.getDomainCategoryByClient(clientId).subscribe((data: HttpResponse<any>) => {
+    this.domainCategoryService.getDomainCategoryByClient(this.clientId).subscribe((data: HttpResponse<any>) => {
       this.domainCategories = data.body;
       this.dataSource = this.domainCategories;
     });
@@ -101,8 +106,9 @@ export class DomainCategoryTableComponent extends BaseComponent implements OnIni
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        result.idClient = this.clientDataService.getClientData().id;
+        result.idClient = this.clientId;
         result.idGroupCompany = "";
+        this.isLoading = true;
         this.domainCategoryService.createDomainCategory(result).subscribe({
           next: () => {
             this.dialog.open(MessagesModalComponent, {
@@ -123,9 +129,11 @@ export class DomainCategoryTableComponent extends BaseComponent implements OnIni
                 type: 'error'
               }
             });
+            this.isLoading = false;
           },
           complete: () => {
             this.getDomainCategories();
+            this.isLoading = false;
           }
         });
 

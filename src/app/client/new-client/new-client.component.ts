@@ -1,15 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { rutValidator } from 'src/app/shared/rut.validator';
-import { MatDialogModule, MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MessagesModalComponent } from '../../components/messages-modal/messages-modal.component';
 import { ClientService } from '../services/client.service';
 import { ClientDataService } from '../services/client-data.service';
+import { LoadingOverlayComponent } from '../../components/loading-overlay/loading-overlay.component';
+import { MatStepper } from '@angular/material/stepper';
 
 
 @Component({
@@ -21,7 +23,8 @@ import { ClientDataService } from '../services/client-data.service';
     MatSelectModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    LoadingOverlayComponent
   ],
   templateUrl: './new-client.component.html',
   styleUrl: './new-client.component.scss'
@@ -29,9 +32,11 @@ import { ClientDataService } from '../services/client-data.service';
 export class NewClientComponent {
   clientForm: FormGroup;
   hasError = false;
+  isLoading: boolean = false;
 
   constructor(private fb: FormBuilder, private dialog: MatDialog,
-    private clientService: ClientService, private clientDataService: ClientDataService
+    private clientService: ClientService, private clientDataService: ClientDataService,
+    @Inject(MatStepper) private stepper: MatStepper
   ) {
     this.clientForm = this.fb.group({
       name: new FormControl('', [Validators.required]),
@@ -60,6 +65,7 @@ export class NewClientComponent {
   saveClient() {
     if (this.clientForm.valid) {
       let data = this.clientForm.value;
+      this.isLoading = true;
       data.idContact = [];
       this.clientService.createClient(data).subscribe({
         next: (data) => {
@@ -74,6 +80,8 @@ export class NewClientComponent {
               type: 'success'
             },
           });
+          this.clientForm.disable();
+          this.stepper.next();
         },
         error: () => {
           this.dialog.open(MessagesModalComponent, {
@@ -86,6 +94,10 @@ export class NewClientComponent {
               type: 'error'
             },
           });
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
         }
       });
     }

@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CorpCategoriesComponent } from '../corp-categories/corp-categories.component';
 import { OrganizationComponent } from '../organization/organization.component';
 import { GroupCompanyTableComponent } from '../group-company-table/group-company-table.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class StepClientComponent implements AfterViewInit {
   @ViewChild('stepper') stepper: MatStepper;
   clientForm: FormGroup;
   
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private router: Router) {}
 
   ngAfterViewInit() {
     this.clientForm = this.newClientComponent.clientForm;
@@ -69,6 +70,11 @@ export class StepClientComponent implements AfterViewInit {
 
   goToNextStep() {
     this.stepper.next();
+    if(this.stepper.selectedIndex === 3) {
+      this.router.navigate(['/dashboard/client-module/']);
+    } else {
+      this.stepper.next();
+    }
   }
 
   goToPreviousStep() {

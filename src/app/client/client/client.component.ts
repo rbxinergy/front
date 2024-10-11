@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -11,7 +11,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Client } from '../interfaces/client.interface';
-import { ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { ClientService } from '../services/client.service';
 import { HttpResponse } from '@angular/common/http';
@@ -21,6 +20,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatStepperModule } from '@angular/material/stepper';
 import { BaseComponent } from 'src/app/shared/core/base-componente.component';
+import { LoadingOverlayComponent } from "../../components/loading-overlay/loading-overlay.component";
 
 @Component({
   selector: 'app-client',
@@ -28,33 +28,32 @@ import { BaseComponent } from 'src/app/shared/core/base-componente.component';
   imports: [CommonModule, MatTableModule, MatPaginatorModule,
     MatMenuModule, MatIconModule, MatButtonModule, MatFormFieldModule,
     MatInputModule, TranslateModule, MatProgressSpinnerModule,
-    MatProgressBarModule, MatDividerModule, MatStepperModule
-  ],
+    MatProgressBarModule, MatDividerModule, MatStepperModule, LoadingOverlayComponent],
   templateUrl: './client.component.html',
   styleUrl: './client.component.scss'
 })
-export class ClientComponent extends BaseComponent implements OnInit {
+export class ClientComponent extends BaseComponent implements AfterViewInit {
   isLoading: boolean = false;
   uploadProgress: number = 0;
   clientsTableColumns: string[] = ['name', 'businessName', 'address', 'country', 'documentType', 'document', 'acciones'];
   dataSource = new MatTableDataSource<Client>();
   
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   
   constructor(private clientService: ClientService, private router: Router,
     private dialog: MatDialog) {
     super();
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.isLoading = true;
-    this.dataSource.paginator = this.paginator;
     this.getClients();
   }
 
   getClients() {
     this.clientService.getClients().subscribe((clients: HttpResponse<Client[]>) => {
       this.dataSource.data =  clients.body || [];
+      this.dataSource.paginator = this.paginator;
       this.isLoading = false;
     });
   } 

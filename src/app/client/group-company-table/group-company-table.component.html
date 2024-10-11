@@ -1,7 +1,6 @@
-<div class="spinner" *ngIf="isLoading">
-  <mat-progress-spinner color="accent" mode="indeterminate" diameter="100">
-  </mat-progress-spinner>
-</div>
+@if(isLoading) {
+  <app-loading-overlay></app-loading-overlay>
+}
 <div class="p-4" [hidden]="isLoading">
   <div class="table-header">
       <mat-form-field *ngIf="groupCompanies.length > 0" appearance="outline">
