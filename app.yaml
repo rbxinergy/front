@@ -59,9 +59,9 @@ handlers:
     script: auto
     secure: always
 
-  - url: /(.*\.(js|css|png|jpg|jpeg|gif|ico|json|woff|woff2|csv|map))$  # Archivos estáticos
+  - url: /(.*\.(js|css|png|jpg|jpeg|gif|ico|json|woff|woff2|csv|map|svg))$  # Archivos estáticos
     static_files: dist/xr-backoffice/\1
-    upload: dist/xr-backoffice/(.*\.(js|css|png|jpg|jpeg|gif|ico|json|woff|woff2|csv|map))$
+    upload: dist/xr-backoffice/(.*\.(js|css|png|jpg|jpeg|gif|ico|json|woff|woff2|csv|map|svg))$
     secure: always
 
   - url: /.*  # Ruta para servir el archivo index.html

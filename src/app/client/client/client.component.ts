@@ -52,7 +52,12 @@ export class ClientComponent extends BaseComponent implements AfterViewInit {
 
   getClients() {
     this.clientService.getClients().subscribe((clients: HttpResponse<Client[]>) => {
-      this.dataSource.data =  clients.body || [];
+      const sortedClients = (clients.body || []).sort((a, b) => {
+        const dateA = new Date(a.createdDate).getTime();
+        const dateB = new Date(b.createdDate).getTime();
+        return dateB - dateA;
+      });
+      this.dataSource.data = sortedClients;
       this.dataSource.paginator = this.paginator;
       this.isLoading = false;
     });
