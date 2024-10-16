@@ -108,6 +108,10 @@
             <mat-icon>delete</mat-icon>
             <span>Borrar</span>
           </button>
+          <button mat-menu-item (click)="openDeleteCompanyModal(element, true)">
+            <mat-icon>delete_forever</mat-icon>
+            <span>Borrado maestro</span>
+          </button>
         </mat-menu>
       </td>
     </ng-container>

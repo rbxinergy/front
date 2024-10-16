@@ -45,7 +45,10 @@ $xr-backoffice-theme: mat.define-light-theme((
 
 @include mat.all-component-themes($xr-backoffice-theme);
 
-html, body { height: 100%; }
+html, body {
+    height: 100%;
+    --mdc-outlined-button-container-shape: 24px;    
+}
 body { 
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif; 

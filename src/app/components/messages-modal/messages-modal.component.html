@@ -1,33 +1,19 @@
-<div mat-dialog-title class="modal-header">
-  @if (data.type === 'success') {
-  <img
-    src="/assets/svg/exito.svg"
-    alt="Success Icon"
-  />
-  }
-  @if (data.type === 'error') {
-  <img
-    src="/assets/svg/error.svg"
-    alt="Error Icon"
-  />
-  }
+<div class="modal-container">
+  <div class="modal-header">
+    <img *ngIf="modalIcon" [src]="modalIcon" alt="{{modalTitle}}" class="modal-icon">
+    <h2>{{modalTitle}}</h2>
+  </div>
+  <div class="modal-body">
+    <p>{{ modalMessage }}</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      *ngFor="let button of buttons"
+      mat-stroked-button
+      [color]="button.color || 'primary'"
+      (click)="onButtonClick(button.value)"
+    >
+      {{ button.text }}
+    </button>
+  </div>
 </div>
-<mat-dialog-content>
-  <p>{{ data.message }}</p>
-</mat-dialog-content>
-<mat-dialog-actions [ngClass]="{'top-buttons': data.showCancel, 'one-button': !data.showCancel}">
-  @if (data.showCancel) {
-  <button
-    mat-stroked-button
-    (click)="onClose()"
-  >
-    {{ "cancel" | translate }}
-  </button>
-  }
-  <button
-    mat-stroked-button
-    (click)="onClose()"
-  >
-    {{ "close" | translate }}
-  </button>
-</mat-dialog-actions>

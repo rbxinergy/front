@@ -1,26 +1,55 @@
-::ng-deep .mat-dialog-container {
-    border-radius: 16px; /* Ajusta el valor según tus necesidades */
+// ::ng-deep .mat-dialog-container {
+//     border-radius: 16px; /* Ajusta el valor según tus necesidades */
 
-}
+// }
 
-::ng-deep .mdc-dialog__actions {
-    margin: 0 8px 8px 0;
-}
+// ::ng-deep .mdc-dialog__actions {
+//     margin: 0 8px 8px 0;
+// }
 
-.modal-header {
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  min-width: 300px;
+
+  .modal-header {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    margin-bottom: 15px;
     justify-content: center;
-    text-align: center;
-    margin-bottom: 16px;
+    flex-direction: column;
+    h2 {
+      margin: 0;
+      border: 0;
+    }
+
+    .modal-icon {
+      width: 100px;
+      height: 100px;
+      margin-right: 10px;
+    }
   }
-  
-  .icon-header {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 8px;
+
+  .modal-body {
+    flex-grow: 1;
+    margin-bottom: 15px;
+
+    p {
+      margin: 0;
+      font-size: 16px;
+    }
   }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+      margin-left: 10px;
+    }
+  }
+}
 
 p {
     color:  #5f4ede;

@@ -1,11 +1,11 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { rutValidator } from 'src/app/shared/rut.validator';
-import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatDialogModule, MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MessagesModalComponent } from '../../components/messages-modal/messages-modal.component';
 import { ClientService } from '../services/client.service';
@@ -36,20 +36,22 @@ export class NewClientComponent {
 
   constructor(private fb: FormBuilder, private dialog: MatDialog,
     private clientService: ClientService, private clientDataService: ClientDataService,
-    @Inject(MatStepper) private stepper: MatStepper
+    @Optional() private stepper: MatStepper, @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<NewClientComponent>
   ) {
     this.clientForm = this.fb.group({
-      name: new FormControl('', [Validators.required]),
-      businessName: new FormControl('', [Validators.required]),
-      address: new FormControl('', [Validators.required]),
-      city: new FormControl('', [Validators.required]),
-      state: new FormControl('', [Validators.required]),
-      country: new FormControl('', [Validators.required]),
-      county: new FormControl(''),
-      documentType: new FormControl('', [Validators.required]),
-      document: new FormControl('', [Validators.required]),
-      district: new FormControl(''),
-      tag: new FormControl('')
+      id: new FormControl(data?.id),
+      name: new FormControl(data?.name, [Validators.required]),
+      businessName: new FormControl(data?.businessName, [Validators.required]),
+      address: new FormControl(data?.address, [Validators.required]),
+      city: new FormControl(data?.city, [Validators.required]),
+      state: new FormControl(data?.state, [Validators.required]),
+      country: new FormControl(data?.country, [Validators.required]),
+      county: new FormControl(data?.county),
+      documentType: new FormControl(data?.documentType, [Validators.required]),
+      document: new FormControl(data?.document, [Validators.required]),
+      district: new FormControl(data?.district),
+      tag: new FormControl(data?.tag)
     });
 
     this.clientForm.get('documentType')?.valueChanges.subscribe((value: string) => {
@@ -64,6 +66,10 @@ export class NewClientComponent {
 
   saveClient() {
     if (this.clientForm.valid) {
+      if (this.data) {
+        this.dialogRef.close(this.clientForm.getRawValue());
+        return;
+      }
       let data = this.clientForm.value;
       this.isLoading = true;
       data.idContact = [];
