@@ -98,15 +98,23 @@
         <mat-menu #menu="matMenu">
           <button mat-menu-item (click)="openNewGroupCompanyModal(element)">
             <mat-icon>add_circle</mat-icon>
-            <span>Grupo de empresas</span>
+            <span>Organización</span>
+          </button>
+          <button mat-menu-item (click)="openDomainCategoryModal(element)">
+            <mat-icon>add_circle</mat-icon>
+            <span>Categoría de dominios</span>
+          </button>
+          <button mat-menu-item (click)="openServiceCategoryModal(element)" [disabled]="true">
+            <mat-icon>add_circle</mat-icon>
+            <span>Categoría de servicios</span>
           </button>
           <button mat-menu-item (click)="openEditClientModal(element)">
             <mat-icon>edit</mat-icon>
-            <span>Editar</span>
+            <span>Editar cliente</span>
           </button>
           <button mat-menu-item (click)="openDeleteCompanyModal(element)">
             <mat-icon>delete</mat-icon>
-            <span>Borrar</span>
+            <span>Borrar cliente</span>
           </button>
           <button mat-menu-item (click)="openDeleteCompanyModal(element, true)">
             <mat-icon>delete_forever</mat-icon>

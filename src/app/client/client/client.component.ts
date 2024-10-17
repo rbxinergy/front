@@ -22,6 +22,18 @@ import { BaseComponent } from 'src/app/shared/core/base-componente.component';
 import { LoadingOverlayComponent } from "../../components/loading-overlay/loading-overlay.component";
 import { MessagesModalComponent } from 'src/app/components/messages-modal/messages-modal.component';
 import { NewClientComponent } from '../new-client/new-client.component';
+import { DomainCategoryComponent } from '../domain-category/domain-category.component';
+import { DomainCategory } from 'src/app/interfaces/domaincategory.interface';
+import { DomainCategoryService } from 'src/app/services/domaincategory.service';
+import { ServiceCategory } from 'src/app/interfaces/servicecategory.interface';
+import { ServiceCategoryService } from 'src/app/services/servicecategory.service';
+import { CompanyComponent } from 'src/app/company/company.component';
+import { Company } from '../interfaces/company.interface';
+import { CompanyService } from 'src/app/services/company.service';
+import { OrganizationComponent } from '../organization/organization.component';
+import { GroupCompany } from 'src/app/interfaces/groupcompany.interface';
+import { GroupCompanyService } from 'src/app/services/groupcompany.service';
+import { GroupcompanyComponent } from '../groupcompany/groupcompany.component';
 
 @Component({
   selector: 'app-client',
@@ -44,8 +56,10 @@ export class ClientComponent extends BaseComponent implements AfterViewInit {
   selectedClient: any;
   clients: Client[];
   
-  constructor(private clientService: ClientService, private router: Router,
-    private dialog: MatDialog) {
+  constructor(private clientService: ClientService, private domainCategoryService: DomainCategoryService,
+    private serviceCategoryService: ServiceCategoryService, private router: Router, private dialog: MatDialog,
+    private groupCompanyService: GroupCompanyService
+  ) {
     super();
   }
 
@@ -68,8 +82,58 @@ export class ClientComponent extends BaseComponent implements AfterViewInit {
     });
   } 
 
-  openNewGroupCompanyModal(element: any) {
-    console.log(element);
+  openNewGroupCompanyModal(client: Client) {
+    const dialogRef = this.dialog.open(GroupcompanyComponent, {
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (organization: GroupCompany) => {
+        if (organization) { 
+          organization.idClient = client.id;
+          this.isLoading = true;
+          this.groupCompanyService.createGroupCompany(organization).subscribe({
+            next: (response) => {
+              if (response.status === 200) {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '500px',
+                  data: {
+                    message: 'Organización creada exitosamente.',
+                    type: 'success',
+                    buttons: 'aceptar'
+                  }
+                });
+              }
+            },
+            error: (error) => {
+              this.dialog.open(MessagesModalComponent, {
+                width: '500px',
+                data: {
+                  message: 'Error al crear la organización.',
+                  type: 'error',
+                  buttons: 'aceptar'
+                }
+              });
+              this.isLoading = false;
+            },
+            complete: () => {
+              this.isLoading = false;
+            }
+          });
+        }
+      },
+      error: (error) => {
+        this.dialog.open(MessagesModalComponent, {
+          width: '500px',
+          data: {
+            message: 'Error al cerrar el diálogo.',
+            type: 'error',
+            buttons: 'aceptar'
+          }
+        });
+        this.isLoading = false;
+      }
+    });
   }
 
   openEditClientModal(client: Client) {
@@ -89,7 +153,11 @@ export class ClientComponent extends BaseComponent implements AfterViewInit {
               if (response.status === 200) {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Cliente actualizado exitosamente.', type: 'success' }
+                  data: {
+                    message: 'Cliente actualizado exitosamente.',
+                    type: 'success',
+                    buttons: 'aceptar'
+                  }
                 });
                 
                 const index = this.clients.findIndex(c => c.id === updatedClient.id);
@@ -100,14 +168,22 @@ export class ClientComponent extends BaseComponent implements AfterViewInit {
               } else {
                 this.dialog.open(MessagesModalComponent, {
                   width: '500px',
-                  data: { message: 'Error al actualizar el cliente.', type: 'error' }
+                  data: {
+                    message: 'Error al actualizar el cliente.',
+                    type: 'error',
+                    buttons: 'aceptar'
+                  }
                 });
               }
             },
             error: (error) => {
               this.dialog.open(MessagesModalComponent, {
                 width: '500px',
-                data: { message: 'Error al actualizar el cliente.', type: 'error' }
+                data: {
+                  message: 'Error al actualizar el cliente.',
+                  type: 'error',
+                  buttons: 'aceptar'
+                }
               });
               this.isLoading = false;
             },
@@ -120,7 +196,11 @@ export class ClientComponent extends BaseComponent implements AfterViewInit {
       error: (error) => {
         this.dialog.open(MessagesModalComponent, {
           width: '500px',
-          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+          data: {
+            message: 'Error al cerrar el diálogo.',
+            type: 'error',
+            buttons: 'aceptar'
+          }
         });
         this.isLoading = false;
       }
@@ -218,5 +298,91 @@ export class ClientComponent extends BaseComponent implements AfterViewInit {
 
   newClient() {
     this.router.navigate(['dashboard/client-module/new-client']);
+  }
+
+  openDomainCategoryModal(client: Client) {
+    const dialogRef = this.dialog.open(DomainCategoryComponent, {
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (domainCategory: DomainCategory) => {
+        if (domainCategory) { 
+          domainCategory.idClient = client.id;
+          domainCategory.idGroupCompany = '';
+          this.isLoading = true;
+          this.domainCategoryService.createDomainCategory(domainCategory).subscribe({
+            next: (response) => {
+              if (response.status === 200) {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '500px',
+                  data: { message: 'Categoría de dominio creada exitosamente.', type: 'success' }
+                });
+              }
+            },
+            error: (error) => {
+              this.dialog.open(MessagesModalComponent, {
+                width: '500px',
+                data: { message: 'Error al crear la categoría de dominio.', type: 'error' }
+              });
+              this.isLoading = false;
+            },
+            complete: () => {
+              this.isLoading = false;
+            }
+          });
+        }
+      },
+      error: (error) => {
+        this.dialog.open(MessagesModalComponent, {
+          width: '500px',
+          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+        });
+        this.isLoading = false;
+      }
+    });
+  }
+
+  openServiceCategoryModal(client: Client) {
+    const dialogRef = this.dialog.open(DomainCategoryComponent, {
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (serviceCategory: ServiceCategory) => {
+        if (serviceCategory) { 
+          serviceCategory.idClient = client.id;
+          serviceCategory.idGroupCompany = '';
+          this.isLoading = true;
+          this.serviceCategoryService.createServiceCategory(serviceCategory).subscribe({
+            next: (response) => {
+              if (response.status === 200) {
+                this.dialog.open(MessagesModalComponent, {
+                  width: '500px',
+                  data: { message: 'Categoría de servicios creada exitosamente.', type: 'success' }
+                });
+              }
+            },
+            error: (error) => {
+              this.dialog.open(MessagesModalComponent, {
+                width: '500px',
+                data: { message: 'Error al crear la categoría de servicios.', type: 'error' }
+              });
+              this.isLoading = false;
+            },
+            complete: () => {
+              this.isLoading = false;
+            }
+          });
+        }
+      },
+      error: (error) => {
+        this.dialog.open(MessagesModalComponent, {
+          width: '500px',
+          data: { message: 'Error al cerrar el diálogo.', type: 'error' }
+        });
+        this.isLoading = false;
+      }
+    });
   }
 }

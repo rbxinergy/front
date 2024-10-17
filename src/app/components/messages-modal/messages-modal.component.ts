@@ -48,7 +48,7 @@ export class MessagesModalComponent {
         break;
       case 'success':
         this.modalTitle = 'Éxito';
-        this.modalIcon = 'assets/svg/succes.svg';
+        this.modalIcon = 'assets/svg/exito.svg';
         break;
       case 'warning':
         this.modalTitle = 'Advertencia';

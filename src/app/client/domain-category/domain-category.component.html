@@ -20,7 +20,7 @@
 </mat-dialog-content>
 <mat-dialog-actions >
     <div class="p-4 action-buttons">
-        <button mat-raised-button class="button-back">Volver</button>
+        <button mat-raised-button class="button-back" (click)="closeDialog()">Volver</button>
         <button mat-raised-button color="primary" (click)="saveDomainCategory()">Guardar</button>
     </div>
 </mat-dialog-actions>
